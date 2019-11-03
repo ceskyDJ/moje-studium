@@ -1,0 +1,3 @@
+# Zakazani pristupu z venci, pouziti pro systemove nebo neverejne ucely
+Order deny,allow
+Deny from all

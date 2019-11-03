@@ -1,0 +1,20 @@
+# Povoleni verejneho pristupu
+Allow from all
+
+<IfModule mod_autoindex.c>
+  # Vypnuti vypisovani obsahu adresaru
+  Options -Indexes
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  # Zapnuti rewrite a nastaveni korenoveho adresare
+  RewriteEngine on
+  RewriteBase /
+
+  # Pridat presmerovani pro www a HTTPS, pokud to server podporuje
+
+  # Presmerovani veskereho provozu na index.php (krome pozadavku na soubory danych typu)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule !\.(css|js|php|html|icon|zip|rar|png|jpg|gif|pdf|otf|eot|svg|ttf|woff|woff2)$ index.php [L]
+</IfModule>
