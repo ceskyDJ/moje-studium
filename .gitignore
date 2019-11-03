@@ -1,2 +1,5 @@
 # Konfiguracni soubory PHP Stormu
 .idea/
+
+# Yarn balíčky
+node_modules/
