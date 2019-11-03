@@ -1,0 +1,2 @@
+Pro správnou funkčnost je třeba doplnit soubory s fonty pro Font Awesome Pro.
+Licence Font Awesome Pro zakazuje jejich sdílení ve veřejných repozitářích.

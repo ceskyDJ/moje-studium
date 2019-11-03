@@ -1,0 +1,6 @@
+# Ignorovani souboru s fonty kvuli Font Awesome Pro licenci, ktera zakazuje jejich publikaci
+fa-*.eot
+fa-*.svg
+fa-*.ttf
+fa-*.woff
+fa-*.woff2
