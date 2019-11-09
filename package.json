@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "movefonts": "cp node_modules/@fortawesome/fontawesome-pro/webfonts/* www/fonts/"
+    "movefonts": "cp node_modules/@fortawesome/fontawesome-pro/webfonts/* www/fonts/font-awesome"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-pro": "^5.11.2",
