@@ -1,6 +1,6 @@
 .icon(@var, @type) {
   .fa-icon();
-  .fa{@type};
+  &:extend(.fa@{type});
 
   &:before {
     content: @var;
