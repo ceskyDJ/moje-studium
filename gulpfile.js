@@ -157,9 +157,10 @@ const startBrowserSync = () => {
     // Konfigurace Browser sync
     browserSync.init({
         server : {
-            baseDir : devRoot,
-            index : "templates/index.html"
-        }
+            baseDir : [devRoot, publicRoot],
+            directory: true
+        },
+        startPath: "/templates"
     });
 
     // Sledování změn LESS souborů kvůli kompilaci (při každé změně proběhne automatická kompilaceú
