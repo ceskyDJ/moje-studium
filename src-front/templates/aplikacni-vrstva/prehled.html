@@ -3,13 +3,950 @@
 
 <html lang="cs">
 <head>
+    <base href="/" />
     <meta charset="UTF-8" />
-    <meta author="Michal ŠMAHEL (ceskyDJ)" />
-    <title>Title</title>
+    <meta content="Michal ŠMAHEL (ceskyDJ)" name="author" />
+    <title>Aplikační vrstva - Přehled</title>
+    <link href="css/styles.css" rel="stylesheet" type="text/css" />
+    <meta content="width=device-width,height=device-height" name="viewport" />
 </head>
 
 
 <body>
+<header class="page-header">
+    <section class="page-header-section">
+        <h1 class="main-heading">Moje Studium</h1>
 
+        <div class="other-content">
+            <div class="logged-user-info">
+                <!-- TODO: Dynamicky generované -->
+                <span class="full-name">Adéla Vyhnálková</span>
+                <span class="short-name">Adéla V.</span>
+                <span class="class">4.ER</span>
+            </div>
+
+            <div class="actions">
+                <i class="notifications-i notifications" id="_show-notifications-b"></i>
+                <i class="hamburger-menu-i" id=_menu-control-b"></i>
+                <a class="action-link logout" href="#logout">Odhlásit se</a>
+
+                <div class="notifications-box">
+                    <!-- TODO: Doplnit strukturu -->
+                    <!-- TODO: Dynamicky generované --->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <nav class="page-menu">
+        <ul class="menu-list">
+            <li class="menu-item active"><a class="menu-link" href="#">Přehled</a></li>
+            <li class="menu-item"><a class="menu-link" href="#">Moje upozornění a poznámky</a></li>
+            <li class="menu-item"><a class="menu-link" href="#">Sdílené upozornění a poznámky</a></li>
+            <li class="menu-item"><a class="menu-link" href="#">Moje soubory</a></li>
+            <li class="menu-item"><a class="menu-link" href="#">Sdílené soubory</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+<main class="page-content">
+    <div class="left-content">
+        <section class="calendar-section">
+            <header class="week-switch">
+                <i class="simple-arrow-left-i icon-button" id="_previous-week-b"></i>
+                <span class="week" id="_actual-week">Tento týden</span>
+                <i class="simple-arrow-right-i icon-button" id="_next-week-b"></i>
+            </header>
+
+            <section class="calendar">
+                <table class="calendar-table">
+                    <thead>
+                    <tr>
+                        <td></td>
+                        <th>
+                            <span class="lesson-number">1</span>
+                            <span class="lesson-time">8.00-8.45</span>
+                        </th>
+                        <th>
+                            <span class="lesson-number">2</span>
+                            <span class="lesson-time">8.50-9.35</span>
+                        </th>
+                        <th>
+                            <span class="lesson-number">3</span>
+                            <span class="lesson-time">9.55-10.40</span>
+                        </th>
+                        <th>
+                            <span class="lesson-number">4</span>
+                            <span class="lesson-time">10.45-11.30</span>
+                        </th>
+                        <th>
+                            <span class="lesson-number">5</span>
+                            <span class="lesson-time">11.35-12.20</span>
+                        </th>
+                        <th>
+                            <span class="lesson-number">6</span>
+                            <span class="lesson-time">12.25-13.15</span>
+                        </th>
+                        <th>
+                            <span class="lesson-number">7</span>
+                            <span class="lesson-time">13.20-14.05</span>
+                        </th>
+                        <th>
+                            <span class="lesson-number">8</span>
+                            <span class="lesson-time">14.10-14.55</span>
+                        </th>
+                        <th>
+                            <span class="lesson-number">9</span>
+                            <span class="lesson-time">15.00-15.45</span>
+                        </th>
+                        <th>
+                            <span class="lesson-number">10</span>
+                            <span class="lesson-time">15.50-16.35</span>
+                        </th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <!-- Pondělí -->
+                    <tr>
+                        <th>
+                            <span class="day-of-week">Po</span>
+                            <span class="date">14. 5.</span>
+                        </th>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">ČJL</span>
+                                <div class="events">
+                                    <span class="event homework"></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">EKO</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">FAR</span>
+                                <div class="events">
+                                    <span class="event test"></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">TEC</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">TEC</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td></td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">RTV</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">RTV</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">RTV</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">RTV</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Úterý -->
+                    <tr class="active">
+                        <th>
+                            <span class="day-of-week">Út</span>
+                            <span class="date">15. 5.</span>
+                        </th>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">SGD</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">TĚV</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">ČJL</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">DVK</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">DVK</span>
+                                <div class="events">
+                                    <span class="event homework"></span>
+                                    <span class="event test"></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">EKO</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">OBN</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Středa -->
+                    <tr>
+                        <th>
+                            <span class="day-of-week">St</span>
+                            <span class="date">16. 5.</span>
+                        </th>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">KRE</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">KRE</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">KRE</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">ANJ</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">DVK</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td></td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">POG</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">POG</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Čtvrtek -->
+                    <tr>
+                        <th>
+                            <span class="day-of-week">Čt</span>
+                            <span class="date">17. 5.</span>
+                        </th>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">VID</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">VID</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">VID</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">VID</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">&nbsp;</span>
+                                    <span class="teacher">&nbsp;</span>
+                                </div>
+                                <span class="subject">ČJL</span>
+                                <div class="events">
+                                    <span class="event school-event"></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">&nbsp;</span>
+                                    <span class="teacher">&nbsp;</span>
+                                </div>
+                                <span class="subject">ČJL</span>
+                                <div class="events">
+                                    <span class="event school-event"></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">&nbsp;</span>
+                                    <span class="teacher">&nbsp;</span>
+                                </div>
+                                <span class="subject">ČJL</span>
+                                <div class="events">
+                                    <span class="event school-event"></span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Pátek -->
+                    <tr>
+                        <th>
+                            <span class="day-of-week">Pá</span>
+                            <span class="date">18. 5.</span>
+                        </th>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">REF</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">OBN</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">EKO</span>
+                                <div class="events">
+                                    <span class="event test"></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">ANJ</span>
+                                <div class="events">
+                                    <span class="event test"></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content">
+                                <div class="other-info">
+                                    <span class="classroom">A1/10</span>
+                                    <span class="teacher">UVA</span>
+                                </div>
+                                <span class="subject">TĚV</span>
+                                <div class="events"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+        </section>
+
+        <section class="my-content-section">
+            <article class="box my-reminders-box">
+                <header class="box-header">
+                    <a class="link-with-icon" href="#moje-upozorneni/pridat"><i class="add-i"></i></a>
+                    <h2 class="box-heading">Moje upozornění</h2>
+                </header>
+
+                <section class="box-content">
+                    <div class="content-row">
+                        <span class="date">Po 14. 5.</span>
+                        <span class="subject school-subject">ČJL</span>
+                        <span class="type"><i class="homework-i"></i></span>
+                        <span class="description">Přečíst ukázku z učebnice na str. 68</span>
+                    </div>
+                    <div class="content-row">
+                        <span class="date">Po 14. 5.</span>
+                        <span class="subject school-subject">FAR</span>
+                        <span class="type"><i class="test-i"></i></span>
+                        <span class="description">Malířství, Fotografie</span>
+                    </div>
+                    <div class="content-row">
+                        <span class="date">Út 15. 5.</span>
+                        <span class="subject school-subject">DVK</span>
+                        <span class="type"><i class="homework-i"></i></span>
+                        <span class="description">Prezentace - Edouard Manet</span>
+                    </div>
+                    <div class="content-row">
+                        <span class="date">Út 15. 5.</span>
+                        <span class="subject school-subject">DVK</span>
+                        <span class="type"><i class="test-i"></i></span>
+                        <span class="description">Renesanční malba v Itálii, Renesanční sloh v ostatní Evropě</span>
+                    </div>
+                    <div class="content-row">
+                        <span class="date">Čt 17. 5.</span>
+                        <span class="subject school-subject"></span>
+                        <span class="type"><i class="school-event-i"></i></span>
+                        <span class="description">Divadlo - Romeo a Julie</span>
+                    </div>
+                    <div class="content-row">
+                        <span class="date">Pá 18. 5.</span>
+                        <span class="subject school-subject">EKO</span>
+                        <span class="type"><i class="test-i"></i></span>
+                        <span class="description">Marketing</span>
+                    </div>
+                    <div class="content-row">
+                        <span class="date">Pá 18. 5.</span>
+                        <span class="subject school-subject">ANJ</span>
+                        <span class="type"><i class="test-i"></i></span>
+                        <span class="description">Slovíčka 6. lekce</span>
+                    </div>
+                </section>
+            </article>
+
+            <article class="box my-notes-box">
+                <header class="box-header">
+                    <a class="link-with-icon" href="#moje-poznamky/pridat"><i class="add-i"></i></a>
+                    <h2 class="box-heading">Moje poznámky</h2>
+                </header>
+
+                <section class="box-content">
+                    <div class="content-row">
+                        <span class="note">Od 16. 9. nosit sbírku Petáková</span>
+                    </div>
+                    <div class="content-row">
+                        <span class="note">SRPŠ bude nejspíše ve středu 6. 11.</span>
+                    </div>
+                    <div class="content-row">
+                        <span class="note">Příští týden (4. 11. až 8. 11.) mám službu - dávat pozor na mytí tabule a nošení pomůcek</span>
+                    </div>
+                    <div class="content-row">
+                        <span class="note">27. 11. bude přednáškový den. Bylo by dobré sehnat nějakého řečníka. Nápady: někdo z ITnetwork, Karel z Freela</span>
+                    </div>
+                </section>
+            </article>
+        </section>
+    </div>
+
+
+    <div class="right-content">
+        <section class="shared-content-section">
+            <article class="box shared-files-box">
+                <header class="box-header">
+                    <h2 class="box-heading">Sdílené soubory</h2>
+                </header>
+
+                <section class="box-content">
+                    <table class="shared-content-table">
+                        <tr class="content-row">
+                            <td class="from">
+                                <div class="from-container">
+                                    <i class="from-schoolmate-i"></i>
+                                </div>
+                            </td>
+                            <td class="author">
+                                <div class="author-container">
+                                    <span class="profile-image"></span>
+                                    Veronika Zemanová
+                                    <span class="date">29. 11.</span>
+                                </div>
+                            </td>
+                            <td class="date">29. 11.</td>
+                            <td class="type"><i class="folder-i"></i></td>
+                            <td class="file-name">Expresionismus</td>
+                            <td class="action">
+                                <div class="action-container">
+                                    <a class="action-link text" href="#stahnout">Stáhnout</a>
+                                    <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="content-row">
+                            <td class="from">
+                                <div class="from-container">
+                                    <i class="from-class-i"></i>
+                                </div>
+                            </td>
+                            <td class="author">
+                                <div class="author-container">
+                                    <span class="profile-image"></span>
+                                    Dominik Švejda
+                                    <span class="date">29. 11.</span>
+                                </div>
+                            </td>
+                            <td class="date">29. 11.</td>
+                            <td class="type"><i class="file-text-document-i"></i></td>
+                            <td class="file-name">Zadání na klauzurní práci</td>
+                            <td class="action">
+                                <div class="action-container">
+                                    <a class="action-link text" href="#stahnout">Stáhnout</a>
+                                    <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="content-row">
+                            <td class="from">
+                                <div class="from-container">
+                                    <i class="from-class-i"></i>
+                                </div>
+                            </td>
+                            <td class="author">
+                                <div class="author-container">
+                                    <span class="profile-image"></span>
+                                    Alena Brabcová
+                                    <span class="date">29. 11.</span>
+                                </div>
+                            </td>
+                            <td class="date">29. 11.</td>
+                            <td class="type"><i class="file-image-i"></i></td>
+                            <td class="file-name">Školní fotky (třetí ročník)</td>
+                            <td class="action">
+                                <div class="action-container">
+                                    <a class="action-link text" href="#stahnout">Stáhnout</a>
+                                    <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="content-row">
+                            <td class="from">
+                                <div class="from-container">
+                                    <i class="from-class-i"></i>
+                                </div>
+                            </td>
+                            <td class="author">
+                                <div class="author-container">
+                                    <span class="profile-image"></span>
+                                    Veronika Zemanová
+                                    <span class="date">29. 11.</span>
+                                </div>
+                            </td>
+                            <td class="date">29. 11.</td>
+                            <td class="type"><i class="file-image-i"></i></td>
+                            <td class="file-name">Zápis - matematika 2. 10.</td>
+                            <td class="action">
+                                <div class="action-container">
+                                    <a class="action-link text" href="#stahnout">Stáhnout</a>
+                                    <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="content-row">
+                            <td class="from">
+                                <div class="from-container">
+                                    <i class="from-schoolmate-i"></i>
+                                </div>
+                            </td>
+                            <td class="author">
+                                <div class="author-container">
+                                    <span class="profile-image"></span>
+                                    Barbora Šedová
+                                    <span class="date">29. 11.</span>
+                                </div>
+                            </td>
+                            <td class="date">29. 11.</td>
+                            <td class="type"><i class="file-image-i"></i></td>
+                            <td class="file-name">Zápis - videotvorba 5. 10.</td>
+                            <td class="action">
+                                <div class="action-container">
+                                    <a class="action-link text" href="#stahnout">Stáhnout</a>
+                                    <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+
+                <footer class="box-footer">
+                    <a class="basic-link" href="#sdilene-soubory">další sdílené soubory</a>
+                </footer>
+            </article>
+
+            <article class="box shared-reminders-box">
+                <header class="box-header">
+                    <h2 class="box-heading">Sdílená upozornění</h2>
+                </header>
+
+                <section class="box-content">
+                    <table class="shared-content-table">
+                        <tr class="content-row">
+                            <td class="from">
+                                <div class="from-container">
+                                    <i class="from-schoolmate-i"></i>
+                                </div>
+                            </td>
+                            <td class="author">
+                                <div class="author-container">
+                                    <span class="profile-image"></span>
+                                    Veronika Zemanová
+                                </div>
+                            </td>
+                            <td class="date school-date">St 16. 5.</td>
+                            <td class="subject school-subject">DVK</td>
+                            <td class="type"><i class="test-i"></i></td>
+                            <td class="description">Baroko</td>
+                            <td class="action">
+                                <div class="action-container">
+                                    <a class="action-link text" href="#prevzit">Převzít</a>
+                                    <a class="link-with-icon" href="#prevzit"><i class="icon take-up-i"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="content-row">
+                            <td class="from">
+                                <div class="from-container">
+                                    <i class="from-class-i"></i>
+                                </div>
+                            </td>
+                            <td class="author">
+                                <div class="author-container">
+                                    <span class="profile-image"></span>
+                                    Dominik Švejda
+                                </div>
+                            </td>
+                            <td class="date school-date">Pá 16. 5.</td>
+                            <td class="subject school-subject">OBN</td>
+                            <td class="type"><i class="homework-i"></i></td>
+                            <td class="description">Připravit si otázky</td>
+                            <td class="action">
+                                <div class="action-container">
+                                    <a class="action-link text" href="#prevzit">Převzít</a>
+                                    <a class="link-with-icon" href="#prevzit"><i class="icon take-up-i"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="content-row">
+                            <td class="from">
+                                <div class="from-container">
+                                    <i class="from-class-i"></i>
+                                </div>
+                            </td>
+                            <td class="author">
+                                <div class="author-container">
+                                    <span class="profile-image"></span>
+                                    Alena Brabcová
+                                </div>
+                            </td>
+                            <td class="date school-date">Po 21. 5.</td>
+                            <td class="subject school-subject">ČJL</td>
+                            <td class="type"><i class="homework-i"></i></td>
+                            <td class="description">Cvičení 4. na str. 10.</td>
+                            <td class="action">
+                                <div class="action-container">
+                                    <a class="action-link text" href="#prevzit">Převzít</a>
+                                    <a class="link-with-icon" href="#prevzit"><i class="icon take-up-i"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="content-row">
+                            <td class="from">
+                                <div class="from-container">
+                                    <i class="from-schoolmate-i"></i>
+                                </div>
+                            </td>
+                            <td class="author">
+                                <div class="author-container">
+                                    <span class="profile-image"></span>
+                                    Barbora Šedová
+                                </div>
+                            </td>
+                            <td class="date school-date">Pá 25. 5.</td>
+                            <td class="subject school-subject">REF</td>
+                            <td class="type"><i class="homework-i"></i></td>
+                            <td class="description">Odevzdat sérii portrétů + krajin</td>
+                            <td class="action done">
+                                <div class="action-container">
+                                    <a class="action-link text" href="#prevzit">Převzít</a>
+                                    <i class="icon done-i"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+
+                <footer class="box-footer">
+                    <a class="basic-link" href="#sdilena-upozorneni">další sdílená upozornění</a>
+                </footer>
+            </article>
+
+            <article class="box shared-notes-box">
+                <header class="box-header">
+                    <h2 class="box-heading">Sdílené poznámky</h2>
+                </header>
+
+                <section class="box-content">
+                    <table class="shared-content-table">
+                        <tr class="content-row">
+                            <td class="from">
+                                <div class="from-container">
+                                    <i class="from-schoolmate-i"></i>
+                                </div>
+                            </td>
+                            <td class="author">
+                                <div class="author-container">
+                                    <span class="profile-image"></span>
+                                    Veronika Zemanová
+                                </div>
+                            </td>
+                            <td class="note">Od 14. 9. začíná zkoušení z literatury</td>
+                            <td class="action">
+                                <div class="action-container">
+                                    <a class="action-link text" href="#prevzit">Převzít</a>
+                                    <a class="link-with-icon" href="#prevzit"><i class="icon take-up-i"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="content-row">
+                            <td class="from">
+                                <div class="from-container">
+                                    <i class="from-class-i"></i>
+                                </div>
+                            </td>
+                            <td class="author">
+                                <div class="author-container">
+                                    <span class="profile-image"></span>
+                                    Dominik Švejda
+                                </div>
+                            </td>
+                            <td class="note">SRPŠ bude nejspíše ve středu 6. 11.</td>
+                            <td class="action done">
+                                <div class="action-container">
+                                    <a class="action-link text" href="#prevzit">Převzít</a>
+                                    <i class="icon done-i"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="content-row">
+                            <td class="from">
+                                <div class="from-container">
+                                    <i class="from-class-i"></i>
+                                </div>
+                            </td>
+                            <td class="author">
+                                <div class="author-container">
+                                    <span class="profile-image"></span>
+                                    Alena Brabcová
+                                </div>
+                            </td>
+                            <td class="note">Od 26. 9. se začnou předvádět prezentace na základy společenských věd. První je
+                                Vojtěch Halousek.
+                            </td>
+                            <td class="action">
+                                <div class="action-container">
+                                    <a class="action-link text" href="#prevzit">Převzít</a>
+                                    <a class="link-with-icon" href="#prevzit"><i class="icon take-up-i"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="content-row">
+                            <td class="from">
+                                <div class="from-container">
+                                    <i class="from-schoolmate-i"></i>
+                                </div>
+                            </td>
+                            <td class="author">
+                                <div class="author-container">
+                                    <span class="profile-image"></span>
+                                    Barbora Šedová
+                                </div>
+                            </td>
+                            <td class="note">Vybírá se 300 Kč na exkurzi do Vídně. Odevzdat do 1. 11.</td>
+                            <td class="action">
+                                <div class="action-container">
+                                    <a class="action-link text" href="#prevzit">Převzít</a>
+                                    <a class="link-with-icon" href="#prevzit"><i class="icon take-up-i"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+
+                <footer class="box-footer">
+                    <a class="basic-link" href="#sdilene-poznamky">další sdílené poznámky</a>
+                </footer>
+            </article>
+        </section>
+    </div>
+</main>
+
+
+<footer class="page-footer">
+    <p class="footer-info">
+        Jedná se o maturitní projekt (ročník 2019/2020).
+        Autorem je Michal ŠMAHEL, grafické podklady připravila Adéla VYHNÁLKOVÁ.
+        Zdrojové kódy je možné nalézl na
+        <a class="basic-link" href="https://github.com/ceskyDJ/moje-studium">Githubu</a>.
+    </p>
+
+    <p class="footer-contact">
+        <strong class="contact-mini-heading">Kontakt</strong>
+        <a class="contact-email" href="mailto:moje-studium@ceskydj.cz">moje-studium@ceskydj.cz</a>
+    </p>
+</footer>
 </body>
 </html>

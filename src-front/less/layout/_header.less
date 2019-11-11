@@ -1,0 +1,55 @@
+// START hlavni menu
+.page-header {
+  background: @header-bg;
+  width: 100%;
+
+  .page-header-section {
+    padding: 1em @page-side-p;
+    display: flex;
+    justify-content: space-between;
+
+    .other-content {
+      display: flex;
+
+      .logged-user-info {
+        font-weight: bold;
+
+        .class {
+          margin-left: .4em;
+        }
+
+        .full-name {
+          display: none;
+
+          @media screen and (min-width: @big-phone) {
+            display: inline;
+          }
+        }
+
+        .short-name {
+          @media screen and (min-width: @big-phone) {
+            display: none;
+          }
+        }
+      }
+
+      .actions {
+        margin-left: 1.4em;
+
+        .notifications {
+          margin-right: .7em;
+        }
+
+        .logout {
+          display: none;
+
+          @media screen and (min-width: @tablet) {
+            display: inline;
+            margin-left: 1.4em;
+          }
+        }
+      }
+    }
+  }
+}
+// END hlavni menu

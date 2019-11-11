@@ -1,0 +1,22 @@
+.page-content {
+  padding: @page-top-bottom-p 0;
+
+  @media screen and (min-width: @desktop) {
+    padding: @page-top-bottom-p @page-side-p;
+  }
+
+  @media screen and (min-width: @big-desktop) {
+    display: flex;
+    justify-content: space-between;
+
+    .right-content {
+      margin-left: 4em;
+
+      .shared-content-section {
+        margin-top: 0;
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+}

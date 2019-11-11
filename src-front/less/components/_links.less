@@ -1,0 +1,22 @@
+.link-with-icon,
+.basic-link {
+  color: @link-c;
+  user-select: none;
+
+  &:hover {
+    cursor: pointer;
+    color: darken(@link-c, 20%);
+  }
+}
+
+.action-link {
+  &:extend(.basic-link);
+
+  text-transform: uppercase;
+  font-family: @caps-font;
+  font-weight: bold;
+}
+
+.contact-email {
+  color: inherit;
+}

@@ -1,8 +1,70 @@
-.icon(@var, @type) {
+// Font Awesome Regular
+.icon(@var, @type) when (@type = "r") {
   .fa-icon();
-  &:extend(.fa@{type});
+  &:extend(.far);
 
   &:before {
     content: @var;
+  }
+}
+
+// Font Awesome Solid
+.icon(@var, @type) when (@type = "s") {
+  .fa-icon();
+  &:extend(.fas);
+
+  &:before {
+    content: @var;
+  }
+}
+
+// Font Awesome Brands
+.icon(@var, @type) when (@type = "b") {
+  .fa-icon();
+  &:extend(.fab);
+
+  &:before {
+    content: @var;
+  }
+}
+
+// Font Awesome Light
+.icon(@var, @type) when (@type = "l") {
+  .fa-icon();
+  &:extend(.fal);
+
+  &:before {
+    content: @var;
+  }
+}
+
+// Font Awesome Duotune
+.icon(@var, @type) when (@type = "d") {
+  .fa-icon();
+  &:extend(.fad);
+
+  &:before {
+    content: @var;
+    &:extend(.fad:before);
+  }
+
+  &:after {
+    content: replace(@var, "\\", "\10");
+    &:extend(.fad:after);
+  }
+}
+
+// Font Awesome Duotune - swap opacity
+.icon(@var, @type, @swap-opacity) when (@type = "d"), (@swap-opacity = true) {
+  .fa-icon();
+  &:extend(.fad);
+
+  &:before {
+    content: @var;
+    &:extend(.fad.fa-swap-opacity:before);
+  }
+
+  &:after {
+    &:extend(.fad.fa-swap-opacity:after);
   }
 }

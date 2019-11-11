@@ -1,0 +1,35 @@
+.page-menu {
+  background: @white;
+  padding: .7em @page-side-p;
+  border-bottom: 4px solid @header-bg;
+  position: absolute;
+  width: 100%;
+
+  .menu-list {
+    @media screen and (min-width: @big-tablet) {
+      display: flex;
+    }
+
+    .menu-item {
+      &:not(:first-of-type) {
+        margin-top: .5em;
+
+        @media screen and (min-width: @big-tablet) {
+          margin-top: 0;
+          margin-left: 1.7em;
+        }
+      }
+
+      .menu-link {
+        color: inherit;
+        text-transform: uppercase;
+        font-family: @caps-font;
+        white-space: nowrap;
+      }
+
+      &.active {
+        color: @dark-yellow;
+      }
+    }
+  }
+}
