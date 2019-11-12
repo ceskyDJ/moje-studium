@@ -1,0 +1,69 @@
+// START formular v aplikacni vrstve
+.app-form {
+  .form-inputs {
+    .form-input-row {
+      display: flex;
+      align-items: flex-end;
+      padding: .3em 0;
+
+      &:not(:last-child) {
+        border-bottom: 2px solid @light-grey;
+      }
+    }
+
+    .form-label {
+      border-right: 2px solid @light-grey;
+      width: 20em;
+      display: block;
+      white-space: nowrap;
+      text-transform: uppercase;
+      font-family: @caps-font;
+      font-size: @font-s - .01;
+      padding-top: .4em;
+    }
+
+    .form-input {
+      width: 100%;
+      border: none;
+      padding: 0 .5em;
+      font-weight: bold;
+      color: @text-c;
+    }
+
+    .form-input-status {
+      font-size: @font-s - .02em;
+
+       &.positive {
+         &:extend(.done-i all);
+       }
+
+      &.negative {
+        &:extend(.error-i all);
+        margin-right: .3em;
+      }
+    }
+  }
+
+  .form-alerts {
+    margin-top: 1em;
+
+    .form-alert {
+      text-align: center;
+      margin-top: 0.3em;
+
+      &.negative {
+        color: @red;
+      }
+
+      &.positive {
+        color: @dark-green;
+      }
+    }
+  }
+
+  .form-control {
+    text-align: center;
+    margin-top: 1em;
+  }
+}
+// END formular v aplikacni vrstve
