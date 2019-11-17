@@ -1,0 +1,2 @@
+# Ignorovat soubory se zalohami programu MySQL Workbench
+*.bak
