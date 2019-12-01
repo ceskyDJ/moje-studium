@@ -5,6 +5,10 @@
   position: absolute;
   width: 100%;
 
+  @media screen and (min-width: @big-tablet) {
+    position: initial;
+  }
+
   .menu-list {
     @media screen and (min-width: @big-tablet) {
       display: flex;
@@ -28,6 +32,10 @@
       }
 
       &.active {
+        color: @dark-yellow;
+      }
+
+      &:hover {
         color: @dark-yellow;
       }
     }

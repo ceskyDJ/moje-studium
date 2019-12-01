@@ -6,18 +6,24 @@
   }
 
   @media screen and (min-width: @big-desktop) {
-    display: flex;
-    justify-content: space-between;
+    &.summary {
+      display: flex;
+      justify-content: space-between;
 
-    .right-content {
-      margin-left: 4em;
+      .right-content {
+        margin-left: 4em;
 
-      .shared-content-section {
-        margin-top: 0;
-        padding-left: 0;
-        padding-right: 0;
+        .shared-content-section {
+          margin-top: 0;
+          padding-left: 0;
+          padding-right: 0;
+        }
       }
     }
+  }
+
+  &.without-padding {
+    padding: 0;
   }
 }
 
