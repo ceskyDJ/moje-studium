@@ -9,3 +9,5 @@ declare(strict_types = 1);
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  */
+
+require '../src/starter.php';

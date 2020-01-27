@@ -6,4 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Mammoth\\' => array($vendorDir . '/mammoth/mammoth/src'),
+    'JanDrabek\\Tracy\\' => array($vendorDir . '/jandrabek/tracy-gitversion-panel/src'),
 );

@@ -2,6 +2,11 @@
     "name": "ceskydj/moje-studium",
     "description": "Webová aplikace slouží jako pomocník žáků středních škol a studentů vysokých škol. Po registraci umožňuje vstup do portálu daného žáka/studenta, kam si může ukládat školní soubory či poznámky různého druhu (písemné práce, domácí úkoly, školní akce a jiné). Tato data může následně sdílet se spolužáky v rámci třídy nebo s konkrétními uživateli.",
     "type": "project",
+    "require": {
+        "php": ">=7.4",
+        "mammoth/mammoth": "dev-master",
+        "ext-mbstring": "*"
+    },
     "license": "MIT",
     "authors": [
         {
@@ -9,6 +14,5 @@
             "email": "admin@ceskydj.cz"
         }
     ],
-    "minimum-stability": "dev",
-    "require": {}
+    "minimum-stability": "dev"
 }

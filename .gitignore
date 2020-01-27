@@ -1,5 +1,10 @@
-# Konfiguracni soubory PHP Stormu
+# Jetbrains IDE's Files
 .idea/
 
-# Yarn balíčky
+# NPM
 node_modules/
+
+# temp and log Files (not only in temp and log directories)
+*~
+*.tmp
+*.log
