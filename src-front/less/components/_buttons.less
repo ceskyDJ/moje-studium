@@ -1,4 +1,14 @@
 .button {
+  color: @dark-green;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: @caps-font;
+  border: none;
+  border-radius: 3px;
+  padding: .7em .6em;
+  display: block;
+  white-space: nowrap;
+
   &:hover {
     cursor: pointer;
   }
@@ -7,15 +17,29 @@
 .form-button {
   &:extend(.button);
   background: @light-grey;
-  color: @dark-green;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 3px;
-  font-weight: bold;
-  font-family: @caps-font;
-  padding: .7em .6em;
 
   &:hover {
-    background: shade(@light-grey, 5%);
+    background: shade(@light-grey, 2%);
+  }
+}
+
+.link-button {
+  &:extend(.button);
+  font-size: .75em;
+
+  &.white-bg {
+    background: @white;
+
+    &:hover {
+      background: shade(@white, 2%);
+    }
+  }
+
+  &.grey-bg {
+    background: @light-grey;
+
+    &:hover {
+      background: shade(@light-grey, 2%);
+    }
   }
 }

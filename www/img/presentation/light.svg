@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="light" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+	 viewBox="0 0 603.1 603.1" style="enable-background:new 0 0 603.1 603.1;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#_light_1_);}
+</style>
+	<title>light</title>
+	<radialGradient id="_light_1" cx="91.2181" cy="-2800.9324" r="301.5451" fx="-180.705" fy="-2931.2678"
+					gradientTransform="matrix(0.4507 0.8927 0.8927 -0.4507 2760.729 -1042.3184)"
+					gradientUnits="userSpaceOnUse">
+	<stop offset="0" style="stop-color:#FFE252"/>
+		<stop offset="1" style="stop-color:#FFE252;stop-opacity:0"/>
+</radialGradient>
+	<circle id="_light" class="st0" cx="301.5" cy="301.5" r="301.5"/>
+</svg>

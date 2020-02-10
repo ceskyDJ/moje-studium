@@ -1,0 +1,154 @@
+.interactive-marketing-section {
+  margin-bottom: 2em;
+
+  .image-svg {
+    max-width: 100%;
+
+    &.desktop {
+      display: none;
+
+      @media screen and (min-width: @desktop) {
+        display: block;
+      }
+    }
+
+    &.mobile {
+      @media screen and (min-width: @desktop) {
+        display: none;
+      }
+    }
+  }
+
+  &.first {
+    .image-svg.mobile {
+      width: 125%;
+      max-width: initial;
+      position: relative;
+      margin-left: -25%;
+    }
+  }
+}
+
+.about-section {
+  margin: 0 auto 3em auto;
+  width: 90%;
+
+  @media screen and (min-width: @tablet) {
+    width: 70%;
+  }
+
+  @media screen and (min-width: @desktop) {
+    width: 60%;
+  }
+
+  .project-info-article {
+    .article-section {
+      margin-top: 1.5em;
+      color: @black;
+
+      .text:not(:first-of-type) {
+        margin-top: 1em;
+      }
+    }
+  }
+}
+
+.functions-section {
+  background: @light-grey;
+  display: grid;
+  grid-template-columns: 80%;
+  justify-content: center;
+  padding: 2em 0;
+  position: relative;
+
+  @media screen and (min-width: @tablet) {
+    grid-template-columns: 20em 20em;
+    grid-gap: 2em;
+  }
+
+  .background-light {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .light-svg {
+      position: relative;
+      top: -5em;
+
+      @media screen and (min-width: @middle-phone) {
+        top: -5.5em;
+      }
+
+      @media screen and (min-width: @big-phone) {
+        top: -6em;
+      }
+
+      @media screen and (min-width: @tablet) {
+        top: calc(-5em - 100% / 3);
+      }
+    }
+  }
+
+  .function-article {
+    border-top: 4px solid @dark-yellow;
+    background: @white;
+    padding: .8em 1.2em 2.2em 1.2em;
+    position: relative; // Kvuli z-index
+    z-index: 1; // Kvuli svetlu pod
+
+    &:not(:first-of-type) {
+      margin-top: 2em;
+
+      @media screen and (min-width: @tablet) {
+        margin-top: 0;
+      }
+    }
+
+    .article-header {
+      display: grid;
+      grid-template-columns: 5.3em auto;
+
+      .icon-container {
+        text-align: center;
+
+        .icon {
+          color: @dark-green;
+          font-size: 3.5em;
+        }
+      }
+
+      .function-name {
+        color: @black;
+        font-size: @font-s + .3em;
+      }
+    }
+
+    .article-section {
+      margin-top: 1.5em;
+    }
+  }
+}
+
+.register-section {
+  margin-bottom: 5em;
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .smile-container {
+    display: none;
+
+    @media screen and (min-width: @desktop) {
+      display: flex;
+      justify-content: center;
+      margin-top: 1em;
+      font-size: @font-s + .5em;
+    }
+  }
+}

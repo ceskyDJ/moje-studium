@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1"
+	 id="first-animate-block-desktop" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+	 viewBox="223 21.5 1042 798.4"
+	 style="enable-background:new 223 21.5 1042 798.4;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#D2D1CE;}
+	.st1{fill:url(#_chandelier-light-radius_1_);}
+	.st2{fill:transparent;}
+	.st3{fill:#FFE252;stroke:#8A8A8C;stroke-width:3;stroke-miterlimit:10;}
+	.st4{fill:none;stroke:#1D1D20;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+	.st5{fill:#FFFFFF;stroke:#8A8A8C;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+	.st6{fill:#FFE252;stroke:#1D1D20;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+	.st7{fill:#8A898B;}
+	.st8{fill:#D2D1CE;stroke:#1D1D20;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+	.st9{fill:#89888A;stroke:#1D1D20;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+	.st10{fill:#7F9394;stroke:#1D1D20;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+	.st11{display:none;}
+	.st12{display:inline;fill:#A6A3A4;}
+	.st13{display:inline;fill:#E4E0DE;stroke:#1D1D20;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st14{display:inline;fill:none;stroke:#1D1D20;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st15{display:inline;fill:#7F9394;stroke:#1D1D20;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st16{fill:#7F9394;}
+	.st17{fill:none;stroke:#8A898B;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+	.st18{fill:#D2D1CE;stroke:#8A898B;stroke-width:3;stroke-miterlimit:10;}
+	.st19{fill:#89888A;}
+	.st20{fill:none;stroke:#1D1D20;stroke-width:3;stroke-linejoin:round;}
+	.st21{fill:#D2D1CE;stroke:#7F9394;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+	.st22{fill:#B6B6B4;}
+	.st23{fill:#D2D1CE;stroke:#8A8A8C;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+	.st24{fill:none;stroke:#1D1D20;stroke-width:3;stroke-miterlimit:10;}
+	.st25{fill:#7F9394;stroke:#1D1D20;stroke-width:3;stroke-miterlimit:10;}
+	.st26{fill:url(#_lamp-light-radius_1_);}
+	.st27{fill:#D2D1CE;stroke:#7F9394;stroke-width:3;stroke-miterlimit:10;}
+	.st28{fill:#1D1D20;}
+	.st29{fill:#FEFEFD;stroke:#1D1D20;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+	.chandelier-structure{cursor:pointer;}
+	.lamp-structure{cursor:pointer;}
+	.notebook-keyboard{fill:#FFFFFF;}
+	.bookshelf{cursor:pointer;}
+	.notebook{cursor:pointer;}
+</style>
+	<title>introduction-first-interactive-image</title>
+	<path id="_floor" class="st0" d="M1488,620c0,0-419-56.2-700.5,16.9S446,841.4,446,841.4h1042V620z"/>
+	<g id="_chandelier">
+
+		<radialGradient id="_chandelier-light-radius_1_" cx="1149.4703" cy="-3443.7571" r="301.5585" fx="877.5372"
+						fy="-3574.1023" gradientTransform="matrix(-0.4417 0.8972 0.8972 0.4417 4410.4136 1022.723)"
+						gradientUnits="userSpaceOnUse">
+		<stop offset="0" style="stop-color:#FFE252"/>
+			<stop offset="1" style="stop-color:#FFE252;stop-opacity:0"/>
+	</radialGradient>
+		<circle id="_chandelier-light-radius" class="st1" cx="813" cy="532.9" r="301.5"/>
+		<g class="chandelier-structure">
+		<path class="st2" d="M814.4,158.6c0,0,58.6,42.5,42.3,56.6c-2,1.7-82.4-1-82.4-1s-7.4,1.4-1.1-13.5
+			C779.4,185.9,814.4,158.6,814.4,158.6z"/>
+			<path id="_chandelier-light" class="st3"
+				  d="M813.5,202.2c-7.1,0-12.9,5.8-12.9,12.9h25.7C826.4,207.9,820.6,202.2,813.5,202.2z"
+			/>
+			<path class="st4" d="M857.2,215.2h-85.1c0,0-13.7-16,42.6-56.6v-55"/>
+			<path class="st4" d="M772.2,215.2h85.1c0,0,13.7-16-42.6-56.6V44.5"/>
+	</g>
+</g>
+	<g id="_bookshelf" class="bookshelf">
+	<polygon id="_shelf" class="st5" points="1001.9,421.4 1008.8,435.3 1174.7,435.3 1167.8,421.4 	"/>
+		<g id="_book-5">
+		<polygon class="st6" points="1147.1,366.1 1154,380 1160.9,380 1160.9,435.3 1154,435.3 1147.1,421.4 		"/>
+			<line class="st4" x1="1154" y1="380" x2="1154" y2="435.3"/>
+			<line class="st4" x1="1154" y1="366.1" x2="1160.9" y2="380"/>
+	</g>
+		<g id="_book-4" class="_book-original">
+		<polygon class="st7" points="1127.7,380.5 1140,380.5 1145.7,393.2 1134.1,393.2 		"/>
+			<polygon class="st8"
+					 points="1126.3,380 1133.3,393.8 1147.1,393.8 1147.1,435.3 1133.3,435.3 1126.3,421.4 		"/>
+			<line class="st4" x1="1133.3" y1="393.8" x2="1133.3" y2="435.3"/>
+			<line class="st4" x1="1140.2" y1="380" x2="1147.1" y2="393.8"/>
+	</g>
+		<g id="_book-4-changed" class="_book-changed st11">
+		<polygon class="st12" points="1099.2,415.9 1099.2,428.2 1111.9,433.9 1111.9,422.3 		"/>
+			<polygon class="st13"
+					 points="1098.7,414.6 1112.5,421.5 1112.5,435.3 1154,435.3 1154,421.5 1140.2,414.6 		"/>
+			<line class="st14" x1="1112.5" y1="421.5" x2="1154" y2="421.5"/>
+			<line class="st14" x1="1098.7" y1="428.4" x2="1112.5" y2="435.3"/>
+	</g>
+		<g id="_book-3">
+		<polygon class="st9" points="1071,366.1 1078,380 1084.9,380 1084.9,435.3 1078,435.3 1071,421.4 		"/>
+			<line class="st4" x1="1078" y1="380" x2="1078" y2="435.3"/>
+			<line class="st4" x1="1078" y1="366.1" x2="1084.9" y2="380"/>
+	</g>
+		<g id="_book-2">
+		<polygon class="st8" points="1057.2,366.1 1064.1,380 1071,380 1071,435.3 1064.1,435.3 1057.2,421.4 		"/>
+			<line class="st4" x1="1064.1" y1="380" x2="1064.1" y2="435.3"/>
+			<line class="st4" x1="1064.1" y1="366.1" x2="1071" y2="380"/>
+	</g>
+		<g id="_book-1" class="_book-original">
+		<polygon class="st10"
+				 points="1036.5,380 1043.4,391 1050.3,391 1050.3,435.3 1043.4,435.3 1036.5,424.2 		"/>
+			<line class="st4" x1="1043.4" y1="391" x2="1043.4" y2="435.3"/>
+			<line class="st4" x1="1043.4" y1="380" x2="1050.3" y2="391"/>
+	</g>
+		<g id="_book-1-changed" class="_book-changed st11">
+		<polygon class="st15" points="1047.6,379.1 1051.3,391.7 1058,393.5 1046.1,436.1 1039.4,434.3 1035.7,421.8
+			"/>
+			<line class="st14" x1="1051.3" y1="391.7" x2="1039.4" y2="434.3"/>
+			<line class="st14" x1="1054.3" y1="381" x2="1058" y2="393.5"/>
+	</g>
+</g>
+	<g id="_flower">
+	<path class="st16" d="M944.9,606.4c0.1-6-0.7-11.9-2.4-17.6c-2.9-10.3-11.4-11.1-14.4-6.3s-0.7,7.9-0.3,11.1c0.3,3.2-3.1,0.9-5,2.1
+		c-1.9,1.2-7.3,5.5-0.3,13C929.3,616.2,930.9,607.1,944.9,606.4z"/>
+		<ellipse class="st17" cx="941" cy="635.4" rx="31.7" ry="9.7"/>
+		<ellipse class="st18" cx="941" cy="659.2" rx="20" ry="9.7"/>
+		<line class="st17" x1="909.3" y1="635.8" x2="921" y2="660.6"/>
+		<line class="st17" x1="972.6" y1="636.2" x2="960.5" y2="661.5"/>
+		<polygon class="st19" points="909.3,639.1 921.5,664.4 928.2,667 942.7,668.2 955.1,666.7 961,663.5 971.9,640.4 960.2,642.7
+		941.3,643.7 927.4,643.2 915.6,641.7 	"/>
+		<path class="st20" d="M929.6,555c0,0-7.2,7.1-6.8,22.5s12.9,23.5,18.8,34.5c5.8,11.1-1.3,24.1-1.3,24.1"/>
+		<path class="st20" d="M943.1,570.2c0,0-7,16-3,39.4"/>
+		<path class="st21" d="M950,589c0,0-5.3,0.2-5.3,5.7c-0.1,5.5,12,6,12,6c2.4-0.1,4.8,0.4,7,1.3c0,0-2.2-2.3-1-8.4
+		c1.2-6-1.1-10-3.6-10.4C955,582.6,951.1,585,950,589z"/>
+		<path class="st21" d="M946.4,541.5c-5.7-1.8-11.6-2.7-17.6-2.7c-10.7-0.2-13.9,7.8-10.1,12c3.8,4.2,7.4,2.9,10.5,3.5
+		c3.2,0.6,0,3.2,0.6,5.4s3.2,8.5,12.3,4C951.3,559.1,943.1,555.1,946.4,541.5z"/>
+		<path class="st21" d="M915.3,585.7c2.8,1.1,5.7,1.9,8.6,2.2c5.3,0.6,7.3-3.2,5.6-5.5s-3.5-1.8-5.1-2.2s0.2-1.6,0-2.7
+		c-0.1-1.1-1.2-4.4-6-2.6C913.7,576.8,917.6,579.1,915.3,585.7z"/>
+		<path class="st21" d="M919,602c0,0-2.5-4.6-7.5-2.2c-4.9,2.4,0,13.4,0,13.4c1.2,2.1,1.8,4.5,1.9,6.9c0,0,1.1-3,7-4.6
+		s8.5-5.5,7.7-7.9C926.9,603.6,923,601.2,919,602z"/>
+</g>
+	<g id="_table">
+	<ellipse class="st22" cx="1140.2" cy="705.4" rx="155.7" ry="42.3"/>
+		<polyline class="st23 _table-leg" points="1001.2,614.4 1001.2,709 1011.1,709 1011.1,614.4 	"/>
+		<polyline class="st23 _table-leg" points="982.1,525.2 982.1,654.5 992.1,654.5 992.1,525.2 	"/>
+		<polyline class="st23 _table-leg" points="1219.2,614.4 1219.2,709 1229.2,709 1229.2,614.4 	"/>
+		<polyline class="st23 _table-leg" points="1200.2,525.2 1200.2,654.5 1210.1,654.5 1210.1,525.2 	"/>
+		<polygon id="_table-top" class="st5" points="1211,524 982.1,524 1001.2,614.4 1230,614.4 	"/>
+</g>
+	<g id="_notebook" class="notebook">
+	<polygon class="st4 notebook-keyboard" points="1008.8,538.3 1015.7,572.9 1071,572.9 1064.1,538.3 	"/>
+		<rect x="1008.8" y="503.7" class="st8" width="55.3" height="34.6"/>
+		<line class="st24" x1="1015" y1="545.2" x2="1023.5" y2="545.2"/>
+		<line class="st24" x1="1027.8" y1="545.2" x2="1036.2" y2="545.2"/>
+		<line class="st24" x1="1040.5" y1="545.2" x2="1049" y2="545.2"/>
+		<line class="st24" x1="1053.3" y1="545.2" x2="1061.8" y2="545.2"/>
+		<line class="st24" x1="1016.6" y1="552.6" x2="1025" y2="552.6"/>
+		<line class="st24" x1="1029.3" y1="552.6" x2="1037.8" y2="552.6"/>
+		<line class="st24" x1="1042.1" y1="552.6" x2="1050.5" y2="552.6"/>
+		<line class="st24" x1="1054.9" y1="552.6" x2="1063.3" y2="552.6"/>
+		<line class="st24" x1="1018.1" y1="560" x2="1026.6" y2="560"/>
+		<line class="st24" x1="1030.9" y1="560" x2="1039.3" y2="560"/>
+		<line class="st24" x1="1043.6" y1="560" x2="1052.1" y2="560"/>
+		<line class="st24" x1="1056.4" y1="560" x2="1064.9" y2="560"/>
+		<line class="st24" x1="1025.5" y1="566.9" x2="1062.3" y2="566.9"/>
+		<rect id="_notebook-window-2" x="1029.6" y="517.6" class="st24" width="27.6" height="13.8"/>
+		<rect id="_notebook-window-1" x="1015.7" y="510.7" class="st25" width="20.7" height="13.8"/>
+</g>
+	<g id="_mouse">
+	<path class="st8" d="M1079.6,546.4L1079.6,546.4c3.2-2.1,7.5-1.3,9.6,1.9l2.6,3.8c2.1,3.2,1.3,7.5-1.9,9.6l0,0
+		c-3.2,2.1-7.5,1.3-9.6-1.9l-2.6-3.8C1075.6,552.8,1076.5,548.5,1079.6,546.4z"/>
+		<line class="st24" x1="1079.8" y1="554.4" x2="1086.8" y2="549.6"/>
+</g>
+	<g id="_lamp">
+	<radialGradient id="_lamp-light-radius_1_" cx="2863.7048" cy="-4327.0703" r="66.3036" fx="2803.9163" fy="-4355.7319"
+					gradientTransform="matrix(-0.7576 0.6526 0.6526 0.7576 6121.0488 1973.0271)"
+					gradientUnits="userSpaceOnUse">
+		<stop offset="0" style="stop-color:#FFE252"/>
+		<stop offset="1" style="stop-color:#FFE252;stop-opacity:0"/>
+	</radialGradient>
+		<circle id="_lamp-light-radius" class="st26" cx="1127.4" cy="563.5" r="66.3"/>
+		<g class="lamp-structure">
+			<path class="st27" d="M1147.5,494.5l22.6,11.3c0,0,8.7-23.9,2.3-27.1c-6.4-3.2-4.5-2.3-4.5-2.3
+		C1161.4,473.3,1147.5,494.5,1147.5,494.5z"/>
+			<ellipse class="st27" cx="1187.7" cy="536.3" rx="21.8" ry="5.4"/>
+			<path class="st20" d="M1172.3,474.5c0,0,6.8-14.7,22.4,6.1c15.6,20.8-7.2,55-7.2,55"/>
+		</g>
+</g>
+	<g id="_pen">
+	<polygon class="st28" points="1174.9,560.6 1176.3,561 1177.8,561.3 1176.9,562.4 1176,563.5 1175.4,562 	"/>
+
+		<rect x="1184.9" y="559.2" transform="matrix(0.6576 -0.7533 0.7533 0.6576 -23.571 1088.7428)" class="st28"
+			  width="2.3" height="22.2"/>
+</g>
+	<g id="_pencils-crucible">
+		<g id="_pencils">
+			<polygon class="st7" points="1111.4,503.7 1111.7,505.2 1112.1,506.7 1110.7,506.3 1109.3,506 1110.3,504.9 	"/>
+
+			<rect x="1095.1" y="518.2" transform="matrix(0.2416 -0.9704 0.9704 0.2416 335.9464 1468.59)" class="st7"
+				  width="24.8" height="2.3"/>
+			<polygon class="st7" points="1097.5,504.6 1098.3,505.9 1099,507.2 1097.6,507.3 1096.3,507.3 1096.9,506 	"/>
+
+			<rect x="1097" y="508.2" transform="matrix(0.9985 -5.460254e-002 5.460254e-002 0.9985 -26.5457 60.7315)"
+				  class="st7" width="2.3" height="16"/>
+			<polygon class="st7" points="1101.5,531.4 1101,530 1100.4,528.6 1101.8,528.7 1103.2,528.9 1102.4,530.2 	"/>
+
+			<rect x="1092.3" y="515.6" transform="matrix(0.1269 -0.9919 0.9919 0.1269 450.8181 1545.5746)" class="st7"
+				  width="22.2" height="2.3"/>
+		</g>
+
+		<g id="_crucible">
+			<ellipse class="st17" cx="1102.7" cy="514.4" rx="9.3" ry="3"/>
+			<ellipse id="_crucible-bottom" class="st18" cx="1102.6" cy="536.4" rx="5.9" ry="2.9"/>
+			<line class="st17" x1="1093.4" y1="514.4" x2="1096.8" y2="537.1"/>
+			<line class="st17" x1="1112.1" y1="514.4" x2="1108.6" y2="536.4"/>
+		</g>
+</g>
+	<g id="_papers">
+	<g id="_paper-1">
+		<polygon class="st8" points="1112.6,557.6 1133.4,592.2 1161,585.2 1140.3,550.7 		"/>
+	</g>
+	<g id="_paper-2">
+		<polygon class="st8" points="1119.4,545.9 1140.2,580.4 1167.8,573.5 1147.1,539 		"/>
+		<line class="st4" x1="1130.6" y1="554.5" x2="1143.6" y2="551.3"/>
+		<line class="st4" x1="1127.4" y1="549.4" x2="1145" y2="545.1"/>
+	</g>
+</g>
+	<g id="_trash-can">
+	<ellipse class="st17" cx="1071" cy="641.6" rx="26.5" ry="8.1"/>
+		<ellipse class="st18" cx="1071" cy="681.4" rx="16.8" ry="8.1"/>
+		<line class="st17" x1="1044.5" y1="641.6" x2="1054.3" y2="682.6"/>
+		<line class="st17" x1="1097.6" y1="641.6" x2="1087.8" y2="681.4"/>
+		<path class="st4" d="M1077.9,670.5c2,1,3,2.6,2.6,3.6c-0.5,1.5-3.8,1.6-4,1.1c-0.3-0.8,6-2.8,5.9-5.7c-0.1-1.7-2.3-2.7-2.7-2.9
+		c-3-1.3-6.8,0.5-6.8,1.5c0,1.8,10.9,0.9,12.4,5.5c0.7,2.2-1,4.4-1.4,4.9c-3.1,4-10.4,4.1-12.2,1.4c-1.3-1.9-0.2-5.9,2-6.5
+		c1.8-0.5,4.4,1.2,5.4,4.3"/>
+		<path class="st4" d="M1062,673.6c-2.3-1.7-2.9-4.5-1.8-6.1c1.3-2,4.3-1.6,4.6-1.5c1.5,0.2,3.5,1.2,3.4,2.2c-0.1,1-2,2-3.8,1.9
+		c-4-0.3-6.1-6.4-7.3-5.9c-0.6,0.3,0.1,1.9-0.4,5.4c-0.4,2.7-1,3-0.6,4.2c0.6,2,3.2,3.3,5.4,3.5c2.6,0.2,5.6-1.3,5.6-2.8
+		c0-0.3-0.2-1.1-2-2"/>
+</g>
+	<g id="_chair">
+	<polyline class="st29" points="1141.7,665.7 1141.7,722.6 1151.7,722.6 1151.7,665.7 	"/>
+		<polyline class="st29" points="1173.3,677 1173.3,733.8 1183.2,733.8 1183.2,677 	"/>
+		<polyline class="st29" points="1188.3,657.4 1188.3,714.2 1198.2,714.2 1198.2,657.4 	"/>
+		<polyline class="st29" points="1219.5,661.2 1219.5,718 1229.4,718 1229.4,661.2 	"/>
+		<polygon class="st29" points="1222.4,668.2 1178.5,678 1141.7,665.8 1185.7,656 	"/>
+		<path class="st29" d="M1216.6,669.9l-25.1,5c-9.4,0-17-7.6-17-17v-37.3c0-9.3,6.3-14.1,17-17l25.1-5c9.4,0,17,7.6,17,17l0,0V653
+		C1233.6,662.2,1226.5,667.6,1216.6,669.9z"/>
+</g>
+</svg>
