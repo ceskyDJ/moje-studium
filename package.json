@@ -7,10 +7,10 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "movefonts": "cp node_modules/@fortawesome/fontawesome-pro/webfonts/* www/fonts/font-awesome"
+    "movefonts": "cp node_modules/@ceskydj/fontawesome-pro/webfonts/* www/fonts/font-awesome"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-pro": "^5.11.2",
+    "@ceskydj/fontawesome-pro": "git+ssh://git@github.com:ceskyDJ/Font-Awesome-Pro.git",
     "browser-sync": "^2.26.7",
     "del": "^5.1.0",
     "gulp": "^4.0.2",
@@ -25,5 +25,6 @@
     "gulp-util": "^3.0.8",
     "less-plugin-autoprefix": "^2.0.0",
     "vinyl-ftp": "^0.6.1"
-  }
+  },
+  "dependencies": {}
 }
