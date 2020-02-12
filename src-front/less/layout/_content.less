@@ -8,6 +8,19 @@
   @media screen and (min-width: @desktop) {
     &.two-columns {
       display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      &.right-content {
+        margin-left: 4em;
+      }
+    }
+  }
+
+  @media screen and (min-width: @middle-desktop) {
+    &.two-columns-shared {
+      display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
 
       &.right-content {
@@ -44,12 +57,19 @@
   margin: 0 auto;
   border: @page-b-w solid @light-grey;
   padding: @page-p;
+  min-height: 30em;
 
   &:not(:first-child) {
     margin-top: 2em;
 
     @media screen and (min-width: @desktop) {
       margin-top: 0;
+    }
+
+    &.shared-content {
+      @media screen and (max-width: @middle-desktop - 1px) {
+        margin-top: 2em;
+      }
     }
   }
 
@@ -61,16 +81,22 @@
     width: 40%;
   }
 
-  @media screen and (min-width: @big-desktop) {
-    width: 40%;
-  }
-
   &.form-page {
     border-color: @light-yellow;
   }
 
   &.my-content {
     border-width: @private-content-page-b-w;
+  }
+
+  &.shared-content {
+    @media screen and (min-width: @desktop) {
+      width: 60%;
+    }
+
+    @media screen and (min-width: @middle-desktop) {
+      width: 40%;
+    }
   }
 
   &.with-toolbar {

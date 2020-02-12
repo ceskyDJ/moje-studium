@@ -92,6 +92,143 @@
 
 // START box sdilenych materialu
 .shared-content-table {
+  &:extend(.box .box-content all);
+  margin-top: 0;
+
+  @media screen and (max-width: @tablet - 1px) {
+    display: block;
+
+    tbody {
+      display: block;
+    }
+
+    .content-row {
+      display: flex;
+      flex-wrap: wrap;
+      border-bottom: 2px solid @light-grey;
+      padding: 0;
+
+      &:not(:first-of-type) {
+        margin-top: @box-row-bigger-p;
+      }
+
+      // Na mobilni verzi zobrazovat pouze nekolik radku
+      &:not(:nth-child(-n + 3)) {
+        display: none;
+      }
+
+      .from, .author, .action {
+        background: @light-grey;
+        padding-top: @box-row-p;
+        padding-bottom: @box-row-p;
+      }
+
+      .from {
+        display: inline-block;
+        order: -4;
+        flex-basis: 2.5em;
+        padding-left: @box-row-bigger-p;
+      }
+
+      .author {
+        order: -3;
+        flex-basis: calc(100% - 2*2.5em);
+      }
+
+      > .date {
+        display: none;
+      }
+
+      .action {
+        order: -1;
+        flex-basis: 2.5em;
+        text-align: right;
+        padding-right: .5em;
+      }
+    }
+  }
+
+  &.files {
+
+    @media screen and (max-width: @tablet - 1px) {
+      .content-row {
+        .type, .file-name {
+          padding-top: @box-row-p;
+          padding-bottom: @box-row-p;
+        }
+
+        .type {
+          padding-left: @box-row-bigger-p;
+          flex-basis: 2.5em;
+        }
+
+        .file-name {
+          flex-basis: calc(100% - 2.5em);
+        }
+
+        .author {
+          .date {
+            margin-left: .5em;
+          }
+        }
+      }
+    }
+
+    @media screen and (min-width: @tablet) {
+      .content-row {
+        .author {
+          .date {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  &.reminders {
+    @media screen and (max-width: @tablet - 1px) {
+      .content-row {
+        > .date, .subject, .type, .description {
+          padding-top: @box-row-p;
+          padding-bottom: @box-row-p;
+        }
+
+        > .date {
+          display: initial;
+          flex-basis: 3.3em;
+          margin-left: @box-row-bigger-p;
+        }
+
+        .subject {
+          margin-left: .5em;
+          flex-basis: 2.1em;
+        }
+
+        .type {
+          margin-left: .5em;
+          flex-basis: 1.5em;
+        }
+
+        .description {
+          margin-left: .3em;
+          @flex-basis-and-margins: (3.3em + @box-row-bigger-p) + (2.1em + .5em) + (1.5em + .5em) + .3em + 0.2;
+          flex-basis: calc(100% - @flex-basis-and-margins);
+        }
+      }
+    }
+  }
+
+  &.notes {
+    @media screen and (max-width: @tablet - 1px) {
+      .content-row {
+        .note {
+          padding: @box-row-p .5em @box-row-p @box-row-bigger-p;
+          word-wrap: break-word;
+        }
+      }
+    }
+  }
+
   @media screen and (min-width: @tablet) {
     width: 100%;
 
@@ -113,12 +250,15 @@
 
     .author {
       white-space: nowrap;
-      border-right: 2px solid @light-grey;
 
       .author-container {
         display: flex;
         align-items: center;
       }
+    }
+
+    .date {
+      border-right: 2px solid @light-grey;
     }
 
     .action {
