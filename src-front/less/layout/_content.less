@@ -5,6 +5,17 @@
     padding: @page-top-bottom-p @page-side-p;
   }
 
+  @media screen and (min-width: @desktop) {
+    &.two-columns {
+      display: flex;
+      justify-content: space-between;
+
+      &.right-content {
+        margin-left: 4em;
+      }
+    }
+  }
+
   @media screen and (min-width: @big-desktop) {
     &.summary {
       display: flex;
@@ -29,26 +40,64 @@
 
 
 .page {
-  &.form-page {
-    width: 90%;
-    margin: 0 auto;
-    border: 2px solid @light-yellow;
-    padding: 1em;
+  width: 90%;
+  margin: 0 auto;
+  border: @page-b-w solid @light-grey;
+  padding: @page-p;
 
-    @media screen and (min-width: @tablet) {
-      width: 70%;
-    }
+  &:not(:first-child) {
+    margin-top: 2em;
 
     @media screen and (min-width: @desktop) {
-      width: 60%;
+      margin-top: 0;
     }
+  }
 
-    @media screen and (min-width: @big-desktop) {
-      width: 50%;
-    }
+  @media screen and (min-width: @tablet) {
+    width: 70%;
+  }
 
-    .content-container {
-      margin-top: 2em;
+  @media screen and (min-width: @desktop) {
+    width: 40%;
+  }
+
+  @media screen and (min-width: @big-desktop) {
+    width: 40%;
+  }
+
+  &.form-page {
+    border-color: @light-yellow;
+  }
+
+  &.my-content {
+    border-width: @private-content-page-b-w;
+  }
+
+  &.with-toolbar {
+    border: none;
+    padding: 0;
+
+    .toolbar-page-content {
+      &:extend(.page all);
+
+      width: 100%;
     }
+  }
+
+  .content-header {
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+    .adding-tool {
+      color: @dark-green;
+      position: absolute;
+      left: @page-p;
+      align-self: center;
+    }
+  }
+
+  .content-container {
+    margin-top: 2em;
   }
 }

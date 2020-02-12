@@ -2,29 +2,6 @@
 .calendar-section {
   padding: 0 @page-side-p;
 
-  .week-switch {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: @light-green;
-    padding: .4em 0;
-
-    .week {
-      margin: 0 2em;
-      text-transform: uppercase;
-      font-weight: bold;
-      font-family: @caps-font;
-    }
-
-    .icon-button {
-      &:hover {
-        cursor: pointer;
-        color: darken(@text-c, 20%);
-        user-select: none;
-      }
-    }
-  }
-
   .calendar {
     overflow-x: auto;
   }
@@ -128,6 +105,10 @@
         .content-row {
           display: grid;
           grid-template-columns: 3.6em 2.5em 1.5em auto;
+
+          .date {
+            .uppercase();
+          }
 
           .type {
             display: flex;

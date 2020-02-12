@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+
+<html lang="cs">
+<head>
+    <base href="/" />
+    <meta charset="UTF-8" />
+    <meta content="Michal ŠMAHEL (ceskyDJ)" name="author" />
+    <title>Aplikační vrstva - Přehled</title>
+    <link href="css/styles.css" rel="stylesheet" type="text/css" />
+    <meta content="width=device-width,height=device-height" name="viewport" />
+</head>
+
+
+<body>
+<header class="page-header">
+    <section class="page-header-section">
+        <h1 class="main-heading">Moje Studium</h1>
+
+        <div class="other-content">
+            <div class="logged-user-info">
+                <!-- TODO: Dynamicky generované -->
+                <span class="full-name">Adéla Vyhnálková</span>
+                <span class="short-name">Adéla V.</span>
+                <span class="class">4.ER</span>
+            </div>
+
+            <div class="actions">
+                <div class="notifications">
+                    <i class="notifications-i notification-icon" id="_show-notifications-b"></i>
+
+                    <div class="notifications-box">
+                        <div class="notification">Veronika Zemanová s vámi sdílela poznámku</div>
+                        <div class="notification">Veronika Zemanová s vámi sdílela upozornění</div>
+                        <!-- TODO: Dynamicky generované -->
+                    </div>
+                </div>
+                <i class="hamburger-menu-i open-close-button" id=_menu-control-b"></i>
+                <a class="action-link logout" href="#logout">Odhlásit se</a>
+            </div>
+        </div>
+    </section>
+
+    <nav class="page-menu hide">
+        <ul class="menu-list">
+            <li class="menu-item active"><a class="menu-link" href="#">Přehled</a></li>
+            <li class="menu-item"><a class="menu-link" href="#">Moje upozornění a poznámky</a></li>
+            <li class="menu-item"><a class="menu-link" href="#">Sdílené upozornění a poznámky</a></li>
+            <li class="menu-item"><a class="menu-link" href="#">Moje soubory</a></li>
+            <li class="menu-item"><a class="menu-link" href="#">Sdílené soubory</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+<main class="page-content two-columns my-reminders-notes">
+    <div class="page with-toolbar">
+        <div class="week-switch toolbar">
+            <i class="simple-arrow-left-i icon-button" id="_previous-week-b"></i>
+            <span class="week" id="_actual-week">Tento týden</span>
+            <i class="simple-arrow-right-i icon-button" id="_next-week-b"></i>
+        </div>
+
+        <div class="toolbar-page-content my-content left-content">
+            <header class="content-header">
+                <i class="add-i adding-tool"></i>
+                <h2 class="content-heading">Moje upozornění</h2>
+            </header>
+
+            <section class="content-container">
+                <div class="day-row">
+                    <span class="date">Po 14. 5.</span>
+                    <div class="record-container">
+                        <div class="record-row">
+                            <span class="subject school-subject">ČJL</span>
+                            <span class="type"><i class="homework-i"></i></span>
+                            <span class="description">Přečíst ukázku z učebnice na str. 68</span>
+                        </div>
+                        <div class="record-row">
+                            <span class="subject school-subject">FAR</span>
+                            <span class="type"><i class="test-i"></i></span>
+                            <span class="description">Malířství, Fotografie</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="day-row">
+                    <span class="date">Út 15. 5.</span>
+                    <div class="record-container">
+                        <div class="record-row">
+                            <span class="subject school-subject">DVK</span>
+                            <span class="type"><i class="homework-i"></i></span>
+                            <span class="description">Prezentace - Edouard Manet</span>
+                        </div>
+                        <div class="record-row">
+                            <span class="subject school-subject">DVK</span>
+                            <span class="type"><i class="test-i"></i></span>
+                            <span class="description">Renesanční malba v Itálii, Renesanční sloh v ostatní Evropě</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="day-row">
+                    <span class="date">St 16. 5.</span>
+                    <div class="record-container"></div>
+                </div>
+                <div class="day-row">
+                    <span class="date">Čt 17. 5.</span>
+                    <div class="record-container">
+                        <div class="record-row">
+                            <span class="subject school-subject"></span>
+                            <span class="type"><i class="school-event-i"></i></span>
+                            <span class="description">Divadlo - Romeo a Julie</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="day-row">
+                    <span class="date">Pá 18. 5.</span>
+                    <div class="record-container">
+                        <div class="record-row">
+                            <span class="subject school-subject">EKO</span>
+                            <span class="type"><i class="test-i"></i></span>
+                            <span class="description">Marketing</span>
+                        </div>
+                        <div class="record-row">
+                            <span class="subject school-subject">ANJ</span>
+                            <span class="type"><i class="test-i"></i></span>
+                            <span class="description">Slovíčka 6. lekce</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="page my-content right-content">
+        <header class="content-header">
+            <i class="add-i adding-tool"></i>
+            <h2 class="content-heading">Moje poznámky</h2>
+        </header>
+
+        <section class="content-container">
+            <div class="content-row">
+                <p>Od 16. 9. nosit sbírku Petáková</p>
+            </div>
+            <div class="content-row">
+                <p>SRPŠ bude nejspíše ve středu 6. 11.</p>
+            </div>
+            <div class="content-row">
+                <p>Příští týden (4. 11. až 8. 11.) mám službu - dávat pozor na mytí tabule a nošení pomůcek</p>
+            </div>
+            <div class="content-row">
+                <p>27. 11. bude přednáškový den. Bylo by dobré sehnat nějakého řečníka. Nápady: někdo z ITnetwork, Karel z Freela</p>
+            </div>
+        </section>
+    </div>
+</main>
+
+
+<footer class="page-footer">
+    <p class="footer-info">
+        Jedná se o maturitní projekt (ročník 2019/2020).
+        Autorem je Michal ŠMAHEL, grafické podklady připravila Adéla VYHNÁLKOVÁ.
+        Zdrojové kódy je možné nalézl na
+        <a class="basic-link" href="https://github.com/ceskyDJ/moje-studium">Githubu</a>.
+    </p>
+
+    <p class="footer-contact">
+        <strong class="contact-mini-heading">Kontakt</strong>
+        <a class="contact-email" href="mailto:moje-studium@ceskydj.cz">moje-studium@ceskydj.cz</a>
+    </p>
+</footer>
+</body>
+</html>

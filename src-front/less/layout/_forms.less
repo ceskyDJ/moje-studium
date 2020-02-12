@@ -21,10 +21,9 @@
       border-right: 2px solid @light-grey;
       display: block;
       white-space: nowrap;
-      text-transform: uppercase;
-      font-family: @caps-font;
       font-size: @font-s - .01;
       padding-top: .4em;
+      .uppercase();
     }
 
     .form-input {
@@ -97,10 +96,9 @@
     background: @white;
     border: 2px solid @light-grey;
     padding: .2em .15em .25em .15em;
-    font-family: @caps-font;
     color: @dark-grey;
-    text-transform: lowercase;
     width: 100%;
+    .uppercase();
 
     option {
       color: @dark-grey;

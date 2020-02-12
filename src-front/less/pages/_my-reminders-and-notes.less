@@ -1,0 +1,56 @@
+// START moje upozorneni
+.my-reminders-notes .page.with-toolbar {
+  .toolbar {
+    margin-bottom: 2em;
+  }
+
+  .toolbar-page-content {
+    padding: @page-p 0;
+    min-height: 30em;
+
+    .content-container {
+      margin-top: 1em;
+
+      .day-row {
+        border-top: @private-content-page-b-w solid @light-grey;
+        padding: .5em 1em;
+        display: flex;
+
+        .date {
+          display: block;
+          width: 5em;
+        }
+
+        .record-container {
+          width: 100%;
+
+          .record-row {
+            display: grid;
+            grid-template-columns: 2.5em 1.5em auto;
+
+            &:not(:first-child) {
+              border-top: 2px solid @light-grey;
+              margin-top: .2em;
+              padding-top: .2em;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// END moje upozorneni
+
+// START moje poznamky
+.my-reminders-notes .page {
+  .content-container {
+    .content-row {
+      &:not(:first-child) {
+        border-top: 2px solid @light-grey;
+        margin-top: .2em;
+        padding-top: .2em;
+      }
+    }
+  }
+}
+// END moje poznamky

@@ -1,0 +1,23 @@
+// START zmena casoveho obdobi
+.week-switch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: @light-green;
+  padding: .4em 0;
+
+  .week {
+    margin: 0 2em;
+    font-weight: bold;
+    .uppercase();
+  }
+
+  .icon-button {
+    &:hover {
+      cursor: pointer;
+      color: darken(@text-c, 20%);
+      user-select: none;
+    }
+  }
+}
+// END zmena casoveho obdobi
