@@ -39,15 +39,21 @@
       }
 
       &.select-input {
-        padding: 0 @select-input-p;
         font-family: @caps-font;
-
-        &.start-year {
-          padding: 0 @select-input-p + 1.4em;
-        }
+        padding: 0 @select-input-p;
 
         &.study-length {
-          padding: 0 @select-input-p + 2.2em;
+          padding: 0 @select-input-p + .7em;
+        }
+
+        @media screen and (min-width: @big-phone) {
+          &.start-year {
+            padding: 0 @select-input-p + 1.4em;
+          }
+
+          &.study-length {
+            padding: 0 @select-input-p + 2.2em;
+          }
         }
       }
     }
@@ -64,7 +70,11 @@
         user-select: none;
 
         &.up {
-          margin-left: 2 * @select-input-p + @max-select-input-content-w;
+          margin-left: 2 * @select-input-p + @min-select-input-content-w;
+
+          @media screen and (min-width: @big-phone) {
+            margin-left: 2 * @select-input-p + @max-select-input-content-w;
+          }
         }
       }
     }
