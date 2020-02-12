@@ -92,8 +92,14 @@
     text-transform: lowercase;
     width: 100%;
 
-    option:disabled {
-      color: @light-grey;
+    option {
+      color: @dark-grey;
+      background: @light-grey;
+      font-weight: bold;
+
+      &:disabled {
+        display: none;
+      }
     }
   }
 
@@ -122,6 +128,15 @@
 
   .form-descriptive-text {
     margin: .2em 0;
+  }
+
+  .form-top-text {
+    margin-bottom: 2em;
+  }
+
+  .form-bottom-text {
+    margin-top: 6em;
+    margin-bottom: 2em;
   }
 }
 // END formular v aplikacni vrstve

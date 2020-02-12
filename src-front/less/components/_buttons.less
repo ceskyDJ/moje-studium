@@ -1,6 +1,6 @@
 .button {
   color: @dark-green;
-  text-transform: uppercase;
+  text-transform: lowercase;
   font-weight: bold;
   font-family: @caps-font;
   border: none;
@@ -17,6 +17,14 @@
 .form-button {
   &:extend(.button);
   background: @light-grey;
+
+  &:not(:first-child) {
+    margin-left: 2em;
+  }
+
+  &.secondary {
+    background: @white;
+  }
 
   &:hover {
     background: shade(@light-grey, 2%);
