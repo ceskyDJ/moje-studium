@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+
+<html lang="cs">
+<head>
+    <base href="/" />
+    <meta charset="UTF-8" />
+    <meta content="Michal ŠMAHEL (ceskyDJ)" name="author" />
+    <title>Aplikační vrstva - Moje soubory</title>
+    <link href="/css/styles.css" rel="stylesheet" type="text/css" />
+    <meta content="width=device-width,height=device-height" name="viewport" />
+</head>
+
+
+<body>
+<header class="page-header">
+    <section class="page-header-section">
+        <h1 class="main-heading">Moje Studium</h1>
+
+        <div class="other-content">
+            <div class="logged-user-info">
+                <!-- TODO: Dynamicky generované -->
+                <span class="full-name">Adéla Vyhnálková</span>
+                <span class="short-name">Adéla V.</span>
+                <span class="class">4.ER</span>
+            </div>
+
+            <div class="actions">
+                <div class="notifications">
+                    <i class="notifications-i notification-icon" id="_show-notifications-b"></i>
+
+                    <div class="notifications-box">
+                        <div class="notification">Veronika Zemanová s vámi sdílela poznámku</div>
+                        <div class="notification">Veronika Zemanová s vámi sdílela upozornění</div>
+                        <!-- TODO: Dynamicky generované -->
+                    </div>
+                </div>
+                <i class="hamburger-menu-i open-close-button" id=_menu-control-b"></i>
+                <a class="action-link logout" href="#logout">Odhlásit se</a>
+            </div>
+        </div>
+    </section>
+
+    <nav class="page-menu hide">
+        <ul class="menu-list">
+            <li class="menu-item active"><a class="menu-link" href="#">Přehled</a></li>
+            <li class="menu-item"><a class="menu-link" href="#">Moje upozornění a poznámky</a></li>
+            <li class="menu-item"><a class="menu-link" href="#">Sdílené upozornění a poznámky</a></li>
+            <li class="menu-item"><a class="menu-link" href="#">Moje soubory</a></li>
+            <li class="menu-item"><a class="menu-link" href="#">Sdílené soubory</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+<main class="page-content">
+    <div class="page shared-content">
+        <header class="content-header">
+            <div class="tools">
+                <i class="upload-i"></i>
+                <i class="create-folder-i"></i>
+            </div>
+            <h2 class="content-heading">Moje soubory</h2>
+        </header>
+
+        <section class="content-container">
+            <table class="file-manager">
+                <tr class="file-row">
+                    <td class="type"><i class="folder-i"></i></td>
+                    <td class="file-name">Expresionismus</td>
+                    <td class="action-group">
+                        <a class="link-with-icon action" href="#"><i class="move-i"></i></a>
+                        <a class="link-with-icon action" href="#"><i class="rename-i"></i></a>
+                        <a class="link-with-icon action" href="#"><i class="delete-i"></i></a>
+                    </td>
+                    <td class="action">
+                        <div class="action-container">
+                            <a class="action-link text" href="#stahnout">Stáhnout</a>
+                            <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
+                        </div>
+                    </td>
+                    <td class="action">
+                        <div class="action-container">
+                            <a class="action-link text" href="#sdilet">Sdílet</a>
+                            <a class="link-with-icon icon" href="#sdilet"><i class="share-i"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="file-row">
+                    <td class="type"><i class="file-text-document-i"></i></td>
+                    <td class="file-name">Zadání na klauzurní práci</td>
+                    <td class="action-group">
+                        <a class="link-with-icon action" href="#"><i class="move-i"></i></a>
+                        <a class="link-with-icon action" href="#"><i class="rename-i"></i></a>
+                        <a class="link-with-icon action" href="#"><i class="delete-i"></i></a>
+                    </td>
+                    <td class="action">
+                        <div class="action-container">
+                            <a class="action-link text" href="#stahnout">Stáhnout</a>
+                            <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
+                        </div>
+                    </td>
+                    <td class="action">
+                        <div class="action-container">
+                            <a class="action-link text" href="#sdilet">Sdílet</a>
+                            <a class="link-with-icon icon" href="#sdilet"><i class="share-i"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="file-row">
+                    <td class="type"><i class="file-image-i"></i></td>
+                    <td class="file-name">Školní fotky (třetí ročník)</td>
+                    <td class="action-group">
+                        <a class="link-with-icon action" href="#"><i class="move-i"></i></a>
+                        <a class="link-with-icon action" href="#"><i class="rename-i"></i></a>
+                        <a class="link-with-icon action" href="#"><i class="delete-i"></i></a>
+                    </td>
+                    <td class="action">
+                        <div class="action-container">
+                            <a class="action-link text" href="#stahnout">Stáhnout</a>
+                            <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
+                        </div>
+                    </td>
+                    <td class="action">
+                        <div class="action-container">
+                            <a class="action-link text" href="#sdilet">Sdílet</a>
+                            <a class="link-with-icon icon" href="#sdilet"><i class="share-i"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="file-row">
+                    <td class="type"><i class="folder-i"></i></td>
+                    <td class="file-name">Zápis - matematika 2. 10.</td>
+                    <td class="action-group">
+                        <a class="link-with-icon action" href="#"><i class="move-i"></i></a>
+                        <a class="link-with-icon action" href="#"><i class="rename-i"></i></a>
+                        <a class="link-with-icon action" href="#"><i class="delete-i"></i></a>
+                    </td>
+                    <td class="action">
+                        <div class="action-container">
+                            <a class="action-link text" href="#stahnout">Stáhnout</a>
+                            <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
+                        </div>
+                    </td>
+                    <td class="action">
+                        <div class="action-container">
+                            <i class="from-schoolmate-i"></i>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="file-row">
+                    <td class="type"><i class="folder-i"></i></td>
+                    <td class="file-name">Zápis - videotvorba 5. 10.</td>
+                    <td class="action-group">
+                        <a class="link-with-icon action" href="#"><i class="move-i"></i></a>
+                        <a class="link-with-icon action" href="#"><i class="rename-i"></i></a>
+                        <a class="link-with-icon action" href="#"><i class="delete-i"></i></a>
+                    </td>
+                    <td class="action">
+                        <div class="action-container">
+                            <a class="action-link text" href="#stahnout">Stáhnout</a>
+                            <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
+                        </div>
+                    </td>
+                    <td class="action">
+                        <div class="action-container">
+                            <i class="from-class-i"></i>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </section>
+    </div>
+</main>
+
+
+<footer class="page-footer">
+    <p class="footer-info">
+        Jedná se o maturitní projekt (ročník 2019/2020).
+        Autorem je Michal ŠMAHEL, grafické podklady připravila Adéla VYHNÁLKOVÁ.
+        Zdrojové kódy je možné nalézl na
+        <a class="basic-link" href="https://github.com/ceskyDJ/moje-studium">Githubu</a>.
+    </p>
+
+    <p class="footer-contact">
+        <strong class="contact-mini-heading">Kontakt</strong>
+        <a class="contact-email" href="mailto:moje-studium@ceskydj.cz">moje-studium@ceskydj.cz</a>
+    </p>
+</footer>
+</body>
+</html>

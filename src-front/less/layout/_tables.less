@@ -272,3 +272,77 @@
   }
 }
 // END box sdilenych materialu
+
+
+// START spravce souboru
+.file-manager {
+  width: 100%;
+
+  .file-row {
+    border-bottom: 2px solid @light-grey;
+
+    &:first-child {
+      border-top: 2px solid @light-grey;
+    }
+
+    td {
+      padding-top: .5em;
+      padding-bottom: .3em;
+
+      &.type {
+        padding-left: 1em;
+        padding-right: .5em;
+        width: 2.5em;
+      }
+
+      &.file-name {
+        border-right: 2px solid @light-grey;
+        padding-right: .5em;
+      }
+
+      &.action-group {
+        display: none;
+
+        @media screen and (min-width: @middle-phone) {
+          display: table-cell;
+          width: 5em;
+          padding: 0 .5em;
+          border-right: 2px solid @light-grey;
+          white-space: nowrap;
+
+          .action:not(:first-child) {
+            margin-left: .3em;
+          }
+        }
+      }
+
+      &.action {
+        padding: 0 .5em;
+
+        &:not(:last-child) {
+          border-right: 2px solid @light-grey;
+        }
+
+        .action-container {
+          display: flex;
+          justify-content: center;
+
+          .text {
+            display: none;
+          }
+
+          @media screen and (min-width: @tablet) {
+            .text {
+              display: initial;
+            }
+
+            .icon {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// ENd spravce souboru
