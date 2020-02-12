@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+
+<html lang="cs">
+<head>
+    <base href="/" />
+    <meta charset="UTF-8" />
+    <meta content="Michal ŠMAHEL (ceskyDJ)" name="author" />
+    <title>Aplikační vrstva - Registrace</title>
+    <link href="/css/styles.css" rel="stylesheet" type="text/css" />
+    <meta content="width=device-width,height=device-height" name="viewport" />
+</head>
+
+
+<body>
+<header class="page-header">
+    <section class="page-header-section">
+        <h1 class="main-heading">Moje Studium</h1>
+
+        <div class="other-content">
+            <div class="logged-user-info">
+                <!-- TODO: Dynamicky generované -->
+                <span class="full-name">Adéla Vyhnálková</span>
+                <span class="short-name">Adéla V.</span>
+                <span class="class">4.ER</span>
+            </div>
+
+            <div class="actions">
+                <i class="notifications-i notifications" id="_show-notifications-b"></i>
+                <i class="hamburger-menu-i" id=_menu-control-b"></i>
+                <a class="action-link logout" href="#logout">Odhlásit se</a>
+
+                <div class="notifications-box">
+                    <!-- TODO: Doplnit strukturu -->
+                    <!-- TODO: Dynamicky generované --->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <nav class="page-menu hide">
+        <ul class="menu-list">
+            <li class="menu-item active"><a class="menu-link" href="#">Přehled</a></li>
+            <li class="menu-item"><a class="menu-link" href="#">Moje upozornění a poznámky</a></li>
+            <li class="menu-item"><a class="menu-link" href="#">Sdílené upozornění a poznámky</a></li>
+            <li class="menu-item"><a class="menu-link" href="#">Moje soubory</a></li>
+            <li class="menu-item"><a class="menu-link" href="#">Sdílené soubory</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+<main class="page-content">
+    <div class="page form-page">
+        <header class="content-header">
+            <h2 class="content-heading">Přidání třídy</h2>
+        </header>
+
+
+        <section class="content-container">
+            <form method="post" action="#" class="app-form">
+                <div class="form-inputs">
+                    <div class="form-full-width-select-row">
+                        <select name="school" class="full-width-select" title="Vyber svoji školu ze seznamu" autofocus>
+                            <option selected disabled>Vyber školu</option>
+                            <option name="1">Střední průmyslová škola elektrotechnická a Vyšší odborná škola Pardubice</option>
+                            <option name="2">SUPŠ Helenín</option>
+                        </select>
+
+                        <p class="form-descriptive-text">Tvoje škola není v seznamu? <a href="#" class="basic-link">Kontaktuj nás!</a></p>
+                    </div>
+
+                    <div class="form-input-row">
+                        <label for="class-name" class="form-label">Název třídy</label>
+                        <input name="class-name" type="text" id="class-name" class="form-input" placeholder="např. 1.A, 3.F" />
+                        <i class="form-input-status positive"></i>
+                    </div>
+                    <div class="form-input-row">
+                        <label for="start-year" class="form-label">Počíteční školní rok</label>
+                        <!-- TODO: Automaticky změnit školní rok na aktuální -->
+                        <input name="start-year" type="text" id="start-year" class="form-input select-input start-year" readonly value="2019/2020" />
+                        <div class="select-input-buttons _select-input-buttons" data-for="start-year">
+                            <i class="select-button-down-i select-button down _button" data-type="down"></i>
+                            <i class="select-button-up-i select-button up _button" data-type="up"></i>
+
+                            <!-- TODO: Automatické generování přípustných hodnot -->
+                            <div class="_data hide">
+                                <span class="_item" data-value="2016/2017" data-default="false"></span>
+                                <span class="_item" data-value="2017/2018" data-default="false"></span>
+                                <span class="_item" data-value="2018/2019" data-default="false"></span>
+                                <span class="_item" data-value="2019/2020" data-default="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-input-row">
+                        <label for="study-length" class="form-label">Délka studia</label>
+                        <input name="study-length" type="text" id="study-length" class="form-input select-input study-length" readonly value="4 roky" />
+                        <div class="select-input-buttons _select-input-buttons" data-for="study-length">
+                            <i class="select-button-down-i select-button down _button" data-type="down"></i>
+                            <i class="select-button-up-i select-button up _button" data-type="up"></i>
+
+                            <!-- TODO: Automatické generování přípustných hodnot -->
+                            <div class="_data hide">
+                                <span class="_item" data-value="1 rok" data-default="false"></span>
+                                <span class="_item" data-value="2 roky" data-default="false"></span>
+                                <span class="_item" data-value="3 roky" data-default="false"></span>
+                                <span class="_item" data-value="4 roky" data-default="true"></span>
+                                <span class="_item" data-value="5 let" data-default="false"></span>
+                                <span class="_item" data-value="6 let" data-default="false"></span>
+                                <span class="_item" data-value="7 let" data-default="false"></span>
+                                <span class="_item" data-value="8 let" data-default="false"></span>
+                                <span class="_item" data-value="9 let" data-default="false"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-alerts">
+                    <p class="form-alert negative">Nebyla vyplněna všechna pole.</p>
+                </div>
+
+                <div class="form-control">
+                    <input type="submit" value="Přidat třídu" class="form-button" />
+                </div>
+            </form>
+        </section>
+    </div>
+</main>
+
+
+<footer class="page-footer">
+    <p class="footer-info">
+        Jedná se o maturitní projekt (ročník 2019/2020).
+        Autorem je Michal ŠMAHEL, grafické podklady připravila Adéla VYHNÁLKOVÁ.
+        Zdrojové kódy je možné nalézl na
+        <a class="basic-link" href="https://github.com/ceskyDJ/moje-studium">Githubu</a>.
+    </p>
+
+    <p class="footer-contact">
+        <strong class="contact-mini-heading">Kontakt</strong>
+        <a class="contact-email" href="mailto:moje-studium@ceskydj.cz">moje-studium@ceskydj.cz</a>
+    </p>
+</footer>
+
+<script src="js/application/form-control.js"></script>
+</body>
+</html>

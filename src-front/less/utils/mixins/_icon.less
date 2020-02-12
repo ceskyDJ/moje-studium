@@ -68,3 +68,35 @@
     &:extend(.fad.fa-swap-opacity:after);
   }
 }
+
+// Pseudo class - Font Awesome Regular
+.pseudo-icon(@var, @type) when (@type = "r") {
+  .fa-icon();
+  &:extend(.far);
+
+  content: @var;
+}
+
+// Pseudo class - Font Awesome Solid
+.pseudo-icon(@var, @type) when (@type = "s") {
+  .fa-icon();
+  &:extend(.fas);
+
+  content: @var;
+}
+
+// Pseudo class - Font Awesome Brands
+.pseudo-icon(@var, @type) when (@type = "b") {
+  .fa-icon();
+  &:extend(.fab);
+
+  content: @var;
+}
+
+// Pseudo class - Font Awesome Light
+.pseudo-icon(@var, @type) when (@type = "l") {
+  .fa-icon();
+  &:extend(.fal);
+
+  content: @var;
+}

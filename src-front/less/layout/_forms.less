@@ -2,18 +2,23 @@
 .app-form {
   .form-inputs {
     .form-input-row {
-      display: flex;
+      display: grid;
+      grid-template-columns: @label-w auto 1em;
       align-items: flex-end;
       padding: .3em 0;
+      position: relative;
 
       &:not(:last-child) {
         border-bottom: 2px solid @light-grey;
       }
     }
 
+    .form-full-width-select-row {
+      margin-bottom: 2em;
+    }
+
     .form-label {
       border-right: 2px solid @light-grey;
-      width: 20em;
       display: block;
       white-space: nowrap;
       text-transform: uppercase;
@@ -25,9 +30,43 @@
     .form-input {
       width: 100%;
       border: none;
-      padding: 0 .5em;
+      padding: 0 @input-p;
       font-weight: bold;
       color: @text-c;
+
+      &::placeholder {
+        color: @placeholder-c;
+      }
+
+      &.select-input {
+        padding: 0 @select-input-p;
+        font-family: @caps-font;
+
+        &.start-year {
+          padding: 0 @select-input-p + 1.4em;
+        }
+
+        &.study-length {
+          padding: 0 @select-input-p + 2.2em;
+        }
+      }
+    }
+
+    .select-input-buttons {
+      position: absolute;
+      left: @label-w;
+      top: .4em;
+      margin-left: @input-p;
+      color: @light-grey;
+
+      .select-button {
+        cursor: pointer;
+        user-select: none;
+
+        &.up {
+          margin-left: 2 * @select-input-p + @max-select-input-content-w;
+        }
+      }
     }
 
     .form-input-status {
@@ -41,6 +80,20 @@
         &:extend(.error-i all);
         margin-right: .3em;
       }
+    }
+  }
+
+  .full-width-select {
+    background: @white;
+    border: 2px solid @light-grey;
+    padding: .2em .15em .25em .15em;
+    font-family: @caps-font;
+    color: @dark-grey;
+    text-transform: lowercase;
+    width: 100%;
+
+    option:disabled {
+      color: @light-grey;
     }
   }
 
@@ -65,6 +118,10 @@
     display: flex;
     justify-content: center;
     margin-top: 1em;
+  }
+
+  .form-descriptive-text {
+    margin: .2em 0;
   }
 }
 // END formular v aplikacni vrstve
