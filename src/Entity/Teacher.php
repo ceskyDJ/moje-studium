@@ -29,6 +29,14 @@ class Teacher
      */
     private string $lastName;
     /**
+     * @var string Academic degree(s) before name
+     */
+    private string $degreeBefore;
+    /**
+     * @var string Academic degree(s) after name
+     */
+    private string $degreeAfter;
+    /**
      * @var string Shortcut (for timetable, a few uppercase letters from last name)
      */
     private string $shortcut;
@@ -40,6 +48,8 @@ class Teacher
      * @param \App\Entity\SchoolClass $class
      * @param string $firstName
      * @param string $lastName
+     * @param string $degreeBefore
+     * @param string $degreeAfter
      * @param string $shortcut
      */
     public function __construct(
@@ -47,12 +57,16 @@ class Teacher
         SchoolClass $class,
         string $firstName,
         string $lastName,
+        string $degreeBefore,
+        string $degreeAfter,
         string $shortcut
     ) {
         $this->id = $id;
         $this->class = $class;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
+        $this->degreeBefore = $degreeBefore;
+        $this->degreeAfter = $degreeAfter;
         $this->shortcut = $shortcut;
     }
 
@@ -148,6 +162,54 @@ class Teacher
     public function setLastName(string $lastName): Teacher
     {
         $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * Getter for degreeBefore
+     *
+     * @return string
+     */
+    public function getDegreeBefore(): string
+    {
+        return $this->degreeBefore;
+    }
+
+    /**
+     * Fluent setter for degreeBefore
+     *
+     * @param string $degreeBefore
+     *
+     * @return Teacher
+     */
+    public function setDegreeBefore(string $degreeBefore): Teacher
+    {
+        $this->degreeBefore = $degreeBefore;
+
+        return $this;
+    }
+
+    /**
+     * Getter for degreeAfter
+     *
+     * @return string
+     */
+    public function getDegreeAfter(): string
+    {
+        return $this->degreeAfter;
+    }
+
+    /**
+     * Fluent setter for degreeAfter
+     *
+     * @param string $degreeAfter
+     *
+     * @return Teacher
+     */
+    public function setDegreeAfter(string $degreeAfter): Teacher
+    {
+        $this->degreeAfter = $degreeAfter;
 
         return $this;
     }

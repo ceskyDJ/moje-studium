@@ -25,9 +25,9 @@ class SchoolClass
      */
     private int $startYear;
     /**
-     * @var int End year in the school - when it ended
+     * @var int Length of study the school
      */
-    private int $endYear;
+    private int $studyLength;
     /**
      * @var \App\Entity\School School, in what the class is
      */
@@ -39,15 +39,15 @@ class SchoolClass
      * @param int $id
      * @param string $name
      * @param int $startYear
-     * @param int $endYear
+     * @param int $studyLength
      * @param \App\Entity\School $school
      */
-    public function __construct(int $id, string $name, int $startYear, int $endYear, School $school)
+    public function __construct(int $id, string $name, int $startYear, int $studyLength, School $school)
     {
         $this->id = $id;
         $this->name = $name;
         $this->startYear = $startYear;
-        $this->endYear = $endYear;
+        $this->studyLength = $studyLength;
         $this->school = $school;
     }
 
@@ -124,25 +124,25 @@ class SchoolClass
     }
 
     /**
-     * Getter for endYear
+     * Getter for studyLength
      *
      * @return int
      */
-    public function getEndYear(): int
+    public function getStudyLength(): int
     {
-        return $this->endYear;
+        return $this->studyLength;
     }
 
     /**
-     * Fluent setter for endYear
+     * Fluent setter for studyLength
      *
-     * @param int $endYear
+     * @param int $studyLength
      *
      * @return SchoolClass
      */
-    public function setEndYear(int $endYear): SchoolClass
+    public function setStudyLength(int $studyLength): SchoolClass
     {
-        $this->endYear = $endYear;
+        $this->studyLength = $studyLength;
 
         return $this;
     }
