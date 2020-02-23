@@ -1,0 +1,114 @@
+#Datepickk {
+  .d-header {
+    background: @dark-green;
+
+    i {
+      font-size: @font-s - .2em;
+      width: initial;
+      height: initial;
+      top: 0;
+      margin-top: .3em;
+
+      &:hover {
+        background: none;
+      }
+
+      &#d-previous,
+      &#d-next {
+        &:before {
+          top: initial;
+          left: initial;
+          border: none;
+        }
+
+        &:after {
+          content: none;
+        }
+      }
+
+      &#d-previous {
+        &:extend(.simple-arrow-left-i all);
+
+        left: 0;
+        margin-left: 1em;
+      }
+
+      &#d-next {
+        &:extend(.simple-arrow-right-i all);
+
+        right: .8em;
+        margin-right: 1em;
+      }
+    }
+
+    p {
+      margin: 0;
+      .uppercase();
+      font-size: @font-s;
+    }
+
+    .d-month,
+    .d-year {
+      cursor: initial;
+    }
+  }
+
+  .d-year-picker.d-show,
+  .d-month-picker.d-show {
+    height: 0;
+  }
+
+  .d-week {
+    background: @middle-green;
+    .uppercase();
+
+    > div p {
+      margin: 0;
+    }
+  }
+
+  .d-table {
+    background: @light-grey;
+
+    input + label {
+      margin: 0 .1em;
+      flex-basis: calc((100% - 2 * 6 * .1em) / 7);
+      color: @black;
+      border: 2px solid @light-grey;
+
+      &:nth-child(7n+0) {
+        margin-right: 0;
+      }
+
+      &:nth-child(7n+2) {
+        margin-left: 0;
+      }
+
+      &.today {
+        border-color: @dark-yellow;
+
+        text:before {
+          content: none;
+        }
+      }
+
+      &.d-hidden {
+        background: none !important;
+      }
+
+      &.next,
+      &.prev {
+        color: @dark-grey;
+      }
+    }
+
+    input:checked + label {
+      color: initial;
+      background: @white;
+
+      &:before {
+        content: none;
+      }
+    }
+  }
+}

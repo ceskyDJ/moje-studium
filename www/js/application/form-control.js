@@ -7,13 +7,13 @@ document.querySelectorAll("._select-input-buttons ._button").forEach(button => b
     const dataItems = data.querySelectorAll("._item");
     let selectedItemId = input.dataset.selectedItem;
 
-    // Pokud není vybrán žádný prvek, nastavit jako vybraný výchozí prvek
+    // If there isn't selected any item, set default one as selected
     if(selectedItemId === undefined) {
         const dataItemsArray = Array.prototype.slice.call(dataItems);
         input.dataset.selectedItem = selectedItemId = dataItemsArray.indexOf(data.querySelector("[data-default = true]")).toString();
     }
 
-    // Posun indexu aktivního prvku
+    // Move index of the active item
     selectedItemId = parseInt(selectedItemId);
     if(buttonType === "up") {
         if(++selectedItemId > dataItems.length - 1) {
@@ -25,7 +25,67 @@ document.querySelectorAll("._select-input-buttons ._button").forEach(button => b
         }
     }
 
-    // Změna hodnoty
+    // Change value
     input.value = dataItems.item(selectedItemId).dataset.value;
     input.dataset.selectedItem = selectedItemId.toString();
 }));
+
+// START icon chooser
+const updateIconChooser = selectElement => {
+    const selectedOption = selectElement.querySelector("[value='" + selectElement.value + "']");
+
+    const colorPicker = document.createElement("div");
+    colorPicker.setAttribute("class", selectElement.getAttribute("class"));
+    colorPicker.style.display = "none";
+    selectElement.append(colorPicker);
+
+    const colorPickerFakeOption = document.createElement("span");
+    colorPicker.setAttribute("class", selectedOption.getAttribute("class"));
+    colorPicker.appendChild(colorPickerFakeOption);
+
+    selectElement.style.color = window.getComputedStyle(colorPickerFakeOption).color;
+    selectElement.removeChild(colorPicker);
+
+    const parentOfSelect = selectElement.parentNode;
+    parentOfSelect.removeChild(selectElement);
+    parentOfSelect.appendChild(selectElement);
+};
+
+document.addEventListener("DOMContentLoaded", _ => document.querySelectorAll(".icon-chooser").forEach(item => updateIconChooser(item)));
+document.querySelector(".icon-chooser").addEventListener("change", event => updateIconChooser(event.target));
+// END icon chooser
+
+// START calendar
+const setupCalendar = (container, input) => {
+    const datepicker = new Datepickk();
+
+    const today = new Date();
+
+    datepicker.maxSelections = 1;
+    datepicker.closeOnSelect = true;
+    datepicker.highlight = [today];
+    datepicker.minDate = (new Date()).setDate(today.getDate() - 1);
+    datepicker.lang = 'cz';
+    datepicker.container = container.querySelector("._calendar");
+
+    datepicker.onClose = _ => {
+        const date = datepicker.selectedDates[0];
+
+        // Only closed without selecting any value
+        if(date === undefined) {
+            return;
+        }
+
+        const days = ['ne', 'po', 'út', 'st', 'čt', 'pá', 'so'];
+        let day = days[date.getDay()];
+        day = day.charAt(0).toUpperCase() + day.slice(1);
+
+        input.value = day + " " + date.getDate() + ". " + (date.getMonth() + 1) + ".";
+    };
+
+    input.addEventListener("click", _ => datepicker.show());
+    container.querySelector("._open-calendar").addEventListener("click", _ => datepicker.show());
+};
+
+document.querySelectorAll("._calendar-container").forEach(item => setupCalendar(item, item.querySelector("._calendar-input")));
+// END calendar

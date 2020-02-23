@@ -1,0 +1,50 @@
+.alert-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: fade(@alert-background-color, 50%);
+  z-index: @alert-zi;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Pouzizi v pripade, ze neni .alert-box umisten primo v .alert
+.alert-external-container {
+  &:extend(.alert-container);
+  background: transparent;
+  z-index: initial;
+  align-items: flex-start;
+  margin-top: 30vh;
+
+  @media screen and (min-width: @desktop) {
+    margin-top: 10em;
+  }
+}
+
+// Muze byt i mimo .alert
+.alert-box {
+  z-index: @alert-box-zi;
+  border: 2px solid @light-grey;
+  width: 80%;
+
+  @media screen and (min-width: @tablet) and (max-width: @desktop - 1px) {
+    width: 50%;
+  }
+
+  @media screen and (min-width: @big-desktop) {
+    width: 60%;
+  }
+
+  .alert-header {
+    background: @light-grey;
+    padding: .3em 1em;
+  }
+
+  .alert-content {
+    background: @white;
+    padding: 1em;
+  }
+}

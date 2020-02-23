@@ -37,6 +37,10 @@
         color: @placeholder-c;
       }
 
+      &.full-width {
+        width: 100%;
+      }
+
       &.select-input {
         font-family: @caps-font;
         padding: 0 @select-input-p;
@@ -148,3 +152,110 @@
   }
 }
 // END formular v aplikacni vrstve
+
+
+// START formular ve vyskakovacich oknech
+.alert-form {
+  .form-inputs {
+    .form-input-group {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: .6em;
+
+      .form-input,
+      .form-select {
+        // Prizpusobeni sirky obsazenych poli (100% se mysli maximalni mozna sirka)
+        width: 100%;
+
+        &:not(:first-child) {
+          margin-left: .7em;
+        }
+      }
+    }
+
+    .form-textarea {
+      width: 100%;
+      border: 2px solid @light-grey;
+      resize: none;
+      height: 7em;
+      color: @text-c;
+      padding: @input-p;
+
+      &::placeholder {
+        color: darken(@placeholder-c, 10%);
+      }
+    }
+
+    .form-input {
+      .uppercase();
+      color: @text-c;
+      padding: .2em @input-p;
+      border: 2px solid @light-grey;
+
+      &::placeholder {
+        color: darken(@placeholder-c, 10%);
+      }
+    }
+
+    .form-select {
+      &:extend(.alert-form .form-inputs .form-input);
+
+      background: @white;
+      padding: .2em @input-p - .2em;
+
+      &.icon-chooser {
+        &:extend(.fas);
+
+        width: 3.4em;
+
+        .form-select-option {
+          &.test-option {
+            color: @dark-yellow;
+          }
+
+          &.homework-option {
+            color: @dark-green;
+          }
+
+          &.school-event-option {
+            color: @red;
+          }
+        }
+      }
+    }
+
+    .form-calendar-input {
+      position: relative;
+
+      .form-input {
+        padding-right: @input-p + .5em;
+        min-width: 5em;
+      }
+
+      .form-calendar-button {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        margin-right: .3em;
+        margin-top: .5em;
+        font-size: @font-s + 0.1;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .form-calendar {
+        position: absolute;
+        margin-top: .2em;
+      }
+    }
+  }
+
+  .form-alerts {
+    &:extend(.app-form .form-alerts all);
+  }
+
+  .form-control {
+    &:extend(.app-form .form-control);
+  }
+}
+// END formular ve vyskakovacich oknech

@@ -1,5 +1,7 @@
 .page-content {
   padding: @page-top-bottom-p 0;
+  // Zachyceni obsahu s position: absolute; tak, aby se nedostal mimo obsahovy prostor
+  position: relative;
 
   @media screen and (min-width: @desktop) {
     padding: @page-top-bottom-p @page-side-p;
@@ -58,6 +60,11 @@
   border: @page-b-w solid @light-grey;
   padding: @page-p;
   min-height: 30em;
+
+  @media screen and (min-width: @desktop) {
+    // Pro zachyceni .alert-external-container - na mobilni verzi nedava smysl
+    position: relative;
+  }
 
   &:not(:first-child) {
     margin-top: 2em;

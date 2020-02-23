@@ -7,12 +7,12 @@
     <meta charset="UTF-8" />
     <meta content="Michal ŠMAHEL (ceskyDJ)" name="author" />
     <title>Aplikační vrstva - Moje upozornění a poznámky</title>
-    <link href="css/styles.css" rel="stylesheet" type="text/css" />
+    <link href="/css/styles.css" rel="stylesheet" type="text/css" />
     <meta content="width=device-width,height=device-height" name="viewport" />
 </head>
 
 
-<body>
+<body class="active-alert">
 <header class="page-header">
     <section class="page-header-section">
         <h1 class="main-heading">Moje Studium</h1>
@@ -132,6 +132,54 @@
                 </div>
             </section>
         </div>
+
+        <div class="alert-external-container">
+            <div class="alert-box">
+                <header class="alert-header">
+                    <h3 class="alert-heading">Přidání upozornění</h3>
+                    <h3 class="alert-heading hide">Editace upozornění</h3>
+                </header>
+
+                <section class="alert-content">
+                    <form class="alert-form">
+                        <div class="form-inputs">
+                            <div class="form-input-group">
+                                <div class="form-calendar-input _calendar-container">
+                                    <input type="text" name="when" class="form-input _calendar-input" title="Jakého data se upozornění týká?" placeholder="Po 14. 5." />
+                                    <i class="calendar-i form-calendar-button _open-calendar"></i>
+                                    <div class="form-calendar _calendar"></div>
+                                </div>
+
+                                <select name="subject" class="form-select school-subject" title="Vyberte předmět, na který je upozornění vázáno">
+                                    <!-- TODO: automaticky generované -->
+                                    <option value="1" selected>ČJL</option>
+                                    <option value="1">DVK</option>
+                                    <option value="1">FAR</option>
+                                    <option value="1">ANJ</option>
+                                </select>
+
+                                <select name="type" class="form-select icon-chooser _icon-chooser" title="Vyberte typ upozornění (zkouška, domácí práce, školní akce)">
+                                    <option value="test" selected class="form-select-option test-option" data-color="">&#xf872;&emsp; Zkouška</option>
+                                    <option value="homework" class="form-select-option homework-option" data-color="">&#xf02d; &emsp; Domácí úkol</option>
+                                    <option value="school-event" class="form-select-option school-event-option" data-color="">&#xf5dd;&emsp; Školní akce</option>
+                                </select>
+                            </div>
+
+                            <textarea name="content" class="form-textarea" title="Sem napište obsah upozornění" placeholder="Přečíst ukázku z učebnice na str. 68"></textarea>
+                        </div>
+
+                        <div class="form-alerts">
+                            <p class="form-alert negative">Nebyla vyplněna všechna pole.</p>
+                        </div>
+
+                        <div class="form-control">
+                            <input type="submit" value="Přidat" class="form-button alert" />
+                            <input type="submit" value="Uložit" class="form-button alert hide" />
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
     </div>
 
     <div class="page my-content right-content">
@@ -156,6 +204,32 @@
                 <p>27. 11. bude přednáškový den. Bylo by dobré sehnat nějakého řečníka. Nápady: někdo z ITnetwork, Karel z Freela</p>
             </div>
         </section>
+
+        <div class="alert-external-container hide">
+            <div class="alert-box">
+                <header class="alert-header">
+                    <h3 class="alert-heading">Přidání poznámky</h3>
+                    <h3 class="alert-heading hide">Editace poznámky</h3>
+                </header>
+
+                <section class="alert-content">
+                    <form class="alert-form">
+                        <div class="form-inputs">
+                            <textarea name="note" class="form-textarea" title="Sem napište svoji poznámku" placeholder="Od 16. 9. nosit sbírku Petáková"></textarea>
+                        </div>
+
+                        <div class="form-alerts">
+                            <p class="form-alert negative">Nebyla vyplněna všechna pole.</p>
+                        </div>
+
+                        <div class="form-control">
+                            <input type="submit" value="Přidat" class="form-button alert" />
+                            <input type="submit" value="Uložit" class="form-button alert hide" />
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
     </div>
 </main>
 
@@ -173,5 +247,10 @@
         <a class="contact-email" href="mailto:moje-studium@ceskydj.cz">moje-studium@ceskydj.cz</a>
     </p>
 </footer>
+
+<div class="alert-container"></div>
+
+<script src="/js/lib/datepickk/datepickk.js"></script>
+<script src="/js/application/form-control.js"></script>
 </body>
 </html>
