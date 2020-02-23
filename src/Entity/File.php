@@ -4,14 +4,25 @@ declare(strict_types = 1);
 
 namespace App\Entity;
 
+use DateTime;
+
 /**
- * Private file or folder (access only to owner)
+ * User's file or folder
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Entity
  */
-class PrivateFile
+class File
 {
+    /**
+     * Owner shared this with his class
+     */
+    const SHARED_WITH_CLASS = 0;
+    /**
+     * Owner shared this with logged in user
+     */
+    const SHARED_WITH_ME = 1;
+
     /**
      * @var int Identification number
      */
@@ -32,23 +43,42 @@ class PrivateFile
      * @var bool Is it folder?
      */
     private bool $folder;
+    /**
+     * @var \DateTime When was it shared?
+     */
+    private ?DateTime $shared;
+    /**
+     * @var int How is it shared with the logged in user?
+     */
+    private ?int $shareType;
 
     /**
-     * PrivateFile constructor
+     * File constructor
      *
      * @param int $id
-     * @param \App\Entity\User $user
+     * @param \App\Entity\User $owner
      * @param string $name
      * @param string $path
      * @param bool $folder
+     * @param \DateTime|null $shared
+     * @param int|null $shareType
      */
-    public function __construct(int $id, User $user, string $name, string $path, bool $folder)
-    {
+    public function __construct(
+        int $id,
+        User $owner,
+        string $name,
+        string $path,
+        bool $folder,
+        ?DateTime $shared,
+        ?int $shareType
+    ) {
         $this->id = $id;
-        $this->owner = $user;
+        $this->owner = $owner;
         $this->name = $name;
         $this->path = $path;
         $this->folder = $folder;
+        $this->shared = $shared;
+        $this->shareType = $shareType;
     }
 
     /**
@@ -66,9 +96,9 @@ class PrivateFile
      *
      * @param int $id
      *
-     * @return PrivateFile
+     * @return File
      */
-    public function setId(int $id): PrivateFile
+    public function setId(int $id): File
     {
         $this->id = $id;
 
@@ -90,9 +120,9 @@ class PrivateFile
      *
      * @param \App\Entity\User $owner
      *
-     * @return PrivateFile
+     * @return File
      */
-    public function setOwner(User $owner): PrivateFile
+    public function setOwner(User $owner): File
     {
         $this->owner = $owner;
 
@@ -114,9 +144,9 @@ class PrivateFile
      *
      * @param string $name
      *
-     * @return PrivateFile
+     * @return File
      */
-    public function setName(string $name): PrivateFile
+    public function setName(string $name): File
     {
         $this->name = $name;
 
@@ -138,9 +168,9 @@ class PrivateFile
      *
      * @param string $path
      *
-     * @return PrivateFile
+     * @return File
      */
-    public function setPath(string $path): PrivateFile
+    public function setPath(string $path): File
     {
         $this->path = $path;
 
@@ -162,11 +192,59 @@ class PrivateFile
      *
      * @param bool $folder
      *
-     * @return PrivateFile
+     * @return File
      */
-    public function setFolder(bool $folder): PrivateFile
+    public function setFolder(bool $folder): File
     {
         $this->folder = $folder;
+
+        return $this;
+    }
+
+    /**
+     * Getter for shared
+     *
+     * @return \DateTime
+     */
+    public function getShared(): DateTime
+    {
+        return $this->shared;
+    }
+
+    /**
+     * Fluent setter for shared
+     *
+     * @param \DateTime $shared
+     *
+     * @return File
+     */
+    public function setShared(DateTime $shared): File
+    {
+        $this->shared = $shared;
+
+        return $this;
+    }
+
+    /**
+     * Getter for shareType
+     *
+     * @return int
+     */
+    public function getShareType(): int
+    {
+        return $this->shareType;
+    }
+
+    /**
+     * Fluent setter for shareType
+     *
+     * @param int $shareType
+     *
+     * @return File
+     */
+    public function setShareType(int $shareType): File
+    {
+        $this->shareType = $shareType;
 
         return $this;
     }

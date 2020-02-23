@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace App\Repository;
 
 use App\Entity\ClassGroup;
+use App\Entity\SchoolClass;
 use App\Entity\SchoolSubject;
 use App\Entity\User;
 use DateTime;
@@ -71,15 +72,15 @@ class ReminderRepository implements Abstraction\IReminderRepository
     /**
      * @inheritDoc
      */
-    public function share(int $id, ?User $targetUser, ?ClassGroup $targetGroup = null): void
+    public function share(int $id, ?User $targetUser, ?SchoolClass $targetClass = null): void
     {
         $targetUserId = ($targetUser !== null ?? $targetUser->getId());
-        $targetGroupId = ($targetGroup !== null ?? $targetGroup->getId());
+        $targetClassId = ($targetClass !== null ?? $targetClass->getId());
 
         $this->db->withoutResult(
-            "INSERT INTO `shared_reminders`(`user_id`, `group_id`, `user_reminder_id`, `shared`) VALUES(?, ?, ?, NOW())",
+            "INSERT INTO `shared_reminders`(`user_id`, `class_id`, `user_reminder_id`, `shared`) VALUES(?, ?, ?, NOW())",
             $targetUserId,
-            $targetGroupId,
+            $targetClassId,
             $id
         );
     }

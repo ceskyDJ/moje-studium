@@ -7,13 +7,22 @@ namespace App\Entity;
 use DateTime;
 
 /**
- * Private reminder (access only to owner)
+ * Reminder (for ex. test, homework, school event)
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Entity
  */
-class PrivateReminder
+class Reminder
 {
+    /**
+     * Owner shared this with his class
+     */
+    const SHARED_WITH_CLASS = 0;
+    /**
+     * Owner shared this with logged in user
+     */
+    const SHARED_WITH_ME = 1;
+
     /**
      * @var int Identification number
      */
@@ -38,31 +47,45 @@ class PrivateReminder
      * @var \App\Entity\SchoolSubject Target subject
      */
     private SchoolSubject $subject;
+    /**
+     * @var \DateTime When was it shared?
+     */
+    private ?DateTime $shared;
+    /**
+     * @var int How is it shared with the logged in user?
+     */
+    private ?int $shareType;
 
     /**
-     * PrivateReminder constructor
+     * Reminder constructor
      *
      * @param int $id
-     * @param \App\Entity\User $user
+     * @param \App\Entity\User $owner
      * @param string $type
      * @param string $content
      * @param \DateTime $when
      * @param \App\Entity\SchoolSubject $subject
+     * @param \DateTime|null $shared
+     * @param int|null $shareType
      */
     public function __construct(
         int $id,
-        User $user,
+        User $owner,
         string $type,
         string $content,
         DateTime $when,
-        SchoolSubject $subject
+        SchoolSubject $subject,
+        ?DateTime $shared,
+        ?int $shareType
     ) {
         $this->id = $id;
-        $this->owner = $user;
+        $this->owner = $owner;
         $this->type = $type;
         $this->content = $content;
         $this->when = $when;
         $this->subject = $subject;
+        $this->shared = $shared;
+        $this->shareType = $shareType;
     }
 
     /**
@@ -80,9 +103,9 @@ class PrivateReminder
      *
      * @param int $id
      *
-     * @return PrivateReminder
+     * @return Reminder
      */
-    public function setId(int $id): PrivateReminder
+    public function setId(int $id): Reminder
     {
         $this->id = $id;
 
@@ -104,9 +127,9 @@ class PrivateReminder
      *
      * @param \App\Entity\User $owner
      *
-     * @return PrivateReminder
+     * @return Reminder
      */
-    public function setOwner(User $owner): PrivateReminder
+    public function setOwner(User $owner): Reminder
     {
         $this->owner = $owner;
 
@@ -128,9 +151,9 @@ class PrivateReminder
      *
      * @param string $type
      *
-     * @return PrivateReminder
+     * @return Reminder
      */
-    public function setType(string $type): PrivateReminder
+    public function setType(string $type): Reminder
     {
         $this->type = $type;
 
@@ -152,9 +175,9 @@ class PrivateReminder
      *
      * @param string $content
      *
-     * @return PrivateReminder
+     * @return Reminder
      */
-    public function setContent(string $content): PrivateReminder
+    public function setContent(string $content): Reminder
     {
         $this->content = $content;
 
@@ -176,9 +199,9 @@ class PrivateReminder
      *
      * @param \DateTime $when
      *
-     * @return PrivateReminder
+     * @return Reminder
      */
-    public function setWhen(DateTime $when): PrivateReminder
+    public function setWhen(DateTime $when): Reminder
     {
         $this->when = $when;
 
@@ -200,11 +223,59 @@ class PrivateReminder
      *
      * @param \App\Entity\SchoolSubject $subject
      *
-     * @return PrivateReminder
+     * @return Reminder
      */
-    public function setSubject(SchoolSubject $subject): PrivateReminder
+    public function setSubject(SchoolSubject $subject): Reminder
     {
         $this->subject = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Getter for shared
+     *
+     * @return \DateTime
+     */
+    public function getShared(): DateTime
+    {
+        return $this->shared;
+    }
+
+    /**
+     * Fluent setter for shared
+     *
+     * @param \DateTime $shared
+     *
+     * @return Reminder
+     */
+    public function setShared(DateTime $shared): Reminder
+    {
+        $this->shared = $shared;
+
+        return $this;
+    }
+
+    /**
+     * Getter for shareType
+     *
+     * @return int
+     */
+    public function getShareType(): int
+    {
+        return $this->shareType;
+    }
+
+    /**
+     * Fluent setter for shareType
+     *
+     * @param int $shareType
+     *
+     * @return Reminder
+     */
+    public function setShareType(int $shareType): Reminder
+    {
+        $this->shareType = $shareType;
 
         return $this;
     }

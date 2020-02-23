@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace App\Repository\Abstraction;
 
 use App\Entity\ClassGroup;
+use App\Entity\SchoolClass;
 use App\Entity\User;
 
 /**
@@ -43,9 +44,9 @@ interface INoteRepository
      *
      * @param int $id
      * @param \App\Entity\User|null $targetUser
-     * @param \App\Entity\ClassGroup|null $targetGroup
+     * @param \App\Entity\SchoolClass|null $targetClass
      */
-    public function share(int $id, ?User $targetUser, ?ClassGroup $targetGroup = null): void;
+    public function share(int $id, ?User $targetUser, ?SchoolClass $targetClass = null): void;
 
     /**
      * Takes up shared note for user
