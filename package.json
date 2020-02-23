@@ -10,7 +10,6 @@
     "movefonts": "cp node_modules/@ceskydj/fontawesome-pro/webfonts/* www/fonts/font-awesome"
   },
   "devDependencies": {
-    "@ceskydj/fontawesome-pro": "git+ssh://git@github.com:ceskyDJ/Font-Awesome-Pro.git",
     "browser-sync": "^2.26.7",
     "del": "^5.1.0",
     "gulp": "^4.0.2",
@@ -26,5 +25,7 @@
     "less-plugin-autoprefix": "^2.0.0",
     "vinyl-ftp": "^0.6.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@ceskydj/fontawesome-pro": "git+ssh://git@github.com:ceskyDJ/Font-Awesome-Pro.git"
+  }
 }
