@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+
+<html lang="cs">
+<head>
+    <base href="{$server->getBaseHref()}" />
+
+    <meta charset="UTF-8" />
+
+    <title>{if strstr($title, "Moje Studium")}{$title}{else}{$title} | Moje Studium{/if}</title>
+
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1" />
+
+    <meta name="description" content="{spaceless}{$description}{/spaceless}" />
+    <meta name="keywords" content="{spaceless}{$keywords}{/spaceless}" />
+
+    <meta name="author" content="Michal ŠMAHEL (ceskyDJ)" />
+
+    <link href="/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+
+<body>
+<header class="page-header">
+    <section class="page-header-section">
+        <h1 class="main-heading">Moje Studium</h1>
+
+        <div class="other-content">
+            <div class="not-logged-user-actions">
+                <a class="link-button" href="#">Přihlásit se</a>
+                <a class="link-button white-bg" href="#">Registrovat se</a>
+            </div>
+        </div>
+    </section>
+</header>
+
+
+<main class="page-content {block contentClass}{/block}">
+    {block content}{/block}
+</main>
+
+<footer class="page-footer">
+    <p class="footer-info">
+        {spaceless}
+        Jedná se o maturitní projekt (ročník 2019/2020).
+        Autorem je Michal ŠMAHEL, grafické podklady připravila Adéla VYHNÁLKOVÁ.
+        Zdrojové kódy je možné nalézl na
+        <a class="basic-link" href="https://github.com/ceskyDJ/moje-studium">Githubu</a>.
+        {/spaceless}
+    </p>
+
+    <p class="footer-contact">
+        <strong class="contact-mini-heading">Kontakt</strong>
+        <a class="contact-email" href="mailto:moje-studium@ceskydj.cz">moje-studium@ceskydj.cz</a>
+    </p>
+</footer>
+
+{block js}{/block}
+</body>
+</html>

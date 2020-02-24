@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace App\Controller;
+namespace App\Controller\Presentation;
 
 use Mammoth\Controller\Common\Controller;
 use Mammoth\DI\DIClass;
@@ -14,7 +14,7 @@ use Mammoth\Http\Factory\ResponseFactory;
  * Controller for homepage
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
- * @package App\Controller\User
+ * @package App\Controller\Presentation
  */
 class HomeController extends Controller
 {
