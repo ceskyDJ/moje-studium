@@ -1,0 +1,36 @@
+{layout $layoutView}
+
+{block content}
+    <div class="page form-page">
+        <header class="content-header">
+            <h2 class="content-heading">Přihlášení</h2>
+        </header>
+
+
+        <section class="content-container">
+            <form method="post" action="" class="app-form">
+                <div class="form-inputs">
+                    <div class="form-input-row">
+                        <label for="username" class="form-label">Přezdívka (nebo email)</label>
+                        <input name="username" type="text" id="username" class="form-input" autocomplete="username" required />
+                        {*<i class="form-input-status positive"></i>*}
+                    </div>
+                    <div class="form-input-row">
+                        <label for="password" class="form-label">Heslo</label>
+                        <input name="password" type="password" id="password" class="form-input" autocomplete="current-password" required />
+                        {*<i class="form-input-status positive"></i>*}
+                    </div>
+                </div>
+
+                <div class="form-alerts">
+                    <p class="form-alert negative">Nebyla vyplněna všechna pole.</p>
+                    <p class="form-alert positive">Byli jste úspěšně přihlášeni.</p>
+                </div>
+
+                <div class="form-control">
+                    <input type="submit" value="Přihlásit se" class="form-button" />
+                </div>
+            </form>
+        </section>
+    </div>
+{/block}
