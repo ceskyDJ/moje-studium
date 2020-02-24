@@ -26,12 +26,40 @@
         <h1 class="main-heading">Moje Studium</h1>
 
         <div class="other-content">
-            <div class="not-logged-user-actions">
-                <a class="link-button" href="/log/in">Přihlásit se</a>
-                <a class="link-button white-bg" href="/register">Registrovat se</a>
+            <div class="logged-user-info">
+                <!-- TODO: Dynamicky generované -->
+                <span class="full-name">Adéla Vyhnálková</span>
+                <span class="short-name">Adéla V.</span>
+                <span class="class">4.ER</span>
+            </div>
+
+            <div class="actions">
+                <div class="notifications">
+                    <i class="notifications-i notification-icon active" id="_show-notifications-b"></i>
+
+                    <!-- TODO: Pro otevření přidat třídu active -->
+                    <!-- TODO: Po otevření odeslat požadavek na smazání zobrazených záznamů (již přečteno) -->
+                    <div class="notifications-box">
+                        <div class="notification">Veronika Zemanová s vámi sdílela poznámku</div>
+                        <div class="notification">Veronika Zemanová s vámi sdílela upozornění</div>
+                        <!-- TODO: Dynamicky generované -->
+                    </div>
+                </div>
+                <i class="hamburger-menu-i open-close-button" id=_menu-control-b"></i>
+                <a class="action-link logout" href="/log/out">Odhlásit se</a>
             </div>
         </div>
     </section>
+
+    <nav class="page-menu">
+        <ul class="menu-list">
+            <li class="menu-item active"><a class="menu-link" href="/application">Přehled</a></li>
+            <li class="menu-item"><a class="menu-link" href="/application/reminders-and-notes/private">Moje upozornění a poznámky</a></li>
+            <li class="menu-item"><a class="menu-link" href="/application/reminders-and-notes/shared">Sdílené upozornění a poznámky</a></li>
+            <li class="menu-item"><a class="menu-link" href="/application/files/private">Moje soubory</a></li>
+            <li class="menu-item"><a class="menu-link" href="/application/files/shared">Sdílené soubory</a></li>
+        </ul>
+    </nav>
 </header>
 
 
