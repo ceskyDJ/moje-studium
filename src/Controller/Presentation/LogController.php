@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace App\Controller\Application;
+namespace App\Controller\Presentation;
 
 use Mammoth\Controller\Common\Controller;
 use Mammoth\DI\DIClass;
