@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace App\Controller\Presentation;
+namespace App\Controller\Admin;
 
 use Mammoth\Controller\Common\Controller;
 use Mammoth\DI\DIClass;
@@ -14,7 +14,7 @@ use Mammoth\Http\Factory\ResponseFactory;
  * Controller for error pages
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
- * @package App\Controller\Presentation
+ * @package App\Controller\Admin
  */
 class ErrorController extends Controller
 {
@@ -23,7 +23,7 @@ class ErrorController extends Controller
     /**
      * Layout path (error controllers are almost the same but each of them required different layout)
      */
-    private const LAYOUT_PATH = "Application/#layout";
+    private const LAYOUT_PATH = "Admin/#layout";
 
     /**
      * @inject
