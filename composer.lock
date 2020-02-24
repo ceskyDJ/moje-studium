@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a3b27b77a6e5908dd389e557f9e2e9ca",
+    "content-hash": "5760110e5fe9c12f30c1593c7334ec0b",
     "packages": [
         {
             "name": "jandrabek/tracy-gitversion-panel",
@@ -64,12 +64,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/latte.git",
-                "reference": "3f199f3882a69e820e36cfc202d4bd864ebc0ec7"
+                "reference": "944532710b3ae0ce0d4c52af0116b0065e22e594"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/latte/zipball/3f199f3882a69e820e36cfc202d4bd864ebc0ec7",
-                "reference": "3f199f3882a69e820e36cfc202d4bd864ebc0ec7",
+                "url": "https://api.github.com/repos/nette/latte/zipball/944532710b3ae0ce0d4c52af0116b0065e22e594",
+                "reference": "944532710b3ae0ce0d4c52af0116b0065e22e594",
                 "shasum": ""
             },
             "require": {
@@ -81,6 +81,7 @@
                 "nette/application": "<3.0"
             },
             "require-dev": {
+                "nette/php-generator": "^3.3.4",
                 "nette/tester": "~2.0",
                 "nette/utils": "^3.0",
                 "phpstan/phpstan": "^0.12",
@@ -89,6 +90,7 @@
             "suggest": {
                 "ext-fileinfo": "to use filter |datastream",
                 "ext-mbstring": "to use filters like lower, upper, capitalize, ...",
+                "nette/php-generator": "to use tag {templatePrint}",
                 "nette/utils": "to use filter |webalize"
             },
             "type": "library",
@@ -130,7 +132,7 @@
                 "template",
                 "twig"
             ],
-            "time": "2020-01-18T17:34:52+00:00"
+            "time": "2020-02-23T15:33:01+00:00"
         },
         {
             "name": "mammoth/mammoth",
@@ -138,12 +140,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ceskyDJ/mammoth.git",
-                "reference": "74742627e7e5726f345e16222c664a946ba1d399"
+                "reference": "d10fe01f72f1545cf6ec485e0557c4d6cbea54dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ceskyDJ/mammoth/zipball/74742627e7e5726f345e16222c664a946ba1d399",
-                "reference": "74742627e7e5726f345e16222c664a946ba1d399",
+                "url": "https://api.github.com/repos/ceskyDJ/mammoth/zipball/d10fe01f72f1545cf6ec485e0557c4d6cbea54dd",
+                "reference": "d10fe01f72f1545cf6ec485e0557c4d6cbea54dd",
                 "shasum": ""
             },
             "require": {
@@ -175,7 +177,7 @@
                 }
             ],
             "description": "Mammoth - Lightweight easy to use PHP framework",
-            "time": "2020-01-20T21:53:06+00:00"
+            "time": "2020-02-24T10:07:58+00:00"
         },
         {
             "name": "nette/caching",
@@ -183,12 +185,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/caching.git",
-                "reference": "70e57ea40b8f52bb0aa164081ed2adaed4566ed6"
+                "reference": "a7d8283cafc19c0d1823d13ee8165abdd04eb295"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/caching/zipball/70e57ea40b8f52bb0aa164081ed2adaed4566ed6",
-                "reference": "70e57ea40b8f52bb0aa164081ed2adaed4566ed6",
+                "url": "https://api.github.com/repos/nette/caching/zipball/a7d8283cafc19c0d1823d13ee8165abdd04eb295",
+                "reference": "a7d8283cafc19c0d1823d13ee8165abdd04eb295",
                 "shasum": ""
             },
             "require": {
@@ -242,7 +244,7 @@
                 "nette",
                 "sqlite"
             ],
-            "time": "2020-01-08T01:04:43+00:00"
+            "time": "2020-02-23T18:23:59+00:00"
         },
         {
             "name": "nette/database",
@@ -250,12 +252,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/database.git",
-                "reference": "08d1da8d4729fc16903b81b6f4655f8e22403591"
+                "reference": "fd7fcd6a079e20722703a4f6f9b6d37054d6e4f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/database/zipball/08d1da8d4729fc16903b81b6f4655f8e22403591",
-                "reference": "08d1da8d4729fc16903b81b6f4655f8e22403591",
+                "url": "https://api.github.com/repos/nette/database/zipball/fd7fcd6a079e20722703a4f6f9b6d37054d6e4f0",
+                "reference": "fd7fcd6a079e20722703a4f6f9b6d37054d6e4f0",
                 "shasum": ""
             },
             "require": {
@@ -315,7 +317,7 @@
                 "queries",
                 "sqlite"
             ],
-            "time": "2020-01-10T13:24:08+00:00"
+            "time": "2020-02-23T18:04:01+00:00"
         },
         {
             "name": "nette/finder",
@@ -323,12 +325,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/finder.git",
-                "reference": "9665f602616b38fa47efd10c578c30c07cca0a03"
+                "reference": "4680e64517c7a3ddaa4faf80012d81ded9aada4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/finder/zipball/9665f602616b38fa47efd10c578c30c07cca0a03",
-                "reference": "9665f602616b38fa47efd10c578c30c07cca0a03",
+                "url": "https://api.github.com/repos/nette/finder/zipball/4680e64517c7a3ddaa4faf80012d81ded9aada4b",
+                "reference": "4680e64517c7a3ddaa4faf80012d81ded9aada4b",
                 "shasum": ""
             },
             "require": {
@@ -375,7 +377,7 @@
                 "iterator",
                 "nette"
             ],
-            "time": "2020-01-07T10:47:00+00:00"
+            "time": "2020-02-23T18:11:20+00:00"
         },
         {
             "name": "nette/utils",
@@ -383,12 +385,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/utils.git",
-                "reference": "b285f258443d2462098765204a6c23a3a2615260"
+                "reference": "9d400daef4171af46eee69654d118bbfff6a35f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/utils/zipball/b285f258443d2462098765204a6c23a3a2615260",
-                "reference": "b285f258443d2462098765204a6c23a3a2615260",
+                "url": "https://api.github.com/repos/nette/utils/zipball/9d400daef4171af46eee69654d118bbfff6a35f6",
+                "reference": "9d400daef4171af46eee69654d118bbfff6a35f6",
                 "shasum": ""
             },
             "require": {
@@ -453,7 +455,7 @@
                 "utility",
                 "validation"
             ],
-            "time": "2020-01-20T19:53:12+00:00"
+            "time": "2020-02-09T14:10:55+00:00"
         },
         {
             "name": "tracy/tracy",
@@ -461,12 +463,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/tracy.git",
-                "reference": "d21d60cf8a675fb94a62073473dedfc7d972270c"
+                "reference": "344c77293038173f49678d9a95c27da6cbdbccd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/tracy/zipball/d21d60cf8a675fb94a62073473dedfc7d972270c",
-                "reference": "d21d60cf8a675fb94a62073473dedfc7d972270c",
+                "url": "https://api.github.com/repos/nette/tracy/zipball/344c77293038173f49678d9a95c27da6cbdbccd0",
+                "reference": "344c77293038173f49678d9a95c27da6cbdbccd0",
                 "shasum": ""
             },
             "require": {
@@ -526,7 +528,7 @@
                 "nette",
                 "profiler"
             ],
-            "time": "2020-01-14T13:08:44+00:00"
+            "time": "2020-02-23T18:40:15+00:00"
         }
     ],
     "packages-dev": [],

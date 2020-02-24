@@ -1,3 +1,8 @@
+{layout $layoutView}
+
+{block contentClass}without-padding{/block}
+
+{block content}
 <section class="interactive-marketing-section first">
     <object class="image-svg desktop _first-animate-block" data="img/presentation/introduction-first-interactive-image.svg" type="image/svg+xml"></object>
     <object class="image-svg mobile _first-animate-block" data="img/presentation/introduction-first-interactive-image-mobile.svg" type="image/svg+xml"></object>
@@ -119,3 +124,6 @@
         <i class="icon smile-i" id="_smile-icon"></i>
     </div>
 </section>
+{/block}
+
+{block js}<script src="/js/presentation/animations.js"></script>{/block}

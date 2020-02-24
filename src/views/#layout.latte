@@ -35,8 +35,8 @@
 </header>
 
 
-<main class="page-content without-padding">
-    {include $contentView}
+<main class="page-content {block contentClass}{/block}">
+    {block content}{/block}
 </main>
 
 <footer class="page-footer">
@@ -55,6 +55,6 @@
     </p>
 </footer>
 
-<script src="/js/presentation/animations.js"></script>
+{block js}{/block}
 </body>
 </html>
