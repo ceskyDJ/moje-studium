@@ -53,11 +53,21 @@
 
     <nav class="page-menu">
         <ul class="menu-list">
-            <li class="menu-item active"><a class="menu-link" href="/application">Přehled</a></li>
-            <li class="menu-item"><a class="menu-link" href="/application/reminders-and-notes/private">Moje upozornění a poznámky</a></li>
-            <li class="menu-item"><a class="menu-link" href="/application/reminders-and-notes/shared">Sdílené upozornění a poznámky</a></li>
-            <li class="menu-item"><a class="menu-link" href="/application/files/private">Moje soubory</a></li>
-            <li class="menu-item"><a class="menu-link" href="/application/files/shared">Sdílené soubory</a></li>
+            <li n:class="menu-item, $contentView === 'summary.latte' ? active">
+                <a class="menu-link" href="/application">Přehled</a>
+            </li>
+            <li n:class="menu-item, $contentView === 'private-reminders-and-notes.latte' ? active">
+                <a class="menu-link" href="/application/reminders-and-notes/private">Moje upozornění a poznámky</a>
+            </li>
+            <li n:class="menu-item, $contentView === 'shared-reminders-and-notes.latte' ? active">
+                <a class="menu-link" href="/application/reminders-and-notes/shared">Sdílené upozornění a poznámky</a>
+            </li>
+            <li n:class="menu-item, $contentView === 'private-files.latte' ? active">
+                <a class="menu-link" href="/application/files/private">Moje soubory</a>
+            </li>
+            <li n:class="menu-item, $contentView === 'shared-files.latte' ? active">
+                <a class="menu-link" href="/application/files/shared">Sdílené soubory</a>
+            </li>
         </ul>
     </nav>
 </header>
