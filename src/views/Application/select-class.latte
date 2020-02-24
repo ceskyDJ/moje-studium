@@ -1,0 +1,59 @@
+{layout $layoutView}
+
+{block content}
+    <div class="page form-page">
+        <header class="content-header">
+            <h2 class="content-heading">Výběr třídy</h2>
+        </header>
+
+
+        <section class="content-container">
+            <form method="post" action="#" class="app-form">
+                <p class="form-top-text">
+                    Pokud chceš využívat Moje Studium naplno, nezapomeň se přidat ke své třídě.
+                    Odemkne se ti možnost sdílení poznámek, termínů a souborů přímo se spolužáky.
+                </p>
+
+                <div class="form-inputs">
+                    <div class="form-full-width-select-row">
+                        <select name="school" class="full-width-select" title="Vyber svoji školu ze seznamu" autofocus>
+                            <option selected disabled>Vyber školu</option>
+                            <option name="1">Střední průmyslová škola elektrotechnická a Vyšší odborná škola Pardubice</option>
+                            <option name="2">SUPŠ Helenín</option>
+                            <!-- TODO: Automatické generování -->
+                        </select>
+
+                        <p class="form-descriptive-text">Tvoje škola není v seznamu? <a href="#" class="basic-link">Kontaktuj nás!</a></p>
+                    </div>
+                </div>
+                <div class="form-inputs">
+                    <div class="form-full-width-select-row">
+                        <select name="class" class="full-width-select" title="Vyber svoji třídu ze seznamu" autofocus>
+                            <option selected disabled>Vyber třídu</option>
+                            <option name="1">4.F (od 2016/17)</option>
+                            <option name="2">3.C (od 2017/18)</option>
+                            <!-- TODO: Automatické generování -->
+                        </select>
+
+                        <p class="form-descriptive-text">Nevidíš svoji třídu? Neváhej a <a href="#" class="basic-link">přidej ji!</a></p>
+                    </div>
+                </div>
+
+                <p class="form-bottom-text">
+                    Po odeslání formuláře se zeptáme třídy, kterou jsi vybral/a, jestli k ní patříš.
+                    Po potvrzení žádosti můžeš začít využívat nových funkcí.
+                </p>
+
+                <div class="form-alerts">
+                    <p class="form-alert negative">Nebyla vyplněna všechna pole.</p>
+                    <p class="form-alert positive">Tvá žádost o přidání do třídy byla úspěšně odeslána.</p>
+                </div>
+
+                <div class="form-control">
+                    <a href="#" class="form-button secondary">Nechci vybírat svou třídu</a>
+                    <input type="submit" value="Hotovo" class="form-button" />
+                </div>
+            </form>
+        </section>
+    </div>
+{/block}
