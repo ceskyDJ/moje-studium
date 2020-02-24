@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace App\Controller\User;
+namespace App\Controller\Application;
 
 use Mammoth\Controller\Common\Controller;
 use Mammoth\DI\DIClass;
@@ -14,7 +14,7 @@ use Mammoth\Http\Factory\ResponseFactory;
  * Controller for log-* operations (log-in, log-out)
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
- * @package App\Controller\User
+ * @package App\Controller\Application
  */
 class LogController extends Controller
 {
