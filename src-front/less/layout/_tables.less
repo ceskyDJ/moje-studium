@@ -343,6 +343,56 @@
         }
       }
     }
+
+    &.file-name-typing {
+      border: 2px solid @light-grey;
+      background: @light-grey;
+
+      .action,
+      .action-group,
+      .file-name {
+        display: none;
+      }
+
+      .file-name-form {
+        display: flex;
+        justify-content: space-between;
+
+        .file-name-form-input {
+          background: none;
+          border: none;
+          color: @dark-grey;
+        }
+
+        .file-name-form-button {
+          margin-right: .5em;
+        }
+      }
+    }
   }
 }
-// ENd spravce souboru
+// END spravce souboru
+
+
+// START nahravani souboru
+.file-uploading {
+  .file-row {
+    td {
+      padding: .4em 0;
+
+      &.type {
+        width: 1.2em;
+        padding-right: .7em;
+      }
+
+      &.file-name {
+        width: 100%;
+      }
+
+      &.progress {
+        width: 5em;
+      }
+    }
+  }
+}
+// END nahravani souboru

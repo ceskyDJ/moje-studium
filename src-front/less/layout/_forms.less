@@ -248,6 +248,48 @@
         margin-top: .2em;
       }
     }
+
+    .file-tree {
+      .folder {
+        margin-left: 2em;
+        border-left: 2px solid @light-grey;
+
+        .folder-name {
+          padding: .1em .3em;
+
+          &.previous-location {
+            font-weight: bold;
+          }
+        }
+
+        input:checked + .folder-name {
+          background: @light-green;
+        }
+      }
+    }
+
+    .form-file-input-dropdown {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      border: 2px dashed @light-grey;
+      height: 10em;
+
+      .form-file-input-label {
+        color: @dark-green;
+        .uppercase();
+        font-weight: bold;
+        margin-bottom: .4em;
+        margin-top: auto;
+      }
+
+      .dropdown-legend {
+        margin-top: auto;
+        text-align: center;
+        color: @light-grey;
+      }
+    }
   }
 
   .form-alerts {

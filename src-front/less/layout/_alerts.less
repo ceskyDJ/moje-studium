@@ -41,6 +41,15 @@
   .alert-header {
     background: @light-grey;
     padding: .3em 1em;
+    position: relative;
+    display: flex;
+
+    .tools {
+      position: absolute;
+      right: 1em;
+      color: @dark-green;
+      cursor: pointer;
+    }
   }
 
   .alert-content {
