@@ -17,7 +17,11 @@ use Tracy\Debugger;
 // Class autoloading
 require_once __DIR__.'/../vendor/autoload.php';
 
-Debugger::enable(Debugger::DEBUG);
+// Start Tracy before everything else
+// Unfortunately it hasn't been configured yet but there could be only bad
+// config file address specified
+// If Tracy can't write log, it'll be caused by this problem, probably
+Debugger::enable();
 
 // Configs and auto run services
 session_start();
@@ -26,12 +30,15 @@ mb_internal_encoding("UTF-8");
 // Create config manager and configure Tracy
 $configurator = new Configurator(__DIR__, "config/base-config.ini", "config/local-config.ini");
 
+// Enable Tracy
+$configurator->enableTracy("admin@ceskydj.cz");
+
 // DI container
 $container = $configurator->createContainer();
 
-// Start additional services
-$configurator->enableTracy($container); // Tracy
+// Start and port configure additional services
 $configurator->enableLoader($container); // Class auto-loader
+$configurator->setupAdditionalTracySettings($container); // Tracy
 
 // Some dependencies required to start application
 /**

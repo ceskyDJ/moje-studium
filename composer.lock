@@ -140,12 +140,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ceskyDJ/mammoth.git",
-                "reference": "d10fe01f72f1545cf6ec485e0557c4d6cbea54dd"
+                "reference": "f90dc3325bcf56dc3074cea012d533f27f7bf0ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ceskyDJ/mammoth/zipball/d10fe01f72f1545cf6ec485e0557c4d6cbea54dd",
-                "reference": "d10fe01f72f1545cf6ec485e0557c4d6cbea54dd",
+                "url": "https://api.github.com/repos/ceskyDJ/mammoth/zipball/f90dc3325bcf56dc3074cea012d533f27f7bf0ac",
+                "reference": "f90dc3325bcf56dc3074cea012d533f27f7bf0ac",
                 "shasum": ""
             },
             "require": {
@@ -177,7 +177,7 @@
                 }
             ],
             "description": "Mammoth - Lightweight easy to use PHP framework",
-            "time": "2020-02-24T10:07:58+00:00"
+            "time": "2020-02-24T15:08:16+00:00"
         },
         {
             "name": "nette/caching",
