@@ -1,0 +1,186 @@
+{layout $layoutView}
+
+{block contentClass}two-columns my-reminders-notes{/block}
+
+{block content}
+    <div class="page with-toolbar">
+        <div class="week-switch toolbar">
+            <i class="simple-arrow-left-i icon-button" id="_previous-week-b"></i>
+            <span class="week" id="_actual-week">Tento týden</span>
+            <i class="simple-arrow-right-i icon-button" id="_next-week-b"></i>
+        </div>
+
+        <div class="toolbar-page-content my-content left-content">
+            <header class="content-header">
+                <div class="tools">
+                    <i class="add-i"></i>
+                </div>
+                <h2 class="content-heading">Moje upozornění</h2>
+            </header>
+
+            <section class="content-container">
+                <div class="day-row">
+                    <span class="date">Po 14. 5.</span>
+                    <div class="record-container">
+                        <div class="record-row">
+                            <span class="subject school-subject">ČJL</span>
+                            <span class="type"><i class="homework-i"></i></span>
+                            <span class="description">Přečíst ukázku z učebnice na str. 68</span>
+                        </div>
+                        <div class="record-row">
+                            <span class="subject school-subject">FAR</span>
+                            <span class="type"><i class="test-i"></i></span>
+                            <span class="description">Malířství, Fotografie</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="day-row">
+                    <span class="date">Út 15. 5.</span>
+                    <div class="record-container">
+                        <div class="record-row">
+                            <span class="subject school-subject">DVK</span>
+                            <span class="type"><i class="homework-i"></i></span>
+                            <span class="description">Prezentace - Edouard Manet</span>
+                        </div>
+                        <div class="record-row">
+                            <span class="subject school-subject">DVK</span>
+                            <span class="type"><i class="test-i"></i></span>
+                            <span class="description">Renesanční malba v Itálii, Renesanční sloh v ostatní Evropě</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="day-row">
+                    <span class="date">St 16. 5.</span>
+                    <div class="record-container"></div>
+                </div>
+                <div class="day-row">
+                    <span class="date">Čt 17. 5.</span>
+                    <div class="record-container">
+                        <div class="record-row">
+                            <span class="subject school-subject"></span>
+                            <span class="type"><i class="school-event-i"></i></span>
+                            <span class="description">Divadlo - Romeo a Julie</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="day-row">
+                    <span class="date">Pá 18. 5.</span>
+                    <div class="record-container">
+                        <div class="record-row">
+                            <span class="subject school-subject">EKO</span>
+                            <span class="type"><i class="test-i"></i></span>
+                            <span class="description">Marketing</span>
+                        </div>
+                        <div class="record-row">
+                            <span class="subject school-subject">ANJ</span>
+                            <span class="type"><i class="test-i"></i></span>
+                            <span class="description">Slovíčka 6. lekce</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- TODO: Pro zobrazení odstranit třídu hide -->
+        <div class="alert-external-container hide">
+            <!-- TODO: Pro zobrazení odstranit třídu hide -->
+            <div class="alert-box hide">
+                <header class="alert-header">
+                    <h3 class="alert-heading">Přidání upozornění</h3>
+                    <h3 class="alert-heading hide">Editace upozornění</h3>
+                </header>
+
+                <section class="alert-content">
+                    <form class="alert-form">
+                        <div class="form-inputs">
+                            <div class="form-input-group">
+                                <div class="form-calendar-input _calendar-container">
+                                    <input type="text" name="when" class="form-input _calendar-input" title="Jakého data se upozornění týká?" placeholder="Po 14. 5." />
+                                    <i class="calendar-i form-calendar-button _open-calendar"></i>
+                                    <div class="form-calendar _calendar"></div>
+                                </div>
+
+                                <select name="subject" class="form-select school-subject" title="Vyberte předmět, na který je upozornění vázáno">
+                                    <!-- TODO: automaticky generované -->
+                                    <option value="1" selected>ČJL</option>
+                                    <option value="1">DVK</option>
+                                    <option value="1">FAR</option>
+                                    <option value="1">ANJ</option>
+                                </select>
+
+                                <select name="type" class="form-select icon-chooser _icon-chooser" title="Vyberte typ upozornění (zkouška, domácí práce, školní akce)">
+                                    <option value="test" selected class="form-select-option test-option" data-color="">&#xf872;&emsp; Zkouška</option>
+                                    <option value="homework" class="form-select-option homework-option" data-color="">&#xf02d; &emsp; Domácí úkol</option>
+                                    <option value="school-event" class="form-select-option school-event-option" data-color="">&#xf5dd;&emsp; Školní akce</option>
+                                </select>
+                            </div>
+
+                            <textarea name="content" class="form-textarea" title="Sem napište obsah upozornění" placeholder="Přečíst ukázku z učebnice na str. 68"></textarea>
+                        </div>
+
+                        <div class="form-alerts">
+                            <p class="form-alert negative">Nebyla vyplněna všechna pole.</p>
+                        </div>
+
+                        <div class="form-control">
+                            <input type="submit" value="Přidat" class="form-button alert" />
+                            <input type="submit" value="Uložit" class="form-button alert hide" />
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div class="page my-content right-content">
+        <header class="content-header">
+            <div class="tools">
+                <i class="add-i"></i>
+            </div>
+            <h2 class="content-heading">Moje poznámky</h2>
+        </header>
+
+        <section class="content-container">
+            <div class="content-row">
+                <p>Od 16. 9. nosit sbírku Petáková</p>
+            </div>
+            <div class="content-row">
+                <p>SRPŠ bude nejspíše ve středu 6. 11.</p>
+            </div>
+            <div class="content-row">
+                <p>Příští týden (4. 11. až 8. 11.) mám službu - dávat pozor na mytí tabule a nošení pomůcek</p>
+            </div>
+            <div class="content-row">
+                <p>27. 11. bude přednáškový den. Bylo by dobré sehnat nějakého řečníka. Nápady: někdo z ITnetwork, Karel z Freela</p>
+            </div>
+        </section>
+
+        <!-- TODO: Pro zobrazení odstranit třídu hide -->
+        <div class="alert-external-container hide">
+            <!-- TODO: Pro zobrazení odstranit třídu hide -->
+            <div class="alert-box hide">
+                <header class="alert-header">
+                    <h3 class="alert-heading">Přidání poznámky</h3>
+                    <h3 class="alert-heading hide">Editace poznámky</h3>
+                </header>
+
+                <section class="alert-content">
+                    <form class="alert-form">
+                        <div class="form-inputs">
+                            <textarea name="note" class="form-textarea" title="Sem napište svoji poznámku" placeholder="Od 16. 9. nosit sbírku Petáková"></textarea>
+                        </div>
+
+                        <div class="form-alerts">
+                            <p class="form-alert negative">Nebyla vyplněna všechna pole.</p>
+                        </div>
+
+                        <div class="form-control">
+                            <input type="submit" value="Přidat" class="form-button alert" />
+                            <input type="submit" value="Uložit" class="form-button alert hide" />
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+{/block}
