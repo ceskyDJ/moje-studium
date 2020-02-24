@@ -9,7 +9,7 @@
       position: relative;
 
       &:not(:last-child) {
-        border-bottom: 2px solid @light-grey;
+        border-bottom: 2px solid @middle-grey;
       }
     }
 
@@ -18,7 +18,7 @@
     }
 
     .form-label {
-      border-right: 2px solid @light-grey;
+      border-right: 2px solid @middle-grey;
       display: block;
       white-space: nowrap;
       font-size: @font-s - .01;
@@ -66,7 +66,7 @@
       left: @label-w;
       top: .4em;
       margin-left: @input-p;
-      color: @light-grey;
+      color: @middle-grey;
 
       .select-button {
         cursor: pointer;
@@ -98,7 +98,7 @@
 
   .full-width-select {
     background: @white;
-    border: 2px solid @light-grey;
+    border: 2px solid @middle-grey;
     padding: .2em .15em .25em .15em;
     color: @dark-grey;
     width: 100%;
@@ -106,7 +106,7 @@
 
     option {
       color: @dark-grey;
-      background: @light-grey;
+      background: @middle-grey;
       font-weight: bold;
 
       &:disabled {
@@ -175,14 +175,14 @@
 
     .form-textarea {
       width: 100%;
-      border: 2px solid @light-grey;
+      border: 2px solid @middle-grey;
       resize: none;
       height: 7em;
       color: @text-c;
       padding: @input-p;
 
       &::placeholder {
-        color: darken(@placeholder-c, 10%);
+        color: @placeholder-c;
       }
     }
 
@@ -190,15 +190,15 @@
       .uppercase();
       color: @text-c;
       padding: .2em @input-p;
-      border: 2px solid @light-grey;
+      border: 2px solid @middle-grey;
 
       &::placeholder {
-        color: darken(@placeholder-c, 10%);
+        color: @placeholder-c;
       }
     }
 
     .form-select {
-      &:extend(.alert-form .form-inputs .form-input);
+      &:extend(.alert-form .form-inputs .form-input all);
 
       background: @white;
       padding: .2em @input-p - .2em;
@@ -252,7 +252,7 @@
     .file-tree {
       .folder {
         margin-left: 2em;
-        border-left: 2px solid @light-grey;
+        border-left: 2px solid @middle-grey;
 
         .folder-name {
           padding: .1em .3em;
@@ -273,7 +273,7 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      border: 2px dashed @light-grey;
+      border: 2px dashed @middle-grey;
       height: 10em;
 
       .form-file-input-label {
@@ -287,7 +287,7 @@
       .dropdown-legend {
         margin-top: auto;
         text-align: center;
-        color: @light-grey;
+        color: @middle-grey;
       }
     }
   }
