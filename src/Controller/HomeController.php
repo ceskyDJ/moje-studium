@@ -30,8 +30,15 @@ class HomeController extends Controller
      */
     public function defaultAction(Request $request): Response
     {
-        $response = $this->responseFactory->create($request)->setContentView("home");
-
-        return $response;
+        return $this->responseFactory->create($request)->setContentView("home")->setDescription(
+            "Webová aplikace slouží jako pomocník žáků středních škol a studentů vysokých škol.
+                Po registraci umožňuje vstup do portálu daného žáka/studenta,
+                kam si může ukládat školní soubory či poznámky různého druhu
+                (písemné práce, testy, domácí úkoly, školní akce a jiné).
+                Tato data může následně sdílet se spolužáky v rámci třídy nebo s konkrétními uživateli."
+        )->setKeywords(
+            "portál, žák, student, střední škola, vysoká škola, studium, soubor, poznámka, sdílení,
+            test, písemná práce, domácí úkol, školní akce"
+        )->setTitle("Moje Studium - věrný pomocník ke studiu");
     }
 }
