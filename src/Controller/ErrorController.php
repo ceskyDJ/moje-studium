@@ -62,7 +62,7 @@ class ErrorController extends Controller
     {
         $response = $this->responseFactory->create($request);
 
-        return $response->setLayoutView("error-403");
+        return $response->setContentView("error-403");
     }
 
     /**
