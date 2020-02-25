@@ -4,13 +4,15 @@ declare(strict_types = 1);
 
 namespace App\Entity;
 
+use Mammoth\Security\Entity\IRank;
+
 /**
  * Rank (permission group) for user
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Entity
  */
-class Rank
+class Rank implements IRank
 {
     /**
      * @var int Identification number
@@ -109,5 +111,13 @@ class Rank
         $this->permissionLevel = $permissionLevel;
 
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getType(): int
+    {
+        return $this->getPermissionLevel();
     }
 }

@@ -4,13 +4,20 @@ declare(strict_types = 1);
 
 namespace App\Entity;
 
+use Mammoth\Security\Entity\IRank;
+use Mammoth\Security\Entity\IUser;
+use Mammoth\Security\Entity\UserData;
+use function dump;
+use function get_object_vars;
+use function in_array;
+
 /**
  * User of the system
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Entity
  */
-class User
+class User implements IUser
 {
     /**
      * @var int Identification number
@@ -98,11 +105,11 @@ class User
     /**
      * Getter for id
      *
-     * @return int
+     * @return string
      */
-    public function getId(): int
+    public function getId(): string
     {
-        return $this->id;
+        return (string)$this->id;
     }
 
     /**
@@ -333,5 +340,39 @@ class User
         $this->profileImageColor = $profileImageColor;
 
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getProperties(): array
+    {
+        if ($this->class !== null) {
+            $properties = [new UserData("class", $this->class->getName())];
+        } else {
+            $properties = [];
+        }
+        
+        $properties[] = new UserData("first-name", $this->firstName);
+        $properties[] = new UserData("last-name", $this->lastName);
+        $properties[] = new UserData("email", $this->email);
+        
+        return $properties;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getProperty(string $name): ?UserData
+    {
+        return ($this->getProperties()[$name] ?? null);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isLoggedIn(): bool
+    {
+        return ($this->getRank()->getPermissionLevel() !== IRank::VISITOR);
     }
 }
