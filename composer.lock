@@ -64,12 +64,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/latte.git",
-                "reference": "944532710b3ae0ce0d4c52af0116b0065e22e594"
+                "reference": "53960f1255f9bde1f6ade43bf6b411eeda5348c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/latte/zipball/944532710b3ae0ce0d4c52af0116b0065e22e594",
-                "reference": "944532710b3ae0ce0d4c52af0116b0065e22e594",
+                "url": "https://api.github.com/repos/nette/latte/zipball/53960f1255f9bde1f6ade43bf6b411eeda5348c3",
+                "reference": "53960f1255f9bde1f6ade43bf6b411eeda5348c3",
                 "shasum": ""
             },
             "require": {
@@ -132,7 +132,7 @@
                 "template",
                 "twig"
             ],
-            "time": "2020-02-23T15:33:01+00:00"
+            "time": "2020-02-25T11:36:22+00:00"
         },
         {
             "name": "mammoth/mammoth",
@@ -140,12 +140,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ceskyDJ/mammoth.git",
-                "reference": "f90dc3325bcf56dc3074cea012d533f27f7bf0ac"
+                "reference": "c6892bf797b86022ae756623423eeebe6b1e1bec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ceskyDJ/mammoth/zipball/f90dc3325bcf56dc3074cea012d533f27f7bf0ac",
-                "reference": "f90dc3325bcf56dc3074cea012d533f27f7bf0ac",
+                "url": "https://api.github.com/repos/ceskyDJ/mammoth/zipball/c6892bf797b86022ae756623423eeebe6b1e1bec",
+                "reference": "c6892bf797b86022ae756623423eeebe6b1e1bec",
                 "shasum": ""
             },
             "require": {
@@ -177,7 +177,7 @@
                 }
             ],
             "description": "Mammoth - Lightweight easy to use PHP framework",
-            "time": "2020-02-24T15:08:16+00:00"
+            "time": "2020-02-25T13:04:35+00:00"
         },
         {
             "name": "nette/caching",
