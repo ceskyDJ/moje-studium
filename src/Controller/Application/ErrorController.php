@@ -57,7 +57,8 @@ class ErrorController extends Controller
         $response = $this->responseFactory->create($request);
 
         return $response->setContentView("../error-404")
-            ->setLayoutView(self::LAYOUT_PATH);
+            ->setLayoutView(self::LAYOUT_PATH)
+            ->setTitle("Stránka nenalezena");
     }
 
     /**
@@ -69,7 +70,8 @@ class ErrorController extends Controller
         $response = $this->responseFactory->create($request);
 
         return $response->setContentView("../error-403")
-            ->setLayoutView(self::LAYOUT_PATH);
+            ->setLayoutView(self::LAYOUT_PATH)
+            ->setTitle("Přístup zamítnut");
     }
 
     /**
@@ -81,6 +83,7 @@ class ErrorController extends Controller
         $response = $this->responseFactory->create($request);
 
         return $response->setContentView("../error-500")
-            ->setLayoutView(self::LAYOUT_PATH);
+            ->setLayoutView(self::LAYOUT_PATH)
+            ->setTitle("Systémová chyba");
     }
 }
