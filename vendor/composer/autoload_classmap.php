@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'JsonException' => $vendorDir . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
     'Latte\\CompileException' => $vendorDir . '/latte/latte/src/Latte/exceptions.php',
     'Latte\\Compiler' => $vendorDir . '/latte/latte/src/Latte/Compiler/Compiler.php',
     'Latte\\Engine' => $vendorDir . '/latte/latte/src/Latte/Engine.php',
@@ -141,6 +142,7 @@ return array(
     'Nette\\Utils\\Strings' => $vendorDir . '/nette/utils/src/Utils/Strings.php',
     'Nette\\Utils\\UnknownImageFileException' => $vendorDir . '/nette/utils/src/Utils/exceptions.php',
     'Nette\\Utils\\Validators' => $vendorDir . '/nette/utils/src/Utils/Validators.php',
+    'Normalizer' => $vendorDir . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
     'Tracy\\Bar' => $vendorDir . '/tracy/tracy/src/Tracy/Bar/Bar.php',
     'Tracy\\BlueScreen' => $vendorDir . '/tracy/tracy/src/Tracy/BlueScreen/BlueScreen.php',
     'Tracy\\Bridges\\Nette\\Bridge' => $vendorDir . '/tracy/tracy/src/Bridges/Nette/Bridge.php',

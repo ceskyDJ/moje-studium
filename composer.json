@@ -5,7 +5,8 @@
     "require": {
         "php": ">=7.4",
         "mammoth/mammoth": "dev-master",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "ext-pdo": "*"
     },
     "license": "MIT",
     "authors": [

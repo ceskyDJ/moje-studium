@@ -1,0 +1,4 @@
+[submodule "vim/bundle/nerdtree"]
+  path = vendor/ocramius/package-versions
+  url = https://github.com/Ocramius/PackageVersions.git
+  ignore = dirty

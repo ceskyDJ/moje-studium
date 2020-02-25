@@ -40,17 +40,23 @@ $container = $configurator->createContainer();
 $configurator->enableLoader($container); // Class auto-loader
 $configurator->setupAdditionalTracySettings($container); // Tracy
 
-// Some dependencies required to start application
-/**
- * @var $runner SystemController
- * @noinspection PhpUnhandledExceptionInspection Class is typing manually and verified by IDE
- */
-$runner = $container->getInstance(SystemController::class);
-/**
- * @var $requestFactory RequestFactory
- * @noinspection PhpUnhandledExceptionInspection Class is typing manually and verified by IDE
- */
-$requestFactory = $container->getInstance(RequestFactory::class);
+// Application running
+// Cli can't have these things activated
+if ($configurator->isCli() === false) {
+    // Some dependencies required to start application
+    /**
+     * @var $runner SystemController
+     * @noinspection PhpUnhandledExceptionInspection Class is typing manually and verified by IDE
+     */
+    $runner = $container->getInstance(SystemController::class);
+    /**
+     * @var $requestFactory RequestFactory
+     * @noinspection PhpUnhandledExceptionInspection Class is typing manually and verified by IDE
+     */
+    $requestFactory = $container->getInstance(RequestFactory::class);
 
-// Start application
-$runner->startSystem($requestFactory->create());
+    $request = $requestFactory->create();
+
+    // Start application
+    $runner->startSystem($request);
+}
