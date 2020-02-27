@@ -27,22 +27,21 @@
 
         <div class="other-content">
             <div class="logged-user-info">
-                <!-- TODO: Dynamicky generované -->
-                <span class="full-name">Adéla Vyhnálková</span>
-                <span class="short-name">Adéla V.</span>
-                <span class="class">4.ER</span>
+                <span class="full-name">{$user->getData()->getFullName()}</span>
+                <span class="short-name">{$user->getData()->getShortName()}</span>
+                <span class="class" n:if="$user->getClass() !== null">{$user->getClass()->getName()}</span>
             </div>
 
             <div class="actions">
                 <div class="notifications">
-                    <i class="notifications-i notification-icon active" id="_show-notifications-b"></i>
+                    <i n:class="notifications-i, notification-icon, $user->getNotifications()->isEmpty() === false ? active" id="_show-notifications-b"></i>
 
-                    <!-- TODO: Pro otevření přidat třídu active -->
-                    <!-- TODO: Po otevření odeslat požadavek na smazání zobrazených záznamů (již přečteno) -->
-                    <div class="notifications-box">
-                        <div class="notification">Veronika Zemanová s vámi sdílela poznámku</div>
-                        <div class="notification">Veronika Zemanová s vámi sdílela upozornění</div>
-                        <!-- TODO: Dynamicky generované -->
+                    {* TODO: Po otevření odeslat požadavek na smazání zobrazených záznamů (již přečteno) *}
+                    <div class="notifications-box" id="_notifications-box">
+                        <div class="notification" n:foreach="$user->getNotifications() as $notification">{$notification->getFinalText()}</div>
+                        {if $user->getNotifications()->isEmpty()}
+                        <div class="notification">Nemáte žádné notifikace</div>
+                        {/if}
                     </div>
                 </div>
                 <i class="hamburger-menu-i open-close-button" id=_menu-control-b"></i>
@@ -93,9 +92,10 @@
     </p>
 </footer>
 
-<!-- TODO: Pro aktivaci odebrat třídu hide -->
+{* TODO: Pro aktivaci odebrat třídu hide *}
 <div class="alert-container hide"></div>
 
 {block js}{/block}
+<script src="/js/application/header-animations.js"></script>
 </body>
 </html>

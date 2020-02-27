@@ -5,6 +5,10 @@ declare(strict_types = 1);
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use function array_reduce;
+use function explode;
+use function mb_strtoupper;
+use function mb_substr;
 
 /**
  * User's personal information
@@ -46,6 +50,34 @@ class UserData
      * @var \App\Entity\User Owner of there information
      */
     private User $user;
+
+    /**
+     * Returns full name in short form
+     *
+     * @return string First name + first letter of full name with dot
+     */
+    public function getShortName(): string
+    {
+        // Last name can contains more names (include middle names)
+        $lastNameParts = explode(" ", $this->lastName);
+
+        $shortLastName = array_reduce(
+            $lastNameParts,
+            fn($result, $item) => $result .= mb_strtoupper(mb_substr($item, 0, 1))."."
+        );
+
+        return "{$this->firstName} {$shortLastName}";
+    }
+
+    /**
+     * Returns full name
+     *
+     * @return string Full name (first and last name concat)
+     */
+    public function getFullName(): string
+    {
+        return "{$this->firstName} {$this->lastName}";
+    }
 
     public function getUsername(): string
     {

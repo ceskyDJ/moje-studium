@@ -42,8 +42,12 @@
           position: relative;
           z-index: @mini-alert-zi;
 
-          .notification-icon.active {
-            color: @red;
+          .notification-icon {
+            cursor: pointer;
+
+            &.active {
+              color: @red;
+            }
           }
 
           .notifications-box {
