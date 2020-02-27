@@ -45,12 +45,12 @@ class DBUserRepository implements Abstraction\IUserRepository
     public function getByUsernameOrEmail(string $usernameOrEmail): ?User
     {
         $query = $this->em->createQuery(/** @lang DQL */ "
-            SELECT u FROM User u JOIN UserData d WHERE d.email = :email OR d.username = :username
+            SELECT u FROM App\Entity\User u JOIN App\Entity\UserData d WHERE d.email = :email OR d.username = :username
         ");
         $query->setParameter("email", $usernameOrEmail);
         $query->setParameter("username", $usernameOrEmail);
 
-        return $query->getResult();
+        return $query->getOneOrNullResult();
     }
 
     /**

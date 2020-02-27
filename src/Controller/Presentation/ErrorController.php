@@ -23,7 +23,7 @@ class ErrorController extends Controller
     /**
      * Layout path (error controllers are almost the same but each of them required different layout)
      */
-    private const LAYOUT_PATH = "Application/#layout";
+    private const LAYOUT_PATH = "Presentation/#layout";
 
     /**
      * @inject

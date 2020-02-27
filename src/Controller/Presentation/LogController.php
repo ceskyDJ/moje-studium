@@ -4,11 +4,15 @@ declare(strict_types = 1);
 
 namespace App\Controller\Presentation;
 
+use App\Model\UserManager;
 use Mammoth\Controller\Common\Controller;
 use Mammoth\DI\DIClass;
 use Mammoth\Http\Entity\Request;
 use Mammoth\Http\Entity\Response;
 use Mammoth\Http\Factory\ResponseFactory;
+use Mammoth\Url\Abstraction\IRouter;
+use Mammoth\Url\Abstraction\IUrlManager;
+use function bdump;
 
 /**
  * Controller for log-* operations (log-in, log-out)
@@ -24,6 +28,18 @@ class LogController extends Controller
      * @inject
      */
     private ResponseFactory $responseFactory;
+    /**
+     * @inject
+     */
+    private UserManager $userManager;
+    /**
+     * @inject
+     */
+    private IRouter $router;
+    /**
+     * @inject
+     */
+    private IUrlManager $urlManager;
 
     /**
      * @inheritDoc
@@ -42,8 +58,17 @@ class LogController extends Controller
      */
     public function inAction(Request $request): Response
     {
-        return $this->responseFactory->create($request)->setContentView("log-in")
-            ->setTitle("Přihlášení uživatele");
+        if ($_POST) {
+            if ($this->userManager->logIn($_POST['username'], $_POST['password']) === true) {
+                $summaryPage = $request->getParsedUrl()->setComponent("application")->setController(null)->setAction(
+                        null
+                    )->setData(null);
+
+                $this->router->route($summaryPage);
+            }
+        }
+
+        return $this->responseFactory->create($request)->setContentView("log-in")->setTitle("Přihlášení uživatele");
     }
 
     /**
@@ -55,6 +80,13 @@ class LogController extends Controller
      */
     public function outAction(Request $request): Response
     {
-        return $this->responseFactory->create($request);
+        $this->userManager->logOutUserFromSystem();
+
+        $presentation = $request->getParsedUrl()->setComponent(null)->setController(null)->setAction(null)->setData(
+            null);
+
+        $this->router->route($presentation);
+
+        exit;
     }
 }
