@@ -46,7 +46,7 @@ class SharedFile
     private ?SchoolClass $targetClass;
     /**
      * @ORM\ManyToOne(targetEntity="PrivateFile", inversedBy="sharedFiles")
-     * @ORM\JoinColumn(name="user_file_id", referencedColumnName="user_file_id")
+     * @ORM\JoinColumn(name="user_file_id", referencedColumnName="user_file_id", nullable=false)
      * @var \App\Entity\PrivateFile File for sharing
      */
     private PrivateFile $file;

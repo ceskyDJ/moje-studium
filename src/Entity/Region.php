@@ -35,7 +35,7 @@ class Region
     private string $name;
     /**
      * @ORM\ManyToOne(targetEntity="Country", inversedBy="regions")
-     * @ORM\JoinColumn(name="country_id", referencedColumnName="country_id")
+     * @ORM\JoinColumn(name="country_id", referencedColumnName="country_id", nullable=false)
      * @var \App\Entity\Country Country, where the region is
      */
     private Country $country;

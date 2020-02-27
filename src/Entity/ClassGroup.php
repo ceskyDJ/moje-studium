@@ -35,7 +35,7 @@ class ClassGroup
     private string $name;
     /**
      * @ORM\ManyToOne(targetEntity="SchoolClass", inversedBy="groups")
-     * @ORM\JoinColumn(name="class_id", referencedColumnName="class_id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="class_id", referencedColumnName="class_id", nullable=false, onDelete="CASCADE")
      * @var \App\Entity\SchoolClass School class, where the group comes from
      */
     private SchoolClass $class;

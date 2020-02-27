@@ -29,13 +29,13 @@ class Notification
     private int $id;
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="notifications")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id", nullable=false, onDelete="CASCADE")
      * @var \App\Entity\User User that the notification is for
      */
     private User $user;
     /**
      * @ORM\ManyToOne(targetEntity="NotificationText", inversedBy="notifications")
-     * @ORM\JoinColumn(name="notification_text_id", referencedColumnName="notification_text_id")
+     * @ORM\JoinColumn(name="notification_text_id", referencedColumnName="notification_text_id", nullable=false)
      * @var \App\Entity\NotificationText Text (possible with variables to replace for)
      */
     private NotificationText $text;

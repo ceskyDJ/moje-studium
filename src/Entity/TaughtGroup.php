@@ -28,19 +28,19 @@ class TaughtGroup
     private int $id;
     /**
      * @ORM\ManyToOne(targetEntity="ClassGroup", inversedBy="taughtGroups")
-     * @ORM\JoinColumn(name="group_id", referencedColumnName="group_id")
+     * @ORM\JoinColumn(name="group_id", referencedColumnName="group_id", nullable=false)
      * @var \App\Entity\ClassGroup Class group (specific part of class)
      */
     private ClassGroup $group;
     /**
      * @ORM\ManyToOne(targetEntity="SchoolSubject", inversedBy="taughtGroups")
-     * @ORM\JoinColumn(name="subject_id", referencedColumnName="subject_id")
+     * @ORM\JoinColumn(name="subject_id", referencedColumnName="subject_id", nullable=false)
      * @var \App\Entity\SchoolSubject Subject
      */
     private SchoolSubject $subject;
     /**
      * @ORM\ManyToOne(targetEntity="Teacher", inversedBy="taughtGroups")
-     * @ORM\JoinColumn(name="teacher_id", referencedColumnName="teacher_id")
+     * @ORM\JoinColumn(name="teacher_id", referencedColumnName="teacher_id", nullable=false)
      * @var \App\Entity\Teacher Teacher
      */
     private Teacher $teacher;

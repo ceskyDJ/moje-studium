@@ -33,7 +33,7 @@ class PrivateNote
     private string $content;
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="privateNotes")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id", nullable=false, onDelete="CASCADE")
      * @var \App\Entity\User Owner
      */
     private User $owner;

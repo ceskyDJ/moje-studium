@@ -31,7 +31,7 @@ class UserData
     private string $email;
     /**
      * @var string First name
-     * ORM\Column(name="first_name", type="string", length=35, nullable=false, options={  })
+     * @ORM\Column(name="first_name", type="string", length=35, nullable=false, options={  })
      */
     private string $firstName;
     /**

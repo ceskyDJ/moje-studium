@@ -44,7 +44,7 @@ class LoginToken
     private bool $valid;
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="tokens")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id", nullable=false, onDelete="CASCADE")
      * @var \App\Entity\User User that the token has been created for
      */
     private User $user;

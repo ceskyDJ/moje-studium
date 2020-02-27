@@ -49,7 +49,7 @@ class SharedNote
     private ?SchoolClass $targetClass;
     /**
      * @ORM\ManyToOne(targetEntity="PrivateNote", inversedBy="sharedNotes")
-     * @ORM\JoinColumn(name="user_note_id", referencedColumnName="user_note_id")
+     * @ORM\JoinColumn(name="user_note_id", referencedColumnName="user_note_id", nullable=false)
      * @var \App\Entity\PrivateNote Note for sharing
      */
     private PrivateNote $note;

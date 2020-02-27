@@ -31,8 +31,7 @@ class PrivateReminder
     private int $id;
     /**
      * @var string Type (homework, school-event, test)
-     * @ORM\Column(name="type", type="string", length=8, columnDefinition="ENUM('test', 'homework', 'school-event')",
-     *     nullable=false, options={  })
+     * @ORM\Column(name="type", type="string", length=8, columnDefinition="ENUM('test', 'homework', 'school-event') NOT NULL", options={  })
      */
     private string $type;
     /**
@@ -47,13 +46,13 @@ class PrivateReminder
     private DateTime $when;
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="privateReminders")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id", nullable=false, onDelete="CASCADE")
      * @var \App\Entity\User Owner (creator)
      */
     private User $owner;
     /**
      * @ORM\ManyToOne(targetEntity="SchoolSubject", inversedBy="userReminders")
-     * @ORM\JoinColumn(name="subject_id", referencedColumnName="subject_id")
+     * @ORM\JoinColumn(name="subject_id", referencedColumnName="subject_id", nullable=false)
      * @var \App\Entity\SchoolSubject Target subject
      */
     private SchoolSubject $subject;

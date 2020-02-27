@@ -18,4 +18,6 @@ $entityManager = $container->getInstance(EntityManager::class);
 $doctrineConnection = $entityManager->getConnection();
 
 // Type mappings
-$doctrineConnection->getDatabasePlatform()->registerDoctrineTypeMapping("enum", "string");
+$databasePlatform = $doctrineConnection->getDatabasePlatform();
+$databasePlatform->registerDoctrineTypeMapping("enum", "string");
+$databasePlatform->registerDoctrineTypeMapping("year", "smallint");

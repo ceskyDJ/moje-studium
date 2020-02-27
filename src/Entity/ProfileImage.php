@@ -23,7 +23,7 @@ class ProfileImage
     private string $color;
     /**
      * @ORM\ManyToOne(targetEntity="ProfileIcon", inversedBy="profileImages")
-     * @ORM\JoinColumn(name="profile_icon_id", referencedColumnName="profile_icon_id")
+     * @ORM\JoinColumn(name="profile_icon_id", referencedColumnName="profile_icon_id", nullable=false)
      * @var \App\Entity\ProfileIcon Chosen icon
      */
     private ProfileIcon $icon;

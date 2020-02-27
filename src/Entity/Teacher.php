@@ -55,7 +55,7 @@ class Teacher
     private string $shortcut;
     /**
      * @ORM\ManyToOne(targetEntity="SchoolClass", inversedBy="teachers")
-     * @ORM\JoinColumn(name="class_id", referencedColumnName="class_id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="class_id", referencedColumnName="class_id", nullable=false, onDelete="CASCADE")
      * @var \App\Entity\SchoolClass Class where the teacher teaches
      */
     private SchoolClass $class;

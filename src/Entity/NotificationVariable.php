@@ -36,7 +36,7 @@ class NotificationVariable
     private string $content;
     /**
      * @ORM\ManyToOne(targetEntity="Notification", inversedBy="variables")
-     * @ORM\JoinColumn(name="notification_id", referencedColumnName="notification_id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="notification_id", referencedColumnName="notification_id", nullable=false, onDelete="CASCADE")
      * @var \App\Entity\Notification In which notification
      */
     private Notification $notification;

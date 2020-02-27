@@ -45,7 +45,7 @@ class School
     private string $city;
     /**
      * @ORM\ManyToOne(targetEntity="Country", inversedBy="schools")
-     * @ORM\JoinColumn(name="country_id", referencedColumnName="country_id")
+     * @ORM\JoinColumn(name="country_id", referencedColumnName="country_id", nullable=false)
      * @var \App\Entity\Country Address: country
      */
     private Country $country;

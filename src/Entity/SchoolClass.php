@@ -35,7 +35,7 @@ class SchoolClass
     private string $name;
     /**
      * @var int Start year in the school - when it began
-     * @ORM\Column(name="start_year", type="smallint", length=4, columnDefinition="YEAR", nullable=false, options={  })
+     * @ORM\Column(name="start_year", type="smallint", length=4, columnDefinition="YEAR NOT NULL", options={  })
      */
     private int $startYear;
     /**
@@ -45,7 +45,7 @@ class SchoolClass
     private int $studyLength;
     /**
      * @ORM\ManyToOne(targetEntity="School", inversedBy="classes")
-     * @ORM\JoinColumn(name="school_id", referencedColumnName="school_id")
+     * @ORM\JoinColumn(name="school_id", referencedColumnName="school_id", nullable=false)
      * @var \App\Entity\School School, in what the class is
      */
     private School $school;

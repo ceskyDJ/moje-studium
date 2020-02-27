@@ -41,7 +41,7 @@ class SchoolSubject
     private string $shortcut;
     /**
      * @ORM\ManyToOne(targetEntity="SchoolClass", inversedBy="subjects")
-     * @ORM\JoinColumn(name="class_id", referencedColumnName="class_id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="class_id", referencedColumnName="class_id", nullable=false, onDelete="CASCADE")
      * @var \App\Entity\SchoolClass Class that has the subject
      */
     private SchoolClass $class;

@@ -49,13 +49,13 @@ class Lesson
     private int $dayOfWeek;
     /**
      * @ORM\ManyToOne(targetEntity="Classroom", inversedBy="lessons")
-     * @ORM\JoinColumn(name="classroom_id", referencedColumnName="classroom_id")
+     * @ORM\JoinColumn(name="classroom_id", referencedColumnName="classroom_id", nullable=false)
      * @var \App\Entity\Classroom Classroom
      */
     private Classroom $classroom;
     /**
      * @ORM\ManyToOne(targetEntity="TaughtGroup", inversedBy="lessons")
-     * @ORM\JoinColumn(name="taught_group_id", referencedColumnName="taught_group_id")
+     * @ORM\JoinColumn(name="taught_group_id", referencedColumnName="taught_group_id", nullable=false)
      * @var \App\Entity\TaughtGroup Connection of teacher, subject and class group
      */
     private TaughtGroup $taughtGroup;

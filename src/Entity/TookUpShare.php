@@ -26,7 +26,7 @@ class TookUpShare
     private int $id;
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="tookUpShares")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id", nullable=false, onDelete="CASCADE")
      * @var \App\Entity\User User owns the shared (but no original) note or reminder
      */
     private User $user;

@@ -48,7 +48,7 @@ class SharedReminder
     private ?SchoolClass $targetClass;
     /**
      * @ORM\ManyToOne(targetEntity="PrivateReminder", inversedBy="sharedReminders")
-     * @ORM\JoinColumn(name="user_reminder_id", referencedColumnName="user_reminder_id")
+     * @ORM\JoinColumn(name="user_reminder_id", referencedColumnName="user_reminder_id", nullable=false)
      * @var \App\Entity\PrivateReminder Reminder for sharing
      */
     private PrivateReminder $reminder;

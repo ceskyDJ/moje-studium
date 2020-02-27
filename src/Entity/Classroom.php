@@ -38,7 +38,7 @@ class Classroom
     private ?string $description;
     /**
      * @ORM\ManyToOne(targetEntity="SchoolClass", inversedBy="classrooms")
-     * @ORM\JoinColumn(name="class_id", referencedColumnName="class_id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="class_id", referencedColumnName="class_id", nullable=false, onDelete="CASCADE")
      * @var \App\Entity\SchoolClass Class that is taught in the classroom
      */
     private SchoolClass $class;

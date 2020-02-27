@@ -45,7 +45,7 @@ class PrivateFile
     private bool $folder;
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="privateFiles")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id", nullable=false, onDelete="CASCADE")
      * @var \App\Entity\User Owner
      */
     private User $owner;

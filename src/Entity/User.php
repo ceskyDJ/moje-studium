@@ -36,7 +36,7 @@ class User implements IUser
     private string $password;
     /**
      * @ORM\ManyToOne(targetEntity="Rank", inversedBy="users")
-     * @ORM\JoinColumn(name="rank_id", referencedColumnName="rank_id")
+     * @ORM\JoinColumn(name="rank_id", referencedColumnName="rank_id", nullable=false)
      * @var \App\Entity\Rank Rank
      */
     private Rank $rank;
@@ -54,9 +54,9 @@ class User implements IUser
     private Collection $notifications;
     /**
      * @ORM\OneToOne(targetEntity="ProfileImage", mappedBy="user")
-     * @var \App\Entity\ProfileImage
+     * @var \App\Entity\ProfileImage|null
      */
-    private ProfileImage $profileImage;
+    private ?ProfileImage $profileImage;
     /**
      * @ORM\OneToMany(targetEntity="SharedFile", mappedBy="targetUser")
      * @var \Doctrine\Common\Collections\Collection<\App\Entity\SharedFile>
