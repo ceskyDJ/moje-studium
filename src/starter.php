@@ -40,6 +40,9 @@ $container = $configurator->createContainer();
 $configurator->enableLoader($container); // Class auto-loader
 $configurator->setupAdditionalTracySettings($container); // Tracy
 
+// Configure Doctrine (own types etc.)
+require_once __DIR__.'/doctrine-config.php';
+
 // Application running
 // Cli can't have these things activated
 if ($configurator->isCli() === false) {
