@@ -4,7 +4,9 @@ declare(strict_types = 1);
 
 namespace App\Repository;
 
-use Mammoth\Database\DB;
+use App\Entity\Country;
+use Doctrine\ORM\EntityManager;
+use Mammoth\DI\DIClass;
 
 /**
  * Class CountryRepository
@@ -14,8 +16,23 @@ use Mammoth\Database\DB;
  */
 class CountryRepository implements Abstraction\ICountryRepository
 {
+    use DIClass;
+
     /**
      * @inject
      */
-    private DB $db;
+    private EntityManager $em;
+
+    /**
+     * @inheritDoc
+     */
+    public function getById(int $id): Country
+    {
+        /**
+         * @var $country Country
+         */
+        $country = $this->em->find(Country::class, $id);
+
+        return $country;
+    }
 }

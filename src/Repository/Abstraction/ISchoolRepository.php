@@ -6,6 +6,7 @@ namespace App\Repository\Abstraction;
 
 use App\Entity\Country;
 use App\Entity\Region;
+use App\Entity\School;
 
 /**
  * Interface ISchoolRepository
@@ -15,6 +16,15 @@ use App\Entity\Region;
  */
 interface ISchoolRepository
 {
+    /**
+     * Finds school by its ID
+     *
+     * @param int $id
+     *
+     * @return \App\Entity\School
+     */
+    public function getById(int $id): School;
+
     /**
      * Adds new school
      *

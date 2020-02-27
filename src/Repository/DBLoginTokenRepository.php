@@ -4,8 +4,10 @@ declare(strict_types = 1);
 
 namespace App\Repository;
 
+use App\Entity\LoginToken;
 use App\Entity\User;
-use Mammoth\Database\DB;
+use Doctrine\ORM\EntityManager;
+use Mammoth\DI\DIClass;
 
 /**
  * Class LoginTokenRepository
@@ -15,21 +17,36 @@ use Mammoth\Database\DB;
  */
 class LoginTokenRepository implements Abstraction\ILoginTokenRepository
 {
+    use DIClass;
+
     /**
      * @inject
      */
-    private DB $db;
+    private EntityManager $em;
+
+    /**
+     * @inheritDoc
+     */
+    public function getById(int $id): LoginToken
+    {
+        /**
+         * @var $token LoginToken
+         */
+        $token = $this->em->find(LoginToken::class, $id);
+
+        return $token;
+    }
 
     /**
      * @inheritDoc
      */
     public function add(User $user, string $content): void
     {
-        $this->db->withoutResult(
-            "INSERT INTO `tokens`(`user_id`, `token`, `created`) VALUES(?, ?, NOW())",
-            $user->getId(),
-            $content
-        );
+        $token = new LoginToken;
+        $token->setUser($user)->setContent($content);
+
+        $this->em->persist($token);
+        $this->em->flush();
     }
 
     /**
@@ -37,6 +54,9 @@ class LoginTokenRepository implements Abstraction\ILoginTokenRepository
      */
     public function deactivate(int $id): void
     {
-        $this->db->withoutResult("UPDATE `tokens` SET `valid` = FALSE WHERE `token_id` = ?", $id);
+        $token = $this->getById($id);
+        $token->setValid(false);
+
+        $this->em->flush();
     }
 }

@@ -5,7 +5,9 @@ declare(strict_types = 1);
 namespace App\Repository;
 
 use App\Entity\SchoolClass;
-use Mammoth\Database\DB;
+use App\Entity\Teacher;
+use Doctrine\ORM\EntityManager;
+use Mammoth\DI\DIClass;
 
 /**
  * Class TeacherRepository
@@ -15,25 +17,47 @@ use Mammoth\Database\DB;
  */
 class TeacherRepository implements Abstraction\ITeacherRepository
 {
+    use DIClass;
+
     /**
      * @inject
      */
-    private DB $db;
+    private EntityManager $em;
 
     /**
      * @inheritDoc
      */
-    public function add(SchoolClass $class, string $firstName, string $lastName, string $degreeBefore, string $degreeAfter, string $shortcut): void
+    public function getById(int $id): Teacher
     {
-        $this->db->withoutResult(
-            "INSERT INTO `teachers`(`class_id`, `first_name`, `last_name`, `degree_before`, `degree_after`, `shortcut`) VALUES(?, ?, ?, ?, ?, ?)",
-            $class,
-            $firstName,
-            $lastName,
-            $degreeBefore,
-            $degreeAfter,
-            $shortcut
-        );
+        /**
+         * @var $teacher Teacher
+         */
+        $teacher = $this->em->find(Teacher::class, $id);
+
+        return $teacher;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function add(
+        SchoolClass $class,
+        string $firstName,
+        string $lastName,
+        string $degreeBefore,
+        string $degreeAfter,
+        string $shortcut
+    ): void {
+        $teacher = new Teacher;
+        $teacher->setClass($class)
+            ->setFirstName($firstName)
+            ->setLastName($lastName)
+            ->setDegreeBefore($degreeBefore)
+            ->setDegreeAfter($degreeAfter)
+            ->setShortcut($shortcut);
+
+        $this->em->persist($teacher);
+        $this->em->flush();
     }
 
     /**
@@ -41,6 +65,7 @@ class TeacherRepository implements Abstraction\ITeacherRepository
      */
     public function delete(int $id): void
     {
-        $this->db->withoutResult("DELETE FROM `teachers` WHERE `teacher_id` = ?", $id);
+        $this->em->remove($this->getById($id));
+        $this->em->flush();
     }
 }

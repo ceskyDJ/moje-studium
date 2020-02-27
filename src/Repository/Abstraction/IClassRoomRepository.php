@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace App\Repository\Abstraction;
 
+use App\Entity\Classroom;
 use App\Entity\SchoolClass;
 
 /**
@@ -14,6 +15,15 @@ use App\Entity\SchoolClass;
  */
 interface IClassRoomRepository
 {
+    /**
+     * Finds classroom by its ID
+     *
+     * @param int $id
+     *
+     * @return \App\Entity\Classroom
+     */
+    public function getById(int $id): Classroom;
+
     /**
      * Adds new classroom
      *

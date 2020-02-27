@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace App\Repository\Abstraction;
 
 use App\Entity\Classroom;
+use App\Entity\Lesson;
 use App\Entity\TaughtGroup;
 use DateTime;
 
@@ -17,12 +18,21 @@ use DateTime;
 interface ILessonRepository
 {
     /**
+     * Finds lesson by its ID
+     *
+     * @param int $id
+     *
+     * @return \App\Entity\Lesson
+     */
+    public function getById(int $id): Lesson;
+
+    /**
      * Adds new lesson
      *
      * @param int $timetablePosition
      * @param \DateTime $from
      * @param \DateTime $to
-     * @param string $dayOfWeek
+     * @param int $dayOfWeek
      * @param \App\Entity\Classroom $classroom
      * @param \App\Entity\TaughtGroup $taughtGroup
      */
@@ -30,7 +40,7 @@ interface ILessonRepository
         int $timetablePosition,
         DateTime $from,
         DateTime $to,
-        string $dayOfWeek,
+        int $dayOfWeek,
         Classroom $classroom,
         TaughtGroup $taughtGroup
     ): void;
@@ -49,7 +59,7 @@ interface ILessonRepository
      * @param int $timetablePosition
      * @param \DateTime $from
      * @param \DateTime $to
-     * @param string $dayOfWeek
+     * @param int $dayOfWeek
      * @param \App\Entity\Classroom $classroom
      * @param \App\Entity\TaughtGroup $taughtGroup
      */
@@ -58,7 +68,7 @@ interface ILessonRepository
         int $timetablePosition,
         DateTime $from,
         DateTime $to,
-        string $dayOfWeek,
+        int $dayOfWeek,
         Classroom $classroom,
         TaughtGroup $taughtGroup
     ): void;

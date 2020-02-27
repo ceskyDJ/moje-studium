@@ -6,7 +6,10 @@ namespace App\Repository;
 
 use App\Entity\Rank;
 use App\Entity\SchoolClass;
-use Mammoth\Database\DB;
+use App\Entity\User;
+use App\Entity\UserData;
+use Doctrine\ORM\EntityManager;
+use Mammoth\DI\DIClass;
 
 /**
  * Class UserRepository
@@ -16,10 +19,39 @@ use Mammoth\Database\DB;
  */
 class UserRepository implements Abstraction\IUserRepository
 {
+    use DIClass;
+
     /**
      * @inject
      */
-    private DB $db;
+    private EntityManager $em;
+
+    /**
+     * @inheritDoc
+     */
+    public function getById(int $id): User
+    {
+        /**
+         * @var $user User
+         */
+        $user = $this->em->find(User::class, $id);
+
+        return $user;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getByUsernameOrEmail(string $usernameOrEmail): ?User
+    {
+        $query = $this->em->createQuery(/** @lang DQL */ "
+            SELECT u FROM User u JOIN UserData d WHERE d.email = :email OR d.username = :username
+        ");
+        $query->setParameter("email", $usernameOrEmail);
+        $query->setParameter("username", $usernameOrEmail);
+
+        return $query->getResult();
+    }
 
     /**
      * @inheritDoc
@@ -32,22 +64,20 @@ class UserRepository implements Abstraction\IUserRepository
         string $lastName,
         string $email
     ): void {
-        $this->db->withoutResult(
-            "INSERT INTO `users`(`username`, `password`, `rank_id`) VALUES(?, ?, ?)",
-            $username,
-            $password,
-            $rank->getId()
+        $user = new User;
+        $user->setPassword($password)->setRank($rank);
+
+        $this->em->persist($user);
+
+        $data = new UserData;
+        $data->setUser($user)->setUsername($username)->setEmail($email)->setFirstName($firstName)->setLastName(
+            $lastName
         );
 
-        $id = $this->db->getLastId();
+        $user->setData($data);
 
-        $this->db->withoutResult(
-            "INSERT INTO `user_data`(`user_id`, `first_name`, `last_name`, `email`) VALUES(?, ?, ?, ?)",
-            $id,
-            $firstName,
-            $lastName,
-            $email
-        );
+        $this->em->persist($data);
+        $this->em->flush();
     }
 
     /**
@@ -55,7 +85,8 @@ class UserRepository implements Abstraction\IUserRepository
      */
     public function delete(int $id): void
     {
-        $this->db->withoutResult("DELETE FROM `users` WHERE `user_id` = ?", $id);
+        $this->em->remove($this->getById($id));
+        $this->em->flush();
     }
 
     /**
@@ -70,14 +101,16 @@ class UserRepository implements Abstraction\IUserRepository
         string $firstName,
         string $lastName,
         string $email
-    ): void {
-        $classId = ($class !== null ?? $class->getId());
+    ): void
+    {
+        $user = $this->getById($id);
+        $user->setPassword($password)->setRank($rank);
 
-        $this->db->withoutResult(
-            "
-                UPDATE `users` SET users.`username` = ?, users.`password` = ?, users.`rank_id` = ?, users.`class_id` = ? WHERE users.`user_id` = ?;
-                UPDATE `user_data` SET `first_name` = ?, `last_name` = ?, `email` = ? WHERE `user_id` = ?
-            ",
-            $username, $password, $rank->getId(), $class->getId(), $classId, $id, $firstName, $lastName, $email, $id);
+        $data = $user->getData();
+        $data->setUser($user)->setUsername($username)->setEmail($email)->setFirstName($firstName)->setLastName(
+            $lastName
+        );
+
+        $this->em->flush();
     }
 }

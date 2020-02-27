@@ -4,10 +4,12 @@ declare(strict_types = 1);
 
 namespace App\Repository;
 
+use App\Entity\Notification;
 use App\Entity\NotificationText;
+use App\Entity\NotificationVariable;
 use App\Entity\User;
-use Mammoth\Database\DB;
-use function trim;
+use Doctrine\ORM\EntityManager;
+use Mammoth\DI\DIClass;
 
 /**
  * Class NotificationRepository
@@ -17,39 +19,45 @@ use function trim;
  */
 class NotificationRepository implements Abstraction\INotificationRepository
 {
+    use DIClass;
+
     /**
      * @inject
      */
-    private DB $db;
+    private EntityManager $em;
+
+    /**
+     * @inheritDoc
+     */
+    public function getById(int $id): Notification
+    {
+        /**
+         * @var $notification Notification
+         */
+        $notification = $this->em->find(Notification::class, $id);
+
+        return $notification;
+    }
 
     /**
      * @inheritDoc
      */
     public function add(User $user, NotificationText $text, array $variables): void
     {
-        $this->db->withoutResult(
-            "INSERT INTO `notifications`(`user_id`, `notification_text_id`) VALUES(?, ?)",
-            $user,
-            $text->getId()
-        );
+        $notification = new Notification;
+        $notification->setUser($user)->setText($text);
 
-        $notificationId = $this->db->getLastId();
+        $this->em->persist($notification);
 
-        $addVariablesSql = "";
-        $addVariablesData = [];
         foreach ($variables as $name => $value) {
-            $addVariablesSql .= "(?, ?, ?), ";
-            $addVariablesData[] = $name;
-            $addVariablesData[] = $value;
-            $addVariablesData[] = $notificationId;
+            $variable = new NotificationVariable;
+            $variable->setName($name)->setContent($value)->setNotification($notification);
+
+            $this->em->persist($variable);
+            $notification->addNotificationVariable($variable);
         }
 
-        $addVariablesSql = trim($addVariablesSql, ", ");
-
-        $this->db->withoutResult(
-            "INSERT INTO `notification_variables`(`variable`, `content`, `notification_id`) VALUES ({$addVariablesSql})",
-            $addVariablesData
-        );
+        $this->em->flush();
     }
 
     /**
@@ -57,6 +65,7 @@ class NotificationRepository implements Abstraction\INotificationRepository
      */
     public function delete(int $id): void
     {
-        $this->db->withoutResult("DELETE FROM `notifications` WHERE `notification_id` = ?", $id);
+        $this->em->remove($this->getById($id));
+        $this->em->flush();
     }
 }

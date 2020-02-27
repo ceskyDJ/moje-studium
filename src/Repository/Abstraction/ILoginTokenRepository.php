@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace App\Repository\Abstraction;
 
+use App\Entity\LoginToken;
 use App\Entity\User;
 
 /**
@@ -14,6 +15,15 @@ use App\Entity\User;
  */
 interface ILoginTokenRepository
 {
+    /**
+     * Finds login token by its ID
+     *
+     * @param int $id
+     *
+     * @return \App\Entity\LoginToken
+     */
+    public function getById(int $id): LoginToken;
+
     /**
      * Adds new login token
      *

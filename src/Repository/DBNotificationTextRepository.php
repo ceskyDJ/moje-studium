@@ -4,7 +4,9 @@ declare(strict_types = 1);
 
 namespace App\Repository;
 
-use Mammoth\Database\DB;
+use App\Entity\NotificationText;
+use Doctrine\ORM\EntityManager;
+use Mammoth\DI\DIClass;
 
 /**
  * Class NotificationTextRepository
@@ -14,8 +16,23 @@ use Mammoth\Database\DB;
  */
 class NotificationTextRepository implements Abstraction\INotificationTextRepository
 {
+    use DIClass;
+
     /**
      * @inject
      */
-    private DB $db;
+    private EntityManager $em;
+
+    /**
+     * @inheritDoc
+     */
+    public function getById(int $id): NotificationText
+    {
+        /**
+         * @var $notificationText NotificationText
+         */
+        $notificationText = $this->em->find(NotificationText::class, $id);
+
+        return $notificationText;
+    }
 }

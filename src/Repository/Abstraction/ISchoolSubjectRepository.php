@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace App\Repository\Abstraction;
 
 use App\Entity\SchoolClass;
+use App\Entity\SchoolSubject;
 
 /**
  * Repository for school subjects
@@ -14,6 +15,15 @@ use App\Entity\SchoolClass;
  */
 interface ISchoolSubjectRepository
 {
+    /**
+     * Finds school subject by its ID
+     *
+     * @param int $id
+     *
+     * @return \App\Entity\SchoolSubject
+     */
+    public function getById(int $id): SchoolSubject;
+
     /**
      * Adds new school subject
      *

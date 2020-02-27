@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace App\Repository\Abstraction;
 
+use App\Entity\Notification;
 use App\Entity\NotificationText;
 use App\Entity\User;
 
@@ -15,6 +16,15 @@ use App\Entity\User;
  */
 interface INotificationRepository
 {
+    /**
+     * Finds notification by its ID
+     *
+     * @param int $id
+     *
+     * @return \App\Entity\Notification
+     */
+    public function getById(int $id): Notification;
+
     /**
      * Adds new notification
      *

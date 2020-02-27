@@ -6,8 +6,10 @@ namespace App\Repository;
 
 use App\Entity\ClassGroup;
 use App\Entity\SchoolSubject;
+use App\Entity\TaughtGroup;
 use App\Entity\Teacher;
-use Mammoth\Database\DB;
+use Doctrine\ORM\EntityManager;
+use Mammoth\DI\DIClass;
 
 /**
  * Class TaughtGroupRepository
@@ -17,22 +19,36 @@ use Mammoth\Database\DB;
  */
 class TaughtGroupRepository implements Abstraction\ITaughtGroupRepository
 {
+    use DIClass;
+
     /**
      * @inject
      */
-    private DB $db;
+    private EntityManager $em;
+
+    /**
+     * @inheritDoc
+     */
+    public function getById(int $id): TaughtGroup
+    {
+        /**
+         * @var $taughtGroup TaughtGroup
+         */
+        $taughtGroup = $this->em->find(TaughtGroup::class, $id);
+
+        return $taughtGroup;
+    }
 
     /**
      * @inheritDoc
      */
     public function add(ClassGroup $group, SchoolSubject $subject, Teacher $teacher): void
     {
-        $this->db->withoutResult(
-            "INSERT INTO `taught_groups`(`group_id`, `subject_id`, `teacher_id`) VALUES(?, ?, ?)",
-            $group->getId(),
-            $subject->getId(),
-            $teacher->getId()
-        );
+        $taughtGroup = new TaughtGroup;
+        $taughtGroup->setGroup($group)->setSubject($subject)->setTeacher($teacher);
+
+        $this->em->persist($taughtGroup);
+        $this->em->flush();
     }
 
     /**
@@ -40,6 +56,7 @@ class TaughtGroupRepository implements Abstraction\ITaughtGroupRepository
      */
     public function delete(int $id): void
     {
-        $this->db->withoutResult("DELETE FROM `taught_groups` WHERE `taught_group_id` = ?", $id);
+        $this->em->remove($this->getById($id));
+        $this->em->flush();
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace App\Repository\Abstraction;
 
 use App\Entity\SchoolClass;
+use App\Entity\Teacher;
 
 /**
  * Repository for teachers
@@ -14,6 +15,15 @@ use App\Entity\SchoolClass;
  */
 interface ITeacherRepository
 {
+    /**
+     * Finds teacher by its ID
+     *
+     * @param int $id
+     *
+     * @return \App\Entity\Teacher
+     */
+    public function getById(int $id): Teacher;
+
     /**
      * Adds new teacher
      *

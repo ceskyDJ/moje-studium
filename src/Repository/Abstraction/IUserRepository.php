@@ -6,6 +6,7 @@ namespace App\Repository\Abstraction;
 
 use App\Entity\Rank;
 use App\Entity\SchoolClass;
+use App\Entity\User;
 
 /**
  * Repository for users
@@ -16,10 +17,28 @@ use App\Entity\SchoolClass;
 interface IUserRepository
 {
     /**
+     * Finds user by its ID
+     *
+     * @param int $id
+     *
+     * @return \App\Entity\User
+     */
+    public function getById(int $id): User;
+
+    /**
+     * Finds user by its username or email
+     *
+     * @param string $usernameOrEmail Username or email (combined input)
+     *
+     * @return \App\Entity\User|null User entity if the credentials are OK or null if not
+     */
+    public function getByUsernameOrEmail(string $usernameOrEmail): ?User;
+
+    /**
      * Adds new user
      *
      * @param string $username
-     * @param string $password
+     * @param string $password Password (hash form)
      * @param \App\Entity\Rank $rank
      * @param string $firstName
      * @param string $lastName

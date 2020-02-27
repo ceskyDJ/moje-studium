@@ -4,9 +4,10 @@ declare(strict_types = 1);
 
 namespace App\Repository\Abstraction;
 
-use App\Entity\ClassGroup;
+use App\Entity\PrivateReminder;
 use App\Entity\SchoolClass;
 use App\Entity\SchoolSubject;
+use App\Entity\SharedReminder;
 use App\Entity\User;
 use DateTime;
 
@@ -18,6 +19,24 @@ use DateTime;
  */
 interface IReminderRepository
 {
+    /**
+     * Finds private reminder by its ID
+     *
+     * @param int $id
+     *
+     * @return \App\Entity\PrivateReminder
+     */
+    public function getById(int $id): PrivateReminder;
+
+    /**
+     * Finds shared reminder by its ID
+     *
+     * @param int $id
+     *
+     * @return \App\Entity\SharedReminder
+     */
+    public function getSharedById(int $id): SharedReminder;
+
     /**
      * Adds new reminder
      *

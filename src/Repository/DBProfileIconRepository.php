@@ -4,7 +4,9 @@ declare(strict_types = 1);
 
 namespace App\Repository;
 
-use Mammoth\Database\DB;
+use App\Entity\ProfileIcon;
+use Doctrine\ORM\EntityManager;
+use Mammoth\DI\DIClass;
 
 /**
  * Class ProfileIconRepository
@@ -14,8 +16,23 @@ use Mammoth\Database\DB;
  */
 class ProfileIconRepository implements Abstraction\IProfileIconRepository
 {
+    use DIClass;
+
     /**
      * @inject
      */
-    private DB $db;
+    private EntityManager $em;
+
+    /**
+     * @inheritDoc
+     */
+    public function getById(int $id): ProfileIcon
+    {
+        /**
+         * @var $profileIcon ProfileIcon
+         */
+        $profileIcon = $this->em->find(ProfileIcon::class, $id);
+
+        return $profileIcon;
+    }
 }

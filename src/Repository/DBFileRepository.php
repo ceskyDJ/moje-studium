@@ -4,10 +4,12 @@ declare(strict_types = 1);
 
 namespace App\Repository;
 
-use App\Entity\ClassGroup;
+use App\Entity\PrivateFile;
 use App\Entity\SchoolClass;
+use App\Entity\SharedFile;
 use App\Entity\User;
-use Mammoth\Database\DB;
+use Doctrine\ORM\EntityManager;
+use Mammoth\DI\DIClass;
 
 /**
  * Class FileRepository
@@ -17,23 +19,49 @@ use Mammoth\Database\DB;
  */
 class FileRepository implements Abstraction\IFileRepository
 {
+    use DIClass;
+
     /**
      * @inject
      */
-    private DB $db;
+    private EntityManager $em;
+
+    /**
+     * @inheritDoc
+     */
+    public function getById(int $id): PrivateFile
+    {
+        /**
+         * @var $file PrivateFile
+         */
+        $file = $this->em->find(PrivateFile::class, $id);
+
+        return $file;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSharedById(int $id): SharedFile
+    {
+        /**
+         * @var $sharedFile SharedFile
+         */
+        $sharedFile = $this->em->find(SharedFile::class, $id);
+
+        return $sharedFile;
+    }
 
     /**
      * @inheritDoc
      */
     public function add(User $owner, string $name, string $path, bool $folder): void
     {
-        $this->db->withoutResult(
-            "INSERT INTO `user_files`(`user_id`, `name`, `path`, `folder`) VALUES(?, ?, ?, ?)",
-            $owner->getId(),
-            $name,
-            $path,
-            $folder
-        );
+        $file = new PrivateFile;
+        $file->setOwner($owner)->setName($name)->setPath($path)->setFolder($folder);
+
+        $this->em->persist($file);
+        $this->em->flush();
     }
 
     /**
@@ -41,7 +69,8 @@ class FileRepository implements Abstraction\IFileRepository
      */
     public function delete(int $id): void
     {
-        $this->db->withoutResult("DELETE FROM `user_files` WHERE `user_file_id` = ?", $id);
+        $this->em->remove($this->getById($id));
+        $this->em->flush();
     }
 
     /**
@@ -49,12 +78,10 @@ class FileRepository implements Abstraction\IFileRepository
      */
     public function edit(int $id, string $name, string $path): void
     {
-        $this->db->withoutResult(
-            "UPDATE `user_files` SET `name` = ?, `path` = ? WHERE `user_file_id` = ?",
-            $name,
-            $path,
-            $id
-        );
+        $file = $this->getById($id);
+        $file->setName($name)->setPath($path);
+
+        $this->em->flush();
     }
 
     /**
@@ -62,14 +89,10 @@ class FileRepository implements Abstraction\IFileRepository
      */
     public function share(int $id, ?User $targetUser, ?SchoolClass $targetClass = null): void
     {
-        $targetUserId = ($targetUser !== null ?? $targetUser->getId());
-        $targetClassId = ($targetClass !== null ?? $targetClass->getId());
+        $sharedFile = new SharedFile;
+        $sharedFile->setFile($this->getById($id))->setTargetUser($targetUser)->setTargetClass($targetClass);
 
-        $this->db->withoutResult(
-            "INSERT INTO `shared_files`(`user_id`, `class_id`, `user_file_id`, `shared`) VALUES(?, ?, ?, NOW())",
-            $targetUserId,
-            $targetClassId,
-            $id
-        );
+        $this->em->persist($sharedFile);
+        $this->em->flush();
     }
 }

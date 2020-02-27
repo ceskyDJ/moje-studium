@@ -5,7 +5,9 @@ declare(strict_types = 1);
 namespace App\Repository;
 
 use App\Entity\SchoolClass;
-use Mammoth\Database\DB;
+use App\Entity\SchoolSubject;
+use Doctrine\ORM\EntityManager;
+use Mammoth\DI\DIClass;
 
 /**
  * Class SchoolSubjectRepository
@@ -15,22 +17,36 @@ use Mammoth\Database\DB;
  */
 class SchoolSubjectRepository implements Abstraction\ISchoolSubjectRepository
 {
+    use DIClass;
+
     /**
      * @inject
      */
-    private DB $db;
+    private EntityManager $em;
+
+    /**
+     * @inheritDoc
+     */
+    public function getById(int $id): SchoolSubject
+    {
+        /**
+         * @var $subject SchoolSubject
+         */
+        $subject = $this->em->find(SchoolSubject::class, $id);
+
+        return $subject;
+    }
 
     /**
      * @inheritDoc
      */
     public function add(SchoolClass $class, string $name, string $shortcut): void
     {
-        $this->db->withoutResult(
-            "INSERT INTO `subjects`(`class_id`, `name`, `shortcut`) VALUES(?, ?, ?)",
-            $class->getId(),
-            $name,
-            $shortcut
-        );
+        $subject = new SchoolSubject;
+        $subject->setClass($class)->setName($name)->setShortcut($shortcut);
+
+        $this->em->persist($subject);
+        $this->em->flush();
     }
 
     /**
@@ -38,6 +54,7 @@ class SchoolSubjectRepository implements Abstraction\ISchoolSubjectRepository
      */
     public function delete(int $id): void
     {
-        $this->db->withoutResult("DELETE FROM `subjects` WHERE `subject_id` = ?", $id);
+        $this->em->remove($this->getById($id));
+        $this->em->flush();
     }
 }

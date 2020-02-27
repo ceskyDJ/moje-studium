@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace App\Repository\Abstraction;
 
+use App\Entity\ClassGroup;
 use App\Entity\SchoolClass;
 
 /**
@@ -14,6 +15,15 @@ use App\Entity\SchoolClass;
  */
 interface IClassGroupRepository
 {
+    /**
+     * Finds class group by its ID
+     *
+     * @param int $id
+     *
+     * @return \App\Entity\ClassGroup
+     */
+    public function getById(int $id): ClassGroup;
+
     /**
      * Adds new class group
      *

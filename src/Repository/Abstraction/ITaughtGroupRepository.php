@@ -6,6 +6,7 @@ namespace App\Repository\Abstraction;
 
 use App\Entity\ClassGroup;
 use App\Entity\SchoolSubject;
+use App\Entity\TaughtGroup;
 use App\Entity\Teacher;
 
 /**
@@ -16,6 +17,15 @@ use App\Entity\Teacher;
  */
 interface ITaughtGroupRepository
 {
+    /**
+     * Finds taught group by its ID
+     *
+     * @param int $id
+     *
+     * @return \App\Entity\TaughtGroup
+     */
+    public function getById(int $id): TaughtGroup;
+
     /**
      * Adds new taught group
      *

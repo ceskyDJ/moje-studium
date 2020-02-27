@@ -4,8 +4,9 @@ declare(strict_types = 1);
 
 namespace App\Repository\Abstraction;
 
-use App\Entity\ClassGroup;
+use App\Entity\PrivateFile;
 use App\Entity\SchoolClass;
+use App\Entity\SharedFile;
 use App\Entity\User;
 
 /**
@@ -16,6 +17,24 @@ use App\Entity\User;
  */
 interface IFileRepository
 {
+    /**
+     * Finds private file by its ID
+     *
+     * @param int $id
+     *
+     * @return \App\Entity\PrivateFile
+     */
+    public function getById(int $id): PrivateFile;
+
+    /**
+     * Finds shared file by its ID
+     *
+     * @param int $id
+     *
+     * @return \App\Entity\SharedFile
+     */
+    public function getSharedById(int $id): SharedFile;
+
     /**
      * Adds new file or folder
      *

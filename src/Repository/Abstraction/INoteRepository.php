@@ -4,8 +4,9 @@ declare(strict_types = 1);
 
 namespace App\Repository\Abstraction;
 
-use App\Entity\ClassGroup;
+use App\Entity\PrivateNote;
 use App\Entity\SchoolClass;
+use App\Entity\SharedNote;
 use App\Entity\User;
 
 /**
@@ -16,6 +17,24 @@ use App\Entity\User;
  */
 interface INoteRepository
 {
+    /**
+     * Finds private note by its ID
+     *
+     * @param int $id
+     *
+     * @return \App\Entity\PrivateNote
+     */
+    public function getById(int $id): PrivateNote;
+
+    /**
+     * Finds shared note by its ID
+     *
+     * @param int $id
+     *
+     * @return \App\Entity\SharedNote
+     */
+    public function getSharedById(int $id): SharedNote;
+
     /**
      * Adds new note
      *

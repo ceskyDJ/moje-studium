@@ -5,7 +5,9 @@ declare(strict_types = 1);
 namespace App\Repository;
 
 use App\Entity\School;
-use Mammoth\Database\DB;
+use App\Entity\SchoolClass;
+use Doctrine\ORM\EntityManager;
+use Mammoth\DI\DIClass;
 
 /**
  * Class SchoolClassRepository
@@ -15,23 +17,36 @@ use Mammoth\Database\DB;
  */
 class SchoolClassRepository implements Abstraction\ISchoolClassRepository
 {
+    use DIClass;
+
     /**
      * @inject
      */
-    private DB $db;
+    private EntityManager $em;
+
+    /**
+     * @inheritDoc
+     */
+    public function getById(int $id): SchoolClass
+    {
+        /**
+         * @var $class SchoolClass
+         */
+        $class = $this->em->find(SchoolClass::class, $id);
+
+        return $class;
+    }
 
     /**
      * @inheritDoc
      */
     public function add(string $name, int $startYear, int $studyLength, School $school): void
     {
-        $this->db->withoutResult(
-            "INSERT INTO `classes`(`name`, `start_year`, `study_length`, `school_id`) VALUES(?, ?, ?, ?)",
-            $name,
-            $startYear,
-            $studyLength,
-            $school->getId()
-        );
+        $class = new SchoolClass;
+        $class->setName($name)->setStartYear($startYear)->setStudyLength($studyLength)->setSchool($school);
+
+        $this->em->persist($class);
+        $this->em->flush();
     }
 
     /**
@@ -39,7 +54,8 @@ class SchoolClassRepository implements Abstraction\ISchoolClassRepository
      */
     public function delete(int $id): void
     {
-        $this->db->withoutResult("DELETE FROM `classes` WHERE `class_id` = ?", $id);
+        $this->em->remove($this->getById($id));
+        $this->em->flush();
     }
 
     /**
@@ -47,13 +63,9 @@ class SchoolClassRepository implements Abstraction\ISchoolClassRepository
      */
     public function edit(int $id, string $name, int $startYear, int $studyLength, School $school): void
     {
-        $this->db->withoutResult(
-            "UPDATE `classes` SET `name` = ?, `start_year` = ?, `study_length` = ?, `school_id` = ? WHERE `class_id` = ?",
-            $name,
-            $startYear,
-            $studyLength,
-            $school->getId(),
-            $id
-        );
+        $class = $this->getById($id);
+        $class->setName($name)->setStartYear($startYear)->setStudyLength($studyLength)->setSchool($school);
+
+        $this->em->flush();
     }
 }

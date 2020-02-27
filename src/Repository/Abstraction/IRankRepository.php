@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace App\Repository\Abstraction;
 
+use App\Entity\Rank;
+
 /**
  * Repository for ranks
  *
@@ -12,5 +14,12 @@ namespace App\Repository\Abstraction;
  */
 interface IRankRepository
 {
-
+    /**
+     * Finds rank by its ID
+     *
+     * @param int $id
+     *
+     * @return \App\Entity\Rank
+     */
+    public function getById(int $id): Rank;
 }

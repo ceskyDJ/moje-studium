@@ -4,9 +4,11 @@ declare(strict_types = 1);
 
 namespace App\Repository;
 
+use App\Entity\ClassGroup;
 use App\Entity\SchoolClass;
 use App\Repository\Abstraction\IClassGroupRepository;
-use Mammoth\Database\DB;
+use Doctrine\ORM\EntityManager;
+use Mammoth\DI\DIClass;
 
 /**
  * Repository for class groups
@@ -16,17 +18,36 @@ use Mammoth\Database\DB;
  */
 class ClassGroupRepository implements IClassGroupRepository
 {
+    use DIClass;
+
     /**
      * @inject
      */
-    private DB $db;
+    private EntityManager $em;
+
+    /**
+     * @inheritDoc
+     */
+    public function getById(int $id): ClassGroup
+    {
+        /**
+         * @var $group ClassGroup
+         */
+        $group = $this->em->find(ClassGroup::class, $id);
+
+        return $group;
+    }
 
     /**
      * @inheritDoc
      */
     public function add(string $name, SchoolClass $class): void
     {
-        $this->db->withoutResult("INSERT INTO `groups`(`name`, `class_id`) VALUES(?, ?)", $name, $class->getId());
+        $group = new ClassGroup;
+        $group->setName($name)->setClass($class);
+
+        $this->em->persist($group);
+        $this->em->flush();
     }
 
     /**
@@ -34,6 +55,7 @@ class ClassGroupRepository implements IClassGroupRepository
      */
     public function delete(int $id): void
     {
-        $this->db->withoutResult("DELETE FROM `groups` WHERE `group_id` = ?", $id);
+        $this->em->remove($this->getById($id));
+        $this->em->flush();
     }
 }

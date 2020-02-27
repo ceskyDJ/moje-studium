@@ -6,7 +6,9 @@ namespace App\Repository;
 
 use App\Entity\Country;
 use App\Entity\Region;
-use Mammoth\Database\DB;
+use App\Entity\School;
+use Doctrine\ORM\EntityManager;
+use Mammoth\DI\DIClass;
 
 /**
  * Class SchoolRepository
@@ -16,23 +18,35 @@ use Mammoth\Database\DB;
  */
 class SchoolRepository implements Abstraction\ISchoolRepository
 {
+    use DIClass;
+
     /**
      * @inject
      */
-    private DB $db;
+    private EntityManager $em;
+
+    /**
+     * @inheritDoc
+     */
+    public function getById(int $id): School
+    {
+        /**
+         * @var $school School
+         */
+        $school = $this->em->find(School::class, $id);
+
+        return $school;
+    }
 
     /**
      * @inheritDoc
      */
     public function add(string $name, Country $country, ?Region $region, string $street, string $city): void
     {
-        $this->db->withoutResult(
-            "INSERT INTO `schools`(`name`, `country_id`, `region_id`, `street`, `city`) VALUES(?, ?, ?, ?, ?)",
-            $name,
-            $country->getId(),
-            $region->getId(),
-            $street,
-            $city
-        );
+        $school = new School;
+        $school->setName($name)->setCountry($country)->setRegion($region)->setStreet($street)->setCity($city);
+
+        $this->em->persist($school);
+        $this->em->flush();
     }
 }

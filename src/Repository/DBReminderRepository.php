@@ -5,11 +5,17 @@ declare(strict_types = 1);
 namespace App\Repository;
 
 use App\Entity\ClassGroup;
+use App\Entity\PrivateReminder;
 use App\Entity\SchoolClass;
 use App\Entity\SchoolSubject;
+use App\Entity\SharedReminder;
+use App\Entity\TookUpShare;
 use App\Entity\User;
 use DateTime;
+use Doctrine\ORM\EntityManager;
 use Mammoth\Database\DB;
+use Mammoth\DI\DIClass;
+use function flush;
 
 /**
  * Class ReminderRepository
@@ -19,24 +25,49 @@ use Mammoth\Database\DB;
  */
 class ReminderRepository implements Abstraction\IReminderRepository
 {
+    use DIClass;
+
     /**
      * @inject
      */
-    private DB $db;
+    private EntityManager $em;
+
+    /**
+     * @inheritDoc
+     */
+    public function getById(int $id): PrivateReminder
+    {
+        /**
+         * @var $reminder PrivateReminder
+         */
+        $reminder = $this->em->find(PrivateReminder::class, $id);
+
+        return $reminder;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSharedById(int $id): SharedReminder
+    {
+        /**
+         * @var $sharedReminder SharedReminder
+         */
+        $sharedReminder = $this->em->find(SharedReminder::class, $id);
+
+        return $sharedReminder;
+    }
 
     /**
      * @inheritDoc
      */
     public function add(User $owner, string $type, string $content, DateTime $when, SchoolSubject $subject): void
     {
-        $this->db->withoutResult(
-            "INSERT INTO `user_reminders`(`user_id`, `type`, `content`, `when`, `subject_id`) VALUES(?, ?, ?, ?, ?)",
-            $owner->getId(),
-            $type,
-            $content,
-            $when->format("HH:mm"),
-            $subject->getId()
-        );
+        $reminder = new PrivateReminder;
+        $reminder->setOwner($owner)->setType($type)->setContent($content)->setWhen($when)->setSubject($subject);
+
+        $this->em->persist($reminder);
+        $this->em->flush();
     }
 
     /**
@@ -44,7 +75,8 @@ class ReminderRepository implements Abstraction\IReminderRepository
      */
     public function delete(int $id): void
     {
-        $this->db->withoutResult("DELETE FROM `user_reminders` WHERE `user_reminder_id` = ?", $id);
+        $this->em->remove($this->getById($id));
+        $this->em->flush();
     }
 
     /**
@@ -58,15 +90,10 @@ class ReminderRepository implements Abstraction\IReminderRepository
         DateTime $when,
         SchoolSubject $subject
     ): void {
-        $this->db->withoutResult(
-            "UPDATE `user_reminders` SET `user_id` = ?, `type` = ?, `content` = ?, `when` = ?, `subject_id` = ? WHERE `user_reminder_id` = ?",
-            $owner->getId(),
-            $type,
-            $content,
-            $when->format("HH:mm"),
-            $subject->getId(),
-            $id
-        );
+        $reminder = $this->getById($id);
+        $reminder->setOwner($owner)->setType($type)->setContent($content)->setWhen($when)->setSubject($subject);
+
+        $this->em->flush();
     }
 
     /**
@@ -74,15 +101,11 @@ class ReminderRepository implements Abstraction\IReminderRepository
      */
     public function share(int $id, ?User $targetUser, ?SchoolClass $targetClass = null): void
     {
-        $targetUserId = ($targetUser !== null ?? $targetUser->getId());
-        $targetClassId = ($targetClass !== null ?? $targetClass->getId());
+        $sharedReminder = new SharedReminder;
+        $sharedReminder->setReminder($this->getById($id))->setTargetUser($targetUser)->setTargetClass($targetClass);
 
-        $this->db->withoutResult(
-            "INSERT INTO `shared_reminders`(`user_id`, `class_id`, `user_reminder_id`, `shared`) VALUES(?, ?, ?, NOW())",
-            $targetUserId,
-            $targetClassId,
-            $id
-        );
+        $this->em->persist($sharedReminder);
+        $this->em->flush();
     }
 
     /**
@@ -90,10 +113,10 @@ class ReminderRepository implements Abstraction\IReminderRepository
      */
     public function takeUp(User $user, int $id): void
     {
-        $this->db->withoutResult(
-            "INSERT INTO `took_up_shares`(`user_id`,`shared_reminder_id`) VALUES(?, ?)",
-            $user,
-            $id
-        );
+        $tookUpShare = new TookUpShare;
+        $tookUpShare->setUser($user)->setSharedReminder($this->getSharedById($id));
+
+        $this->em->persist($tookUpShare);
+        $this->em->flush();
     }
 }
