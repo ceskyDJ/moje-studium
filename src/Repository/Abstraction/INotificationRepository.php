@@ -41,4 +41,11 @@ interface INotificationRepository
      * @param int $id
      */
     public function delete(int $id): void;
+
+    /**
+     * Deletes all existing notifications sent to the user
+     *
+     * @param \App\Entity\User $user
+     */
+    public function deleteAllByUser(User $user): void;
 }

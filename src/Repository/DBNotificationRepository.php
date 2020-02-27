@@ -68,4 +68,14 @@ class DBNotificationRepository implements Abstraction\INotificationRepository
         $this->em->remove($this->getById($id));
         $this->em->flush();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function deleteAllByUser(User $user): void
+    {
+        $query = $this->em->createQuery(/** @lang DQL */ "DELETE App\Entity\Notification n WHERE n.user = ?1");
+        $query->setParameter(1, $user);
+        $query->execute();
+    }
 }
