@@ -4,64 +4,61 @@ declare(strict_types = 1);
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use function is_array;
+
 /**
  * Classroom
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Entity
+ * @ORM\Table(name="classrooms")
+ * @ORM\Entity
  */
 class Classroom
 {
     /**
      * @var int Identification number
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="classroom_id", type="integer", length=10, nullable=false, options={ "unsigned": true })
      */
     private int $id;
     /**
-     * @var \App\Entity\SchoolClass Class that is taught in the classroom
-     */
-    private SchoolClass $class;
-    /**
      * @var string Name - usually door number
+     * @ORM\Column(name="name", type="string", length=8, nullable=false, options={  })
      */
     private string $name;
     /**
      * @var string|null Additional description for the classroom
+     * @ORM\Column(name="description", type="string", length=50, nullable=true, options={  })
      */
     private ?string $description;
+    /**
+     * @ORM\ManyToOne(targetEntity="SchoolClass", inversedBy="classrooms")
+     * @ORM\JoinColumn(name="class_id", referencedColumnName="class_id", onDelete="CASCADE")
+     * @var \App\Entity\SchoolClass Class that is taught in the classroom
+     */
+    private SchoolClass $class;
 
     /**
-     * Classroom constructor
-     *
-     * @param int $id
-     * @param \App\Entity\SchoolClass $class
-     * @param string $name
-     * @param string|null $description
+     * @ORM\OneToMany(targetEntity="Lesson", mappedBy="classroom")
+     * @var \Doctrine\Common\Collections\Collection<\App\Entity\Lesson>
      */
-    public function __construct(int $id, SchoolClass $class, string $name, ?string $description)
+    private Collection $lessons;
+
+    public function __construct()
     {
-        $this->id = $id;
-        $this->class = $class;
-        $this->name = $name;
-        $this->description = $description;
+        $this->lessons = new ArrayCollection;
     }
 
-    /**
-     * Getter for id
-     *
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Fluent setter for id
-     *
-     * @param int $id
-     *
-     * @return Classroom
-     */
     public function setId(int $id): Classroom
     {
         $this->id = $id;
@@ -69,47 +66,23 @@ class Classroom
         return $this;
     }
 
-    /**
-     * Getter for class
-     *
-     * @return \App\Entity\SchoolClass
-     */
-    public function getClass(): \App\Entity\SchoolClass
+    public function getClass(): SchoolClass
     {
         return $this->class;
     }
 
-    /**
-     * Fluent setter for class
-     *
-     * @param \App\Entity\SchoolClass $class
-     *
-     * @return Classroom
-     */
-    public function setClass(\App\Entity\SchoolClass $class): Classroom
+    public function setClass(SchoolClass $class): Classroom
     {
         $this->class = $class;
 
         return $this;
     }
 
-    /**
-     * Getter for name
-     *
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Fluent setter for name
-     *
-     * @param string $name
-     *
-     * @return Classroom
-     */
     public function setName(string $name): Classroom
     {
         $this->name = $name;
@@ -117,26 +90,52 @@ class Classroom
         return $this;
     }
 
-    /**
-     * Getter for description
-     *
-     * @return string|null
-     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * Fluent setter for description
-     *
-     * @param string|null $description
-     *
-     * @return Classroom
-     */
     public function setDescription(?string $description): Classroom
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection<\App\Entity\Lesson>|\App\Entity\Lesson[]
+     */
+    public function getLessons(): Collection
+    {
+        return $this->lessons;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection<\App\Entity\Lesson>|\App\Entity\Lesson[] $lessons
+     *
+     * @return \App\Entity\Classroom
+     */
+    public function setLessons(iterable $lessons): Classroom
+    {
+        if (is_array($lessons)) {
+            $lessons = new ArrayCollection($lessons);
+        }
+
+        $this->lessons = $lessons;
+
+        return $this;
+    }
+
+    public function addLesson(Lesson $lesson): Classroom
+    {
+        $this->lessons->add($lesson);
+
+        return $this;
+    }
+
+    public function removeLesson(Lesson $lesson): Classroom
+    {
+        $this->lessons->removeElement($lesson);
 
         return $this;
     }

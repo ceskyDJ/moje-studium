@@ -4,52 +4,53 @@ declare(strict_types = 1);
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use function is_array;
+
 /**
  * Default texts for notifications
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Entity
+ * @ORM\Table(name="notification_texts", uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="uq_notification_texts_text", columns={"text"})
+ * })
+ * @ORM\Entity
  */
 class NotificationText
 {
     /**
      * @var int Identification number
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="notification_text_id", type="integer", length=10, nullable=false, options={ "unsigned": true })
      */
     private int $id;
     /**
      * @var string Notification text (with some variables in it, of course)
+     * @ORM\Column(name="text", type="string", length=100, nullable=false, options={  })
      */
     private string $text;
 
     /**
-     * NotificationText constructor
+     * @ORM\OneToMany(targetEntity="Notification", mappedBy="text")
      *
-     * @param int $id
-     * @param string $text
+     * @var \Doctrine\Common\Collections\Collection<\App\Entity\Notification>
      */
-    public function __construct(int $id, string $text)
+    private Collection $notifications;
+
+    public function __construct()
     {
-        $this->id = $id;
-        $this->text = $text;
+        $this->notifications = new ArrayCollection;
     }
 
-    /**
-     * Getter for id
-     *
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Fluent setter for id
-     *
-     * @param int $id
-     *
-     * @return NotificationText
-     */
     public function setId(int $id): NotificationText
     {
         $this->id = $id;
@@ -57,26 +58,52 @@ class NotificationText
         return $this;
     }
 
-    /**
-     * Getter for text
-     *
-     * @return string
-     */
     public function getText(): string
     {
         return $this->text;
     }
 
-    /**
-     * Fluent setter for text
-     *
-     * @param string $text
-     *
-     * @return NotificationText
-     */
     public function setText(string $text): NotificationText
     {
         $this->text = $text;
+
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection<\App\Entity\Notification>|\App\Entity\Notification[]
+     */
+    public function getNotifications(): Collection
+    {
+        return $this->notifications;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection<\App\Entity\Notification>|\App\Entity\Notification[] $notifications
+     *
+     * @return \App\Entity\NotificationText
+     */
+    public function setNotifications(iterable $notifications): NotificationText
+    {
+        if (is_array($notifications)) {
+            $notifications = new ArrayCollection($notifications);
+        }
+
+        $this->notifications = $notifications;
+
+        return $this;
+    }
+
+    public function addNotification(Notification $notification): NotificationText
+    {
+        $this->notifications->add($notification);
+
+        return $this;
+    }
+
+    public function removeNotification(Notification $notification): NotificationText
+    {
+        $this->notifications->removeElement($notification);
 
         return $this;
     }

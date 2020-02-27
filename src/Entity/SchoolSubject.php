@@ -4,64 +4,70 @@ declare(strict_types = 1);
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use function is_array;
+
 /**
  * School subject
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Entity
+ * @ORM\Table(name="subjects", uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="uq_subjects_class_name", columns={"class_id", "name"}),
+ *     @ORM\UniqueConstraint(name="uq_subjects_class_shortcut", columns={"class_id", "shortcut"})
+ * })
+ * @ORM\Entity
  */
 class SchoolSubject
 {
     /**
      * @var int Identification number
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="subject_id", type="integer", length=10, nullable=false, options={ "unsigned": true })
      */
     private int $id;
     /**
-     * @var \App\Entity\SchoolClass Class that has the subject
-     */
-    private SchoolClass $class;
-    /**
      * @var string Long name
+     * @ORM\Column(name="name", type="string", length=60, nullable=false, options={  })
      */
     private string $name;
     /**
      * @var string Shortcut (a few uppercase letters)
+     * @ORM\Column(name="shortcut", type="string", length=5, nullable=false, options={  })
      */
     private string $shortcut;
+    /**
+     * @ORM\ManyToOne(targetEntity="SchoolClass", inversedBy="subjects")
+     * @ORM\JoinColumn(name="class_id", referencedColumnName="class_id", onDelete="CASCADE")
+     * @var \App\Entity\SchoolClass Class that has the subject
+     */
+    private SchoolClass $class;
 
     /**
-     * SchoolSubject constructor
-     *
-     * @param int $id
-     * @param \App\Entity\SchoolClass $class
-     * @param string $name
-     * @param string $shortcut
+     * @ORM\OneToMany(targetEntity="TaughtGroup", mappedBy="subject")
+     * @var \Doctrine\Common\Collections\Collection<\App\Entity\TaughtGroup>
      */
-    public function __construct(int $id, SchoolClass $class, string $name, string $shortcut)
+    private Collection $taughtGroups;
+    /**
+     * @ORM\OneToMany(targetEntity="PrivateReminder", mappedBy="subject")
+     * @var \Doctrine\Common\Collections\Collection<\App\Entity\PrivateReminder>
+     */
+    private Collection $userReminders;
+
+    public function __construct()
     {
-        $this->id = $id;
-        $this->class = $class;
-        $this->name = $name;
-        $this->shortcut = $shortcut;
+        $this->taughtGroups = new ArrayCollection;
+        $this->userReminders = new ArrayCollection;
     }
 
-    /**
-     * Getter for id
-     *
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Fluent setter for id
-     *
-     * @param int $id
-     *
-     * @return SchoolSubject
-     */
     public function setId(int $id): SchoolSubject
     {
         $this->id = $id;
@@ -69,23 +75,11 @@ class SchoolSubject
         return $this;
     }
 
-    /**
-     * Getter for class
-     *
-     * @return \App\Entity\SchoolClass
-     */
     public function getClass(): SchoolClass
     {
         return $this->class;
     }
 
-    /**
-     * Fluent setter for class
-     *
-     * @param \App\Entity\SchoolClass $class
-     *
-     * @return SchoolSubject
-     */
     public function setClass(SchoolClass $class): SchoolSubject
     {
         $this->class = $class;
@@ -93,23 +87,11 @@ class SchoolSubject
         return $this;
     }
 
-    /**
-     * Getter for name
-     *
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Fluent setter for name
-     *
-     * @param string $name
-     *
-     * @return SchoolSubject
-     */
     public function setName(string $name): SchoolSubject
     {
         $this->name = $name;
@@ -117,26 +99,90 @@ class SchoolSubject
         return $this;
     }
 
-    /**
-     * Getter for shortcut
-     *
-     * @return string
-     */
     public function getShortcut(): string
     {
         return $this->shortcut;
     }
 
-    /**
-     * Fluent setter for shortcut
-     *
-     * @param string $shortcut
-     *
-     * @return SchoolSubject
-     */
     public function setShortcut(string $shortcut): SchoolSubject
     {
         $this->shortcut = $shortcut;
+
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection<\App\Entity\TaughtGroup>|\App\Entity\TaughtGroup[]
+     */
+    public function getTaughtGroups(): Collection
+    {
+        return $this->taughtGroups;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection<\App\Entity\TaughtGroup>|\App\Entity\TaughtGroup[] $taughtGroups
+     *
+     * @return \App\Entity\SchoolSubject
+     */
+    public function setTaughtGroups(iterable $taughtGroups): SchoolSubject
+    {
+        if (is_array($taughtGroups)) {
+            $taughtGroups = new ArrayCollection($taughtGroups);
+        }
+
+        $this->taughtGroups = $taughtGroups;
+
+        return $this;
+    }
+
+    public function addTaughtGroup(TaughtGroup $taughtGroup): SchoolSubject
+    {
+        $this->taughtGroups->add($taughtGroup);
+
+        return $this;
+    }
+
+    public function removeTaughtGroup(TaughtGroup $taughtGroup): SchoolSubject
+    {
+        $this->taughtGroups->removeElement($taughtGroup);
+
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection<\App\Entity\PrivateReminder>|\App\Entity\PrivateReminder[]
+     */
+    public function getUserReminders(): Collection
+    {
+        return $this->userReminders;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection<\App\Entity\PrivateReminder>|\App\Entity\PrivateReminder[] $userReminders
+     *
+     * @return \App\Entity\SchoolSubject
+     */
+    public function setUserReminders(iterable $userReminders): SchoolSubject
+    {
+        if (is_array($userReminders)) {
+            $userReminders = new ArrayCollection($userReminders);
+        }
+
+        $this->userReminders = $userReminders;
+
+        return $this;
+    }
+
+    public function addUserReminder(PrivateReminder $userReminder): SchoolSubject
+    {
+        $this->userReminders->add($userReminder);
+
+        return $this;
+    }
+
+    public function removeUserReminder(PrivateReminder $userReminder): SchoolSubject
+    {
+        $this->userReminders->removeElement($userReminder);
 
         return $this;
     }

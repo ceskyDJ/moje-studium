@@ -4,82 +4,75 @@ declare(strict_types = 1);
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use function is_array;
+
 /**
  * School
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Entity
+ * @ORM\Table(name="schools", uniqueConstraints={
+ *      @ORM\UniqueConstraint(name="uq_schools_name", columns={"name"})
+ * })
+ * @ORM\Entity
  */
 class School
 {
     /**
      * @var int Identification number
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="school_id", type="integer", length=10, nullable=false, options={ "unsigned": true })
      */
     private int $id;
     /**
      * @var string Official name
+     * @ORM\Column(name="name", type="string", length=125, nullable=false, options={  })
      */
     private string $name;
     /**
-     * @var \App\Entity\Country Address: country
-     */
-    private Country $country;
-    /**
-     * @var \App\Entity\Region|null Address: region
-     */
-    private ?Region $region;
-    /**
      * @var string Address: street (with house number)
+     * @ORM\Column(name="street", type="string", length=50, nullable=true, options={  })
      */
     private string $street;
     /**
      * @var string Address: city
+     * @ORM\Column(name="city", type="string", length=35, nullable=true, options={  })
      */
     private string $city;
+    /**
+     * @ORM\ManyToOne(targetEntity="Country", inversedBy="schools")
+     * @ORM\JoinColumn(name="country_id", referencedColumnName="country_id")
+     * @var \App\Entity\Country Address: country
+     */
+    private Country $country;
+    /**
+     * @ORM\ManyToOne(targetEntity="Region", inversedBy="schools")
+     * @ORM\JoinColumn(name="region_id", referencedColumnName="region_id")
+     * @var \App\Entity\Region|null Address: region
+     */
+    private ?Region $region;
 
     /**
-     * School constructor
+     * @ORM\OneToMany(targetEntity="SchoolClass", mappedBy="school")
      *
-     * @param int $id
-     * @param string $name
-     * @param \App\Entity\Country $country
-     * @param \App\Entity\Region|null $region
-     * @param string $street
-     * @param string $city
+     * @var \Doctrine\Common\Collections\Collection<\App\Entity\SchoolClass>
      */
-    public function __construct(
-        int $id,
-        string $name,
-        Country $country,
-        ?Region $region,
-        string $street,
-        string $city
-    ) {
-        $this->id = $id;
-        $this->name = $name;
-        $this->country = $country;
-        $this->region = $region;
-        $this->street = $street;
-        $this->city = $city;
+    private Collection $classes;
+
+    public function __construct()
+    {
+        $this->classes = new ArrayCollection;
     }
 
-    /**
-     * Getter for id
-     *
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Fluent setter for id
-     *
-     * @param int $id
-     *
-     * @return School
-     */
     public function setId(int $id): School
     {
         $this->id = $id;
@@ -87,23 +80,11 @@ class School
         return $this;
     }
 
-    /**
-     * Getter for name
-     *
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Fluent setter for name
-     *
-     * @param string $name
-     *
-     * @return School
-     */
     public function setName(string $name): School
     {
         $this->name = $name;
@@ -111,71 +92,35 @@ class School
         return $this;
     }
 
-    /**
-     * Getter for country
-     *
-     * @return \App\Entity\Country
-     */
-    public function getCountry(): \App\Entity\Country
+    public function getCountry(): Country
     {
         return $this->country;
     }
 
-    /**
-     * Fluent setter for country
-     *
-     * @param \App\Entity\Country $country
-     *
-     * @return School
-     */
-    public function setCountry(\App\Entity\Country $country): School
+    public function setCountry(Country $country): School
     {
         $this->country = $country;
 
         return $this;
     }
 
-    /**
-     * Getter for region
-     *
-     * @return \App\Entity\Region|null
-     */
-    public function getRegion(): ?\App\Entity\Region
+    public function getRegion(): ?Region
     {
         return $this->region;
     }
 
-    /**
-     * Fluent setter for region
-     *
-     * @param \App\Entity\Region|null $region
-     *
-     * @return School
-     */
-    public function setRegion(?\App\Entity\Region $region): School
+    public function setRegion(?Region $region): School
     {
         $this->region = $region;
 
         return $this;
     }
 
-    /**
-     * Getter for street
-     *
-     * @return string
-     */
     public function getStreet(): string
     {
         return $this->street;
     }
 
-    /**
-     * Fluent setter for street
-     *
-     * @param string $street
-     *
-     * @return School
-     */
     public function setStreet(string $street): School
     {
         $this->street = $street;
@@ -183,26 +128,52 @@ class School
         return $this;
     }
 
-    /**
-     * Getter for city
-     *
-     * @return string
-     */
     public function getCity(): string
     {
         return $this->city;
     }
 
-    /**
-     * Fluent setter for city
-     *
-     * @param string $city
-     *
-     * @return School
-     */
     public function setCity(string $city): School
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection<\App\Entity\SchoolClass>|\App\Entity\SchoolClass[]
+     */
+    public function getClasses(): Collection
+    {
+        return $this->classes;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection<\App\Entity\SchoolClass>|\App\Entity\SchoolClass[] $classes
+     *
+     * @return \App\Entity\School
+     */
+    public function setClasses(iterable $classes): School
+    {
+        if (is_array($classes)) {
+            $classes = new ArrayCollection($classes);
+        }
+
+        $this->classes = $classes;
+
+        return $this;
+    }
+
+    public function addClass(SchoolClass $class): School
+    {
+        $this->classes->add($class);
+
+        return $this;
+    }
+
+    public function removeClass(SchoolClass $class): School
+    {
+        $this->classes->removeElement($class);
 
         return $this;
     }

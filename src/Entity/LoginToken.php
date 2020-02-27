@@ -5,71 +5,60 @@ declare(strict_types = 1);
 namespace App\Entity;
 
 use DateTime;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * User's login token for "persistent" login (login for a longer time)
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Entity
+ * @ORM\Table(name="tokens", uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="uq_tokens_token", columns={"token"})
+ * })
+ * @ORM\Entity
  */
 class LoginToken
 {
     /**
      * @var int Identification number
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     *
+     * @ORM\Column(name="token_id", type="integer", length=10, nullable=false, options={ "unsigned": true })
      */
     private int $id;
     /**
-     * @var \App\Entity\User User that the token has been created for
-     */
-    private User $user;
-    /**
      * @var string Token content
+     * @ORM\Column(name="token", type="string", length=512, nullable=false, options={  })
      */
-    private string $token;
+    private string $content;
     /**
      * @var \DateTime When it was created
+     * @ORM\Column(name="created", type="datetime", nullable=false, options={  })
      */
     private DateTime $created;
     /**
      * @var bool Is it still valid?
+     * @ORM\Column(name="valid", type="boolean", length=1, nullable=false, options={ "default": 1 })
      */
     private bool $valid;
-
     /**
-     * LoginToken constructor
-     *
-     * @param int $id
-     * @param \App\Entity\User $user
-     * @param string $token
-     * @param \DateTime $created
-     * @param bool $valid
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="tokens")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id", onDelete="CASCADE")
+     * @var \App\Entity\User User that the token has been created for
      */
-    public function __construct(int $id, User $user, string $token, DateTime $created, bool $valid)
+    private User $user;
+
+    public function __construct()
     {
-        $this->id = $id;
-        $this->user = $user;
-        $this->token = $token;
-        $this->created = $created;
-        $this->valid = $valid;
+        $this->created = new DateTime;
     }
 
-    /**
-     * Getter for id
-     *
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Fluent setter for id
-     *
-     * @param int $id
-     *
-     * @return LoginToken
-     */
     public function setId(int $id): LoginToken
     {
         $this->id = $id;
@@ -77,95 +66,47 @@ class LoginToken
         return $this;
     }
 
-    /**
-     * Getter for user
-     *
-     * @return \App\Entity\User
-     */
-    public function getUser(): \App\Entity\User
+    public function getUser(): User
     {
         return $this->user;
     }
 
-    /**
-     * Fluent setter for user
-     *
-     * @param \App\Entity\User $user
-     *
-     * @return LoginToken
-     */
-    public function setUser(\App\Entity\User $user): LoginToken
+    public function setUser(User $user): LoginToken
     {
         $this->user = $user;
 
         return $this;
     }
 
-    /**
-     * Getter for token
-     *
-     * @return string
-     */
-    public function getToken(): string
+    public function getContent(): string
     {
-        return $this->token;
+        return $this->content;
     }
 
-    /**
-     * Fluent setter for token
-     *
-     * @param string $token
-     *
-     * @return LoginToken
-     */
-    public function setToken(string $token): LoginToken
+    public function setContent(string $content): LoginToken
     {
-        $this->token = $token;
+        $this->content = $content;
 
         return $this;
     }
 
-    /**
-     * Getter for created
-     *
-     * @return \DateTime
-     */
-    public function getCreated(): \DateTime
+    public function getCreated(): DateTime
     {
         return $this->created;
     }
 
-    /**
-     * Fluent setter for created
-     *
-     * @param \DateTime $created
-     *
-     * @return LoginToken
-     */
-    public function setCreated(\DateTime $created): LoginToken
+    public function setCreated(DateTime $created): LoginToken
     {
         $this->created = $created;
 
         return $this;
     }
 
-    /**
-     * Getter for valid
-     *
-     * @return bool
-     */
     public function isValid(): bool
     {
         return $this->valid;
     }
 
-    /**
-     * Fluent setter for valid
-     *
-     * @param bool $valid
-     *
-     * @return LoginToken
-     */
     public function setValid(bool $valid): LoginToken
     {
         $this->valid = $valid;
