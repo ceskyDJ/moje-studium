@@ -9,12 +9,12 @@ use Doctrine\ORM\EntityManager;
 use Mammoth\DI\DIClass;
 
 /**
- * Class CountryRepository
+ * Repository for countries
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Repository
  */
-class CountryRepository implements Abstraction\ICountryRepository
+class DBCountryRepository implements Abstraction\ICountryRepository
 {
     use DIClass;
 

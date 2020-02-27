@@ -11,12 +11,12 @@ use Doctrine\ORM\EntityManager;
 use Mammoth\DI\DIClass;
 
 /**
- * Class SchoolRepository
+ * Repository for schools
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Repository
  */
-class SchoolRepository implements Abstraction\ISchoolRepository
+class DBSchoolRepository implements Abstraction\ISchoolRepository
 {
     use DIClass;
 

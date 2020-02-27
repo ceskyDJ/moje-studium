@@ -13,12 +13,12 @@ use Doctrine\ORM\EntityManager;
 use Mammoth\DI\DIClass;
 
 /**
- * Class NoteRepository
+ * Repository for notes
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Repository
  */
-class NoteRepository implements Abstraction\INoteRepository
+class DBNoteRepository implements Abstraction\INoteRepository
 {
     use DIClass;
 

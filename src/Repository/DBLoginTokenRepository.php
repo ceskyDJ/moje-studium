@@ -10,12 +10,12 @@ use Doctrine\ORM\EntityManager;
 use Mammoth\DI\DIClass;
 
 /**
- * Class LoginTokenRepository
+ * Repository for login keys
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Repository
  */
-class LoginTokenRepository implements Abstraction\ILoginTokenRepository
+class DBLoginTokenRepository implements Abstraction\ILoginTokenRepository
 {
     use DIClass;
 

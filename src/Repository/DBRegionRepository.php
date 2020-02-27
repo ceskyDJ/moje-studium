@@ -6,16 +6,15 @@ namespace App\Repository;
 
 use App\Entity\Region;
 use Doctrine\ORM\EntityManager;
-use Mammoth\Database\DB;
 use Mammoth\DI\DIClass;
 
 /**
- * Class RegionRepository
+ * Repository for regions
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Repository
  */
-class RegionRepository implements Abstraction\IRegionRepository
+class DBRegionRepository implements Abstraction\IRegionRepository
 {
     use DIClass;
 

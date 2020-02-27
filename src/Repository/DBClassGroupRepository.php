@@ -16,7 +16,7 @@ use Mammoth\DI\DIClass;
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Repository
  */
-class ClassGroupRepository implements IClassGroupRepository
+class DBClassGroupRepository implements IClassGroupRepository
 {
     use DIClass;
 

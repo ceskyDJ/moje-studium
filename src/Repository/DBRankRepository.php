@@ -6,16 +6,15 @@ namespace App\Repository;
 
 use App\Entity\Rank;
 use Doctrine\ORM\EntityManager;
-use Mammoth\Database\DB;
 use Mammoth\DI\DIClass;
 
 /**
- * Class RankRepository
+ * Repository for ranks
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Repository
  */
-class RankRepository implements Abstraction\IRankRepository
+class DBRankRepository implements Abstraction\IRankRepository
 {
     use DIClass;
 

@@ -9,12 +9,12 @@ use Doctrine\ORM\EntityManager;
 use Mammoth\DI\DIClass;
 
 /**
- * Class NotificationTextRepository
+ * Repository for notification texts
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Repository
  */
-class NotificationTextRepository implements Abstraction\INotificationTextRepository
+class DBNotificationTextRepository implements Abstraction\INotificationTextRepository
 {
     use DIClass;
 

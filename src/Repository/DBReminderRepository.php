@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace App\Repository;
 
-use App\Entity\ClassGroup;
 use App\Entity\PrivateReminder;
 use App\Entity\SchoolClass;
 use App\Entity\SchoolSubject;
@@ -13,17 +12,15 @@ use App\Entity\TookUpShare;
 use App\Entity\User;
 use DateTime;
 use Doctrine\ORM\EntityManager;
-use Mammoth\Database\DB;
 use Mammoth\DI\DIClass;
-use function flush;
 
 /**
- * Class ReminderRepository
+ * Repository for reminders
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Repository
  */
-class ReminderRepository implements Abstraction\IReminderRepository
+class DBReminderRepository implements Abstraction\IReminderRepository
 {
     use DIClass;
 

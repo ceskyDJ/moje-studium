@@ -12,12 +12,12 @@ use Doctrine\ORM\EntityManager;
 use Mammoth\DI\DIClass;
 
 /**
- * Class UserRepository
+ * Repository for users
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Repository
  */
-class UserRepository implements Abstraction\IUserRepository
+class DBUserRepository implements Abstraction\IUserRepository
 {
     use DIClass;
 

@@ -12,12 +12,12 @@ use Doctrine\ORM\EntityManager;
 use Mammoth\DI\DIClass;
 
 /**
- * Class FileRepository
+ * Repository for files
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Repository
  */
-class FileRepository implements Abstraction\IFileRepository
+class DBFileRepository implements Abstraction\IFileRepository
 {
     use DIClass;
 

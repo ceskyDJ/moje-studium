@@ -9,12 +9,12 @@ use Doctrine\ORM\EntityManager;
 use Mammoth\DI\DIClass;
 
 /**
- * Class ProfileIconRepository
+ * Repository for profile icons
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Repository
  */
-class ProfileIconRepository implements Abstraction\IProfileIconRepository
+class DBProfileIconRepository implements Abstraction\IProfileIconRepository
 {
     use DIClass;
 
