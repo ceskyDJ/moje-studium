@@ -116,12 +116,15 @@
 
 <section class="register-section">
     <div class="button-container">
+        {if !isset($user)}
         <a href="#" class="link-button grey-bg" id="_register-button">Registrovat se</a>
+        {else}
+        <p>Děkujeme za registraci</p>
+        {/if}
     </div>
 
     <div class="smile-container">
-        <!-- Přepnout na třídu laugh-i -->
-        <i class="icon smile-i" id="_smile-icon"></i>
+        <i class="icon {if !isset($user)}smile-i{else}laugh-i{/if}" id="_smile-icon"></i>
     </div>
 </section>
 {/block}
