@@ -15,12 +15,12 @@ use Mammoth\Url\Abstraction\IUrlManager;
 use function bdump;
 
 /**
- * Controller for log-* operations (log-in, log-out)
+ * Controller for sign-* operations (sign-up, sign-in, sign-out)
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Controller\Application
  */
-class LogController extends Controller
+class SignController extends Controller
 {
     use DIClass;
 
@@ -50,7 +50,20 @@ class LogController extends Controller
     }
 
     /**
-     * Log-in visitor
+     * Register (sign up) new user
+     *
+     * @param \Mammoth\Http\Entity\Request $request
+     *
+     * @return \Mammoth\Http\Entity\Response
+     */
+    public function upAction(Request $request): Response
+    {
+        return $this->responseFactory->create($request)->setContentView("register")
+            ->setTitle("Registrace");
+    }
+
+    /**
+     * Log-in (sign in) user
      *
      * @param \Mammoth\Http\Entity\Request $request
      *
@@ -72,7 +85,7 @@ class LogController extends Controller
     }
 
     /**
-     * Log-out user
+     * Log-out (sign out) user
      *
      * @param \Mammoth\Http\Entity\Request $request
      *
