@@ -51,6 +51,8 @@ class LoginToken
 
     public function __construct()
     {
+        $this->valid = true;
+
         $this->created = new DateTime;
     }
 

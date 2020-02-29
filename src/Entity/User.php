@@ -35,6 +35,16 @@ class User implements IUser
      */
     private string $password;
     /**
+     * @var bool Has this user confirmed address?
+     * @ORM\Column(name="confirmed", type="boolean", length=1, nullable=false, options={ "default": 0 })
+     */
+    private bool $confirmed;
+    /**
+     * @var bool Is this user's first login to the system? (after registration)
+     * @ORM\Column(name="first_login", type="boolean", length=1, nullable=false, options={ "default": 1 })
+     */
+    private bool $firstLogin;
+    /**
      * @ORM\ManyToOne(targetEntity="Rank", inversedBy="users")
      * @ORM\JoinColumn(name="rank_id", referencedColumnName="rank_id", nullable=false)
      * @var \App\Entity\Rank Rank
@@ -119,6 +129,8 @@ class User implements IUser
 
     public function __construct()
     {
+        $this->confirmed = false;
+        $this->firstLogin = true;
         $this->notifications = new ArrayCollection;
         $this->sharedFiles = new ArrayCollection;
         $this->sharedNotes = new ArrayCollection;
@@ -150,6 +162,30 @@ class User implements IUser
     public function setPassword(string $password): User
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function isConfirmed(): bool
+    {
+        return $this->confirmed;
+    }
+
+    public function setConfirmed(bool $confirmed): User
+    {
+        $this->confirmed = $confirmed;
+
+        return $this;
+    }
+
+    public function isFirstLogin(): bool
+    {
+        return $this->firstLogin;
+    }
+
+    public function setFirstLogin(bool $firstLogin): User
+    {
+        $this->firstLogin = $firstLogin;
 
         return $this;
     }

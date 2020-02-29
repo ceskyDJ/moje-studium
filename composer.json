@@ -6,7 +6,10 @@
         "php": ">=7.4",
         "mammoth/mammoth": "dev-master",
         "ext-mbstring": "*",
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+        "ext-openssl": "*",
+        "paragonie/random-lib": "^2.1@dev",
+        "ext-dom": "*"
     },
     "license": "MIT",
     "authors": [

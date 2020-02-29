@@ -75,4 +75,11 @@ interface IUserRepository
         string $lastName,
         string $email
     ): void;
+
+    /**
+     * Confirms user
+     *
+     * @param int $id
+     */
+    public function confirm(int $id): void;
 }

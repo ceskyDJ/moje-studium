@@ -40,6 +40,17 @@ class DBLoginTokenRepository implements Abstraction\ILoginTokenRepository
     /**
      * @inheritDoc
      */
+    public function getByContent(string $content): LoginToken
+    {
+        $query = $this->em->createQuery(/** @lang DQL */ "SELECT t FROM App\Entity\LoginToken t WHERE t.content = ?1");
+        $query->setParameter(1, $content);
+
+        return $query->getOneOrNullResult();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function add(User $user, string $content): void
     {
         $token = new LoginToken;

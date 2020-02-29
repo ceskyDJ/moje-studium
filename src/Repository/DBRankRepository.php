@@ -35,4 +35,12 @@ class DBRankRepository implements Abstraction\IRankRepository
 
         return $rank;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getDefaultForUsers(): Rank
+    {
+        return $this->getById(2);
+    }
 }

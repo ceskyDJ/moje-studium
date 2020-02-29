@@ -25,6 +25,15 @@ interface ILoginTokenRepository
     public function getById(int $id): LoginToken;
 
     /**
+     * Finds login key by it content
+     *
+     * @param string $content
+     *
+     * @return \App\Entity\LoginToken
+     */
+    public function getByContent(string $content): LoginToken;
+
+    /**
      * Adds new login token
      *
      * @param \App\Entity\User $user

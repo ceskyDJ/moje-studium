@@ -22,4 +22,11 @@ interface IRankRepository
      * @return \App\Entity\Rank
      */
     public function getById(int $id): Rank;
+
+    /**
+     * Returns default rank for logged in users
+     *
+     * @return \App\Entity\Rank
+     */
+    public function getDefaultForUsers(): Rank;
 }

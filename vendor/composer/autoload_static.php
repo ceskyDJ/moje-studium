@@ -15,6 +15,8 @@ class ComposerStaticInit610e9b79229daa895400b61d92a1502f
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
+        '3109cb1a231dcd04bee1f9f620d46975' => __DIR__ . '/..' . '/paragonie/sodium_compat/autoload.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -166,6 +168,23 @@ class ComposerStaticInit610e9b79229daa895400b61d92a1502f
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'S' => 
+        array (
+            'SecurityLib' => 
+            array (
+                0 => __DIR__ . '/..' . '/ircmaxell/security-lib/lib',
+            ),
+        ),
+        'R' => 
+        array (
+            'RandomLib' => 
+            array (
+                0 => __DIR__ . '/..' . '/paragonie/random-lib/lib',
+            ),
+        ),
+    );
+
     public static $classMap = array (
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Latte\\CompileException' => __DIR__ . '/..' . '/latte/latte/src/Latte/exceptions.php',
@@ -213,6 +232,7 @@ class ComposerStaticInit610e9b79229daa895400b61d92a1502f
         'Nette\\Bridges\\CacheLatte\\CacheMacro' => __DIR__ . '/..' . '/nette/caching/src/Bridges/CacheLatte/CacheMacro.php',
         'Nette\\Bridges\\DatabaseDI\\DatabaseExtension' => __DIR__ . '/..' . '/nette/database/src/Bridges/DatabaseDI/DatabaseExtension.php',
         'Nette\\Bridges\\DatabaseTracy\\ConnectionPanel' => __DIR__ . '/..' . '/nette/database/src/Bridges/DatabaseTracy/ConnectionPanel.php',
+        'Nette\\Bridges\\MailDI\\MailExtension' => __DIR__ . '/..' . '/nette/mail/src/Bridges/MailDI/MailExtension.php',
         'Nette\\Caching\\BulkReader' => __DIR__ . '/..' . '/nette/caching/src/Caching/BulkReader.php',
         'Nette\\Caching\\Cache' => __DIR__ . '/..' . '/nette/caching/src/Caching/Cache.php',
         'Nette\\Caching\\IBulkReader' => __DIR__ . '/..' . '/nette/caching/src/compatibility.php',
@@ -272,6 +292,19 @@ class ComposerStaticInit610e9b79229daa895400b61d92a1502f
         'Nette\\Iterators\\CachingIterator' => __DIR__ . '/..' . '/nette/utils/src/Iterators/CachingIterator.php',
         'Nette\\Iterators\\Mapper' => __DIR__ . '/..' . '/nette/utils/src/Iterators/Mapper.php',
         'Nette\\Localization\\ITranslator' => __DIR__ . '/..' . '/nette/utils/src/Utils/ITranslator.php',
+        'Nette\\Mail\\DkimSigner' => __DIR__ . '/..' . '/nette/mail/src/Mail/DkimSigner.php',
+        'Nette\\Mail\\FallbackMailer' => __DIR__ . '/..' . '/nette/mail/src/Mail/FallbackMailer.php',
+        'Nette\\Mail\\FallbackMailerException' => __DIR__ . '/..' . '/nette/mail/src/Mail/exceptions.php',
+        'Nette\\Mail\\IMailer' => __DIR__ . '/..' . '/nette/mail/src/Mail/Mailer.php',
+        'Nette\\Mail\\Mailer' => __DIR__ . '/..' . '/nette/mail/src/Mail/Mailer.php',
+        'Nette\\Mail\\Message' => __DIR__ . '/..' . '/nette/mail/src/Mail/Message.php',
+        'Nette\\Mail\\MimePart' => __DIR__ . '/..' . '/nette/mail/src/Mail/MimePart.php',
+        'Nette\\Mail\\SendException' => __DIR__ . '/..' . '/nette/mail/src/Mail/exceptions.php',
+        'Nette\\Mail\\SendmailMailer' => __DIR__ . '/..' . '/nette/mail/src/Mail/SendmailMailer.php',
+        'Nette\\Mail\\SignException' => __DIR__ . '/..' . '/nette/mail/src/Mail/exceptions.php',
+        'Nette\\Mail\\Signer' => __DIR__ . '/..' . '/nette/mail/src/Mail/Signer.php',
+        'Nette\\Mail\\SmtpException' => __DIR__ . '/..' . '/nette/mail/src/Mail/exceptions.php',
+        'Nette\\Mail\\SmtpMailer' => __DIR__ . '/..' . '/nette/mail/src/Mail/SmtpMailer.php',
         'Nette\\MemberAccessException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\NotImplementedException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\NotSupportedException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
@@ -327,6 +360,7 @@ class ComposerStaticInit610e9b79229daa895400b61d92a1502f
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit610e9b79229daa895400b61d92a1502f::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit610e9b79229daa895400b61d92a1502f::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit610e9b79229daa895400b61d92a1502f::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit610e9b79229daa895400b61d92a1502f::$classMap;
 
         }, null, ClassLoader::class);

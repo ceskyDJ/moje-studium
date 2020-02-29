@@ -9,43 +9,42 @@
 
         <section class="content-container">
             <form method="post" action="" class="app-form">
+                {var $oldData = $request->getPost()}
                 <div class="form-inputs">
                     <div class="form-input-row">
                         <label for="first-name" class="form-label">Jméno</label>
-                        <input name="first-name" type="text" id="first-name" class="form-input" autofocus autocomplete="given-name" required />
+                        <input name="first-name" type="text" id="first-name" class="form-input" autofocus autocomplete="given-name" required value="{$oldData['first-name'] ?? ""}" />
                         {*<i class="form-input-status positive"></i>*}
                     </div>
                     <div class="form-input-row">
                         <label for="last-name" class="form-label">Příjmení</label>
-                        <input name="last-name" type="text" id="last-name" class="form-input" autocomplete="family-name" required />
+                        <input name="last-name" type="text" id="last-name" class="form-input" autocomplete="family-name" required value="{$oldData['last-name'] ?? ""}" />
                         {*<i class="form-input-status positive"></i>*}
                     </div>
                     <div class="form-input-row">
                         <label for="nickname" class="form-label">Přezdívka</label>
-                        <input name="nickname" type="text" id="nickname" class="form-input" autocomplete="nickname" required />
+                        <input name="nickname" type="text" id="nickname" class="form-input" autocomplete="nickname" required value="{$oldData['nickname'] ?? ""}" />
                         {*<i class="form-input-status positive"></i>*}
                     </div>
                     <div class="form-input-row">
                         <label for="email" class="form-label">Email</label>
-                        <input name="email" type="email" id="email" value="" class="form-input" autocomplete="username" required />
+                        <input name="email" type="email" id="email" class="form-input" autocomplete="username" required value="{$oldData['email'] ?? ""}" />
                         {*<i class="form-input-status negative"></i>*}
                     </div>
                     <div class="form-input-row">
                         <label for="password" class="form-label">Heslo</label>
-                        <input name="password" type="password" id="password" class="form-input" autocomplete="new-password" required minlength="8" />
+                        <input name="password" type="password" id="password" class="form-input" autocomplete="new-password" required minlength="8" value="" />
                         {*<i class="form-input-status positive"></i>*}
                     </div>
                     <div class="form-input-row">
                         <label for="password-again" class="form-label">Heslo znovu</label>
-                        <input name="password-again" type="password" id="password-again" class="form-input" autocomplete="new-password" required minlength="8" />
+                        <input name="password-again" type="password" id="password-again" class="form-input" autocomplete="new-password" required minlength="8" value="" />
                         {*<i class="form-input-status negative"></i>*}
                     </div>
                 </div>
 
-                <div class="form-alerts">
-                    <p class="form-alert negative">Nebyla vyplněna všechna pole.</p>
-                    <p class="form-alert negative">Byl zadán špatný formát emailové adresy.</p>
-                    <p class="form-alert positive">Byli jste úspěšně zaregistrováni.</p>
+                <div class="form-alerts" n:foreach="(array)$messages as $message">
+                    <p n:class="form-alert, $message['type']">{$message['text']}</p>
                 </div>
 
                 <div class="form-control">

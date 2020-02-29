@@ -10,6 +10,7 @@ use Mammoth\DI\DIClass;
 use Mammoth\Http\Entity\Request;
 use Mammoth\Http\Entity\Response;
 use Mammoth\Http\Factory\ResponseFactory;
+use Mammoth\Mailing\Abstraction\IMailer;
 use Mammoth\Url\Abstraction\IRouter;
 use Mammoth\Url\Abstraction\IUrlManager;
 use function bdump;
@@ -58,8 +59,25 @@ class SignController extends Controller
      */
     public function upAction(Request $request): Response
     {
-        return $this->responseFactory->create($request)->setContentView("register")
-            ->setTitle("Registrace");
+        $post = $request->getPost();
+
+        if ($post) {
+            $this->userManager->register(
+                $post['first-name'],
+                $post['last-name'],
+                $post['nickname'],
+                $post['email'],
+                $post['password'],
+                $post['password-again']
+            );
+        }
+
+        $data = $request->getParsedUrl()->getData();
+        if (isset($data[0]) && $data[0] === "confirm") {
+            $this->userManager->confirmUser($data[1]);
+        }
+
+        return $this->responseFactory->create($request)->setContentView("register")->setTitle("Registrace");
     }
 
     /**
@@ -71,13 +89,17 @@ class SignController extends Controller
      */
     public function inAction(Request $request): Response
     {
-        if ($_POST) {
-            if ($this->userManager->logIn($_POST['username'], $_POST['password']) === true) {
+        $post = $request->getPost();
+
+        if ($post) {
+            if ($this->userManager->logIn($post['username'], $post['password']) === true) {
                 $summaryPage = $request->getParsedUrl()->setComponent("application")->setController(null)->setAction(
-                        null
-                    )->setData(null);
+                    null
+                )->setData(null);
 
                 $this->router->route($summaryPage);
+
+                exit;
             }
         }
 

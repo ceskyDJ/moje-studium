@@ -9,10 +9,11 @@
 
         <section class="content-container">
             <form method="post" action="" class="app-form">
+                {var $oldData = $request->getPost()}
                 <div class="form-inputs">
                     <div class="form-input-row">
                         <label for="username" class="form-label">Přezdívka (nebo email)</label>
-                        <input name="username" type="text" id="username" class="form-input" autocomplete="username" required />
+                        <input name="username" type="text" id="username" class="form-input" autocomplete="username" required value="{$oldData['username'] ?? ""}" />
                         {*<i class="form-input-status positive"></i>*}
                     </div>
                     <div class="form-input-row">
