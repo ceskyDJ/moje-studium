@@ -98,7 +98,21 @@ class ClassController extends Controller
      */
     public function createAction(Request $request): Response
     {
-        return $this->responseFactory->create($request)->setContentView("create-class")->setTitle("Vytvoření třídy");
+        $post = $request->getPost();
+        if ($post) {
+            if ($this->classManager->addClass((int)$post['school'], $post['class-name'], $post['start-year'], $post['study-length'])) {
+                $this->router->route($request->getParsedUrl()->setController(null)->setAction(null)->setData(null));
+
+                exit;
+            }
+        }
+
+        $response = $this->responseFactory->create($request)->setContentView("create-class")->setTitle("Vytvoření třídy");
+
+        $response->setDataVar("schools", $this->schoolRepository->getAll());
+        $response->setDataVar("startYears", $this->classManager->generateStartYears());
+
+        return $response;
     }
 
     /**

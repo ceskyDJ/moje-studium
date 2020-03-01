@@ -25,6 +25,17 @@ interface ISchoolClassRepository
     public function getById(int $id): SchoolClass;
 
     /**
+     * Finds school class by name, school and start year
+     *
+     * @param string $name
+     * @param \App\Entity\School $school
+     * @param int $startYear
+     *
+     * @return \App\Entity\SchoolClass|null
+     */
+    public function getByNameSchoolAndStartYear(string $name, School $school, int $startYear): ?SchoolClass;
+
+    /**
      * Adds new school class
      *
      * @param string $name

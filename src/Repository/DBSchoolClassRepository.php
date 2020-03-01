@@ -40,6 +40,21 @@ class DBSchoolClassRepository implements Abstraction\ISchoolClassRepository
     /**
      * @inheritDoc
      */
+    public function getByNameSchoolAndStartYear(string $name, School $school, int $startYear): ?SchoolClass
+    {
+        $query = $this->em->createQuery(/** @lang DQL */ "
+            SELECT c FROM App\Entity\SchoolClass c WHERE c.name = :name AND c.school = :school AND c.startYear = :startYear
+        ");
+        $query->setParameter("name", $name);
+        $query->setParameter("school", $school);
+        $query->setParameter("startYear", $startYear);
+
+        return $query->getOneOrNullResult();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function add(string $name, int $startYear, int $studyLength, School $school): SchoolClass
     {
         $class = new SchoolClass;
