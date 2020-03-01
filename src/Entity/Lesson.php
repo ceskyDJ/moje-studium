@@ -26,7 +26,7 @@ class Lesson
      *
      * @ORM\Column(name="lesson_id", type="integer", length=10, nullable=false, options={ "unsigned": true })
      */
-    private int $id;
+    private ?int $id = null;
     /**
      * @var int Position in timetable
      * @ORM\Column(name="position_number", type="smallint", length=3, nullable=false, options={ "unsigned": true })

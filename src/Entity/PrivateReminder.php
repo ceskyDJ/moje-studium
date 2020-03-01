@@ -28,7 +28,7 @@ class PrivateReminder
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(name="user_reminder_id", type="integer", length=10, nullable=false, options={ "unsigned": true })
      */
-    private int $id;
+    private ?int $id = null;
     /**
      * @var string Type (homework, school-event, test)
      * @ORM\Column(name="type", type="string", length=8, columnDefinition="ENUM('test', 'homework', 'school-event') NOT NULL", options={  })

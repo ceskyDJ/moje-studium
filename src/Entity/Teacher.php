@@ -27,7 +27,7 @@ class Teacher
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(name="teacher_id", type="integer", length=10, nullable=false, options={ "unsigned": true })
      */
-    private int $id;
+    private ?int $id = null;
     /**
      * @var string First name
      * @ORM\Column(name="first_name", type="string", length=35, nullable=false, options={  })

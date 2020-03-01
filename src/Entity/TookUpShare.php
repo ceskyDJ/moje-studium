@@ -23,7 +23,7 @@ class TookUpShare
      *
      * @ORM\Column(name="took_up_share_id", type="integer", length=10, nullable=false, options={ "unsigned": true })
      */
-    private int $id;
+    private ?int $id = null;
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="tookUpShares")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id", nullable=false, onDelete="CASCADE")

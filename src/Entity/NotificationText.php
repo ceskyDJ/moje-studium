@@ -27,7 +27,7 @@ class NotificationText
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(name="notification_text_id", type="integer", length=10, nullable=false, options={ "unsigned": true })
      */
-    private int $id;
+    private ?int $id = null;
     /**
      * @var string Notification text (with some variables in it, of course)
      * @ORM\Column(name="text", type="string", length=100, nullable=false, options={  })

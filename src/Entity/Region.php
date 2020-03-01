@@ -27,7 +27,7 @@ class Region
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(name="region_id", type="integer", length=10, nullable=false, options={ "unsigned": true })
      */
-    private int $id;
+    private ?int $id = null;
     /**
      * @var string Official name (for ex. Pardubický kraj in Czech republic)
      * @ORM\Column(name="name", type="string", length=20, nullable=false, options={  })

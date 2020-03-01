@@ -26,7 +26,7 @@ class Notification
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(name="notification_id", type="integer", length=10, nullable=false, options={ "unsigned": true })
      */
-    private int $id;
+    private ?int $id = null;
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="notifications")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="user_id", nullable=false, onDelete="CASCADE")

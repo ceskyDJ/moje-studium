@@ -28,7 +28,7 @@ class SchoolSubject
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(name="subject_id", type="integer", length=10, nullable=false, options={ "unsigned": true })
      */
-    private int $id;
+    private ?int $id = null;
     /**
      * @var string Long name
      * @ORM\Column(name="name", type="string", length=60, nullable=false, options={  })

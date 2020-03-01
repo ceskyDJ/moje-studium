@@ -28,7 +28,7 @@ class User implements IUser
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(name="user_id", type="integer", length=10, nullable=false, options={ "unsigned": true })
      */
-    private int $id;
+    private ?int $id = null;
     /**
      * @var string Password (hash form)
      * @ORM\Column(name="password", type="string", length=255, nullable=false, options={  })

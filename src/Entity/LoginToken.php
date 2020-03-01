@@ -26,7 +26,7 @@ class LoginToken
      *
      * @ORM\Column(name="token_id", type="integer", length=10, nullable=false, options={ "unsigned": true })
      */
-    private int $id;
+    private ?int $id = null;
     /**
      * @var string Token content
      * @ORM\Column(name="token", type="string", length=512, nullable=false, options={  })

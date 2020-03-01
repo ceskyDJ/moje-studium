@@ -25,7 +25,7 @@ class TaughtGroup
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(name="taught_group_id", type="integer", length=10, nullable=false, options={ "unsigned": true })
      */
-    private int $id;
+    private ?int $id = null;
     /**
      * @ORM\ManyToOne(targetEntity="ClassGroup", inversedBy="taughtGroups")
      * @ORM\JoinColumn(name="group_id", referencedColumnName="group_id", nullable=false)

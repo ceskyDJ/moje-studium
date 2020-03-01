@@ -26,7 +26,7 @@ class SharedFile
      *
      * @ORM\Column(name="shared_file_id", type="integer", length=10, nullable=false, options={ "unsigned": true })
      */
-    private int $id;
+    private ?int $id = null;
     /**
      * @var \DateTime When was it shared?
      * @ORM\Column(name="shared", type="datetime", nullable=false, options={  })

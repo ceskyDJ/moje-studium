@@ -23,7 +23,7 @@ class NotificationVariable
      * @ORM\Column(name="notification_variable_id", type="integer", length=10, nullable=false, options={ "unsigned":
      *     true })
      */
-    private int $id;
+    private ?int $id = null;
     /**
      * @var string Variable name
      * @ORM\Column(name="variable", type="string", length=15, nullable=false, options={  })

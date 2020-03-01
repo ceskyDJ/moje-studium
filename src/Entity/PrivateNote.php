@@ -25,7 +25,7 @@ class PrivateNote
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(name="user_note_id", type="integer", length=10, nullable=false, options={ "unsigned": true })
      */
-    private int $id;
+    private ?int $id = null;
     /**
      * @var string Note
      * @ORM\Column(name="content", type="string", length=200, nullable=false, options={  })

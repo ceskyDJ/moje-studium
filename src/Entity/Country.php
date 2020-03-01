@@ -28,7 +28,7 @@ class Country
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(name="country_id", type="integer", length=10, nullable=false, options={ "unsigned": true })
      */
-    private int $id;
+    private ?int $id = null;
     /**
      * @var string Official name
      * @ORM\Column(name="name", type="string", length=70, nullable=false, options={  })
