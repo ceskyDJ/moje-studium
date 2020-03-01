@@ -45,8 +45,10 @@ interface IReminderRepository
      * @param string $content
      * @param \DateTime $when
      * @param \App\Entity\SchoolSubject $subject
+     *
+     * @return \App\Entity\PrivateReminder
      */
-    public function add(User $owner, string $type, string $content, DateTime $when, SchoolSubject $subject): void;
+    public function add(User $owner, string $type, string $content, DateTime $when, SchoolSubject $subject): PrivateReminder;
 
     /**
      * Deletes existing reminder

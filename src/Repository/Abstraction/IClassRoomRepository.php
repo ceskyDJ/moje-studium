@@ -30,13 +30,15 @@ interface IClassRoomRepository
      * @param \App\Entity\SchoolClass $class
      * @param string $name
      * @param string|null $description
+     *
+     * @return \App\Entity\Classroom
      */
-    public function add(SchoolClass $class, string $name, ?string $description): void;
+    public function add(SchoolClass $class, string $name, ?string $description): Classroom;
 
     /**
      * Deletes existing classroom
      *
      * @param int $id
      */
-    public function delete(int $id): void ;
+    public function delete(int $id): void;
 }

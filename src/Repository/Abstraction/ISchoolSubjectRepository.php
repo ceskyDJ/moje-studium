@@ -30,8 +30,10 @@ interface ISchoolSubjectRepository
      * @param \App\Entity\SchoolClass $class
      * @param string $name
      * @param string $shortcut
+     *
+     * @return \App\Entity\SchoolSubject
      */
-    public function add(SchoolClass $class, string $name, string $shortcut): void;
+    public function add(SchoolClass $class, string $name, string $shortcut): SchoolSubject;
 
     /**
      * Deletes existing school subject

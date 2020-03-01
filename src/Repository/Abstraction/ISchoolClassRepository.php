@@ -31,8 +31,10 @@ interface ISchoolClassRepository
      * @param int $startYear
      * @param int $studyLength
      * @param \App\Entity\School $school
+     *
+     * @return \App\Entity\SchoolClass
      */
-    public function add(string $name, int $startYear, int $studyLength, School $school): void;
+    public function add(string $name, int $startYear, int $studyLength, School $school): SchoolClass;
 
     /**
      * Deletes existing school class

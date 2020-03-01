@@ -32,8 +32,10 @@ interface INotificationRepository
      * @param \App\Entity\NotificationText $text
      * @param array $variables Variables to replace in default notification text (for ex.: ["FILE_NAME" => "Questions
      *     for math test"])
+     *
+     * @return \App\Entity\Notification
      */
-    public function add(User $user, NotificationText $text, array $variables): void;
+    public function add(User $user, NotificationText $text, array $variables): Notification;
 
     /**
      * Deletes existing notification

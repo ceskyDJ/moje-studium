@@ -41,13 +41,15 @@ class DBClassGroupRepository implements IClassGroupRepository
     /**
      * @inheritDoc
      */
-    public function add(string $name, SchoolClass $class): void
+    public function add(string $name, SchoolClass $class): ClassGroup
     {
         $group = new ClassGroup;
         $group->setName($name)->setClass($class);
 
         $this->em->persist($group);
         $this->em->flush();
+
+        return $group;
     }
 
     /**

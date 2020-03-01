@@ -58,13 +58,15 @@ class DBReminderRepository implements Abstraction\IReminderRepository
     /**
      * @inheritDoc
      */
-    public function add(User $owner, string $type, string $content, DateTime $when, SchoolSubject $subject): void
+    public function add(User $owner, string $type, string $content, DateTime $when, SchoolSubject $subject): PrivateReminder
     {
         $reminder = new PrivateReminder;
         $reminder->setOwner($owner)->setType($type)->setContent($content)->setWhen($when)->setSubject($subject);
 
         $this->em->persist($reminder);
         $this->em->flush();
+
+        return $reminder;
     }
 
     /**

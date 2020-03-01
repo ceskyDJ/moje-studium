@@ -40,8 +40,10 @@ interface INoteRepository
      *
      * @param \App\Entity\User $owner
      * @param string $content
+     *
+     * @return \App\Entity\PrivateNote
      */
-    public function add(User $owner, string $content): void;
+    public function add(User $owner, string $content): PrivateNote;
 
     /**
      * Deletes existing note

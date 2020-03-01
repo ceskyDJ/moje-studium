@@ -47,7 +47,7 @@ class DBTeacherRepository implements Abstraction\ITeacherRepository
         string $degreeBefore,
         string $degreeAfter,
         string $shortcut
-    ): void {
+    ): Teacher {
         $teacher = new Teacher;
         $teacher->setClass($class)
             ->setFirstName($firstName)
@@ -58,6 +58,8 @@ class DBTeacherRepository implements Abstraction\ITeacherRepository
 
         $this->em->persist($teacher);
         $this->em->flush();
+
+        return $teacher;
     }
 
     /**

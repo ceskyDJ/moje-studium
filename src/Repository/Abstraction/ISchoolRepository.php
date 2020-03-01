@@ -40,6 +40,8 @@ interface ISchoolRepository
      * @param \App\Entity\Region|null $region
      * @param string $street
      * @param string $city
+     *
+     * @return \App\Entity\School
      */
-    public function add(string $name, Country $country, ?Region $region, string $street, string $city): void;
+    public function add(string $name, Country $country, ?Region $region, string $street, string $city): School;
 }

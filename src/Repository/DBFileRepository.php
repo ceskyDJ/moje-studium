@@ -55,13 +55,15 @@ class DBFileRepository implements Abstraction\IFileRepository
     /**
      * @inheritDoc
      */
-    public function add(User $owner, string $name, string $path, bool $folder): void
+    public function add(User $owner, string $name, string $path, bool $folder): PrivateFile
     {
         $file = new PrivateFile;
         $file->setOwner($owner)->setName($name)->setPath($path)->setFolder($folder);
 
         $this->em->persist($file);
         $this->em->flush();
+
+        return $file;
     }
 
     /**

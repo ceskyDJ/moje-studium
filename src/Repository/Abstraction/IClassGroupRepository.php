@@ -29,8 +29,10 @@ interface IClassGroupRepository
      *
      * @param string $name
      * @param \App\Entity\SchoolClass $class
+     *
+     * @return \App\Entity\ClassGroup
      */
-    public function add(string $name, SchoolClass $class): void;
+    public function add(string $name, SchoolClass $class): ClassGroup;
 
     /**
      * Deletes existing class group

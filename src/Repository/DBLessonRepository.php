@@ -49,7 +49,7 @@ class DBLessonRepository implements Abstraction\ILessonRepository
         int $dayOfWeek,
         Classroom $classroom,
         TaughtGroup $taughtGroup
-    ): void {
+    ): Lesson {
         $lesson = new Lesson;
         $lesson->setTimetablePosition($timetablePosition)
             ->setFrom($from)
@@ -60,6 +60,8 @@ class DBLessonRepository implements Abstraction\ILessonRepository
 
         $this->em->persist($lesson);
         $this->em->flush();
+
+        return $lesson;
     }
 
     /**

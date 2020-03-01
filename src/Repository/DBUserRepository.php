@@ -63,7 +63,7 @@ class DBUserRepository implements Abstraction\IUserRepository
         string $firstName,
         string $lastName,
         string $email
-    ): void {
+    ): User {
         $user = new User;
         $user->setPassword($password)->setRank($rank);
 
@@ -78,6 +78,8 @@ class DBUserRepository implements Abstraction\IUserRepository
 
         $this->em->persist($data);
         $this->em->flush();
+
+        return $user;
     }
 
     /**

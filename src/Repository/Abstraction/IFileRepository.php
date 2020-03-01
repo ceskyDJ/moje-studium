@@ -42,8 +42,10 @@ interface IFileRepository
      * @param string $name
      * @param string $path
      * @param bool $folder
+     *
+     * @return \App\Entity\PrivateFile
      */
-    public function add(User $owner, string $name, string $path, bool $folder): void;
+    public function add(User $owner, string $name, string $path, bool $folder): PrivateFile;
 
     /**
      * Deletes existing file or folder

@@ -27,13 +27,15 @@ class DBClassRoomRepository implements Abstraction\IClassRoomRepository
     /**
      * @inheritDoc
      */
-    public function add(SchoolClass $class, string $name, ?string $description): void
+    public function add(SchoolClass $class, string $name, ?string $description): Classroom
     {
         $classroom = new Classroom;
         $classroom->setClass($class)->setName($name)->setDescription($description);
 
         $this->em->persist($classroom);
         $this->em->flush();
+
+        return $classroom;
     }
 
     /**

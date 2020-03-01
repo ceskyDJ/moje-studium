@@ -42,13 +42,15 @@ class DBTaughtGroupRepository implements Abstraction\ITaughtGroupRepository
     /**
      * @inheritDoc
      */
-    public function add(ClassGroup $group, SchoolSubject $subject, Teacher $teacher): void
+    public function add(ClassGroup $group, SchoolSubject $subject, Teacher $teacher): TaughtGroup
     {
         $taughtGroup = new TaughtGroup;
         $taughtGroup->setGroup($group)->setSubject($subject)->setTeacher($teacher);
 
         $this->em->persist($taughtGroup);
         $this->em->flush();
+
+        return $taughtGroup;
     }
 
     /**

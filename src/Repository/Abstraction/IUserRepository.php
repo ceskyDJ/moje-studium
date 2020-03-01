@@ -43,8 +43,10 @@ interface IUserRepository
      * @param string $firstName
      * @param string $lastName
      * @param string $email
+     *
+     * @return \App\Entity\User
      */
-    public function add(string $username, string $password, Rank $rank, string $firstName, string $lastName, string $email): void;
+    public function add(string $username, string $password, Rank $rank, string $firstName, string $lastName, string $email): User;
 
     /**
      * Deletes existing user

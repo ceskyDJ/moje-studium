@@ -32,8 +32,10 @@ interface ITaughtGroupRepository
      * @param \App\Entity\ClassGroup $group
      * @param \App\Entity\SchoolSubject $subject
      * @param \App\Entity\Teacher $teacher
+     *
+     * @return \App\Entity\TaughtGroup
      */
-    public function add(ClassGroup $group, SchoolSubject $subject, Teacher $teacher): void;
+    public function add(ClassGroup $group, SchoolSubject $subject, Teacher $teacher): TaughtGroup;
 
     /**
      * Deletes existing taught group

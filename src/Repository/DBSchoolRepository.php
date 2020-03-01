@@ -49,12 +49,14 @@ class DBSchoolRepository implements Abstraction\ISchoolRepository
     /**
      * @inheritDoc
      */
-    public function add(string $name, Country $country, ?Region $region, string $street, string $city): void
+    public function add(string $name, Country $country, ?Region $region, string $street, string $city): School
     {
         $school = new School;
         $school->setName($name)->setCountry($country)->setRegion($region)->setStreet($street)->setCity($city);
 
         $this->em->persist($school);
         $this->em->flush();
+
+        return $school;
     }
 }

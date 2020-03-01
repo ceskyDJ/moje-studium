@@ -56,13 +56,15 @@ class DBNoteRepository implements Abstraction\INoteRepository
     /**
      * @inheritDoc
      */
-    public function add(User $owner, string $content): void
+    public function add(User $owner, string $content): PrivateNote
     {
         $note = new PrivateNote;
         $note->setOwner($owner)->setContent($content);
 
         $this->em->persist($note);
         $this->em->flush();
+
+        return $note;
     }
 
     /**

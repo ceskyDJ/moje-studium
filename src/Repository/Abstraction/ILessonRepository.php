@@ -35,6 +35,8 @@ interface ILessonRepository
      * @param int $dayOfWeek
      * @param \App\Entity\Classroom $classroom
      * @param \App\Entity\TaughtGroup $taughtGroup
+     *
+     * @return \App\Entity\Lesson
      */
     public function add(
         int $timetablePosition,
@@ -43,7 +45,7 @@ interface ILessonRepository
         int $dayOfWeek,
         Classroom $classroom,
         TaughtGroup $taughtGroup
-    ): void;
+    ): Lesson;
 
     /**
      * Deletes existing lesson

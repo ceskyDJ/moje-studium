@@ -38,8 +38,10 @@ interface ILoginTokenRepository
      *
      * @param \App\Entity\User $user
      * @param string $content
+     *
+     * @return \App\Entity\LoginToken
      */
-    public function add(User $user, string $content): void;
+    public function add(User $user, string $content): LoginToken;
 
     /**
      * Deactivates used login token

@@ -40,13 +40,15 @@ class DBSchoolClassRepository implements Abstraction\ISchoolClassRepository
     /**
      * @inheritDoc
      */
-    public function add(string $name, int $startYear, int $studyLength, School $school): void
+    public function add(string $name, int $startYear, int $studyLength, School $school): SchoolClass
     {
         $class = new SchoolClass;
         $class->setName($name)->setStartYear($startYear)->setStudyLength($studyLength)->setSchool($school);
 
         $this->em->persist($class);
         $this->em->flush();
+
+        return $class;
     }
 
     /**

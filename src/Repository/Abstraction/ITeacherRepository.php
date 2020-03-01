@@ -33,8 +33,10 @@ interface ITeacherRepository
      * @param string $degreeBefore
      * @param string $degreeAfter
      * @param string $shortcut
+     *
+     * @return \App\Entity\Teacher
      */
-    public function add(SchoolClass $class, string $firstName, string $lastName, string $degreeBefore, string $degreeAfter, string $shortcut): void;
+    public function add(SchoolClass $class, string $firstName, string $lastName, string $degreeBefore, string $degreeAfter, string $shortcut): Teacher;
 
     /**
      * Deletes existing teacher

@@ -42,7 +42,7 @@ class DBNotificationRepository implements Abstraction\INotificationRepository
     /**
      * @inheritDoc
      */
-    public function add(User $user, NotificationText $text, array $variables): void
+    public function add(User $user, NotificationText $text, array $variables): Notification
     {
         $notification = new Notification;
         $notification->setUser($user)->setText($text);
@@ -58,6 +58,8 @@ class DBNotificationRepository implements Abstraction\INotificationRepository
         }
 
         $this->em->flush();
+
+        return $notification;
     }
 
     /**

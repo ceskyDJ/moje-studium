@@ -40,13 +40,15 @@ class DBSchoolSubjectRepository implements Abstraction\ISchoolSubjectRepository
     /**
      * @inheritDoc
      */
-    public function add(SchoolClass $class, string $name, string $shortcut): void
+    public function add(SchoolClass $class, string $name, string $shortcut): SchoolSubject
     {
         $subject = new SchoolSubject;
         $subject->setClass($class)->setName($name)->setShortcut($shortcut);
 
         $this->em->persist($subject);
         $this->em->flush();
+
+        return $subject;
     }
 
     /**

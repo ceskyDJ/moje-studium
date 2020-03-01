@@ -51,13 +51,15 @@ class DBLoginTokenRepository implements Abstraction\ILoginTokenRepository
     /**
      * @inheritDoc
      */
-    public function add(User $user, string $content): void
+    public function add(User $user, string $content): LoginToken
     {
         $token = new LoginToken;
         $token->setUser($user)->setContent($content);
 
         $this->em->persist($token);
         $this->em->flush();
+
+        return $token;
     }
 
     /**
