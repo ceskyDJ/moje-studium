@@ -1152,12 +1152,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/ceskyDJ/mammoth.git",
-            "reference": "81844cfd66de27fd2b0be7d7104e8efad63429c3"
+            "reference": "295f7a816684a347d9fd47c0b24c4e4a1be61d09"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/ceskyDJ/mammoth/zipball/81844cfd66de27fd2b0be7d7104e8efad63429c3",
-            "reference": "81844cfd66de27fd2b0be7d7104e8efad63429c3",
+            "url": "https://api.github.com/repos/ceskyDJ/mammoth/zipball/295f7a816684a347d9fd47c0b24c4e4a1be61d09",
+            "reference": "295f7a816684a347d9fd47c0b24c4e4a1be61d09",
             "shasum": ""
         },
         "require": {
@@ -1176,7 +1176,7 @@
         "require-dev": {
             "rector/rector": "^0.6.2"
         },
-        "time": "2020-03-01T00:26:34+00:00",
+        "time": "2020-03-01T00:32:55+00:00",
         "type": "library",
         "installation-source": "source",
         "autoload": {

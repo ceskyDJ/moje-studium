@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "25af7cfd1293bc9195337ef8b98fa41b",
+    "content-hash": "b69e941cfe5238af8203f7881b252a54",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1126,12 +1126,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ceskyDJ/mammoth.git",
-                "reference": "81844cfd66de27fd2b0be7d7104e8efad63429c3"
+                "reference": "295f7a816684a347d9fd47c0b24c4e4a1be61d09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ceskyDJ/mammoth/zipball/81844cfd66de27fd2b0be7d7104e8efad63429c3",
-                "reference": "81844cfd66de27fd2b0be7d7104e8efad63429c3",
+                "url": "https://api.github.com/repos/ceskyDJ/mammoth/zipball/295f7a816684a347d9fd47c0b24c4e4a1be61d09",
+                "reference": "295f7a816684a347d9fd47c0b24c4e4a1be61d09",
                 "shasum": ""
             },
             "require": {
@@ -1167,7 +1167,7 @@
                 }
             ],
             "description": "Mammoth - Lightweight easy to use PHP framework",
-            "time": "2020-03-01T00:26:34+00:00"
+            "time": "2020-03-01T00:32:55+00:00"
         },
         {
             "name": "nette/caching",
@@ -2567,7 +2567,8 @@
         "ext-mbstring": "*",
         "ext-pdo": "*",
         "ext-openssl": "*",
-        "ext-dom": "*"
+        "ext-dom": "*",
+        "ext-json": "*"
     },
     "platform-dev": []
 }
