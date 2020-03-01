@@ -7,6 +7,8 @@ namespace App\Model;
 use App\Entity\User;
 use App\Repository\Abstraction\ILoginTokenRepository;
 use App\Repository\Abstraction\IRankRepository;
+use App\Repository\Abstraction\ISchoolClassRepository;
+use App\Repository\Abstraction\ISchoolRepository;
 use App\Repository\Abstraction\IUserRepository;
 use Mammoth\DI\DIClass;
 use Mammoth\Exceptions\NonExistingKeyException;
@@ -87,6 +89,14 @@ class UserManager extends \Mammoth\Security\UserManager
      * @inject
      */
     private Server $server;
+    /**
+     * @inject
+     */
+    private ISchoolRepository $schoolRepository;
+    /**
+     * @inject
+     */
+    private ISchoolClassRepository $classRepository;
 
     /**
      * Logs in user
@@ -110,7 +120,7 @@ class UserManager extends \Mammoth\Security\UserManager
                 $user->getPassword()
             )) {
             $this->messageManager->addMessage(
-                "Zadali jste chybnou přezdívku (nebo email) a/nebo heslo",
+                "Zadal jsi chybnou přezdívku (nebo email) a/nebo heslo",
                 self::NEGATIVE_MESSAGE
             );
 
@@ -118,7 +128,10 @@ class UserManager extends \Mammoth\Security\UserManager
         }
 
         if ($user->isConfirmed() === false) {
-            $this->messageManager->addMessage("Váš účet zatím nebyl potvrzen. Podívejte se emailové schránky.", self::NEGATIVE_MESSAGE);
+            $this->messageManager->addMessage(
+                "Tvůj účet zatím nebyl potvrzen. Podívej se do emailové schránky, jistě ti přišel potvrzovací email.",
+                self::NEGATIVE_MESSAGE
+            );
 
             return false;
         }
@@ -158,7 +171,7 @@ class UserManager extends \Mammoth\Security\UserManager
 
         // Names
         if (mb_strlen($firstName) < 3 || mb_strlen($lastName) < 3) {
-            $this->messageManager->addMessage("Zkontrolujte si správnost jména a příjmení", self::NEGATIVE_MESSAGE);
+            $this->messageManager->addMessage("Zkontroluj si správnost jména a příjmení", self::NEGATIVE_MESSAGE);
 
             return false;
         } else {
@@ -171,12 +184,12 @@ class UserManager extends \Mammoth\Security\UserManager
 
         // Nickname
         if (mb_strlen($nickname) < 3) {
-            $this->messageManager->addMessage("Přezdívka by měla být dlouhý alespoň 3 znaky", self::NEGATIVE_MESSAGE);
+            $this->messageManager->addMessage("Přezdívka by měla být dlouhá alespoň 3 znaky", self::NEGATIVE_MESSAGE);
         }
 
         // Email
         if (filter_input(FILTER_VALIDATE_EMAIL, $email) === false) {
-            $this->messageManager->addMessage("Zkontrolujte si správnost emailové adresy", self::NEGATIVE_MESSAGE);
+            $this->messageManager->addMessage("Zkontroluj si správnost emailové adresy", self::NEGATIVE_MESSAGE);
 
             return false;
         }
@@ -198,7 +211,7 @@ class UserManager extends \Mammoth\Security\UserManager
         if ((bool)preg_match("%[a-z]+%", $password) === false || (bool)preg_match("%[A-Z]+%", $password) === false
             || (bool)preg_match("%\d+%", $password) === false) {
             $this->messageManager->addMessage(
-                "Heslo musí obsahovat alespoň jedno malé písemno, velké písmeno a číslici",
+                "Heslo musí obsahovat alespoň jedno malé písmeno, velké písmeno a číslici",
                 self::NEGATIVE_MESSAGE
             );
 
@@ -215,7 +228,7 @@ class UserManager extends \Mammoth\Security\UserManager
         }
 
         if ($this->userRepository->getByUsernameOrEmail($email) !== null) {
-            $this->messageManager->addMessage("Zadaný email je již používána", self::NEGATIVE_MESSAGE);
+            $this->messageManager->addMessage("Zadaný email je již používán", self::NEGATIVE_MESSAGE);
 
             return false;
         }
@@ -272,7 +285,7 @@ class UserManager extends \Mammoth\Security\UserManager
     public function confirmUser(string $tokenContent): bool
     {
         if (($token = $this->tokenRepository->getByContent($tokenContent)) === null) {
-            $this->messageManager->addMessage("Váš účet již byl potvrzen nebo máte chybný klíč", self::NEGATIVE_MESSAGE);
+            $this->messageManager->addMessage("Tvůj účet již byl potvrzen nebo máš chybný klíč", self::NEGATIVE_MESSAGE);
 
             return false;
         }
@@ -280,7 +293,68 @@ class UserManager extends \Mammoth\Security\UserManager
         $this->tokenRepository->deactivate($token->getId());
         $this->userRepository->confirm((int)$token->getUser()->getId());
 
-        $this->messageManager->addMessage("Váš účet byl úspěšně potvrzen. Nyní se již můžete přihlásit", self::POSITIVE_MESSAGE);
+        $this->messageManager->addMessage("Tvůj účet byl úspěšně potvrzen. Nyní se již můžeš přihlásit", self::POSITIVE_MESSAGE);
+
+        return true;
+    }
+
+    /**
+     * Checks user's first login state
+     *
+     * @return bool Is current user's login first?
+     */
+    public function isFirstLogin(): bool
+    {
+        /**
+         * @var $user User
+         */
+        $user = $this->getUser();
+
+        return $user->isFirstLogin();
+    }
+
+    /**
+     * Set first login as fully completed for current user
+     */
+    public function setFirstLoginCompleted(): void
+    {
+        $this->userRepository->completeFirstLogin((int)$this->user->getId());
+    }
+
+    /**
+     * Applies user's choice to select the school class
+     *
+     * @param int $schoolId School ID
+     * @param int $classId Class ID
+     *
+     * @return bool Has it been successful?
+     */
+    public function selectSchoolClass(int $schoolId, int $classId): bool {
+        if (empty($schoolId) || empty($classId)) {
+            $this->messageManager->addMessage("Nebyla vyplněna všechna pole", self::NEGATIVE_MESSAGE);
+
+            return false;
+        }
+
+        if (($school = $this->schoolRepository->getById($schoolId)) === null) {
+            $this->messageManager->addMessage("Zvolená škola neexistuje", self::NEGATIVE_MESSAGE);
+
+            return false;
+        }
+
+        if (($class = $this->classRepository->getById($classId)) === null) {
+            $this->messageManager->addMessage("Zvolená třída neexistuje", self::NEGATIVE_MESSAGE);
+
+            return false;
+        }
+
+        if ($class->getSchool()->getId() !== $school->getId()) {
+            $this->messageManager->addMessage("Zvolená třída není součástí zvolené školy", self::NEGATIVE_MESSAGE);
+
+            return false;
+        }
+
+        $this->userRepository->selectClass((int)$this->user->getId(), $class);
 
         return true;
     }

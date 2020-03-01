@@ -45,7 +45,7 @@ class PermissionManager implements IPermissionManager
             return true;
         } else if ($component === "application") {
             if (($user = $this->userManager->getUser()) !== null) {
-                return ($this->userManager->getUser()->isLoggedIn());
+                return ($user->isLoggedIn());
             } else {
                 return false;
             }

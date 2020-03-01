@@ -66,7 +66,7 @@ class User implements IUser
      * @ORM\OneToOne(targetEntity="ProfileImage", mappedBy="user")
      * @var \App\Entity\ProfileImage|null
      */
-    private ?ProfileImage $profileImage;
+    private ?ProfileImage $profileImage = null;
     /**
      * @ORM\OneToMany(targetEntity="SharedFile", mappedBy="targetUser")
      * @var \Doctrine\Common\Collections\Collection<\App\Entity\SharedFile>
@@ -96,7 +96,7 @@ class User implements IUser
      * @ORM\OneToOne(targetEntity="UserData", mappedBy="user")
      * @var \App\Entity\UserData
      */
-    private \App\Entity\UserData $data;
+    private ?\App\Entity\UserData $data = null;
     /**
      * @ORM\OneToMany(targetEntity="PrivateFile", mappedBy="owner")
      * @var \Doctrine\Common\Collections\Collection<\App\Entity\PrivateFile>

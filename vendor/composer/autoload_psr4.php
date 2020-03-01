@@ -21,7 +21,6 @@ return array(
     'Mammoth\\' => array($vendorDir . '/mammoth/mammoth/src'),
     'MacFJA\\Tracy\\' => array($vendorDir . '/macfja/tracy-doctrine-sql/lib'),
     'JanDrabek\\Tracy\\' => array($vendorDir . '/jandrabek/tracy-gitversion-panel/src'),
-    'Doctrine\\Persistence\\' => array($vendorDir . '/doctrine/persistence/lib/Doctrine/Persistence'),
     'Doctrine\\ORM\\' => array($vendorDir . '/doctrine/orm/lib/Doctrine/ORM'),
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
     'Doctrine\\DBAL\\' => array($vendorDir . '/doctrine/dbal/lib/Doctrine/DBAL'),

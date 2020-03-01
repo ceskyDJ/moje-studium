@@ -82,4 +82,19 @@ interface IUserRepository
      * @param int $id
      */
     public function confirm(int $id): void;
+
+    /**
+     * Completes user's first login -> every next login won't be first :D
+     *
+     * @param int $id
+     */
+    public function completeFirstLogin(int $id): void;
+
+    /**
+     * Selects class for user
+     *
+     * @param int $id
+     * @param \App\Entity\SchoolClass $class
+     */
+    public function selectClass(int $id, SchoolClass $class): void;
 }

@@ -17,6 +17,13 @@ use App\Entity\School;
 interface ISchoolRepository
 {
     /**
+     * Returns all schools
+     *
+     * @return \App\Entity\School[]
+     */
+    public function getAll(): array;
+
+    /**
      * Finds school by its ID
      *
      * @param int $id

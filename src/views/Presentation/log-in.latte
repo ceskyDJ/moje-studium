@@ -23,8 +23,8 @@
                     </div>
                 </div>
 
-                <div class="form-alerts" n:foreach="(array)$messages as $message">
-                    <p n:class="form-alert, $message['type']">{$message['text']}</p>
+                <div class="form-alerts">
+                    <p n:foreach="(array)$messages as $message" n:class="form-alert, $message['type']">{$message['text']}</p>
                 </div>
 
                 <div class="form-control">

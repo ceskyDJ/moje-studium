@@ -5,11 +5,13 @@ declare(strict_types = 1);
 namespace App\Controller\Application;
 
 use App\Model\NotificationManager;
+use App\Model\UserManager;
 use Mammoth\Controller\Common\Controller;
 use Mammoth\DI\DIClass;
 use Mammoth\Http\Entity\Request;
 use Mammoth\Http\Entity\Response;
 use Mammoth\Http\Factory\ResponseFactory;
+use Mammoth\Url\Abstraction\IRouter;
 
 /**
  * Controller for application's home - summary page
@@ -29,12 +31,26 @@ class HomeController extends Controller
      * @inject
      */
     private NotificationManager $notificationManager;
+    /**
+     * @inject
+     */
+    private UserManager $userManager;
+    /**
+     * @inject
+     */
+    private IRouter $router;
 
     /**
      * @inheritDoc
      */
     public function defaultAction(Request $request): Response
     {
+        if ($this->userManager->isFirstLogin() === true) {
+            $this->router->route($request->getParsedUrl()->setController("class")->setAction("select")->setData(null));
+
+            exit;
+        }
+
         return $this->responseFactory->create($request)->setContentView("summary")->setTitle("Přehled");
     }
 

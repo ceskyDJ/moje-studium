@@ -124,4 +124,26 @@ class DBUserRepository implements Abstraction\IUserRepository
 
         $this->em->flush();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function completeFirstLogin(int $id): void
+    {
+        $user = $this->getById($id);
+        $user->setFirstLogin(false);
+
+        $this->em->flush();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function selectClass(int $id, SchoolClass $class): void
+    {
+        $user = $this->getById($id);
+        $user->setClass($class);
+
+        $this->em->flush();
+    }
 }

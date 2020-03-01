@@ -51,8 +51,10 @@ const updateIconChooser = selectElement => {
     parentOfSelect.appendChild(selectElement);
 };
 
-document.addEventListener("DOMContentLoaded", _ => document.querySelectorAll(".icon-chooser").forEach(item => updateIconChooser(item)));
-document.querySelector(".icon-chooser").addEventListener("change", event => updateIconChooser(event.target));
+if(document.querySelector(".icon-chooser") !== null) {
+    document.addEventListener("DOMContentLoaded", _ => document.querySelectorAll(".icon-chooser").forEach(item => updateIconChooser(item)));
+    document.querySelector(".icon-chooser").addEventListener("change", event => updateIconChooser(event.target));
+}
 // END icon chooser
 
 // START calendar
@@ -89,3 +91,41 @@ const setupCalendar = (container, input) => {
 
 document.querySelectorAll("._calendar-container").forEach(item => setupCalendar(item, item.querySelector("._calendar-input")));
 // END calendar
+
+// START class chooser
+const chooseSchoolSelect = document.querySelector("#_choose-school-select");
+if(chooseSchoolSelect !== null) {
+    chooseSchoolSelect.addEventListener("change", event => {
+        const chooseClassSelect = document.querySelector("#_choose-class-select");
+
+        // Remove old options
+        chooseClassSelect.querySelectorAll("._added-option").forEach(item => {
+            chooseClassSelect.removeChild(item);
+        });
+
+        // Download options for class chooser
+        axios.get("/application/class/get-classes/" + chooseSchoolSelect.value)
+            .then(response => {
+                response.data.forEach(item => {
+                    const option = document.createElement("option");
+                    option.text = item.displayName;
+                    option.setAttribute("value", item.id);
+                    option.classList.add("_added-option");
+
+                    chooseClassSelect.appendChild(option);
+                });
+            })
+            .catch(error => {
+
+            })
+            .then(_ => {
+                // Change text in class chooser
+                chooseClassSelect.querySelectorAll("option").forEach(item => {
+                    item.removeAttribute("selected");
+                });
+
+                chooseClassSelect.querySelector("#_choose-class-option").setAttribute("selected", "selected");
+            });
+    });
+}
+// END class chooser

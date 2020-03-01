@@ -9,7 +9,8 @@
         "ext-pdo": "*",
         "ext-openssl": "*",
         "paragonie/random-lib": "^2.1@dev",
-        "ext-dom": "*"
+        "ext-dom": "*",
+        "ext-json": "*"
     },
     "license": "MIT",
     "authors": [

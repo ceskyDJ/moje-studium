@@ -49,7 +49,6 @@ class ComposerStaticInit610e9b79229daa895400b61d92a1502f
         ),
         'D' => 
         array (
-            'Doctrine\\Persistence\\' => 21,
             'Doctrine\\ORM\\' => 13,
             'Doctrine\\Instantiator\\' => 22,
             'Doctrine\\DBAL\\' => 14,
@@ -122,10 +121,6 @@ class ComposerStaticInit610e9b79229daa895400b61d92a1502f
         'JanDrabek\\Tracy\\' => 
         array (
             0 => __DIR__ . '/..' . '/jandrabek/tracy-gitversion-panel/src',
-        ),
-        'Doctrine\\Persistence\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Persistence',
         ),
         'Doctrine\\ORM\\' => 
         array (
