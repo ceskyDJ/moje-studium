@@ -34,12 +34,12 @@ class Lesson
     private int $timetablePosition;
     /**
      * @var \DateTime When the lesson starts
-     * @ORM\Column(name="from", type="datetime", nullable=false, options={  })
+     * @ORM\Column(name="from", type="time", nullable=false, options={  })
      */
     private DateTime $from;
     /**
      * @var \DateTime When the lesson ends
-     * @ORM\Column(name="to", type="datetime", nullable=false, options={  })
+     * @ORM\Column(name="to", type="time", nullable=false, options={  })
      */
     private DateTime $to;
     /**

@@ -33,6 +33,11 @@ class ProfileIcon
      * @ORM\Column(name="name", type="string", length=20, nullable=false, options={  })
      */
     private string $name;
+    /**
+     * @var bool Is it default profile icon for users without set any icon?
+     * @ORM\Column(name="default", type="boolean", length=1, nullable=false, options={ "default": 0 })
+     */
+    private bool $default;
 
     /**
      * @ORM\OneToMany(targetEntity="ProfileImage", mappedBy="icon")
@@ -43,6 +48,7 @@ class ProfileIcon
 
     public function __construct()
     {
+        $this->default = false;
         $this->profileImages = new ArrayCollection;
     }
 
@@ -66,6 +72,18 @@ class ProfileIcon
     public function setName(string $name): ProfileIcon
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function isDefault(): bool
+    {
+        return $this->default;
+    }
+
+    public function setDefault(bool $default): ProfileIcon
+    {
+        $this->default = $default;
 
         return $this;
     }
