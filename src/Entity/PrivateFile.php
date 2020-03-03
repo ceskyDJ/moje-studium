@@ -40,7 +40,7 @@ class PrivateFile
     private string $path;
     /**
      * @var bool Is it folder?
-     * @ORM\Column(name="folder", type="boolean", length=1, nullable=false, options={  })
+     * @ORM\Column(name="folder", type="boolean", length=1, nullable=false, options={ "default": 0 })
      */
     private bool $folder;
     /**
