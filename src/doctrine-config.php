@@ -17,6 +17,10 @@ use Doctrine\ORM\EntityManager;
 $entityManager = $container->getInstance(EntityManager::class);
 $doctrineConnection = $entityManager->getConnection();
 
+// Main configs
+$config = $entityManager->getConfiguration();
+$config->setProxyDir($configurator->getTempDir());
+
 // Type mappings
 $databasePlatform = $doctrineConnection->getDatabasePlatform();
 $databasePlatform->registerDoctrineTypeMapping("enum", "string");
