@@ -41,7 +41,7 @@ class PrivateReminder
     private string $content;
     /**
      * @var \DateTime When does it happens?
-     * @ORM\Column(name="when", type="datetime", nullable=false, options={  })
+     * @ORM\Column(name="when", type="date", nullable=false, options={  })
      */
     private DateTime $when;
     /**
