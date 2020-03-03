@@ -117,6 +117,17 @@ class ClassManager
      */
     public function addClass(int $schoolId, string $name, string $startYear, string $studyLength): bool
     {
+        /**
+         * @var $user \App\Entity\User
+         */
+        $user = $this->userManager->getUser();
+        if ($user->getClass() !== null) {
+            $this->messageManager->addMessage(
+                "Již jsi v nějaké třídě, pro vytvoření nové třídy nejprve odejdi z té aktuální", self::NEGATIVE_MESSAGE);
+
+            return false;
+        }
+
         if (empty($schoolId) || empty($name) || empty($startYear) || empty($studyLength)) {
             $this->messageManager->addMessage("Nebyla vyplněna všechna pole", self::NEGATIVE_MESSAGE);
 
@@ -160,7 +171,7 @@ class ClassManager
         }
 
         $class = $this->classRepository->add($name, $startYear, $studyLength, $school);
-        $this->userRepository->selectClass((int)$this->userManager->getUser()->getId(), $class);
+        $this->userRepository->selectClass((int)$user->getId(), $class);
 
         return true;
     }
