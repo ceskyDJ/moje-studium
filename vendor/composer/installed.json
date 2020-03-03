@@ -1152,12 +1152,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/ceskyDJ/mammoth.git",
-            "reference": "295f7a816684a347d9fd47c0b24c4e4a1be61d09"
+            "reference": "d9ef249cd59258b72a3fdf590c7961ce0e11fe9e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/ceskyDJ/mammoth/zipball/295f7a816684a347d9fd47c0b24c4e4a1be61d09",
-            "reference": "295f7a816684a347d9fd47c0b24c4e4a1be61d09",
+            "url": "https://api.github.com/repos/ceskyDJ/mammoth/zipball/d9ef249cd59258b72a3fdf590c7961ce0e11fe9e",
+            "reference": "d9ef249cd59258b72a3fdf590c7961ce0e11fe9e",
             "shasum": ""
         },
         "require": {
@@ -1176,7 +1176,7 @@
         "require-dev": {
             "rector/rector": "^0.6.2"
         },
-        "time": "2020-03-01T00:32:55+00:00",
+        "time": "2020-03-03T22:28:15+00:00",
         "type": "library",
         "installation-source": "source",
         "autoload": {
@@ -2360,12 +2360,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/string.git",
-            "reference": "22e058fa10a94dc67624c8750ed0621a7e4762b7"
+            "reference": "cce692e43af1891c2ce0025b8193bb8dcd783668"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/string/zipball/22e058fa10a94dc67624c8750ed0621a7e4762b7",
-            "reference": "22e058fa10a94dc67624c8750ed0621a7e4762b7",
+            "url": "https://api.github.com/repos/symfony/string/zipball/cce692e43af1891c2ce0025b8193bb8dcd783668",
+            "reference": "cce692e43af1891c2ce0025b8193bb8dcd783668",
             "shasum": ""
         },
         "require": {
@@ -2380,7 +2380,7 @@
             "symfony/http-client": "^4.4|^5.0",
             "symfony/var-exporter": "^4.4|^5.0"
         },
-        "time": "2020-02-29T10:07:16+00:00",
+        "time": "2020-03-03T10:04:25+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
