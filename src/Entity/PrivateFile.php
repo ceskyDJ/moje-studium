@@ -7,6 +7,10 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use function array_search;
+use function end;
+use function explode;
+use function in_array;
 use function is_array;
 
 /**
@@ -59,6 +63,48 @@ class PrivateFile
     public function __construct()
     {
         $this->sharedFiles = new ArrayCollection;
+    }
+
+    /**
+     * Returns file type from its name
+     *
+     * @return string|null File type (inter-project name, not extension)
+     */
+    public function getType(): ?string
+    {
+        if($this->isFolder()) {
+            return null;
+        }
+
+        $fileTypes = [
+            'text-document' => ["txt", "doc", "docx", "rtf", "odt", "wpd", "wks", "wps"],
+            'sheet-document' => ["ods", "xlr", "xls", "xlsx"],
+            'presentation-document' => ["key", "odp", "pps", "ppt", "pptx"],
+            'pdf' => ["pdf"],
+            'php' => ["php", "phtml", "php5"],
+            'html' => ["html", "htm", "xhtml"],
+            'css' => ["css", "less", "scss", "sass", "styl"],
+            'js' => ["js", "ts"],
+            'source-code' => ["c", "class", "cpp", "cs", "h", "java", "sh", "bat", "swift", "vb", "py", "xml", "jsp", "cgi", "pl", "cfm", "asp", "aspx"],
+            'executable' => ["exe", "apk", "bin", "com", "gadget", "jar", "wsf"],
+            'archive' => ["7z", "arj", "deb", "pkg", "rar", "rpm", "gz", "z", "zip"],
+            'database' => ["sql", "csv", "dat", "db", "dbf", "log", "mdb", "sav", "tar"],
+            'font' => ["fnt", "fon", "otf", "ttf", "woff", "woff2", "eot"],
+            'image' => ["ai", "bmp", "gif", "ico", "jpeg", "jpg", "png", "ps", "psd", "svg", "tif", "tiff"],
+            'audio' => ["aif", "cda", "mid", "midi", "mp3", "mpa", "ogg", "wav", "wma", "wpl"],
+            'video' => ["3g2", "3gp", "avi", "flv", "h264", "mkv", "mov", "mp4", "mpg", "mpeg", "rm", "swf", "vob", "wmv"]
+        ];
+
+        $fileNameParts = explode(".", $this->getName());
+        $extension = end($fileNameParts);
+
+        foreach ($fileTypes as $typeName => $typeExtensions) {
+            if (in_array($extension, $typeExtensions)) {
+                return $typeName;
+            }
+        }
+
+        return null;
     }
 
     public function getId(): int

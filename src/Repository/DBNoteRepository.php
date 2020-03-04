@@ -43,6 +43,26 @@ class DBNoteRepository implements Abstraction\INoteRepository
     /**
      * @inheritDoc
      */
+    public function getSharedByUserOrItsClassWithLimit(User $targetUser, int $limit): array
+    {
+        $query = $this->em->createQuery(/** @lang DQL */ "
+            SELECT sn
+            FROM App\Entity\SharedNote sn
+            LEFT JOIN App\Entity\SchoolClass c WITH c = sn.targetClass
+            JOIN App\Entity\PrivateNote n WITH n = sn.note
+            WHERE (sn.targetUser = :user OR :user MEMBER OF c.users) AND n.owner != :user
+            ORDER BY sn.shared DESC
+        ");
+
+        $query->setMaxResults($limit)
+            ->setParameter("user", $targetUser);
+
+        return $query->getResult();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getSharedById(int $id): SharedNote
     {
         /**

@@ -483,8 +483,23 @@ template {
 .download-i,
 .take-up-i,
 .folder-i,
+.file-i,
 .file-text-document-i,
+.file-sheet-document-i,
+.file-presentation-document-i,
+.file-pdf-i,
+.file-php-i,
+.file-html-i,
+.file-css-i,
+.file-js-i,
+.file-source-code-i,
+.file-executable-i,
+.file-archive-i,
+.file-database-i,
+.file-font-i,
 .file-image-i,
+.file-audio-i,
+.file-video-i,
 .done-i,
 .error-i,
 .select-button-down-i,
@@ -743,7 +758,11 @@ template {
   src: url('/fonts/font-awesome/fa-brands-400.eot');
   src: url('/fonts/font-awesome/fa-brands-400.eot?#iefix') format('embedded-opentype'), url('/fonts/font-awesome/fa-brands-400.woff2') format('woff2'), url('/fonts/font-awesome/fa-brands-400.woff') format('woff'), url('/fonts/font-awesome/fa-brands-400.ttf') format('truetype'), url('/fonts/font-awesome/fa-brands-400.svg#fontawesome') format('svg');
 }
-.fab {
+.fab,
+.file-php-i,
+.file-html-i,
+.file-css-i,
+.file-js-i {
   font-family: 'Font Awesome 5 Brands';
   font-weight: 400;
 }
@@ -888,6 +907,17 @@ template {
 .from-class-i,
 .download-i,
 .take-up-i,
+.file-i,
+.file-sheet-document-i,
+.file-presentation-document-i,
+.file-pdf-i,
+.file-source-code-i,
+.file-executable-i,
+.file-archive-i,
+.file-database-i,
+.file-font-i,
+.file-audio-i,
+.file-video-i,
 .done-i,
 .error-i,
 .select-button-down-i,
@@ -5342,6 +5372,18 @@ body.active-alert {
 .folder-i:after {
   content: "\10f07c";
 }
+.file-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.file-i:before {
+  content: "\f15b";
+}
 .file-text-document-i {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -5352,10 +5394,154 @@ body.active-alert {
   line-height: 1;
 }
 .file-text-document-i:before {
-  content: "\f15c";
+  content: "\f1c2";
 }
 .file-text-document-i:after {
-  content: "\10f15c";
+  content: "\10f1c2";
+}
+.file-sheet-document-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.file-sheet-document-i:before {
+  content: "\f1c3";
+}
+.file-presentation-document-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.file-presentation-document-i:before {
+  content: "\f1c4";
+}
+.file-pdf-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.file-pdf-i:before {
+  content: "\f1c1";
+}
+.file-php-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.file-php-i:before {
+  content: "\f457";
+}
+.file-html-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.file-html-i:before {
+  content: "\f13b";
+}
+.file-css-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.file-css-i:before {
+  content: "\f38b";
+}
+.file-js-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.file-js-i:before {
+  content: "\f3b9";
+}
+.file-source-code-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.file-source-code-i:before {
+  content: "\f1c9";
+}
+.file-executable-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.file-executable-i:before {
+  content: "\f04b";
+}
+.file-archive-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.file-archive-i:before {
+  content: "\f1c6";
+}
+.file-database-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.file-database-i:before {
+  content: "\f1c0";
+}
+.file-font-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.file-font-i:before {
+  content: "\f866";
 }
 .file-image-i {
   -moz-osx-font-smoothing: grayscale;
@@ -5371,6 +5557,30 @@ body.active-alert {
 }
 .file-image-i:after {
   content: "\10f03e";
+}
+.file-audio-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.file-audio-i:before {
+  content: "\f1c7";
+}
+.file-video-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.file-video-i:before {
+  content: "\f1c8";
 }
 .done-i,
 .app-form .form-inputs .form-input-status.positive {
@@ -5786,8 +5996,6 @@ body.active-alert {
 @media screen and (min-width: 768px) {
   .box .box-content .content-row .author .profile-image,
   .shared-content-table .content-row .author .profile-image {
-    width: 1.05em;
-    height: 1.05em;
     border-radius: 100%;
     display: inline-block;
     margin: 0 0.2em;

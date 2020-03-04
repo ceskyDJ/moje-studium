@@ -7,10 +7,13 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use DOMDocument;
 use Mammoth\Security\Entity\IRank;
 use Mammoth\Security\Entity\IUser;
 use Mammoth\Security\Entity\UserData;
+use function bdump;
 use function is_array;
+use function uasort;
 
 /**
  * User of the system
@@ -55,7 +58,7 @@ class User implements IUser
      * @ORM\JoinColumn(name="class_id", referencedColumnName="class_id", onDelete="SET NULL")
      * @var \App\Entity\SchoolClass|null School class
      */
-    private ?SchoolClass $class;
+    private ?SchoolClass $class = null;
 
     /**
      * @ORM\OneToMany(targetEntity="Notification", mappedBy="user")
@@ -145,7 +148,62 @@ class User implements IUser
         $this->privateFiles = new ArrayCollection;
         $this->privateNotes = new ArrayCollection;
         $this->privateReminders = new ArrayCollection;
+        $this->groups = new ArrayCollection;
         $this->selectionRequests = new ArrayCollection;
+    }
+
+    /**
+     * Returns private reminders ordered by date (when property)
+     *
+     * @return \App\Entity\PrivateReminder[] User's private reminders
+     */
+    public function getPrivateRemindersOrderByDate(): array
+    {
+        $reminders = $this->getPrivateReminders()->toArray();
+
+        uasort(
+            $reminders,
+            fn(PrivateReminder $first, PrivateReminder $second) => ($first->getWhen()->getTimestamp()
+                > $second->getWhen()->getTimestamp()) ? 1 : -1
+        );
+
+        $lastItem = null;
+        $uniqueReminders = []; // without duplicity school events
+        /**
+         * @var $reminder \App\Entity\PrivateReminder
+         * @var $lastItem \App\Entity\PrivateReminder
+         */
+        foreach ($reminders as $reminder) {
+            if ($lastItem !== null && $reminder->getType() === "school-event"
+                && $reminder->getWhen()->getTimestamp() === $lastItem->getWhen()->getTimestamp()) {
+                continue;
+            }
+
+            $uniqueReminders[] = $reminder;
+            $lastItem = $reminder;
+        }
+
+        return $uniqueReminders;
+    }
+
+    /**
+     * Returns complete profile image' HTML code
+     *
+     * @return string HTML of user's profile image
+     */
+    public function getProfileImageHTML(): string
+    {
+        $container = new DOMDocument;
+        $icon = $this->getProfileImage()->getIcon();
+        $backgroundColor = $this->getProfileImage()->getBackgroundColor();
+        $iconColor = $this->getProfileImage()->getIconColor();
+
+        $profileImage = $container->createElement("i");
+        $profileImage->setAttribute("class", "profile-image {$icon->getName()}-p-i");
+        $profileImage->setAttribute("style", "background-color: {$backgroundColor}; color: {$iconColor};");
+        $container->appendChild($profileImage);
+
+        return $container->saveHTML();
     }
 
     public function getId(): string

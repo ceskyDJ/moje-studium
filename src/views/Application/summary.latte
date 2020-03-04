@@ -477,47 +477,16 @@
                 </header>
 
                 <section class="box-content">
-                    <div class="content-row">
-                        <span class="date">Po 14. 5.</span>
-                        <span class="subject school-subject">ČJL</span>
-                        <span class="type"><i class="homework-i"></i></span>
-                        <span class="description">Přečíst ukázku z učebnice na str. 68</span>
-                    </div>
-                    <div class="content-row">
-                        <span class="date">Po 14. 5.</span>
-                        <span class="subject school-subject">FAR</span>
-                        <span class="type"><i class="test-i"></i></span>
-                        <span class="description">Malířství, Fotografie</span>
-                    </div>
-                    <div class="content-row">
-                        <span class="date">Út 15. 5.</span>
-                        <span class="subject school-subject">DVK</span>
-                        <span class="type"><i class="homework-i"></i></span>
-                        <span class="description">Prezentace - Edouard Manet</span>
-                    </div>
-                    <div class="content-row">
-                        <span class="date">Út 15. 5.</span>
-                        <span class="subject school-subject">DVK</span>
-                        <span class="type"><i class="test-i"></i></span>
-                        <span class="description">Renesanční malba v Itálii, Renesanční sloh v ostatní Evropě</span>
-                    </div>
-                    <div class="content-row">
-                        <span class="date">Čt 17. 5.</span>
-                        <span class="subject school-subject"></span>
-                        <span class="type"><i class="school-event-i"></i></span>
-                        <span class="description">Divadlo - Romeo a Julie</span>
-                    </div>
-                    <div class="content-row">
-                        <span class="date">Pá 18. 5.</span>
-                        <span class="subject school-subject">EKO</span>
-                        <span class="type"><i class="test-i"></i></span>
-                        <span class="description">Marketing</span>
-                    </div>
-                    <div class="content-row">
-                        <span class="date">Pá 18. 5.</span>
-                        <span class="subject school-subject">ANJ</span>
-                        <span class="type"><i class="test-i"></i></span>
-                        <span class="description">Slovíčka 6. lekce</span>
+                    {var $privateReminders = $user->getPrivateRemindersOrderByDate()}
+                    <div n:foreach="$privateReminders as $reminder" class="content-row">
+                        <span class="date">{$reminder->getFormattedWhen()}</span>
+                        <span class="subject school-subject">
+                            {if $reminder->getType() !== "school-event"}
+                                {$reminder->getSubject()->getShortcut()}
+                            {/if}
+                        </span>
+                        <span class="type"><i class="{$reminder->getType()}-i"></i></span>
+                        <span class="description">{$reminder->getContent()}</span>
                     </div>
                 </section>
             </article>
@@ -529,17 +498,9 @@
                 </header>
 
                 <section class="box-content">
-                    <div class="content-row">
-                        <span class="note">Od 16. 9. nosit sbírku Petáková</span>
-                    </div>
-                    <div class="content-row">
-                        <span class="note">SRPŠ bude nejspíše ve středu 6. 11.</span>
-                    </div>
-                    <div class="content-row">
-                        <span class="note">Příští týden (4. 11. až 8. 11.) mám službu - dávat pozor na mytí tabule a nošení pomůcek</span>
-                    </div>
-                    <div class="content-row">
-                        <span class="note">27. 11. bude přednáškový den. Bylo by dobré sehnat nějakého řečníka. Nápady: někdo z ITnetwork, Karel z Freela</span>
+                    {var $privateNotes = $user->getPrivateNotes()}
+                    <div n:foreach="$privateNotes as $note"  class="content-row">
+                        <span class="note">{$note->getContent()}</span>
                     </div>
                 </section>
             </article>
@@ -556,118 +517,42 @@
 
                 <section class="box-content">
                     <table class="shared-content-table files">
-                        <tr class="content-row">
+                        <tr n:foreach="$sharedFiles as $sharedFile" class="content-row">
+                            {var $file = $sharedFile->getFile()}
                             <td class="from">
                                 <div class="from-container">
-                                    <i class="from-schoolmate-i"></i>
+                                    {if $sharedFile->getTargetUser() !== null}
+                                        <i class="from-schoolmate-i"></i>
+                                    {else}
+                                        <i class="from-class-i"></i>
+                                    {/if}
                                 </div>
                             </td>
                             <td class="author">
                                 <div class="author-container">
-                                    <span class="profile-image"></span>
-                                    Veronika Zemanová
+                                    {var $fileOwner = $file->getOwner()}
+                                    {$fileOwner->getProfileImageHTML()|noescape}
+                                    {$fileOwner->getData()->getFullName()}
                                     <span class="date">29. 11.</span>
                                 </div>
                             </td>
-                            <td class="date">29. 11.</td>
-                            <td class="type"><i class="folder-i"></i></td>
-                            <td class="file-name">Expresionismus</td>
+                            <td class="date">{$sharedFile->getShared()->format("j. n.")}</td>
+                            <td class="type">
+                                {if $file->isFolder() === true}
+                                    <i class="folder-i"></i>
+                                {else}
+                                    {if $file->getType() !== null}
+                                        <i class="file-{$file->getType()}-i"></i>
+                                    {else}
+                                        <i class="file-i"></i>
+                                    {/if}
+                                {/if}
+                            </td>
+                            <td class="file-name">{$file->getName()}</td>
                             <td class="action">
                                 <div class="action-container">
-                                    <a class="action-link text" href="#stahnout">Stáhnout</a>
-                                    <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="content-row">
-                            <td class="from">
-                                <div class="from-container">
-                                    <i class="from-class-i"></i>
-                                </div>
-                            </td>
-                            <td class="author">
-                                <div class="author-container">
-                                    <span class="profile-image"></span>
-                                    Dominik Švejda
-                                    <span class="date">29. 11.</span>
-                                </div>
-                            </td>
-                            <td class="date">29. 11.</td>
-                            <td class="type"><i class="file-text-document-i"></i></td>
-                            <td class="file-name">Zadání na klauzurní práci</td>
-                            <td class="action">
-                                <div class="action-container">
-                                    <a class="action-link text" href="#stahnout">Stáhnout</a>
-                                    <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="content-row">
-                            <td class="from">
-                                <div class="from-container">
-                                    <i class="from-class-i"></i>
-                                </div>
-                            </td>
-                            <td class="author">
-                                <div class="author-container">
-                                    <span class="profile-image"></span>
-                                    Alena Brabcová
-                                    <span class="date">29. 11.</span>
-                                </div>
-                            </td>
-                            <td class="date">29. 11.</td>
-                            <td class="type"><i class="file-image-i"></i></td>
-                            <td class="file-name">Školní fotky (třetí ročník)</td>
-                            <td class="action">
-                                <div class="action-container">
-                                    <a class="action-link text" href="#stahnout">Stáhnout</a>
-                                    <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="content-row">
-                            <td class="from">
-                                <div class="from-container">
-                                    <i class="from-class-i"></i>
-                                </div>
-                            </td>
-                            <td class="author">
-                                <div class="author-container">
-                                    <span class="profile-image"></span>
-                                    Veronika Zemanová
-                                    <span class="date">29. 11.</span>
-                                </div>
-                            </td>
-                            <td class="date">29. 11.</td>
-                            <td class="type"><i class="file-image-i"></i></td>
-                            <td class="file-name">Zápis - matematika 2. 10.</td>
-                            <td class="action">
-                                <div class="action-container">
-                                    <a class="action-link text" href="#stahnout">Stáhnout</a>
-                                    <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="content-row">
-                            <td class="from">
-                                <div class="from-container">
-                                    <i class="from-schoolmate-i"></i>
-                                </div>
-                            </td>
-                            <td class="author">
-                                <div class="author-container">
-                                    <span class="profile-image"></span>
-                                    Barbora Šedová
-                                    <span class="date">29. 11.</span>
-                                </div>
-                            </td>
-                            <td class="date">29. 11.</td>
-                            <td class="type"><i class="file-image-i"></i></td>
-                            <td class="file-name">Zápis - videotvorba 5. 10.</td>
-                            <td class="action">
-                                <div class="action-container">
-                                    <a class="action-link text" href="#stahnout">Stáhnout</a>
-                                    <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
+                                    <a class="action-link text" href="/application/files/download/{$sharedFile->getId()}">Stáhnout</a>
+                                    <a class="link-with-icon icon" href="/application/files/download/{$sharedFile->getId()}"><i class="download-i"></i></a>
                                 </div>
                             </td>
                         </tr>
@@ -686,95 +571,32 @@
 
                 <section class="box-content">
                     <table class="shared-content-table reminders">
-                        <tr class="content-row">
+                        <tr n:foreach="$sharedReminders as $sharedReminder" class="content-row">
+                            {var $privateReminder = $sharedReminder->getReminder()}
                             <td class="from">
                                 <div class="from-container">
-                                    <i class="from-schoolmate-i"></i>
+                                    {if $sharedReminder->getTargetUser() !== null}
+                                        <i class="from-schoolmate-i"></i>
+                                    {else}
+                                        <i class="from-class-i"></i>
+                                    {/if}
                                 </div>
                             </td>
                             <td class="author">
                                 <div class="author-container">
-                                    <span class="profile-image"></span>
-                                    Veronika Zemanová
+                                    {var $reminderOwner = $privateReminder->getOwner()}
+                                    {$reminderOwner->getProfileImageHTML()|noescape}
+                                    {$reminderOwner->getData()->getFullName()}
                                 </div>
                             </td>
-                            <td class="date school-date">St 16. 5.</td>
-                            <td class="subject school-subject">DVK</td>
-                            <td class="type"><i class="test-i"></i></td>
-                            <td class="description">Baroko</td>
+                            <td class="date school-date">{$privateReminder->getFormattedWhen()}</td>
+                            <td class="subject school-subject">{$privateReminder->getSubject()->getShortcut()}</td>
+                            <td class="type"><i class="{$privateReminder->getType()}-i"></i></td>
+                            <td class="description">{$privateReminder->getContent()}</td>
                             <td class="action">
                                 <div class="action-container">
-                                    <a class="action-link text" href="#prevzit">Převzít</a>
-                                    <a class="link-with-icon" href="#prevzit"><i class="icon take-up-i"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="content-row">
-                            <td class="from">
-                                <div class="from-container">
-                                    <i class="from-class-i"></i>
-                                </div>
-                            </td>
-                            <td class="author">
-                                <div class="author-container">
-                                    <span class="profile-image"></span>
-                                    Dominik Švejda
-                                </div>
-                            </td>
-                            <td class="date school-date">Pá 16. 5.</td>
-                            <td class="subject school-subject">OBN</td>
-                            <td class="type"><i class="homework-i"></i></td>
-                            <td class="description">Připravit si otázky</td>
-                            <td class="action">
-                                <div class="action-container">
-                                    <a class="action-link text" href="#prevzit">Převzít</a>
-                                    <a class="link-with-icon" href="#prevzit"><i class="icon take-up-i"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="content-row">
-                            <td class="from">
-                                <div class="from-container">
-                                    <i class="from-class-i"></i>
-                                </div>
-                            </td>
-                            <td class="author">
-                                <div class="author-container">
-                                    <span class="profile-image"></span>
-                                    Alena Brabcová
-                                </div>
-                            </td>
-                            <td class="date school-date">Po 21. 5.</td>
-                            <td class="subject school-subject">ČJL</td>
-                            <td class="type"><i class="homework-i"></i></td>
-                            <td class="description">Cvičení 4. na str. 10.</td>
-                            <td class="action">
-                                <div class="action-container">
-                                    <a class="action-link text" href="#prevzit">Převzít</a>
-                                    <a class="link-with-icon" href="#prevzit"><i class="icon take-up-i"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="content-row">
-                            <td class="from">
-                                <div class="from-container">
-                                    <i class="from-schoolmate-i"></i>
-                                </div>
-                            </td>
-                            <td class="author">
-                                <div class="author-container">
-                                    <span class="profile-image"></span>
-                                    Barbora Šedová
-                                </div>
-                            </td>
-                            <td class="date school-date">Pá 25. 5.</td>
-                            <td class="subject school-subject">REF</td>
-                            <td class="type"><i class="homework-i"></i></td>
-                            <td class="description">Odevzdat sérii portrétů + krajin</td>
-                            <td class="action done">
-                                <div class="action-container">
-                                    <a class="action-link text" href="#prevzit">Převzít</a>
-                                    <i class="icon done-i"></i>
+                                    <a class="action-link text" href="/application/reminders-and-notes/take-up/reminder/{$sharedReminder->getId()}">Převzít</a>
+                                    <a class="link-with-icon" href="/application/reminders-and-notes/take-up/reminder/{$sharedReminder->getId()}"><i class="icon take-up-i"></i></a>
                                 </div>
                             </td>
                         </tr>
@@ -793,85 +615,29 @@
 
                 <section class="box-content">
                     <table class="shared-content-table notes">
-                        <tr class="content-row">
+                        <tr n:foreach="$sharedNotes as $sharedNote" class="content-row">
+                            {var $privateNote = $sharedNote->getNote()}
                             <td class="from">
                                 <div class="from-container">
-                                    <i class="from-schoolmate-i"></i>
+                                    {if $sharedNote->getTargetUser() !== null}
+                                        <i class="from-schoolmate-i"></i>
+                                    {else}
+                                        <i class="from-class-i"></i>
+                                    {/if}
                                 </div>
                             </td>
                             <td class="author">
                                 <div class="author-container">
-                                    <span class="profile-image"></span>
-                                    Veronika Zemanová
+                                    {var $noteOwner = $privateNote->getOwner()}
+                                    {$noteOwner->getProfileImageHTML()|noescape}
+                                    {$noteOwner->getData()->getFullName()}
                                 </div>
                             </td>
-                            <td class="note">Od 14. 9. začíná zkoušení z literatury</td>
+                            <td class="note">{$privateNote->getContent()}</td>
                             <td class="action">
                                 <div class="action-container">
-                                    <a class="action-link text" href="#prevzit">Převzít</a>
-                                    <a class="link-with-icon" href="#prevzit"><i class="icon take-up-i"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="content-row">
-                            <td class="from">
-                                <div class="from-container">
-                                    <i class="from-class-i"></i>
-                                </div>
-                            </td>
-                            <td class="author">
-                                <div class="author-container">
-                                    <span class="profile-image"></span>
-                                    Dominik Švejda
-                                </div>
-                            </td>
-                            <td class="note">SRPŠ bude nejspíše ve středu 6. 11.</td>
-                            <td class="action done">
-                                <div class="action-container">
-                                    <a class="action-link text" href="#prevzit">Převzít</a>
-                                    <i class="icon done-i"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="content-row">
-                            <td class="from">
-                                <div class="from-container">
-                                    <i class="from-class-i"></i>
-                                </div>
-                            </td>
-                            <td class="author">
-                                <div class="author-container">
-                                    <span class="profile-image"></span>
-                                    Alena Brabcová
-                                </div>
-                            </td>
-                            <td class="note">Od 26. 9. se začnou předvádět prezentace na základy společenských věd. První je
-                                Vojtěch Halousek.
-                            </td>
-                            <td class="action">
-                                <div class="action-container">
-                                    <a class="action-link text" href="#prevzit">Převzít</a>
-                                    <a class="link-with-icon" href="#prevzit"><i class="icon take-up-i"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="content-row">
-                            <td class="from">
-                                <div class="from-container">
-                                    <i class="from-schoolmate-i"></i>
-                                </div>
-                            </td>
-                            <td class="author">
-                                <div class="author-container">
-                                    <span class="profile-image"></span>
-                                    Barbora Šedová
-                                </div>
-                            </td>
-                            <td class="note">Vybírá se 300 Kč na exkurzi do Vídně. Odevzdat do 1. 11.</td>
-                            <td class="action">
-                                <div class="action-container">
-                                    <a class="action-link text" href="#prevzit">Převzít</a>
-                                    <a class="link-with-icon" href="#prevzit"><i class="icon take-up-i"></i></a>
+                                    <a class="action-link text" href="/application/reminders-and-notes/take-up/note/{$sharedNote->getId()}">Převzít</a>
+                                    <a class="link-with-icon" href="/application/reminders-and-notes/take-up/note/{$sharedNote->getId()}"><i class="icon take-up-i"></i></a>
                                 </div>
                             </td>
                         </tr>

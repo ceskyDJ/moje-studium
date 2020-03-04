@@ -6,6 +6,9 @@ namespace App\Controller\Application;
 
 use App\Model\NotificationManager;
 use App\Model\UserManager;
+use App\Repository\Abstraction\IFileRepository;
+use App\Repository\Abstraction\INoteRepository;
+use App\Repository\Abstraction\IReminderRepository;
 use Mammoth\Controller\Common\Controller;
 use Mammoth\DI\DIClass;
 use Mammoth\Http\Entity\Request;
@@ -39,6 +42,18 @@ class HomeController extends Controller
      * @inject
      */
     private IRouter $router;
+    /**
+     * @inject
+     */
+    private IFileRepository $fileRepository;
+    /**
+     * @inject
+     */
+    private IReminderRepository $reminderRepository;
+    /**
+     * @inject
+     */
+    private INoteRepository $noteRepository;
 
     /**
      * @inheritDoc
@@ -51,7 +66,20 @@ class HomeController extends Controller
             exit;
         }
 
-        return $this->responseFactory->create($request)->setContentView("summary")->setTitle("Přehled");
+        $response = $this->responseFactory->create($request)->setContentView("summary")->setTitle("Přehled");
+
+        /**
+         * @var $user \App\Entity\User
+         */
+        $user = $this->userManager->getUser();
+        $response->setDataVar("sharedFiles", $this->fileRepository->getSharedByUserOrItsClassWithLimit($user, 5));
+        $response->setDataVar(
+            "sharedReminders",
+            $this->reminderRepository->getSharedByUserOrItsClassWithLimit($user, 5)
+        );
+        $response->setDataVar("sharedNotes", $this->noteRepository->getSharedByUserOrItsClassWithLimit($user, 5));
+
+        return $response;
     }
 
     /**

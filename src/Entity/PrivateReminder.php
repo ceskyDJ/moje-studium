@@ -68,6 +68,19 @@ class PrivateReminder
         $this->sharedReminders = new ArrayCollection;
     }
 
+    /**
+     * Returns nice formatted date for when property
+     *
+     * @return string Formatted when property for templates
+     */
+    public function getFormattedWhen(): string
+    {
+        $daysInWeek = ["po", "út", "st", "čt", "pá", "so", "ne"];
+        $when = $this->getWhen();
+
+        return $daysInWeek[$when->format("N") - 1] . " {$when->format("j. n.")}";
+    }
+
     public function getId(): int
     {
         return $this->id;

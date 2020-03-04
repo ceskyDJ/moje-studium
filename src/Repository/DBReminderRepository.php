@@ -45,6 +45,26 @@ class DBReminderRepository implements Abstraction\IReminderRepository
     /**
      * @inheritDoc
      */
+    public function getSharedByUserOrItsClassWithLimit(User $targetUser, int $limit): array
+    {
+        $query = $this->em->createQuery(/** @lang DQL */ "
+            SELECT sr
+            FROM App\Entity\SharedReminder sr
+            LEFT JOIN App\Entity\SchoolClass c WITH c = sr.targetClass
+            JOIN App\Entity\PrivateReminder r WITH r = sr.reminder
+            WHERE (sr.targetUser = :user OR :user MEMBER OF c.users) AND r.owner != :user
+            ORDER BY sr.shared DESC
+        ");
+
+        $query->setMaxResults($limit)
+            ->setParameter("user", $targetUser);
+
+        return $query->getResult();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getSharedById(int $id): SharedReminder
     {
         /**

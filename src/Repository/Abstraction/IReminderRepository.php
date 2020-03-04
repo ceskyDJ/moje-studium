@@ -29,6 +29,16 @@ interface IReminderRepository
     public function getById(int $id): PrivateReminder;
 
     /**
+     * Returns $limit reminders shared with user or class where the user is
+     *
+     * @param \App\Entity\User $targetUser
+     * @param int $limit Maximum count of records
+     *
+     * @return \App\Entity\SharedReminder[]
+     */
+    public function getSharedByUserOrItsClassWithLimit(User $targetUser, int $limit): array;
+
+    /**
      * Finds shared reminder by its ID
      *
      * @param int $id

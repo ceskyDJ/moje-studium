@@ -42,6 +42,26 @@ class DBFileRepository implements Abstraction\IFileRepository
     /**
      * @inheritDoc
      */
+    public function getSharedByUserOrItsClassWithLimit(User $targetUser, int $limit): array
+    {
+        $query = $this->em->createQuery(/** @lang DQL */ "
+            SELECT sf
+            FROM App\Entity\SharedFile sf
+            LEFT JOIN App\Entity\SchoolClass c WITH c = sf.targetClass
+            JOIN App\Entity\PrivateFile f WITH f = sf.file
+            WHERE (sf.targetUser = :user OR :user MEMBER OF c.users) AND f.owner != :user
+            ORDER BY sf.shared DESC
+        ");
+
+        $query->setMaxResults($limit)
+            ->setParameter("user", $targetUser);
+
+        return $query->getResult();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getSharedById(int $id): SharedFile
     {
         /**
