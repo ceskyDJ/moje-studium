@@ -503,6 +503,11 @@ template {
 .move-i,
 .rename-i,
 .delete-i,
+.graduation-cap-p-i,
+.hat-cowboy-p-i,
+.hat-winter-p-i,
+.hat-witch-p-i,
+.hood-cloak-p-i,
 #Datepickk .d-header i#d-previous,
 #Datepickk .d-header i#d-next,
 .app-form .form-inputs .form-input-status.positive,
@@ -762,7 +767,12 @@ template {
 .file-text-document-i,
 .file-image-i,
 .calendar-i,
-.school-notes-i {
+.school-notes-i,
+.graduation-cap-p-i,
+.hat-cowboy-p-i,
+.hat-winter-p-i,
+.hat-witch-p-i,
+.hood-cloak-p-i {
   position: relative;
   font-family: 'Font Awesome 5 Pro Duotone';
   font-weight: 900;
@@ -775,7 +785,12 @@ template {
 .file-text-document-i:before,
 .file-image-i:before,
 .calendar-i:before,
-.school-notes-i:before {
+.school-notes-i:before,
+.graduation-cap-p-i:before,
+.hat-cowboy-p-i:before,
+.hat-winter-p-i:before,
+.hat-witch-p-i:before,
+.hood-cloak-p-i:before {
   position: absolute;
   color: var(--fa-primary-color, inherit);
   opacity: 1;
@@ -789,7 +804,12 @@ template {
 .file-text-document-i:after,
 .file-image-i:after,
 .calendar-i:after,
-.school-notes-i:after {
+.school-notes-i:after,
+.graduation-cap-p-i:after,
+.hat-cowboy-p-i:after,
+.hat-winter-p-i:after,
+.hat-witch-p-i:after,
+.hood-cloak-p-i:after {
   color: var(--fa-secondary-color, inherit);
   opacity: 0.4;
   opacity: var(--fa-secondary-opacity, 0.4);
@@ -4023,6 +4043,9 @@ body.active-alert {
 .page-header .page-header-section .other-content .logged-user-info {
   font-weight: bold;
 }
+.page-header .page-header-section .other-content .logged-user-info .profile-image {
+  margin-right: 0.4em;
+}
 .page-header .page-header-section .other-content .logged-user-info .class {
   margin-left: 0.4em;
 }
@@ -4040,6 +4063,12 @@ body.active-alert {
   }
 }
 .page-header .page-header-section .other-content .actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin-left: 1.4em;
 }
 .page-header .page-header-section .other-content .actions .notifications {
@@ -5571,6 +5600,81 @@ body.active-alert {
 .delete-i:before {
   content: "\f1f8";
 }
+.graduation-cap-p-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.graduation-cap-p-i:before {
+  content: "\f19d";
+}
+.graduation-cap-p-i:after {
+  content: "\10f19d";
+}
+.hat-cowboy-p-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.hat-cowboy-p-i:before {
+  content: "\f8c0";
+}
+.hat-cowboy-p-i:after {
+  content: "\10f8c0";
+}
+.hat-winter-p-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.hat-winter-p-i:before {
+  content: "\f7a8";
+}
+.hat-winter-p-i:after {
+  content: "\10f7a8";
+}
+.hat-witch-p-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.hat-witch-p-i:before {
+  content: "\f6e7";
+}
+.hat-witch-p-i:after {
+  content: "\10f6e7";
+}
+.hood-cloak-p-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.hood-cloak-p-i:before {
+  content: "\f6ef";
+}
+.hood-cloak-p-i:after {
+  content: "\10f6ef";
+}
 .link-with-icon,
 .basic-link,
 .action-link {
@@ -5640,6 +5744,12 @@ body.active-alert {
   display: block;
   border-radius: 10px;
 }
+.profile-image {
+  background: #84ADAA;
+  color: #F3D452;
+  border-radius: 100%;
+  padding: 0.3em;
+}
 /*
   PAGES
     * Speciální styly pro stránky
@@ -5679,9 +5789,9 @@ body.active-alert {
     width: 1.05em;
     height: 1.05em;
     border-radius: 100%;
-    background: #D4DDDD;
     display: inline-block;
     margin: 0 0.2em;
+    font-size: 0.65em;
   }
 }
 .box .box-content .content-row .action .text,
