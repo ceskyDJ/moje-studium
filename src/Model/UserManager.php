@@ -31,6 +31,7 @@ use function mb_strlen;
 use function password_hash;
 use function password_verify;
 use function preg_match;
+use function rtrim;
 use function ucfirst;
 use const FILTER_VALIDATE_EMAIL;
 use const PASSWORD_DEFAULT;
@@ -246,8 +247,8 @@ class UserManager extends \Mammoth\Security\UserManager
         $token = $this->generateTokenForRegistration($this->userRepository->getByUsernameOrEmail($nickname));
 
         // Confirmation email
-        $link = "{$this->server->getBaseHref()}{$this->server->getUrl()}/confirm/{$token}";
-        $link = str_replace("//", "/", $link);
+        $baseHref = rtrim($this->server->getBaseHref(), "/");
+        $link = "{$baseHref}{$this->server->getUrl()}/confirm/{$token}";
 
         $message = $this->printer->getFileHTML(__DIR__."/../views/emails/email-confirm.latte", ['link' => $link]);
 
@@ -258,6 +259,8 @@ class UserManager extends \Mammoth\Security\UserManager
             "Potvrzení registrace",
             $message
         );
+
+        $this->messageManager->addMessage("Děkujeme za tvoji registraci. Poslali jsme ti potvrzovací email, tak mrkni do schránky ;)", self::POSITIVE_MESSAGE);
 
         return true;
     }
