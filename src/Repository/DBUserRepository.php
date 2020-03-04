@@ -4,10 +4,12 @@ declare(strict_types = 1);
 
 namespace App\Repository;
 
+use App\Entity\ProfileImage;
 use App\Entity\Rank;
 use App\Entity\SchoolClass;
 use App\Entity\User;
 use App\Entity\UserData;
+use App\Repository\Abstraction\IProfileIconRepository;
 use Doctrine\ORM\EntityManager;
 use Mammoth\DI\DIClass;
 
@@ -25,6 +27,10 @@ class DBUserRepository implements Abstraction\IUserRepository
      * @inject
      */
     private EntityManager $em;
+    /**
+     * @inject
+     */
+    private IProfileIconRepository $profileIconRepository;
 
     /**
      * @inheritDoc
@@ -75,8 +81,14 @@ class DBUserRepository implements Abstraction\IUserRepository
         );
 
         $user->setData($data);
-
         $this->em->persist($data);
+
+        // New user automatically gets default profile image
+        $profileImage = new ProfileImage;
+        $profileImage->setUser($user)->setIcon($this->profileIconRepository->getById(1));
+
+        $user->setProfileImage($profileImage);
+        $this->em->persist($profileImage);
         $this->em->flush();
 
         return $user;

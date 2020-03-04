@@ -27,7 +27,8 @@
 
         <div class="other-content">
             <div class="logged-user-info">
-                <i class="profile-image {$profileIcon}-p-i" style="color: {$profileIconColor}"></i>
+                {var $profileImage = $user->getProfileImage()}
+                <i class="profile-image {$profileImage->getIcon()->getName()}-p-i" style="background-color: {$profileImage->getBackgroundColor()}; color: {$profileImage->getIconColor()}"></i>
                 <span class="full-name">{$user->getData()->getFullName()}</span>
                 <span class="short-name">{$user->getData()->getShortName()}</span>
                 <span class="class" n:if="$user->getClass() !== null">{$user->getClass()->getName()}</span>

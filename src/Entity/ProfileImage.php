@@ -17,10 +17,15 @@ use Doctrine\ORM\Mapping as ORM;
 class ProfileImage
 {
     /**
-     * @var string User defined color in HEX form (for ex. #A1B2C3)
-     * @ORM\Column(name="color", type="string", length=7, nullable=false, options={  })
+     * @var string User defined background color in HEX form (for ex. #A1B2C3)
+     * @ORM\Column(name="background_color", type="string", length=7, nullable=false, options={ "fixed": true })
      */
-    private string $color;
+    private string $backgroundColor;
+    /**
+     * @var string User defined icon color in HEX form (for ex. #A1B2C3)
+     * @ORM\Column(name="icon_color", type="string", length=7, nullable=false, options={ "fixed": true })
+     */
+    private string $iconColor;
     /**
      * @ORM\ManyToOne(targetEntity="ProfileIcon", inversedBy="profileImages")
      * @ORM\JoinColumn(name="profile_icon_id", referencedColumnName="profile_icon_id", nullable=false)
@@ -35,14 +40,32 @@ class ProfileImage
      */
     private User $user;
 
-    public function getColor(): string
+    public function __construct()
     {
-        return $this->color;
+        $this->backgroundColor = "#84ADAA";
+        $this->iconColor = "#F3D452";
     }
 
-    public function setColor(string $color): ProfileImage
+    public function getBackgroundColor(): string
     {
-        $this->color = $color;
+        return $this->backgroundColor;
+    }
+
+    public function setBackgroundColor(string $backgroundColor): ProfileImage
+    {
+        $this->backgroundColor = $backgroundColor;
+
+        return $this;
+    }
+
+    public function getIconColor(): string
+    {
+        return $this->iconColor;
+    }
+
+    public function setIconColor(string $iconColor): ProfileImage
+    {
+        $this->iconColor = $iconColor;
 
         return $this;
     }
