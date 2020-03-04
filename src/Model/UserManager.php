@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace App\Model;
 
 use App\Entity\User;
+use App\Repository\Abstraction\IClassSelectionRequestRepository;
 use App\Repository\Abstraction\ILoginTokenRepository;
 use App\Repository\Abstraction\IRankRepository;
 use App\Repository\Abstraction\ISchoolClassRepository;
@@ -72,6 +73,18 @@ class UserManager extends \Mammoth\Security\UserManager
     /**
      * @inject
      */
+    private ISchoolRepository $schoolRepository;
+    /**
+     * @inject
+     */
+    private ISchoolClassRepository $classRepository;
+    /**
+     * @inject
+     */
+    private IClassSelectionRequestRepository $selectionRequestRepository;
+    /**
+     * @inject
+     */
     private Session $session;
     /**
      * @inject
@@ -89,14 +102,6 @@ class UserManager extends \Mammoth\Security\UserManager
      * @inject
      */
     private Server $server;
-    /**
-     * @inject
-     */
-    private ISchoolRepository $schoolRepository;
-    /**
-     * @inject
-     */
-    private ISchoolClassRepository $classRepository;
 
     /**
      * Logs in user
@@ -330,6 +335,16 @@ class UserManager extends \Mammoth\Security\UserManager
      * @return bool Has it been successful?
      */
     public function selectSchoolClass(int $schoolId, int $classId): bool {
+        /**
+         * @var $user \App\Entity\User
+         */
+        $user = $this->user;
+        if ($user->getClass() !== null) {
+            $this->messageManager->addMessage("Už jsi v nějaké třídě, pokud chceš jinam, nejprve odejdi z té stávající", self::NEGATIVE_MESSAGE);
+
+            return false;
+        }
+
         if (empty($schoolId) || empty($classId)) {
             $this->messageManager->addMessage("Nebyla vyplněna všechna pole", self::NEGATIVE_MESSAGE);
 
@@ -354,7 +369,8 @@ class UserManager extends \Mammoth\Security\UserManager
             return false;
         }
 
-        $this->userRepository->selectClass((int)$this->user->getId(), $class);
+        $this->selectionRequestRepository->add($user, $class);
+        $this->messageManager->addMessage("Tvoje žádost o přijetí do třídy byla odeslána. Vyčkej prosím, až ji někdo potvrdí", self::POSITIVE_MESSAGE);
 
         return true;
     }

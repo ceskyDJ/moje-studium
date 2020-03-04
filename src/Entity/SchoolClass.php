@@ -90,6 +90,11 @@ class SchoolClass
      * @var \Doctrine\Common\Collections\Collection<\App\Entity\User>
      */
     private Collection $users;
+    /**
+     * @ORM\OneToMany(targetEntity="ClassSelectionRequest", mappedBy="class")
+     * @var \Doctrine\Common\Collections\Collection<\App\Entity\ClassSelectionRequest>
+     */
+    private Collection $selectionRequests;
 
     public function __construct()
     {
@@ -101,6 +106,7 @@ class SchoolClass
         $this->subjects = new ArrayCollection;
         $this->teachers = new ArrayCollection;
         $this->users = new ArrayCollection;
+        $this->selectionRequests = new ArrayCollection;
     }
 
     public function getId(): int
@@ -463,6 +469,44 @@ class SchoolClass
     public function removeUser(User $user): SchoolClass
     {
         $this->users->removeElement($user);
+
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection<\App\Entity\ClassSelectionRequest>|\App\Entity\ClassSelectionRequest[]
+     */
+    public function getSelectionRequests(): Collection
+    {
+        return $this->users;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection<\App\Entity\ClassSelectionRequest>|\App\Entity\ClassSelectionRequest[] $selectionRequests
+     *
+     * @return \App\Entity\SchoolClass
+     */
+    public function setSelectionRequests(iterable $selectionRequests): SchoolClass
+    {
+        if (is_array($selectionRequests)) {
+            $selectionRequests = new ArrayCollection($selectionRequests);
+        }
+
+        $this->selectionRequests = $selectionRequests;
+
+        return $this;
+    }
+
+    public function addSelectionRequest(ClassSelectionRequest $selectionRequest): SchoolClass
+    {
+        $this->selectionRequests->add($selectionRequest);
+
+        return $this;
+    }
+
+    public function removeSelectionRequest(ClassSelectionRequest $selectionRequest): SchoolClass
+    {
+        $this->selectionRequests->removeElement($selectionRequest);
 
         return $this;
     }

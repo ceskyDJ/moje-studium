@@ -75,11 +75,7 @@ class ClassController extends Controller
 
         $post = $request->getPost();
         if ($post) {
-            if ($this->userManager->selectSchoolClass((int)$post['school'], (int)$post['class'])) {
-                $this->router->route($request->getParsedUrl()->setController(null)->setAction(null)->setData(null));
-
-                exit;
-            }
+            $this->userManager->selectSchoolClass((int)$post['school'], (int)$post['class']);
         }
 
         $response = $this->responseFactory->create($request)->setContentView("select-class")->setTitle("Výběr třídy");

@@ -126,6 +126,11 @@ class User implements IUser
      * @var \Doctrine\Common\Collections\Collection<\App\Entity\ClassGroup>
      */
     private Collection $groups;
+    /**
+     * @ORM\OneToMany(targetEntity="ClassSelectionRequest", mappedBy="user")
+     * @var \Doctrine\Common\Collections\Collection<\App\Entity\ClassSelectionRequest>
+     */
+    private Collection $selectionRequests;
 
     public function __construct()
     {
@@ -140,6 +145,7 @@ class User implements IUser
         $this->privateFiles = new ArrayCollection;
         $this->privateNotes = new ArrayCollection;
         $this->privateReminders = new ArrayCollection;
+        $this->selectionRequests = new ArrayCollection;
     }
 
     public function getId(): string
@@ -670,6 +676,44 @@ class User implements IUser
 
         $this->groups->removeElement($group);
         $group->removeUser($this);
+
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection<\App\Entity\ClassSelectionRequest>|\App\Entity\ClassSelectionRequest[]
+     */
+    public function getSelectionRequests(): Collection
+    {
+        return $this->selectionRequests;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection<\App\Entity\ClassSelectionRequest>|\App\Entity\ClassSelectionRequest[] $selectionRequests
+     *
+     * @return \App\Entity\User
+     */
+    public function setSelectionRequests(iterable $selectionRequests): User
+    {
+        if (is_array($selectionRequests)) {
+            $selectionRequests = new ArrayCollection($selectionRequests);
+        }
+
+        $this->selectionRequests = $selectionRequests;
+
+        return $this;
+    }
+
+    public function addSelectionRequest(ClassSelectionRequest $selectionRequest): User
+    {
+        $this->selectionRequests->add($selectionRequest);
+
+        return $this;
+    }
+
+    public function removeSelectionRequest(ClassSelectionRequest $selectionRequest): User
+    {
+        $this->selectionRequests->removeElement($selectionRequest);
 
         return $this;
     }
