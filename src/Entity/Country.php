@@ -36,7 +36,7 @@ class Country
     private string $name;
     /**
      * @var string Official code (for ex. cz for Czech republic)
-     * @ORM\Column(name="code", type="string", length=2, nullable=false, options={  })
+     * @ORM\Column(name="code", type="string", length=2, nullable=false, options={ "fixed": true })
      */
     private string $code;
 
