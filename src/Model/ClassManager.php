@@ -163,6 +163,21 @@ class ClassManager
             return false;
         }
 
+        // 4.A -> $yearOfStudies = 4, $label = A
+        list($yearOfStudies, $label) = explode(".", $name);
+        if ($yearOfStudies > $studyLength) {
+            $yearString = ($yearOfStudies <=4 ? "roky" : "let");
+            $this->messageManager->addMessage("Ročník v názvu třídy je vyšší než délka celého studia. Nechtěl jsi nastavit délku studia na {$yearOfStudies} {$yearString}?", self::NEGATIVE_MESSAGE);
+
+            return false;
+        }
+
+        if (($startYear + $studyLength) < (int)date("Y") && $yearOfStudies !== $studyLength) {
+            $this->messageManager->addMessage("Tvoje třída již dostudovala. Pokud ji stejně chceš přidat, zadej do názvu třídy poslední ročník ({$studyLength}.{$label})", self::NEGATIVE_MESSAGE);
+
+            return false;
+        }
+
         // Unique values
         if ($this->classRepository->getByNameSchoolAndStartYear($name, $school, $startYear) !== null) {
             $this->messageManager->addMessage("Tato třída již byla do systému přidána", self::NEGATIVE_MESSAGE);
