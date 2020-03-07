@@ -72,6 +72,8 @@ class HomeController extends Controller
          * @var $user \App\Entity\User
          */
         $user = $this->userManager->getUser();
+        $response->setDataVar("privateReminders", $this->reminderRepository->getByUser($user));
+        $response->setDataVar("privateNotes", $this->noteRepository->getByUser($user));
         $response->setDataVar("sharedFiles", $this->fileRepository->getSharedByUserOrItsClassWithLimit($user, 5));
         $response->setDataVar(
             "sharedReminders",

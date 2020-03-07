@@ -11,7 +11,10 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Entity
- * @ORM\Table(name="took_up_shares")
+ * @ORM\Table(name="took_up_shares", uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="uq_took_up_shares_user_shared_reminder", columns={"user_id", "shared_reminder_id"}),
+ *     @ORM\UniqueConstraint(name="uq_took_up_shares_user_shared_note", columns={"user_id", "shared_note_id"})
+ * })
  * @ORM\Entity
  */
 class TookUpShare
@@ -32,16 +35,16 @@ class TookUpShare
     private User $user;
     /**
      * @ORM\ManyToOne(targetEntity="SharedNote", inversedBy="tookUpShares")
-     * @ORM\JoinColumn(name="shared_note_id", referencedColumnName="shared_note_id")
+     * @ORM\JoinColumn(name="shared_note_id", referencedColumnName="shared_note_id", onDelete="CASCADE")
      * @var \App\Entity\SharedNote|null Specific shared note that is took up
      */
-    private ?SharedNote $sharedNote;
+    private ?SharedNote $sharedNote = null;
     /**
      * @ORM\ManyToOne(targetEntity="SharedReminder", inversedBy="tookUpShares")
      * @ORM\JoinColumn(name="shared_reminder_id", referencedColumnName="shared_reminder_id")
      * @var \App\Entity\SharedReminder|null Specific shared reminder that is took up
      */
-    private ?SharedReminder $sharedReminder;
+    private ?SharedReminder $sharedReminder = null;
 
     public function getId(): int
     {

@@ -20,6 +20,17 @@ use DateTime;
 interface IReminderRepository
 {
     /**
+     * Returns private reminders by owner + his took up reminders ordered by date (when property)
+     *
+     * @param \App\Entity\User $user
+     * @param \DateTime|null $from
+     * @param \DateTime|null $to
+     *
+     * @return \App\Entity\PrivateReminder[]
+     */
+    public function getByUser(User $user, DateTime $from = null, DateTime $to = null): array;
+
+    /**
      * Finds private reminder by its ID
      *
      * @param int $id

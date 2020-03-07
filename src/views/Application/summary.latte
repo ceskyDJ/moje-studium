@@ -476,17 +476,26 @@
                     <h2 class="box-heading">Moje upozornění</h2>
                 </header>
 
-                <section class="box-content">
-                    {var $privateReminders = $user->getPrivateRemindersOrderByDate()}
-                    <div n:foreach="$privateReminders as $reminder" class="content-row">
-                        <span class="date">{$reminder->getFormattedWhen()}</span>
-                        <span class="subject school-subject">
+                <section class="box-content" id="_private-reminders-container">
+                    {* START Template for front-end *}
+                    <div class="content-row _original-item hide" id="_private-reminder-template">
+                        <span class="date _when">{* {when} *}</span>
+                        {* school-event is without subject *}
+                        <span class="subject school-subject _subject">{* {subject-shortcut} *}</span>
+                        <span class="type _type"><i class="{* {type}-i *}"></i></span>
+                        <span class="description _content">{* {content} *}</span>
+                    </div>
+                    {* END Template for front-end *}
+
+                    <div n:foreach="$privateReminders as $reminder" class="content-row _original-item">
+                        <span class="date _when">{$reminder->getFormattedWhen()}</span>
+                        <span class="subject school-subject _subject">
                             {if $reminder->getType() !== "school-event"}
                                 {$reminder->getSubject()->getShortcut()}
                             {/if}
                         </span>
-                        <span class="type"><i class="{$reminder->getType()}-i"></i></span>
-                        <span class="description">{$reminder->getContent()}</span>
+                        <span class="type _type"><i class="{$reminder->getType()}-i"></i></span>
+                        <span class="description _content">{$reminder->getContent()}</span>
                     </div>
                 </section>
             </article>
@@ -497,10 +506,15 @@
                     <h2 class="box-heading">Moje poznámky</h2>
                 </header>
 
-                <section class="box-content">
-                    {var $privateNotes = $user->getPrivateNotes()}
-                    <div n:foreach="$privateNotes as $note"  class="content-row">
-                        <span class="note">{$note->getContent()}</span>
+                <section class="box-content" id="_private-notes-container">
+                    {* START Template for front-end *}
+                    <div class="content-row _original-item hide" id="_private-note-template">
+                        <span class="note _content">{* {content} *}</span>
+                    </div>
+                    {* END Template for front-end *}
+
+                    <div n:foreach="$privateNotes as $note"  class="content-row _original-item">
+                        <span class="note _content">{$note->getContent()}</span>
                     </div>
                 </section>
             </article>
@@ -569,9 +583,9 @@
                     <h2 class="box-heading">Sdílená upozornění</h2>
                 </header>
 
-                <section class="box-content">
+                <section class="box-content" id="_shared-reminders-container">
                     <table class="shared-content-table reminders">
-                        <tr n:foreach="$sharedReminders as $sharedReminder" class="content-row">
+                        <tr n:foreach="$sharedReminders as $sharedReminder" class="content-row _take-up-item" data-id="{$sharedReminder->getId()}">
                             {var $privateReminder = $sharedReminder->getReminder()}
                             <td class="from">
                                 <div class="from-container">
@@ -589,14 +603,18 @@
                                     {$reminderOwner->getData()->getFullName()}
                                 </div>
                             </td>
-                            <td class="date school-date">{$privateReminder->getFormattedWhen()}</td>
-                            <td class="subject school-subject">{$privateReminder->getSubject()->getShortcut()}</td>
-                            <td class="type"><i class="{$privateReminder->getType()}-i"></i></td>
-                            <td class="description">{$privateReminder->getContent()}</td>
-                            <td class="action">
+                            <td class="date school-date _when">{$privateReminder->getFormattedWhen()}</td>
+                            <td class="subject school-subject _subject">{$privateReminder->getSubject()->getShortcut()}</td>
+                            <td class="type _type"><i class="{$privateReminder->getType()}-i"></i></td>
+                            <td class="description _content">{$privateReminder->getContent()}</td>
+                            <td n:class="action, $user->hasTakenUpReminder($sharedReminder) ? done">
                                 <div class="action-container">
-                                    <a class="action-link text" href="/application/reminders-and-notes/take-up/reminder/{$sharedReminder->getId()}">Převzít</a>
-                                    <a class="link-with-icon" href="/application/reminders-and-notes/take-up/reminder/{$sharedReminder->getId()}"><i class="icon take-up-i"></i></a>
+                                    {if !$user->hasTakenUpReminder($sharedReminder)}
+                                        <a class="action-link text _take-up" href="javascript:void(0)" data-type="reminder" data-for="{$sharedReminder->getId()}">Převzít</a>
+                                        <a class="link-with-icon _take-up" href="javascript:void(0)" data-type="reminder" data-for="{$sharedReminder->getId()}"><i class="icon take-up-i"></i></a>
+                                    {else}
+                                        <i class="icon done-i"></i>
+                                    {/if}
                                 </div>
                             </td>
                         </tr>
@@ -613,9 +631,9 @@
                     <h2 class="box-heading">Sdílené poznámky</h2>
                 </header>
 
-                <section class="box-content">
+                <section class="box-content" id="_shared-notes-container">
                     <table class="shared-content-table notes">
-                        <tr n:foreach="$sharedNotes as $sharedNote" class="content-row">
+                        <tr n:foreach="$sharedNotes as $sharedNote" class="content-row _take-up-item" data-id="{$sharedNote->getId()}">
                             {var $privateNote = $sharedNote->getNote()}
                             <td class="from">
                                 <div class="from-container">
@@ -633,11 +651,15 @@
                                     {$noteOwner->getData()->getFullName()}
                                 </div>
                             </td>
-                            <td class="note">{$privateNote->getContent()}</td>
-                            <td class="action">
+                            <td class="note _content">{$privateNote->getContent()}</td>
+                            <td n:class="action, $user->hasTakenUpNote($sharedNote) ? done">
                                 <div class="action-container">
-                                    <a class="action-link text" href="/application/reminders-and-notes/take-up/note/{$sharedNote->getId()}">Převzít</a>
-                                    <a class="link-with-icon" href="/application/reminders-and-notes/take-up/note/{$sharedNote->getId()}"><i class="icon take-up-i"></i></a>
+                                    {if !$user->hasTakenUpNote($sharedNote)}
+                                        <a class="action-link text _take-up" href="javascript:void(0)" data-type="note" data-for="{$sharedNote->getId()}">Převzít</a>
+                                        <a class="link-with-icon _take-up" href="javascript:void(0)" data-type="note" data-for="{$sharedNote->getId()}"><i class="icon take-up-i"></i></a>
+                                    {else}
+                                        <i class="icon done-i"></i>
+                                    {/if}
                                 </div>
                             </td>
                         </tr>
@@ -650,4 +672,8 @@
             </article>
         </section>
     </div>
+{/block}
+
+{block js}
+<script src="js/application/summary-control.js"></script>
 {/block}

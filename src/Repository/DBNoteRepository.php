@@ -30,6 +30,23 @@ class DBNoteRepository implements Abstraction\INoteRepository
     /**
      * @inheritDoc
      */
+    public function getByUser(User $user): array
+    {
+        $query = $this->em->createQuery(/** @lang DQL */ "
+            SELECT n
+            FROM App\Entity\PrivateNote n
+            LEFT JOIN App\Entity\SharedNote sn WITH sn.note = n
+            LEFT JOIN App\Entity\TookUpShare ts WITH ts.sharedNote = sn
+            WHERE n.owner = :user OR ts.user = :user
+        ");
+        $query->setParameter("user", $user);
+
+        return $query->getResult();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getById(int $id): PrivateNote
     {
         /**

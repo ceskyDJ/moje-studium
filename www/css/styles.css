@@ -5934,10 +5934,12 @@ body.active-alert {
   padding: 0.4em 0;
 }
 .week-switch .week {
+  width: 5.7em;
   margin: 0 2em;
   font-weight: bold;
   text-transform: lowercase;
   font-family: "Alegreya sans SC", sans-serif;
+  text-align: center;
 }
 .week-switch .icon-button:hover {
   color: #747273;

@@ -18,6 +18,15 @@ use App\Entity\User;
 interface INoteRepository
 {
     /**
+     * Returns private notes by owner + his took up notes
+     *
+     * @param \App\Entity\User $user
+     *
+     * @return \App\Entity\PrivateReminder[]
+     */
+    public function getByUser(User $user): array;
+
+    /**
      * Finds private note by its ID
      *
      * @param int $id

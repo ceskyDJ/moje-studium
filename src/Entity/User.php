@@ -11,7 +11,6 @@ use DOMDocument;
 use Mammoth\Security\Entity\IRank;
 use Mammoth\Security\Entity\IUser;
 use Mammoth\Security\Entity\UserData;
-use function bdump;
 use function is_array;
 use function uasort;
 
@@ -153,37 +152,59 @@ class User implements IUser
     }
 
     /**
-     * Returns private reminders ordered by date (when property)
+     * Check if user has taken up some reminder
      *
-     * @return \App\Entity\PrivateReminder[] User's private reminders
+     * @param \App\Entity\SharedReminder $reminder Reminder to check
+     *
+     * @return bool Has it been taken up yet?
      */
-    public function getPrivateRemindersOrderByDate(): array
+    public function hasTakenUpReminder(SharedReminder $reminder): bool
     {
-        $reminders = $this->getPrivateReminders()->toArray();
-
-        uasort(
-            $reminders,
-            fn(PrivateReminder $first, PrivateReminder $second) => ($first->getWhen()->getTimestamp()
-                > $second->getWhen()->getTimestamp()) ? 1 : -1
+        return $this->getTookUpShares()->exists(
+            fn($key, TookUpShare $element) => $element->getUser()->getId() === $this->getId()
+                && $element->getSharedReminder() !== null
+                && $element->getSharedReminder()->getId() === $reminder->getId()
         );
+    }
 
-        $lastItem = null;
-        $uniqueReminders = []; // without duplicity school events
-        /**
-         * @var $reminder \App\Entity\PrivateReminder
-         * @var $lastItem \App\Entity\PrivateReminder
-         */
-        foreach ($reminders as $reminder) {
-            if ($lastItem !== null && $reminder->getType() === "school-event"
-                && $reminder->getWhen()->getTimestamp() === $lastItem->getWhen()->getTimestamp()) {
-                continue;
-            }
+    /**
+     * Check if user has taken up some note
+     *
+     * @param \App\Entity\SharedNote $note Note to check
+     *
+     * @return bool Has it been taken up yet?
+     */
+    public function hasTakenUpNote(SharedNote $note): bool
+    {
+        return $this->getTookUpShares()->exists(
+            fn($key, TookUpShare $element) => $element->getUser()->getId() === $this->getId()
+                && $element->getSharedNote() !== null
+                && $element->getSharedNote()->getId() === $note->getId()
+        );
+    }
 
-            $uniqueReminders[] = $reminder;
-            $lastItem = $reminder;
+    /**
+     * @return \Doctrine\Common\Collections\Collection<\App\Entity\PrivateReminder>|\App\Entity\PrivateReminder[]
+     */
+    public function getPrivateReminders(): Collection
+    {
+        return $this->privateReminders;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection<\App\Entity\PrivateReminder>|\App\Entity\PrivateReminder[] $privateReminders
+     *
+     * @return \App\Entity\User
+     */
+    public function setPrivateReminders(iterable $privateReminders): User
+    {
+        if (is_array($privateReminders)) {
+            $privateReminders = new ArrayCollection($privateReminders);
         }
 
-        return $uniqueReminders;
+        $this->privateReminders = $privateReminders;
+
+        return $this;
     }
 
     /**
@@ -204,6 +225,20 @@ class User implements IUser
         $container->appendChild($profileImage);
 
         return $container->saveHTML();
+    }
+
+    public function getProfileImage(): ProfileImage
+    {
+        return $this->profileImage;
+    }
+
+    public function setProfileImage(ProfileImage $profileImage): User
+    {
+        $this->profileImage = $profileImage;
+
+        $profileImage->setUser($this);
+
+        return $this;
     }
 
     public function getId(): string
@@ -266,18 +301,6 @@ class User implements IUser
         return $this;
     }
 
-    public function getRank(): Rank
-    {
-        return $this->rank;
-    }
-
-    public function setRank(Rank $rank): User
-    {
-        $this->rank = $rank;
-
-        return $this;
-    }
-
     /**
      * @inheritDoc
      */
@@ -310,6 +333,18 @@ class User implements IUser
     public function isLoggedIn(): bool
     {
         return ($this->getRank()->getPermissionLevel() !== IRank::VISITOR);
+    }
+
+    public function getRank(): Rank
+    {
+        return $this->rank;
+    }
+
+    public function setRank(Rank $rank): User
+    {
+        $this->rank = $rank;
+
+        return $this;
     }
 
     /**
@@ -354,20 +389,6 @@ class User implements IUser
     public function removeNotification(Notification $notification): User
     {
         $this->notifications->removeElement($notification);
-
-        return $this;
-    }
-
-    public function getProfileImage(): ProfileImage
-    {
-        return $this->profileImage;
-    }
-
-    public function setProfileImage(ProfileImage $profileImage): User
-    {
-        $this->profileImage = $profileImage;
-
-        $profileImage->setUser($this);
 
         return $this;
     }
@@ -648,30 +669,6 @@ class User implements IUser
     public function removeUserNote(PrivateNote $privateNote): User
     {
         $this->privateNotes->removeElement($privateNote);
-
-        return $this;
-    }
-
-    /**
-     * @return \Doctrine\Common\Collections\Collection<\App\Entity\PrivateReminder>|\App\Entity\PrivateReminder[]
-     */
-    public function getPrivateReminders(): Collection
-    {
-        return $this->privateReminders;
-    }
-
-    /**
-     * @param \Doctrine\Common\Collections\Collection<\App\Entity\PrivateReminder>|\App\Entity\PrivateReminder[] $privateReminders
-     *
-     * @return \App\Entity\User
-     */
-    public function setPrivateReminders(iterable $privateReminders): User
-    {
-        if (is_array($privateReminders)) {
-            $privateReminders = new ArrayCollection($privateReminders);
-        }
-
-        $this->privateReminders = $privateReminders;
 
         return $this;
     }

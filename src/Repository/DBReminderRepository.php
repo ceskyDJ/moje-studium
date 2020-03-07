@@ -32,6 +32,52 @@ class DBReminderRepository implements Abstraction\IReminderRepository
     /**
      * @inheritDoc
      */
+    public function getByUser(User $user, ?DateTime $from = null, ?DateTime $to = null): array
+    {
+        $year = (int)date("Y");
+        $weekNumber = (int)date("W");
+
+        $from = $from ?? (new DateTime())->setISODate($year, $weekNumber);
+        $to = $to ?? (new DateTime())->setISODate($year, $weekNumber, 6);
+
+        $query = $this->em->createQuery(
+        /** @lang DQL */ "
+            SELECT r
+            FROM App\Entity\PrivateReminder r
+            LEFT JOIN App\Entity\SharedReminder sr WITH sr.reminder = r
+            LEFT JOIN App\Entity\TookUpShare ts WITH ts.sharedReminder = sr
+            WHERE (r.owner = :user OR ts.user = :user) AND (r.when BETWEEN :from AND :to)
+            ORDER BY r.when
+        "
+        );
+        $query->setParameter("user", $user);
+        $query->setParameter("from", $from);
+        $query->setParameter("to", $to);
+
+        $reminders = $query->getResult();
+
+        $lastItem = null;
+        $uniqueReminders = []; // without duplicity school events
+        /**
+         * @var $reminder \App\Entity\PrivateReminder
+         * @var $lastItem \App\Entity\PrivateReminder
+         */
+        foreach ($reminders as $reminder) {
+            if ($lastItem !== null && $reminder->getType() === "school-event"
+                && $reminder->getWhen()->getTimestamp() === $lastItem->getWhen()->getTimestamp()) {
+                continue;
+            }
+
+            $uniqueReminders[] = $reminder;
+            $lastItem = $reminder;
+        }
+
+        return $uniqueReminders;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getById(int $id): PrivateReminder
     {
         /**
