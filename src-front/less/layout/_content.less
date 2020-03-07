@@ -117,6 +117,48 @@
     }
   }
 
+  &.multi-page {
+    border: none;
+    padding: 0;
+
+    .multi-page-header {
+      .page-tab {
+        display: inline-block;
+        .uppercase();
+        padding: .2em 1.6em .3em 1.6em;
+        border: @page-b-w solid @middle-grey;
+        border-bottom: none;
+        background: @middle-grey;
+
+        &:not(:first-child) {
+          margin-left: 1em;
+        }
+
+        &.active {
+          font-weight: bold;
+          background: @white;
+          position: relative;
+
+          &:after {
+            content: "";
+            display: block;
+            height: @page-b-w;
+            width: 100%;
+            background: @white;
+            position: absolute;
+            bottom: -@page-b-w;
+            left: 0;
+          }
+        }
+      }
+    }
+
+    .multi-page-content {
+      padding: @page-p;
+      border: @page-b-w solid @middle-grey;
+    }
+  }
+
   .content-header {
     display: flex;
     justify-content: center;

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+
+<html lang="cs">
+<head>
+    <base href="/" />
+    <meta charset="UTF-8" />
+    <meta content="Michal ŠMAHEL (ceskyDJ)" name="author" />
+    <title>Aplikační vrstva - Přehled</title>
+    <link href="css/styles.css" rel="stylesheet" type="text/css" />
+    <meta content="width=device-width,height=device-height" name="viewport" />
+</head>
+
+
+<body>
+<header class="page-header">
+    <section class="page-header-section">
+        <h1 class="main-heading">Moje Studium</h1>
+
+        <div class="other-content">
+            <div class="logged-user-info">
+                <!-- TODO: Dynamicky generované -->
+                <i class="profile-image graduation-cap-p-i"></i>
+                <span class="full-name">Adéla Vyhnálková</span>
+                <span class="short-name">Adéla V.</span>
+                <span class="class">4.ER</span>
+            </div>
+
+            <div class="actions">
+                <div class="notifications">
+                    <i class="notifications-i notification-icon" id="_show-notifications-b"></i>
+
+                    <div class="notifications-box" id="_notifications-box">
+                        <div class="notification">Veronika Zemanová s vámi sdílela poznámku</div>
+                        <div class="notification">Veronika Zemanová s vámi sdílela upozornění</div>
+                        <!-- TODO: Dynamicky generované -->
+                    </div>
+                </div>
+                <i class="hamburger-menu-i open-close-button" id=_menu-control-b"></i>
+                <a class="action-link logout" href="#logout">Odhlásit se</a>
+            </div>
+        </div>
+    </section>
+
+    <nav class="page-menu">
+        <ul class="menu-list">
+            <li class="menu-item active"><a class="menu-link" href="#">Přehled</a></li>
+            <li class="menu-item"><a class="menu-link" href="#">Moje upozornění a poznámky</a></li>
+            <li class="menu-item"><a class="menu-link" href="#">Sdílené upozornění a poznámky</a></li>
+            <li class="menu-item"><a class="menu-link" href="#">Moje soubory</a></li>
+            <li class="menu-item"><a class="menu-link" href="#">Sdílené soubory</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+<main class="page-content summary">
+    <div class="page multi-page">
+        <header class="multi-page-header">
+            <span class="page-tab active">Můj profil</span>
+            <span class="page-tab">Profil třídy</span>
+        </header>
+
+        <!-- Můj profil -->
+        <section class="multi-page-content first-page">
+            <div class="profile-image-changer">
+                <div class="profile-icons">
+                    <!-- TODO: Automaticky generované -->
+                    <!-- TODO: Aktuální profilový obrázek vykreslen včetně nastavených barev -->
+                    <i class="graduation-cap-p-i icon" style="color: #F3D452; background: #84ADAA;"></i>
+                    <i class="hat-cowboy-p-i icon"></i>
+                    <i class="hat-winter-p-i icon"></i>
+                    <i class="hat-witch-p-i icon"></i>
+                    <i class="hood-cloak-p-i icon"></i>
+                </div>
+                <div class="action-container">
+                    <i class="palette-i action"></i>
+                </div>
+            </div>
+
+            <div class="user-data">
+                <div class="action-container">
+                    <form method="post" action="" class="app-form">
+                        <div class="form-inputs">
+                            <div class="form-input-row">
+                                <label for="first-name" class="form-label">Jméno</label>
+                                <input name="first-name" type="text" id="first-name" class="form-input" disabled autofocus value="Adéla" />
+                                <i class="form-input-action edit-i"></i>
+                            </div>
+                            <div class="form-input-row">
+                                <label for="last-name" class="form-label">Příjmení</label>
+                                <input name="last-name" type="text" id="last-name" class="form-input" disabled value="Vyhnálková" />
+                                <i class="form-input-action edit-i"></i>
+                            </div>
+                            <div class="form-input-row">
+                                <label for="login-name" class="form-label">Přihlašovací jméno</label>
+                                <input name="login-name" type="text" id="login-name" class="form-input" disabled value="Adéla2365" />
+                                <i class="form-input-action edit-i"></i>
+                            </div>
+                            <div class="form-input-row">
+                                <label for="email" class="form-label">Email</label>
+                                <input name="email" type="email" id="email" class="form-input" disabled value="adelavyhnalkova@seznam.cz" />
+                                <i class="form-input-action edit-i"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-links">
+                            <a class="action-link action" href="#">Změnit heslo</a>
+                        </div>
+
+                        <div class="form-alerts">
+                            <p class="form-alert negative">Nebyla vyplněna všechna pole.</p>
+                            <p class="form-alert negative">Byl zadán špatný formát emailové adresy.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="quota">
+                <div class="quota-progress-bar" id="_quota-progress-bar" data-value="60">
+                    <span class="quota-text">využito <span>60MB</span>/<span>100MB</span></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profil třídy -->
+        <section class="multi-page-content second-page hide">
+        </section>
+    </div>
+</main>
+
+
+<footer class="page-footer">
+    <p class="footer-info">
+        Jedná se o maturitní projekt (ročník 2019/2020).
+        Autorem je Michal ŠMAHEL, grafické podklady připravila Adéla VYHNÁLKOVÁ.
+        Zdrojové kódy je možné nalézl na
+        <a class="basic-link" href="https://github.com/ceskyDJ/moje-studium">Githubu</a>.
+    </p>
+
+    <p class="footer-contact">
+        <strong class="contact-mini-heading">Kontakt</strong>
+        <a class="contact-email" href="mailto:moje-studium@ceskydj.cz">moje-studium@ceskydj.cz</a>
+    </p>
+</footer>
+
+<script src="/js/application/header-control.js"></script>
+<script src="/js/lib/progressbar/progressbar.min.js"></script>
+<script src="/js/application/profile-control.js"></script>
+</body>
+</html>

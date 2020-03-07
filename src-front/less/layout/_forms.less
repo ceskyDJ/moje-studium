@@ -37,6 +37,11 @@
         color: @placeholder-c;
       }
 
+      &[disabled] {
+        color: @text-c;
+        background: @white;
+      }
+
       &.full-width {
         width: 100%;
       }
@@ -94,6 +99,12 @@
         margin-right: .3em;
       }
     }
+
+    .form-input-action {
+      &:extend(.app-form .form-inputs .form-input-status);
+      color: @dark-green;
+      cursor: pointer;
+    }
   }
 
   .full-width-select {
@@ -149,6 +160,13 @@
   .form-bottom-text {
     margin-top: 6em;
     margin-bottom: 2em;
+  }
+
+  .form-links {
+    margin: .4em 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
   }
 }
 // END formular v aplikacni vrstve
