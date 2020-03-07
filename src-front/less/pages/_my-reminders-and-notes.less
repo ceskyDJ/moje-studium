@@ -30,12 +30,19 @@
 
           .record-row {
             display: grid;
-            grid-template-columns: 2.5em 1.5em auto;
+            grid-template-columns: 2.5em 1.5em auto 1.4em 1em;
 
             &:not(:first-child) {
               border-top: 2px solid @middle-grey;
               margin-top: .2em;
               padding-top: .2em;
+            }
+
+            .action {
+              color: @dark-green;
+              cursor: pointer;
+              font-size: @font-s - 0.01em;
+              margin-top: .3em;
             }
           }
         }
@@ -49,10 +56,19 @@
 .my-reminders-notes .page {
   .content-container {
     .content-row {
+      display: grid;
+      grid-template-columns: auto 1.4em 1em;
+
       &:not(:first-child) {
         border-top: 2px solid @middle-grey;
         margin-top: .2em;
         padding-top: .2em;
+      }
+
+      .action {
+        color: @dark-green;
+        cursor: pointer;
+        font-size: @font-s - 0.01em;
       }
     }
   }
