@@ -11,6 +11,10 @@
       &:not(:last-child) {
         border-bottom: 2px solid @middle-grey;
       }
+
+      &.two-actions {
+        grid-template-columns: @label-w auto 1.4em 1em;
+      }
     }
 
     .form-full-width-select-row {
@@ -24,6 +28,7 @@
       font-size: @font-s - .01;
       padding-top: .4em;
       .uppercase();
+      height: 100%;
     }
 
     .form-input {

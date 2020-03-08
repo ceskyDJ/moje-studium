@@ -129,6 +129,7 @@
         border: @page-b-w solid @middle-grey;
         border-bottom: none;
         background: @middle-grey;
+        color: @text-c;
 
         &:not(:first-child) {
           margin-left: 1em;
@@ -156,6 +157,11 @@
     .multi-page-content {
       padding: @page-p;
       border: @page-b-w solid @middle-grey;
+
+      &.without-side-padding {
+        padding-left: 0;
+        padding-right: 0;
+      }
     }
   }
 

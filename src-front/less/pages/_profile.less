@@ -36,3 +36,124 @@
     font-size: @font-s - 0.01em;
   }
 }
+
+.class-profile-header {
+  margin-top: .7em;
+
+  .class-profile-menu {
+    background: @light-grey;
+    .class-profile-menu-list {
+      display: flex;
+      justify-content: space-between;
+      padding: .2em @page-p;
+
+      .class-profile-menu-item {
+        .class-profile-menu-link {
+          color: @dark-grey;
+          .uppercase();
+        }
+
+        &.active,
+        &:hover {
+          .class-profile-menu-link {
+            color: @dark-green;
+          }
+        }
+      }
+    }
+  }
+}
+
+.class-profile-content {
+  padding: 0 @page-p;
+  margin-top: 2em;
+
+  .profile-table {
+    margin-top: 1em;
+
+    .table-row {
+      display: grid;
+      grid-template-columns: 5em auto 1em;
+      align-items: flex-end;
+      padding: .3em 0;
+
+      &:not(:last-child) {
+        border-bottom: 2px solid @middle-grey;
+      }
+
+      .action {
+        color: @dark-green;
+        cursor: pointer;
+        font-size: @font-s - .02em;
+      }
+    }
+  }
+
+  .add-item {
+    .action {
+      color: @dark-green;
+      cursor: pointer;
+    }
+  }
+
+  .profile-simple-form {
+    &:extend(.class-profile-content .profile-table .table-row);
+    align-items: center;
+
+    .form-input {
+      width: calc(100% - 1em);
+      border: 2px solid @middle-grey;
+      background: @light-grey;
+      color: @dark-grey;
+      padding: .1em .3em;
+
+      &::placeholder {
+        color: @placeholder-c;
+      }
+    }
+
+    .action {
+      font-size: @font-s - 0.02em;
+    }
+
+    .teacher-name {
+      display: grid;
+      grid-template-columns: 5em auto 5em;
+    }
+  }
+}
+
+.class-profile-footer {
+  padding: .8em @page-p 1.3em @page-p;
+  margin-top: 2em;
+  background: @light-grey;
+
+  .footer-description {
+    .uppercase();
+  }
+
+  .access-requests-table {
+    &:extend(.class-profile-content .profile-table all);
+
+    .table-row {
+      grid-template-columns: 8em auto 1.4em 1em;
+
+      .table-data {
+        &.username {
+          border-right: 2px solid @middle-grey;
+          margin-right: .5em;
+        }
+      }
+
+      .action {
+        &.approve {
+          color: @dark-green;
+        }
+
+        &.decline {
+          color: @red;
+        }
+      }
+    }
+  }
+}
