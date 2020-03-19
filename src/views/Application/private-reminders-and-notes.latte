@@ -13,132 +13,82 @@
         <div class="toolbar-page-content my-content left-content">
             <header class="content-header">
                 <div class="tools">
-                    <i class="add-i"></i>
+                    <i class="add-i" id="_add-reminder"></i>
                 </div>
                 <h2 class="content-heading">Moje upozornění</h2>
             </header>
 
-            <section class="content-container">
-                <div class="day-row">
-                    <span class="date">Po 14. 5.</span>
-                    <div class="record-container">
-                        <div class="record-row">
-                            <span class="subject school-subject">ČJL</span>
-                            <span class="type"><i class="homework-i"></i></span>
-                            <span class="description">Přečíst ukázku z učebnice na str. 68</span>
-                            <i class="action edit-i"></i>
-                            <i class="action delete-i"></i>
-                        </div>
-                        <div class="record-row">
-                            <span class="subject school-subject">FAR</span>
-                            <span class="type"><i class="test-i"></i></span>
-                            <span class="description">Malířství, Fotografie</span>
-                            <i class="action edit-i"></i>
-                            <i class="action delete-i"></i>
-                        </div>
-                    </div>
+            <div class="templates hide">
+                <div class="record-row _reminder" id="_reminder-record-template" data-id="{* id *}">
+                    <span class="subject school-subject _subject">{* {subject} *}</span>
+                    <span class="type"><i class="_type {* type-i *}"></i></span>
+                    <span class="description _content">{* content *}</span>
+                    <i class="action edit-i _edit-reminder _action-id" data-id="{* id *}"></i>
+                    <i class="action delete-i _delete-reminder _action-id" data-id="{* id *}"></i>
                 </div>
-                <div class="day-row">
-                    <span class="date">Út 15. 5.</span>
-                    <div class="record-container">
-                        <div class="record-row">
-                            <span class="subject school-subject">DVK</span>
-                            <span class="type"><i class="homework-i"></i></span>
-                            <span class="description">Prezentace - Edouard Manet</span>
-                            <i class="action edit-i"></i>
-                            <i class="action delete-i"></i>
-                        </div>
-                        <div class="record-row">
-                            <span class="subject school-subject">DVK</span>
-                            <span class="type"><i class="test-i"></i></span>
-                            <span class="description">Renesanční malba v Itálii, Renesanční sloh v ostatní Evropě</span>
-                            <i class="action edit-i"></i>
-                            <i class="action delete-i"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="day-row">
-                    <span class="date">St 16. 5.</span>
-                    <div class="record-container"></div>
-                </div>
-                <div class="day-row">
-                    <span class="date">Čt 17. 5.</span>
-                    <div class="record-container">
-                        <div class="record-row">
-                            <span class="subject school-subject"></span>
-                            <span class="type"><i class="school-event-i"></i></span>
-                            <span class="description">Divadlo - Romeo a Julie</span>
-                            <i class="action edit-i"></i>
-                            <i class="action delete-i"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="day-row">
-                    <span class="date">Pá 18. 5.</span>
-                    <div class="record-container">
-                        <div class="record-row">
-                            <span class="subject school-subject">EKO</span>
-                            <span class="type"><i class="test-i"></i></span>
-                            <span class="description">Marketing</span>
-                            <i class="action edit-i"></i>
-                            <i class="action delete-i"></i>
-                        </div>
-                        <div class="record-row">
-                            <span class="subject school-subject">ANJ</span>
-                            <span class="type"><i class="test-i"></i></span>
-                            <span class="description">Slovíčka 6. lekce</span>
-                            <i class="action edit-i"></i>
-                            <i class="action delete-i"></i>
+            </div>
+
+            <section class="content-container" id="_reminders-container">
+                <div n:foreach="$reminderDays as $reminderDay" n:class="day-row, _day, $iterator->counter >= $reminderUseDays ? hide" data-date="{$reminderDay['short-date']}">
+                    <span class="date _date">{$reminderDay['date']}</span>
+                    <div class="record-container _reminders">
+                        <div n:foreach="$reminderDay['reminders'] as $reminder" class="record-row _reminder" data-id="{$reminder->getId()}">
+                            <span class="subject school-subject _subject">
+                                {if $reminder->getType() !== 'school-event'}
+                                    {$reminder->getSubject()->getShortcut()}
+                                {/if}
+                            </span>
+                            <span class="type"><i class="{$reminder->getType()}-i _type"></i></span>
+                            <span class="description _content">{$reminder->getContent()}</span>
+                            <i class="action edit-i _edit-reminder" data-id="{$reminder->getId()}"></i>
+                            <i class="action delete-i _delete-reminder" data-id="{$reminder->getId()}"></i>
                         </div>
                     </div>
                 </div>
             </section>
         </div>
 
-        <!-- TODO: Pro zobrazení odstranit třídu hide -->
-        <div class="alert-external-container hide">
-            <!-- TODO: Pro zobrazení odstranit třídu hide -->
-            <div class="alert-box hide">
+        <div class="alert-external-container _alert-external-container hide">
+            <div class="alert-box _alert hide" data-id="add-edit-reminder">
                 <header class="alert-header">
-                    <h3 class="alert-heading">Přidání upozornění</h3>
-                    <h3 class="alert-heading hide">Editace upozornění</h3>
+                    <h3 class="alert-heading _reminder-form-heading" data-action="add">Přidání upozornění</h3>
+                    <h3 class="alert-heading _reminder-form-heading hide" data-action="edit">Editace upozornění</h3>
                 </header>
 
                 <section class="alert-content">
-                    <form class="alert-form">
+                    <form class="alert-form _alert-form">
+                        <span class="hide" id="_edit-reminder-id" data-id=""></span>
+
                         <div class="form-inputs">
                             <div class="form-input-group">
                                 <div class="form-calendar-input _calendar-container">
-                                    <input type="text" name="when" class="form-input _calendar-input" title="Jakého data se upozornění týká?" placeholder="Po 14. 5." />
+                                    <input type="text" name="when" class="form-input _calendar-input-date" id="_reminder-form-date" title="Jakého data se upozornění týká?" placeholder="Po 14. 5." autocomplete="off" />
+                                    <input type="text" name="when-year" class="hide _calendar-input-year" id="_reminder-form-year" hidden title="Rok pro doplnění datumu" />
                                     <i class="calendar-i form-calendar-button _open-calendar"></i>
                                     <div class="form-calendar _calendar"></div>
                                 </div>
 
-                                <select name="subject" class="form-select school-subject" title="Vyberte předmět, na který je upozornění vázáno">
-                                    <!-- TODO: automaticky generované -->
-                                    <option value="1" selected>ČJL</option>
-                                    <option value="1">DVK</option>
-                                    <option value="1">FAR</option>
-                                    <option value="1">ANJ</option>
+                                <select name="subject" class="form-select school-subject" id="_reminder-form-subject" title="Vyberte předmět, na který je upozornění vázáno">
+                                    <option n:foreach="$subjects as $subject" value="{$subject->getId()}" {if $iterator->first}selected{/if}>
+                                        {$subject->getShortcut()}
+                                    </option>
                                 </select>
 
-                                <select name="type" class="form-select icon-chooser _icon-chooser" title="Vyberte typ upozornění (zkouška, domácí práce, školní akce)">
+                                <select name="type" class="form-select icon-chooser _icon-chooser" id="_reminder-form-type" title="Vyberte typ upozornění (zkouška, domácí práce, školní akce)">
                                     <option value="test" selected class="form-select-option test-option" data-color="">&#xf872;&emsp; Zkouška</option>
                                     <option value="homework" class="form-select-option homework-option" data-color="">&#xf02d; &emsp; Domácí úkol</option>
                                     <option value="school-event" class="form-select-option school-event-option" data-color="">&#xf5dd;&emsp; Školní akce</option>
                                 </select>
                             </div>
 
-                            <textarea name="content" class="form-textarea" title="Sem napište obsah upozornění" placeholder="Přečíst ukázku z učebnice na str. 68"></textarea>
+                            <textarea name="content" class="form-textarea" id="_reminder-form-content" title="Sem napište obsah upozornění" placeholder="Přečíst ukázku z učebnice na str. 68"></textarea>
                         </div>
 
-                        <div class="form-alerts">
-                            <p class="form-alert negative">Nebyla vyplněna všechna pole.</p>
-                        </div>
+                        <div class="form-alerts" id="_reminder-form-alerts"></div>
 
                         <div class="form-control">
-                            <input type="submit" value="Přidat" class="form-button alert" />
-                            <input type="submit" value="Uložit" class="form-button alert hide" />
+                            <input type="submit" value="Přidat" class="form-button alert _reminder-form-button" id="_reminder-form-add" data-action="add" />
+                            <input type="submit" value="Uložit" class="form-button alert _reminder-form-button hide" id="_reminder-form-edit" data-action="edit" />
                         </div>
                     </form>
                 </section>
@@ -149,60 +99,59 @@
     <div class="page my-content right-content">
         <header class="content-header">
             <div class="tools">
-                <i class="add-i"></i>
+                <i class="add-i" id="_add-note"></i>
             </div>
             <h2 class="content-heading">Moje poznámky</h2>
         </header>
 
-        <section class="content-container">
-            <div class="content-row">
-                <p>Od 16. 9. nosit sbírku Petáková</p>
-                <i class="action edit-i"></i>
-                <i class="action delete-i"></i>
+        <div class="templates hide">
+            <div class="content-row _note" id="_note-template" data-id="{* {id} *}">
+                <p class="_content">{* {content} *}</p>
+                <i class="action edit-i _edit-note _action-id" data-id="{* {id} *}"></i>
+                <i class="action delete-i _delete-note _action-id" data-id="{* {id} *}"></i>
             </div>
-            <div class="content-row">
-                <p>SRPŠ bude nejspíše ve středu 6. 11.</p>
-                <i class="action edit-i"></i>
-                <i class="action delete-i"></i>
-            </div>
-            <div class="content-row">
-                <p>Příští týden (4. 11. až 8. 11.) mám službu - dávat pozor na mytí tabule a nošení pomůcek</p>
-                <i class="action edit-i"></i>
-                <i class="action delete-i"></i>
-            </div>
-            <div class="content-row">
-                <p>27. 11. bude přednáškový den. Bylo by dobré sehnat nějakého řečníka. Nápady: někdo z ITnetwork, Karel z Freela</p>
-                <i class="action edit-i"></i>
-                <i class="action delete-i"></i>
+        </div>
+
+        <section class="content-container" id="_notes-container">
+            <div n:foreach="$notes as $note" class="content-row _note" data-id="{$note->getId()}">
+                <p class="_content">{$note->getContent()}</p>
+                <i class="action edit-i _edit-note" data-id="{$note->getId()}"></i>
+                <i class="action delete-i _delete-note" data-id="{$note->getId()}"></i>
             </div>
         </section>
 
-        <!-- TODO: Pro zobrazení odstranit třídu hide -->
-        <div class="alert-external-container hide">
-            <!-- TODO: Pro zobrazení odstranit třídu hide -->
-            <div class="alert-box hide">
+        <div class="alert-external-container _alert-external-container hide">
+            <div class="alert-box _alert hide" data-id="add-edit-note">
                 <header class="alert-header">
-                    <h3 class="alert-heading">Přidání poznámky</h3>
-                    <h3 class="alert-heading hide">Editace poznámky</h3>
+                    <h3 class="alert-heading _note-form-heading" data-action="add">Přidání poznámky</h3>
+                    <h3 class="alert-heading _note-form-heading hide" data-action="edit">Editace poznámky</h3>
                 </header>
 
                 <section class="alert-content">
-                    <form class="alert-form">
+                    <form class="alert-form _alert-form">
+                        <span class="hide" id="_edit-note-id" data-id=""></span>
+
                         <div class="form-inputs">
-                            <textarea name="note" class="form-textarea" title="Sem napište svoji poznámku" placeholder="Od 16. 9. nosit sbírku Petáková"></textarea>
+                            <textarea name="note" class="form-textarea" id="_note-form-content" title="Sem napište svoji poznámku" placeholder="Od 16. 9. nosit sbírku Petáková"></textarea>
                         </div>
 
-                        <div class="form-alerts">
-                            <p class="form-alert negative">Nebyla vyplněna všechna pole.</p>
-                        </div>
+                        <div class="form-alerts" id="_note-form-alerts"></div>
 
                         <div class="form-control">
-                            <input type="submit" value="Přidat" class="form-button alert" />
-                            <input type="submit" value="Uložit" class="form-button alert hide" />
+                            <input type="submit" value="Přidat" class="form-button alert _note-form-button" id="_note-form-add" data-action="add" />
+                            <input type="submit" value="Uložit" class="form-button alert _note-form-button hide" id="_note-form-edit" data-action="edit" />
                         </div>
                     </form>
                 </section>
             </div>
         </div>
     </div>
+{/block}
+
+{block js}
+<script src="/js/lib/datepickk/datepickk.js"></script>
+<script src="/js/classes/FormController.js"></script>
+<script src="/js/classes/WeekChanger.js"></script>
+<script src="/js/classes/NotesAndRemindersController.js"></script>
+<script src="/js/application/private-reminders-and-notes.js"></script>
 {/block}

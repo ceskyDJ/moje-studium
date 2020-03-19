@@ -41,7 +41,7 @@ class TookUpShare
     private ?SharedNote $sharedNote = null;
     /**
      * @ORM\ManyToOne(targetEntity="SharedReminder", inversedBy="tookUpShares")
-     * @ORM\JoinColumn(name="shared_reminder_id", referencedColumnName="shared_reminder_id")
+     * @ORM\JoinColumn(name="shared_reminder_id", referencedColumnName="shared_reminder_id", onDelete="CASCADE")
      * @var \App\Entity\SharedReminder|null Specific shared reminder that is took up
      */
     private ?SharedReminder $sharedReminder = null;

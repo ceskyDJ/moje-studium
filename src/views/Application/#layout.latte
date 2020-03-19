@@ -93,15 +93,16 @@
     </p>
 </footer>
 
-{* TODO: Pro aktivaci odebrat třídu hide *}
-<div class="alert-container hide"></div>
+<div class="alert-container hide" id="_alert-container"></div>
 
 {* Libraries *}
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/js/lib/axios/config.js"></script>
 <script src="/js/lib/week-number/week-number.js"></script>
 {* Own scripts *}
-<script src="/js/application/header-control.js"></script>
+<script src="/js/classes/AlertController.js"></script>
+<script src="/js/classes/HeaderController.js"></script>
+<script src="/js/application/layout.js"></script>
 {* Content view requested scripts *}
 {block js}{/block}
 </body>

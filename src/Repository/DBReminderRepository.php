@@ -38,7 +38,7 @@ class DBReminderRepository implements Abstraction\IReminderRepository
         $weekNumber = (int)date("W");
 
         $from = $from ?? (new DateTime())->setISODate($year, $weekNumber);
-        $to = $to ?? (new DateTime())->setISODate($year, $weekNumber, 6);
+        $to = $to ?? (new DateTime())->setISODate($year, $weekNumber, 7);
 
         $query = $this->em->createQuery(
         /** @lang DQL */ "

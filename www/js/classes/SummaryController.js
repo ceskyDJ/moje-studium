@@ -5,23 +5,20 @@ class SummaryController
         this.week = document.querySelector("#_actual-week");
         this.privateReminderContainer = document.querySelector("#_private-reminders-container");
 
-        this.initWeek();
+        this.initWeekChanger();
 
         this.handleTakeUp();
-        this.handleWeekChange();
     }
 
-    initWeek()
+    initWeekChanger()
     {
-        const now = new Date();
+        const previousButton = document.querySelector("#_previous-week-b");
+        const nextButton = document.querySelector("#_next-week-b");
 
-        if(this.week.dataset.weekNumber === undefined) {
-            this.week.dataset.weekNumber = now.getWeek().toString();
-        }
-
-        if(this.week.dataset.year === undefined) {
-            this.week.dataset.year = now.getFullYear().toString();
-        }
+        new WeekChanger(this.week, previousButton, nextButton, _ => {
+            this.clearReminders();
+            this.updatePrivateReminders();
+        });
     }
 
     handleTakeUp()
@@ -41,22 +38,6 @@ class SummaryController
 
                 this.setAsTakenUp(takeUpButton);
             });
-        });
-    }
-
-    handleWeekChange()
-    {
-        document.querySelector("#_previous-week-b").addEventListener("click", _ => {
-            this.setPreviousWeek();
-
-            this.clearReminders();
-            this.updatePrivateReminders();
-        });
-        document.querySelector("#_next-week-b").addEventListener("click", _ => {
-            this.setNextWeek();
-
-            this.clearReminders();
-            this.updatePrivateReminders();
         });
     }
 
@@ -83,7 +64,7 @@ class SummaryController
         typeElement.classList.add(`${type}-i`);
 
         newReminder.querySelector("._when").textContent = when;
-        newReminder.querySelector("._subject").textContent = subject;
+        newReminder.querySelector("._subject").textContent = (type !== "school-event" ? subject : "");
         newReminder.querySelector("._type").appendChild(typeElement);
         newReminder.querySelector("._content").textContent = content;
 
@@ -131,61 +112,6 @@ class SummaryController
         }
     }
 
-    getWeekName(weekNumber)
-    {
-        // For today
-        let now = new Date();
-        const day = (now.getDay() !== 0 ? now.getDay() : 7) - 1;
-        const weekNumberDifference = weekNumber - now.getWeek(); // next week -> +1, previous week -> -1
-
-        // For weekNumber parameter
-        now.setDate(now.getDate() - day); // Move day to monday
-        now.setDate(now.getDate() + (7 * weekNumberDifference)); // Move date by week
-        const mondayDate = now.getDate();
-        const mondayMoth = now.getMonth() + 1;
-
-        now.setDate(now.getDate() + 6);
-        const sundayDate = now.getDate();
-        const sundayMonth = now.getMonth() + 1;
-
-        now = new Date(); // move back to today
-        if(weekNumber === now.getWeek()) {
-            return "Tento týden";
-        } else if(weekNumber === (now.getWeek() + 1)) {
-            return "Příští týden";
-        } else if(weekNumber === (now.getWeek() - 1)) {
-            return "Minulý týden";
-        } else {
-            return `${mondayDate}. ${mondayMoth}.-${sundayDate}. ${sundayMonth}.`;
-        }
-    }
-
-    setPreviousWeek()
-    {
-        let movedWeekNumber = parseInt(this.week.dataset.weekNumber) - 1;
-
-        if(movedWeekNumber < 1) {
-            movedWeekNumber = 53; // Last in previous year
-            this.week.dataset.year = (parseInt(this.week.dataset.year) - 1).toString();
-        }
-
-        this.week.textContent = this.getWeekName(movedWeekNumber);
-        this.week.dataset.weekNumber = movedWeekNumber.toString();
-    }
-
-    setNextWeek()
-    {
-        let movedWeekNumber = parseInt(this.week.dataset.weekNumber) + 1;
-
-        if(movedWeekNumber > 53) {
-            movedWeekNumber = 1; // First in next year
-            this.week.dataset.year = (parseInt(this.week.dataset.year) + 1).toString();
-        }
-
-        this.week.textContent = this.getWeekName(movedWeekNumber);
-        this.week.dataset.weekNumber = movedWeekNumber.toString();
-    }
-
     async updatePrivateReminders()
     {
         try {
@@ -211,5 +137,3 @@ class SummaryController
         });
     }
 }
-
-new SummaryController();

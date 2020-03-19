@@ -1,4 +1,5 @@
-class ProfileController {
+class ProfileController
+{
     constructor()
     {
         this.quotaProgressBar = document.querySelector("#_quota-progress-bar");
@@ -52,5 +53,3 @@ class ProfileController {
         });
     }
 }
-
-new ProfileController();

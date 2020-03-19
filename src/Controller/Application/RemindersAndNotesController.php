@@ -9,11 +9,16 @@ use App\Model\ReminderManager;
 use App\Model\UserManager;
 use App\Repository\Abstraction\INoteRepository;
 use App\Repository\Abstraction\IReminderRepository;
+use App\Repository\Abstraction\ISchoolSubjectRepository;
+use Doctrine\Common\Util\Debug;
 use Mammoth\Controller\Common\Controller;
 use Mammoth\DI\DIClass;
 use Mammoth\Http\Entity\Request;
 use Mammoth\Http\Entity\Response;
 use Mammoth\Http\Factory\ResponseFactory;
+use Tracy\Debugger;
+use function bdump;
+use const SIGUSR1;
 
 /**
  * Controller for reminders and notes
@@ -44,6 +49,10 @@ class RemindersAndNotesController extends Controller
     /**
      * @inject
      */
+    private ISchoolSubjectRepository $subjectRepository;
+    /**
+     * @inject
+     */
     private ReminderManager $reminderManager;
     /**
      * @inject
@@ -67,9 +76,20 @@ class RemindersAndNotesController extends Controller
      */
     public function privateAction(Request $request): Response
     {
-        return $this->responseFactory->create($request)->setContentView("private-reminders-and-notes")->setTitle(
-            "Moje upozornění a soubory"
-        );
+        $response = $this->responseFactory->create($request)->setContentView("private-reminders-and-notes")->setTitle(
+                "Moje upozornění a soubory"
+            );
+
+        /**
+         * @var $user \App\Entity\User
+         */
+        $user = $this->userManager->getUser();
+        $response->setDataVar("reminderDays", $reminders = $this->reminderManager->getPrivateRemindersDividedIntoDays());
+        $response->setDataVar("reminderUseDays", $this->reminderManager->getNumberOfUseDays($reminders));
+        $response->setDataVar("notes", $this->noteRepository->getByUser($user));
+        $response->setDataVar("subjects", $this->subjectRepository->getByUser($user));
+
+        return $response;
     }
 
     /**
@@ -118,12 +138,102 @@ class RemindersAndNotesController extends Controller
      *
      * @return \Mammoth\Http\Entity\Response
      */
-    public function getRemindersAjaxAction(Request $request)
+    public function getRemindersAjaxAction(Request $request): Response
     {
         $data = $request->getParsedUrl()->getData();
         $response = $this->responseFactory->create($request)->setContentView("#code");
 
         $response->setDataVar("data", $this->reminderManager->getPrivateRemindersForAjax((int)$data[0], (int)$data[1]));
+
+        return $response;
+    }
+
+    /**
+     * Get reminders divided into days for front-end
+     *
+     * @param \Mammoth\Http\Entity\Request $request
+     *
+     * @return \Mammoth\Http\Entity\Response
+     */
+    public function getRemindersInDaysAjaxAction(Request $request): Response
+    {
+        $data = $request->getParsedUrl()->getData();
+        $response = $this->responseFactory->create($request)->setContentView("#code");
+
+        $response->setDataVar("data", $this->reminderManager->getPrivateRemindersInDaysForAjax((int)$data[0], (int)$data[1]));
+
+        return $response;
+    }
+
+    public function addReminderAjaxAction(Request $request): Response
+    {
+        $data = $request->getPost();
+        $response = $this->responseFactory->create($request)->setContentView("#code");
+
+        $response->setDataVar("data", $this->reminderManager->addReminder(
+            $data['date'],
+            (int)$data['year'],
+            (int)$data['subject'],
+            $data['type'],
+            $data['content']
+        ));
+
+        return $response;
+    }
+
+    public function editReminderAjaxAction(Request $request): Response
+    {
+        $data = $request->getPost();
+        $response = $this->responseFactory->create($request)->setContentView("#code");
+
+        $response->setDataVar("data", $this->reminderManager->editReminder(
+            (int)$data['id'],
+            $data['date'],
+            (int)$data['year'],
+            (int)$data['subject'],
+            $data['type'],
+            $data['content']
+        ));
+
+        return $response;
+    }
+
+    public function deleteReminderAjaxAction(Request $request): Response
+    {
+        $data = $request->getParsedUrl()->getData();
+        $response = $this->responseFactory->create($request)->setContentView("#code");
+
+        $this->reminderManager->deleteReminder((int)$data[0]);
+
+        return $response;
+    }
+
+    public function addNoteAjaxAction(Request $request): Response
+    {
+        $post = $request->getPost();
+        $response = $this->responseFactory->create($request)->setContentView("#code");
+
+        $response->setDataVar("data", $this->noteManager->addNote($post['content']));
+
+        return $response;
+    }
+
+    public function editNoteAjaxAction(Request $request): Response
+    {
+        $post = $request->getPost();
+        $response = $this->responseFactory->create($request)->setContentView("#code");
+
+        $response->setDataVar("data", $this->noteManager->editNote((int)$post['id'], $post['content']));
+
+        return $response;
+    }
+
+    public function deleteNoteAjaxAction(Request $request): Response
+    {
+        $data = $request->getParsedUrl()->getData();
+        $response = $this->responseFactory->create($request)->setContentView("#code");
+
+        $this->noteManager->deleteNote((int)$data[0]);
 
         return $response;
     }

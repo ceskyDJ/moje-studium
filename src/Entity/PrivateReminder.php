@@ -31,7 +31,7 @@ class PrivateReminder
     private ?int $id = null;
     /**
      * @var string Type (homework, school-event, test)
-     * @ORM\Column(name="type", type="string", length=8, columnDefinition="ENUM('test', 'homework', 'school-event') NOT NULL", options={  })
+     * @ORM\Column(name="type", type="string", columnDefinition="ENUM('test', 'homework', 'school-event') NOT NULL", options={  })
      */
     private string $type;
     /**
@@ -41,7 +41,7 @@ class PrivateReminder
     private string $content;
     /**
      * @var \DateTime When does it happens?
-     * @ORM\Column(name="when", type="date", nullable=false, options={  })
+     * @ORM\Column(name="`when`", type="date", nullable=false, options={  })
      */
     private DateTime $when;
     /**

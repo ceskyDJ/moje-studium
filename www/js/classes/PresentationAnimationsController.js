@@ -1,5 +1,7 @@
-class AnimationController {
-    constructor() {
+class PresentationAnimationsController
+{
+    constructor()
+    {
         this.initProperties();
 
         this.handleSmileAnimation();
@@ -277,5 +279,3 @@ class AnimationController {
         }
     }
 }
-
-new AnimationController();
