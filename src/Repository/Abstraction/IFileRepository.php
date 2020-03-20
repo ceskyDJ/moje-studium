@@ -30,11 +30,11 @@ interface IFileRepository
      * Returns $limit files shared with user or class where the user is
      *
      * @param \App\Entity\User $targetUser
-     * @param int $limit Maximum count of records
+     * @param int|null $limit Maximum count of records
      *
      * @return \App\Entity\SharedFile[]
      */
-    public function getSharedByUserOrItsClassWithLimit(User $targetUser, int $limit): array;
+    public function getSharedByUserOrItsClassWithLimit(User $targetUser, ?int $limit = null): array;
 
     /**
      * Finds shared file by its ID

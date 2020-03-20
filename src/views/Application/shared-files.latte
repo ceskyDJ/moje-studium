@@ -8,118 +8,42 @@
 
         <section class="content-container">
             <table class="shared-content-table files">
-                <tr class="content-row">
+                <tr n:foreach="$sharedFiles as $sharedFile" class="content-row">
+                    {var $file = $sharedFile->getFile()}
                     <td class="from">
                         <div class="from-container">
-                            <i class="from-schoolmate-i"></i>
+                            {if $sharedFile->getTargetUser() !== null}
+                                <i class="from-schoolmate-i"></i>
+                            {else}
+                                <i class="from-class-i"></i>
+                            {/if}
                         </div>
                     </td>
                     <td class="author">
                         <div class="author-container">
-                            <span class="profile-image"></span>
-                            Veronika Zemanová
+                            {var $fileOwner = $file->getOwner()}
+                            {$fileOwner->getProfileImageHTML()|noescape}
+                            {$fileOwner->getData()->getFullName()}
                             <span class="date">29. 11.</span>
                         </div>
                     </td>
-                    <td class="date">29. 11.</td>
-                    <td class="type"><i class="folder-i"></i></td>
-                    <td class="file-name">Expresionismus</td>
+                    <td class="date">{$sharedFile->getShared()->format("j. n.")}</td>
+                    <td class="type">
+                        {if $file->isFolder() === true}
+                            <i class="folder-i"></i>
+                        {else}
+                            {if $file->getType() !== null}
+                                <i class="file-{$file->getType()}-i"></i>
+                            {else}
+                                <i class="file-i"></i>
+                            {/if}
+                        {/if}
+                    </td>
+                    <td class="file-name">{$file->getName()}</td>
                     <td class="action">
                         <div class="action-container">
-                            <a class="action-link text" href="#stahnout">Stáhnout</a>
-                            <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="content-row">
-                    <td class="from">
-                        <div class="from-container">
-                            <i class="from-class-i"></i>
-                        </div>
-                    </td>
-                    <td class="author">
-                        <div class="author-container">
-                            <span class="profile-image"></span>
-                            Dominik Švejda
-                            <span class="date">29. 11.</span>
-                        </div>
-                    </td>
-                    <td class="date">29. 11.</td>
-                    <td class="type"><i class="file-text-document-i"></i></td>
-                    <td class="file-name">Zadání na klauzurní práci</td>
-                    <td class="action">
-                        <div class="action-container">
-                            <a class="action-link text" href="#stahnout">Stáhnout</a>
-                            <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="content-row">
-                    <td class="from">
-                        <div class="from-container">
-                            <i class="from-class-i"></i>
-                        </div>
-                    </td>
-                    <td class="author">
-                        <div class="author-container">
-                            <span class="profile-image"></span>
-                            Alena Brabcová
-                            <span class="date">29. 11.</span>
-                        </div>
-                    </td>
-                    <td class="date">29. 11.</td>
-                    <td class="type"><i class="file-image-i"></i></td>
-                    <td class="file-name">Školní fotky (třetí ročník)</td>
-                    <td class="action">
-                        <div class="action-container">
-                            <a class="action-link text" href="#stahnout">Stáhnout</a>
-                            <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="content-row">
-                    <td class="from">
-                        <div class="from-container">
-                            <i class="from-class-i"></i>
-                        </div>
-                    </td>
-                    <td class="author">
-                        <div class="author-container">
-                            <span class="profile-image"></span>
-                            Veronika Zemanová
-                            <span class="date">29. 11.</span>
-                        </div>
-                    </td>
-                    <td class="date">29. 11.</td>
-                    <td class="type"><i class="file-image-i"></i></td>
-                    <td class="file-name">Zápis - matematika 2. 10.</td>
-                    <td class="action">
-                        <div class="action-container">
-                            <a class="action-link text" href="#stahnout">Stáhnout</a>
-                            <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="content-row">
-                    <td class="from">
-                        <div class="from-container">
-                            <i class="from-schoolmate-i"></i>
-                        </div>
-                    </td>
-                    <td class="author">
-                        <div class="author-container">
-                            <span class="profile-image"></span>
-                            Barbora Šedová
-                            <span class="date">29. 11.</span>
-                        </div>
-                    </td>
-                    <td class="date">29. 11.</td>
-                    <td class="type"><i class="file-image-i"></i></td>
-                    <td class="file-name">Zápis - videotvorba 5. 10.</td>
-                    <td class="action">
-                        <div class="action-container">
-                            <a class="action-link text" href="#stahnout">Stáhnout</a>
-                            <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
+                            <a class="action-link text" href="/application/files/download/{$sharedFile->getId()}">Stáhnout</a>
+                            <a class="link-with-icon icon" href="/application/files/download/{$sharedFile->getId()}"><i class="download-i"></i></a>
                         </div>
                     </td>
                 </tr>

@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace App\Controller\Application;
 
+use App\Model\UserManager;
+use App\Repository\Abstraction\IFileRepository;
 use Mammoth\Controller\Common\Controller;
 use Mammoth\DI\DIClass;
 use Mammoth\Http\Entity\Request;
@@ -24,6 +26,14 @@ class FilesController extends Controller
      * @inject
      */
     private ResponseFactory $responseFactory;
+    /**
+     * @inject
+     */
+    private UserManager $userManager;
+    /**
+     * @inject
+     */
+    private IFileRepository $fileRepository;
 
     /**
      * @inheritDoc
@@ -55,7 +65,15 @@ class FilesController extends Controller
      */
     public function sharedAction(Request $request): Response
     {
-        return $this->responseFactory->create($request)->setContentView("shared-files")
+        $response = $this->responseFactory->create($request)->setContentView("shared-files")
             ->setTitle("Sdílené soubory");
+
+        /**
+         * @var $user \App\Entity\User
+         */
+        $user = $this->userManager->getUser();
+        $response->setDataVar("sharedFiles", $this->fileRepository->getSharedByUserOrItsClassWithLimit($user));
+
+        return $response;
     }
 }

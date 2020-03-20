@@ -42,7 +42,7 @@ class DBFileRepository implements Abstraction\IFileRepository
     /**
      * @inheritDoc
      */
-    public function getSharedByUserOrItsClassWithLimit(User $targetUser, int $limit): array
+    public function getSharedByUserOrItsClassWithLimit(User $targetUser, ?int $limit = null): array
     {
         $query = $this->em->createQuery(/** @lang DQL */ "
             SELECT sf
@@ -53,8 +53,11 @@ class DBFileRepository implements Abstraction\IFileRepository
             ORDER BY sf.shared DESC
         ");
 
-        $query->setMaxResults($limit)
-            ->setParameter("user", $targetUser);
+        $query->setParameter("user", $targetUser);
+
+        if ($limit !== null) {
+            $query->setMaxResults($limit);
+        }
 
         return $query->getResult();
     }
