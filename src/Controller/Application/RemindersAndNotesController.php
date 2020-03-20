@@ -72,14 +72,20 @@ class RemindersAndNotesController extends Controller
      */
     public function privateAction(Request $request): Response
     {
-        $response = $this->responseFactory->create($request)->setContentView("private-reminders-and-notes")->setTitle(
-            "Moje upozornění a soubory"
-        );
-
         /**
          * @var $user \App\Entity\User
          */
         $user = $this->userManager->getUser();
+
+        $title = "Moje poznámky";
+        if ($user->getClass() !== null) {
+            $title = "Moje upozornění a poznámky";
+        }
+
+        $response = $this->responseFactory->create($request)->setContentView("private-reminders-and-notes")->setTitle(
+            $title
+        );
+
         $response->setDataVar(
             "reminderDays",
             $reminders = $this->reminderManager->getPrivateRemindersDividedIntoDays()
@@ -100,14 +106,20 @@ class RemindersAndNotesController extends Controller
      */
     public function sharedAction(Request $request): Response
     {
-        $response = $this->responseFactory->create($request)->setContentView("shared-reminders-and-notes")->setTitle(
-            "Sdílené upozornění a poznámky"
-        );
-
         /**
          * @var $user \App\Entity\User
          */
         $user = $this->userManager->getUser();
+
+        $title = "Sdílené poznámky";
+        if ($user->getClass() !== null) {
+            $title = "Sdílená upozornění a poznámky";
+        }
+
+        $response = $this->responseFactory->create($request)->setContentView("shared-reminders-and-notes")->setTitle(
+            $title
+        );
+
         $response->setDataVar("sharedReminders", $this->reminderRepository->getSharedByUserOrItsClassWithLimit($user));
         $response->setDataVar("sharedNotes", $this->noteRepository->getSharedByUserOrItsClassWithLimit($user));
 

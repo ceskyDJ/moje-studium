@@ -6119,6 +6119,7 @@ body.active-alert {
 */
 .calendar-section {
   padding: 0 5%;
+  margin-bottom: 2em;
 }
 .calendar-section .calendar {
   overflow-x: auto;
@@ -6183,7 +6184,6 @@ body.active-alert {
   }
 }
 .my-content-section {
-  margin-top: 2em;
   background: #EEE9E5;
   padding: 1em 5%;
 }
@@ -6289,38 +6289,6 @@ body.active-alert {
   .functions-section {
     grid-template-columns: 20em 20em;
     grid-gap: 2em;
-  }
-}
-.functions-section .background-light {
-  position: absolute;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-.functions-section .background-light .light-svg {
-  position: relative;
-  top: -5em;
-}
-@media screen and (min-width: 375px) {
-  .functions-section .background-light .light-svg {
-    top: -5.5em;
-  }
-}
-@media screen and (min-width: 425px) {
-  .functions-section .background-light .light-svg {
-    top: -6em;
-  }
-}
-@media screen and (min-width: 768px) {
-  .functions-section .background-light .light-svg {
-    top: calc(-5em - 100% / 3);
   }
 }
 .functions-section .function-article {

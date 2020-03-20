@@ -57,10 +57,14 @@
                 <a class="menu-link" href="/application">Přehled</a>
             </li>
             <li n:class="menu-item, $contentView === 'private-reminders-and-notes.latte' ? active">
-                <a class="menu-link" href="/application/reminders-and-notes/private">Moje upozornění a poznámky</a>
+                <a class="menu-link" href="/application/reminders-and-notes/private">
+                    Moje {if $user->getClass() !== null}upozornění a{/if} poznámky
+                </a>
             </li>
             <li n:class="menu-item, $contentView === 'shared-reminders-and-notes.latte' ? active">
-                <a class="menu-link" href="/application/reminders-and-notes/shared">Sdílená upozornění a poznámky</a>
+                <a class="menu-link" href="/application/reminders-and-notes/shared">
+                    {if $user->getClass() !== null}Sdílená upozornění a{else}Sdílené{/if} poznámky
+                </a>
             </li>
             <li n:class="menu-item, $contentView === 'private-files.latte' ? active">
                 <a class="menu-link" href="/application/files/private">Moje soubory</a>

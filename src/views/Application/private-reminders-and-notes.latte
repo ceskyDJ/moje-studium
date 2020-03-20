@@ -3,7 +3,7 @@
 {block contentClass}two-columns my-reminders-notes{/block}
 
 {block content}
-    <div class="page with-toolbar">
+    <div n:if="$user->getClass() !== null" class="page with-toolbar">
         <div class="week-switch toolbar">
             <i class="simple-arrow-left-i icon-button" id="_previous-week-b"></i>
             <span class="week" id="_actual-week">Tento týden</span>

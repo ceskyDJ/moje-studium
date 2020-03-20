@@ -3,7 +3,7 @@
 {block contentClass}two-columns-shared{/block}
 
 {block content}
-    <div class="page shared-content left-content">
+    <div n:if="$user->getClass() !== null" class="page shared-content left-content">
         <header class="content-header">
             <h2 class="content-heading">Sdílená upozornění</h2>
         </header>

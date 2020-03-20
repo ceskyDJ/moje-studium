@@ -4,7 +4,7 @@
 
 {block content}
     <div class="left-content">
-        <section class="calendar-section">
+        <section n:if="$user->getClass() !== null" class="calendar-section">
             <header class="week-switch">
                 <i class="simple-arrow-left-i icon-button" id="_previous-week-b"></i>
                 <span class="week" id="_actual-week">Tento týden</span>
@@ -470,7 +470,7 @@
         </section>
 
         <section class="my-content-section">
-            <article class="box my-reminders-box">
+            <article n:if="$user->getClass() !== null" class="box my-reminders-box">
                 <header class="box-header">
                     <a class="link-with-icon" href="/application/reminders-and-notes/private#add-reminder"><i class="add-i"></i></a>
                     <h2 class="box-heading">Moje upozornění</h2>
@@ -578,7 +578,7 @@
                 </footer>
             </article>
 
-            <article class="box shared-reminders-box">
+            <article n:if="$user->getClass() !== null" class="box shared-reminders-box">
                 <header class="box-header">
                     <h2 class="box-heading">Sdílená upozornění</h2>
                 </header>
