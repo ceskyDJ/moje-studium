@@ -39,11 +39,11 @@ interface INoteRepository
      * Returns $limit notes shared with user or class where the user is
      *
      * @param \App\Entity\User $targetUser
-     * @param int $limit Maximum count of records
+     * @param int|null $limit Maximum count of records
      *
      * @return \App\Entity\SharedNote[]
      */
-    public function getSharedByUserOrItsClassWithLimit(User $targetUser, int $limit): array;
+    public function getSharedByUserOrItsClassWithLimit(User $targetUser, ?int $limit = null): array;
 
     /**
      * Finds shared note by its ID

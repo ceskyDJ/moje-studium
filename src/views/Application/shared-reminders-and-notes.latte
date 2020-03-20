@@ -10,95 +10,36 @@
 
         <section class="content-container">
             <table class="shared-content-table reminders">
-                <tr class="content-row">
+                <tr n:foreach="$sharedReminders as $sharedReminder" class="content-row _take-up-item" data-id="{$sharedReminder->getId()}">
+                    {var $privateReminder = $sharedReminder->getReminder()}
                     <td class="from">
                         <div class="from-container">
-                            <i class="from-schoolmate-i"></i>
+                            {if $sharedReminder->getTargetUser() !== null}
+                                <i class="from-schoolmate-i"></i>
+                            {else}
+                                <i class="from-class-i"></i>
+                            {/if}
                         </div>
                     </td>
                     <td class="author">
                         <div class="author-container">
-                            <span class="profile-image"></span>
-                            Veronika Zemanová
+                            {var $reminderOwner = $privateReminder->getOwner()}
+                            {$reminderOwner->getProfileImageHTML()|noescape}
+                            {$reminderOwner->getData()->getFullName()}
                         </div>
                     </td>
-                    <td class="date school-date">St 16. 5.</td>
-                    <td class="subject school-subject">DVK</td>
-                    <td class="type"><i class="test-i"></i></td>
-                    <td class="description">Baroko</td>
-                    <td class="action">
+                    <td class="date school-date _when">{$privateReminder->getFormattedWhen()}</td>
+                    <td class="subject school-subject _subject">{$privateReminder->getSubject()->getShortcut()}</td>
+                    <td class="type _type"><i class="{$privateReminder->getType()}-i"></i></td>
+                    <td class="description _content">{$privateReminder->getContent()}</td>
+                    <td n:class="action, $user->hasTakenUpReminder($sharedReminder) ? done">
                         <div class="action-container">
-                            <a class="action-link text" href="#prevzit">Převzít</a>
-                            <a class="link-with-icon" href="#prevzit"><i class="icon take-up-i"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="content-row">
-                    <td class="from">
-                        <div class="from-container">
-                            <i class="from-class-i"></i>
-                        </div>
-                    </td>
-                    <td class="author">
-                        <div class="author-container">
-                            <span class="profile-image"></span>
-                            Dominik Švejda
-                        </div>
-                    </td>
-                    <td class="date school-date">Pá 16. 5.</td>
-                    <td class="subject school-subject">OBN</td>
-                    <td class="type"><i class="homework-i"></i></td>
-                    <td class="description">Připravit si otázky</td>
-                    <td class="action">
-                        <div class="action-container">
-                            <a class="action-link text" href="#prevzit">Převzít</a>
-                            <a class="link-with-icon" href="#prevzit"><i class="icon take-up-i"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="content-row">
-                    <td class="from">
-                        <div class="from-container">
-                            <i class="from-class-i"></i>
-                        </div>
-                    </td>
-                    <td class="author">
-                        <div class="author-container">
-                            <span class="profile-image"></span>
-                            Alena Brabcová
-                        </div>
-                    </td>
-                    <td class="date school-date">Po 21. 5.</td>
-                    <td class="subject school-subject">ČJL</td>
-                    <td class="type"><i class="homework-i"></i></td>
-                    <td class="description">Cvičení 4. na str. 10.</td>
-                    <td class="action">
-                        <div class="action-container">
-                            <a class="action-link text" href="#prevzit">Převzít</a>
-                            <a class="link-with-icon" href="#prevzit"><i class="icon take-up-i"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="content-row">
-                    <td class="from">
-                        <div class="from-container">
-                            <i class="from-schoolmate-i"></i>
-                        </div>
-                    </td>
-                    <td class="author">
-                        <div class="author-container">
-                            <span class="profile-image"></span>
-                            Barbora Šedová
-                        </div>
-                    </td>
-                    <td class="date school-date">Pá 25. 5.</td>
-                    <td class="subject school-subject">REF</td>
-                    <td class="type"><i class="homework-i"></i></td>
-                    <td class="description">Odevzdat sérii portrétů + krajin</td>
-                    <td class="action done">
-                        <div class="action-container">
-                            <a class="action-link text" href="#prevzit">Převzít</a>
-                            <i class="icon done-i"></i>
+                            {if !$user->hasTakenUpReminder($sharedReminder)}
+                                <a class="action-link text _take-up" href="javascript:void(0)" data-type="reminder" data-for="{$sharedReminder->getId()}">Převzít</a>
+                                <a class="link-with-icon _take-up" href="javascript:void(0)" data-type="reminder" data-for="{$sharedReminder->getId()}"><i class="icon take-up-i"></i></a>
+                            {else}
+                                <i class="icon done-i"></i>
+                            {/if}
                         </div>
                     </td>
                 </tr>
@@ -113,85 +54,33 @@
 
         <section class="content-container">
             <table class="shared-content-table notes">
-                <tr class="content-row">
+                <tr n:foreach="$sharedNotes as $sharedNote" class="content-row _take-up-item" data-id="{$sharedNote->getId()}">
+                    {var $privateNote = $sharedNote->getNote()}
                     <td class="from">
                         <div class="from-container">
-                            <i class="from-schoolmate-i"></i>
+                            {if $sharedNote->getTargetUser() !== null}
+                                <i class="from-schoolmate-i"></i>
+                            {else}
+                                <i class="from-class-i"></i>
+                            {/if}
                         </div>
                     </td>
                     <td class="author">
                         <div class="author-container">
-                            <span class="profile-image"></span>
-                            Veronika Zemanová
+                            {var $noteOwner = $privateNote->getOwner()}
+                            {$noteOwner->getProfileImageHTML()|noescape}
+                            {$noteOwner->getData()->getFullName()}
                         </div>
                     </td>
-                    <td class="note">Od 14. 9. začíná zkoušení z literatury</td>
-                    <td class="action">
+                    <td class="note _content">{$privateNote->getContent()}</td>
+                    <td n:class="action, $user->hasTakenUpNote($sharedNote) ? done">
                         <div class="action-container">
-                            <a class="action-link text" href="#prevzit">Převzít</a>
-                            <a class="link-with-icon" href="#prevzit"><i class="icon take-up-i"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="content-row">
-                    <td class="from">
-                        <div class="from-container">
-                            <i class="from-class-i"></i>
-                        </div>
-                    </td>
-                    <td class="author">
-                        <div class="author-container">
-                            <span class="profile-image"></span>
-                            Dominik Švejda
-                        </div>
-                    </td>
-                    <td class="note">SRPŠ bude nejspíše ve středu 6. 11.</td>
-                    <td class="action done">
-                        <div class="action-container">
-                            <a class="action-link text" href="#prevzit">Převzít</a>
-                            <i class="icon done-i"></i>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="content-row">
-                    <td class="from">
-                        <div class="from-container">
-                            <i class="from-class-i"></i>
-                        </div>
-                    </td>
-                    <td class="author">
-                        <div class="author-container">
-                            <span class="profile-image"></span>
-                            Alena Brabcová
-                        </div>
-                    </td>
-                    <td class="note">Od 26. 9. se začnou předvádět prezentace na základy společenských věd. První je
-                        Vojtěch Halousek.
-                    </td>
-                    <td class="action">
-                        <div class="action-container">
-                            <a class="action-link text" href="#prevzit">Převzít</a>
-                            <a class="link-with-icon" href="#prevzit"><i class="icon take-up-i"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="content-row">
-                    <td class="from">
-                        <div class="from-container">
-                            <i class="from-schoolmate-i"></i>
-                        </div>
-                    </td>
-                    <td class="author">
-                        <div class="author-container">
-                            <span class="profile-image"></span>
-                            Barbora Šedová
-                        </div>
-                    </td>
-                    <td class="note">Vybírá se 300 Kč na exkurzi do Vídně. Odevzdat do 1. 11.</td>
-                    <td class="action">
-                        <div class="action-container">
-                            <a class="action-link text" href="#prevzit">Převzít</a>
-                            <a class="link-with-icon" href="#prevzit"><i class="icon take-up-i"></i></a>
+                            {if !$user->hasTakenUpNote($sharedNote)}
+                                <a class="action-link text _take-up" href="javascript:void(0)" data-type="note" data-for="{$sharedNote->getId()}">Převzít</a>
+                                <a class="link-with-icon _take-up" href="javascript:void(0)" data-type="note" data-for="{$sharedNote->getId()}"><i class="icon take-up-i"></i></a>
+                            {else}
+                                <i class="icon done-i"></i>
+                            {/if}
                         </div>
                     </td>
                 </tr>

@@ -91,7 +91,7 @@ class DBReminderRepository implements Abstraction\IReminderRepository
     /**
      * @inheritDoc
      */
-    public function getSharedByUserOrItsClassWithLimit(User $targetUser, int $limit): array
+    public function getSharedByUserOrItsClassWithLimit(User $targetUser, ?int $limit = null): array
     {
         $query = $this->em->createQuery(/** @lang DQL */ "
             SELECT sr
@@ -102,8 +102,11 @@ class DBReminderRepository implements Abstraction\IReminderRepository
             ORDER BY sr.shared DESC
         ");
 
-        $query->setMaxResults($limit)
-            ->setParameter("user", $targetUser);
+        $query->setParameter("user", $targetUser);
+
+        if ($limit !== null) {
+            $query->setMaxResults($limit);
+        }
 
         return $query->getResult();
     }

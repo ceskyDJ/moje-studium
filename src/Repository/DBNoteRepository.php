@@ -60,7 +60,7 @@ class DBNoteRepository implements Abstraction\INoteRepository
     /**
      * @inheritDoc
      */
-    public function getSharedByUserOrItsClassWithLimit(User $targetUser, int $limit): array
+    public function getSharedByUserOrItsClassWithLimit(User $targetUser, ?int $limit = null): array
     {
         $query = $this->em->createQuery(/** @lang DQL */ "
             SELECT sn
@@ -71,8 +71,11 @@ class DBNoteRepository implements Abstraction\INoteRepository
             ORDER BY sn.shared DESC
         ");
 
-        $query->setMaxResults($limit)
-            ->setParameter("user", $targetUser);
+        $query->setParameter("user", $targetUser);
+
+        if ($limit !== null) {
+            $query->setMaxResults($limit);
+        }
 
         return $query->getResult();
     }
