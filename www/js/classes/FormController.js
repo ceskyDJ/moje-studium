@@ -11,7 +11,7 @@ class FormController
 
     initSelectInput()
     {
-        if(document.querySelector(".select-input-buttons") === undefined) {
+        if(document.querySelector(".select-input-buttons") === null) {
             return;
         }
 
@@ -21,12 +21,15 @@ class FormController
 
     initIconChooser()
     {
-        if(document.querySelector(".icon-chooser") === undefined) {
+        if(document.querySelector("._icon-chooser") === null) {
             return;
         }
 
-        document.addEventListener("DOMContentLoaded", _ => document.querySelectorAll(".icon-chooser").forEach(item => this.updateIconChooser(item)));
-        document.querySelector(".icon-chooser").addEventListener("change", event => this.updateIconChooser(event.target));
+        document.addEventListener("DOMContentLoaded", _ => document.querySelectorAll("._icon-chooser")
+            .forEach(item => this.updateIconChooser(item)));
+        document.querySelectorAll("._icon-chooser").forEach(item => {
+            item.addEventListener("change", event => this.updateIconChooser(event.target));
+        });
     }
 
     initCalendar()

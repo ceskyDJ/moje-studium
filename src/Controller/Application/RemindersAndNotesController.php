@@ -185,6 +185,13 @@ class RemindersAndNotesController extends Controller
         return $response;
     }
 
+    /**
+     * Add new reminder to system
+     *
+     * @param \Mammoth\Http\Entity\Request $request
+     *
+     * @return \Mammoth\Http\Entity\Response
+     */
     public function addReminderAjaxAction(Request $request): Response
     {
         $data = $request->getPost();
@@ -201,6 +208,13 @@ class RemindersAndNotesController extends Controller
         return $response;
     }
 
+    /**
+     * Edit existing reminder
+     *
+     * @param \Mammoth\Http\Entity\Request $request
+     *
+     * @return \Mammoth\Http\Entity\Response
+     */
     public function editReminderAjaxAction(Request $request): Response
     {
         $data = $request->getPost();
@@ -218,6 +232,13 @@ class RemindersAndNotesController extends Controller
         return $response;
     }
 
+    /**
+     * Delete existing reminder
+     *
+     * @param \Mammoth\Http\Entity\Request $request
+     *
+     * @return \Mammoth\Http\Entity\Response
+     */
     public function deleteReminderAjaxAction(Request $request): Response
     {
         $data = $request->getParsedUrl()->getData();
@@ -228,6 +249,13 @@ class RemindersAndNotesController extends Controller
         return $response;
     }
 
+    /**
+     * Add new note to system
+     *
+     * @param \Mammoth\Http\Entity\Request $request
+     *
+     * @return \Mammoth\Http\Entity\Response
+     */
     public function addNoteAjaxAction(Request $request): Response
     {
         $post = $request->getPost();
@@ -238,6 +266,13 @@ class RemindersAndNotesController extends Controller
         return $response;
     }
 
+    /**
+     * Edit existing note
+     *
+     * @param \Mammoth\Http\Entity\Request $request
+     *
+     * @return \Mammoth\Http\Entity\Response
+     */
     public function editNoteAjaxAction(Request $request): Response
     {
         $post = $request->getPost();
@@ -248,6 +283,13 @@ class RemindersAndNotesController extends Controller
         return $response;
     }
 
+    /**
+     * Delete existing note
+     *
+     * @param \Mammoth\Http\Entity\Request $request
+     *
+     * @return \Mammoth\Http\Entity\Response
+     */
     public function deleteNoteAjaxAction(Request $request): Response
     {
         $data = $request->getParsedUrl()->getData();

@@ -8,13 +8,10 @@ use App\Repository\Abstraction\IReminderRepository;
 use App\Repository\Abstraction\ISchoolSubjectRepository;
 use App\Utils\DateHelper;
 use DateTime;
-use Doctrine\Common\Util\Debug;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Exception;
 use Mammoth\DI\DIClass;
-use Tracy\Debugger;
 use function array_keys;
-use function bdump;
 use function count;
 use function explode;
 use function json_encode;
@@ -135,6 +132,44 @@ class ReminderManager
     }
 
     /**
+     * Returns user's reminders divided into days for AJAX
+     *
+     * @param int $year From what year?
+     * @param int $week From what week?
+     *
+     * @return string Reminders divided into day in JSON format
+     */
+    public function getPrivateRemindersInDaysForAjax(int $year, int $week): string
+    {
+        $remindersInDays = $this->getPrivateRemindersDividedIntoDays($year, $week);
+
+        $result = [];
+        $i = 0;
+        foreach ($remindersInDays as $day) {
+            $result['days'][$i]['date'] = $day['date'];
+            $result['days'][$i]['shortDate'] = $day['short-date'];
+
+            /**
+             * @var $reminder \App\Entity\PrivateReminder
+             */
+            foreach ($day['reminders'] as $reminder) {
+                $result['days'][$i]['reminders'][] = [
+                    'id'      => $reminder->getId(),
+                    'subject' => $reminder->getSubject()->getShortcut(),
+                    'type'    => $reminder->getType(),
+                    'content' => $reminder->getContent(),
+                ];
+            }
+
+            $i++;
+        }
+
+        $result['useDays'] = $this->getNumberOfUseDays($remindersInDays);
+
+        return json_encode($result);
+    }
+
+    /**
      * Returns private reminders divided into days
      *
      * @param int|null $year From what year?
@@ -158,9 +193,9 @@ class ReminderManager
         $result = [];
         for ($i = 0; $i < 7; $i++) {
             $result[(int)$currentDay->format("j")] = [
-                'date'      => $this->dateHelper->getCzechShortDate($currentDay),
+                'date'       => $this->dateHelper->getCzechShortDate($currentDay),
                 'short-date' => $currentDay->format("j.n."),
-                'reminders' => [],
+                'reminders'  => [],
             ];
 
             $currentDay->modify("+ 1 days");
@@ -206,44 +241,6 @@ class ReminderManager
     }
 
     /**
-     * Returns user's reminders divided into days for AJAX
-     *
-     * @param int $year From what year?
-     * @param int $week From what week?
-     *
-     * @return string Reminders divided into day in JSON format
-     */
-    public function getPrivateRemindersInDaysForAjax(int $year, int $week): string
-    {
-        $remindersInDays = $this->getPrivateRemindersDividedIntoDays($year, $week);
-
-        $result = [];
-        $i = 0;
-        foreach ($remindersInDays as $day) {
-            $result['days'][$i]['date'] = $day['date'];
-            $result['days'][$i]['shortDate'] = $day['short-date'];
-
-            /**
-             * @var $reminder \App\Entity\PrivateReminder
-             */
-            foreach ($day['reminders'] as $reminder) {
-                $result['days'][$i]['reminders'][] = [
-                    'id'      => $reminder->getId(),
-                    'subject' => $reminder->getSubject()->getShortcut(),
-                    'type'    => $reminder->getType(),
-                    'content' => $reminder->getContent(),
-                ];
-            }
-
-            $i++;
-        }
-
-        $result['useDays'] = $this->getNumberOfUseDays($remindersInDays);
-
-        return json_encode($result);
-    }
-
-    /**
      * Adds new reminder
      *
      * @param string $date New date - When does it happens?
@@ -277,7 +274,8 @@ class ReminderManager
             );
         }
 
-        if (($subject = $this->subjectRepository->getById($subject)) === null || $subject->getClass()->getId() !== $user->getClass()->getId()) {
+        if (($subject = $this->subjectRepository->getById($subject)) === null
+            || $subject->getClass()->getId() !== $user->getClass()->getId()) {
             return json_encode(
                 [
                     'success' => false,
@@ -305,7 +303,7 @@ class ReminderManager
         return json_encode(
             [
                 'success' => true,
-                'id' => $reminder->getId()
+                'id'      => $reminder->getId(),
             ]
         );
     }
@@ -345,7 +343,8 @@ class ReminderManager
             );
         }
 
-        if (($subject = $this->subjectRepository->getById($subject)) === null || $subject->getClass()->getId() !== $owner->getClass()->getId()) {
+        if (($subject = $this->subjectRepository->getById($subject)) === null
+            || $subject->getClass()->getId() !== $owner->getClass()->getId()) {
             return json_encode(
                 [
                     'success' => false,

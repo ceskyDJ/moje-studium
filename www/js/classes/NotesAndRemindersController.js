@@ -377,6 +377,7 @@ class NotesAndRemindersController
                     // Show alert message
                     const alert = document.createElement("p");
                     alert.textContent = data.message;
+                    alert.classList.add("form-alert");
                     alert.classList.add("negative");
 
                     this.reminderFormAlertsContainer.innerHTML = "";
@@ -417,6 +418,7 @@ class NotesAndRemindersController
                     // Show alert message
                     const alert = document.createElement("p");
                     alert.textContent = data.message;
+                    alert.classList.add("form-alert");
                     alert.classList.add("negative");
 
                     this.noteFormAlertsContainer.innerHTML = "";
