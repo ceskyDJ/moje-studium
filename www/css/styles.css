@@ -483,7 +483,8 @@ template {
 .download-i,
 .take-up-i,
 .folder-i,
-.file-i,
+.folder-special-i,
+.file-general-i,
 .file-text-document-i,
 .file-sheet-document-i,
 .file-presentation-document-i,
@@ -873,6 +874,7 @@ template {
 }
 .far,
 .add-i,
+.folder-special-i,
 .close-i,
 .smile-i,
 .laugh-i,
@@ -909,7 +911,7 @@ template {
 .from-class-i,
 .download-i,
 .take-up-i,
-.file-i,
+.file-general-i,
 .file-sheet-document-i,
 .file-presentation-document-i,
 .file-pdf-i,
@@ -4695,20 +4697,27 @@ body.active-alert {
   position: absolute;
   margin-top: 0.2em;
 }
-.alert-form .form-inputs .file-tree .folder {
+.alert-form .form-inputs .file-tree .root .folder-name {
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.alert-form .form-inputs .file-tree .root .folder-name.previous-location {
+  font-weight: bold;
+}
+.alert-form .form-inputs .file-tree .root input:checked + .folder-name {
+  background: #D4DDDD;
+}
+.alert-form .form-inputs .file-tree .root .folder {
   margin-left: 2em;
   border-left: 2px solid #EEE9E5;
 }
-.alert-form .form-inputs .file-tree .folder .folder-name {
+.alert-form .form-inputs .file-tree .root .folder .folder-name {
   padding: 0.1em 0.3em;
 }
-.alert-form .form-inputs .file-tree .folder .folder-name.previous-location {
-  font-weight: bold;
-}
-.alert-form .form-inputs .file-tree .folder input:checked + .folder-name {
-  background: #D4DDDD;
-}
-.alert-form .form-inputs .form-file-input-dropdown {
+.alert-form .form-inputs .form-file-input-drop-place {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -4724,19 +4733,25 @@ body.active-alert {
           flex-direction: column;
   border: 2px dashed #EEE9E5;
   height: 10em;
+  cursor: pointer;
 }
-.alert-form .form-inputs .form-file-input-dropdown .form-file-input-label {
+.alert-form .form-inputs .form-file-input-drop-place:hover,
+.alert-form .form-inputs .form-file-input-drop-place.hover {
+  border-color: #c6b5a7;
+}
+.alert-form .form-inputs .form-file-input-drop-place .form-file-input-label {
   color: #84ADAA;
   text-transform: lowercase;
   font-family: "Alegreya sans SC", sans-serif;
   font-weight: bold;
   margin-bottom: 0.4em;
   margin-top: auto;
+  cursor: pointer;
 }
-.alert-form .form-inputs .form-file-input-dropdown .dropdown-legend {
+.alert-form .form-inputs .form-file-input-drop-place .dropdown-legend {
   margin-top: auto;
   text-align: center;
-  color: #EEE9E5;
+  color: #A7A5A6;
 }
 .calendar-table {
   border-spacing: 0.75em;
@@ -5016,6 +5031,10 @@ body.active-alert {
 .file-manager .file-row td.file-name {
   border-right: 2px solid #EEE9E5;
   padding-right: 0.5em;
+  cursor: pointer;
+}
+.file-manager .file-row td.file-name:hover {
+  color: #747273;
 }
 .file-manager .file-row td.action-group {
   display: none;
@@ -5057,6 +5076,17 @@ body.active-alert {
     display: none;
   }
 }
+.file-manager .file-row.special {
+  color: #84ADAA;
+}
+.file-manager .file-row.special td.action,
+.file-manager .file-row.special td.action-group,
+.file-manager .file-row.special td.file-name {
+  border-right: none;
+}
+.file-manager .file-row.special td.file-name:hover {
+  color: #517a77;
+}
 .file-manager .file-row.file-name-typing {
   border: 2px solid #EEE9E5;
   background: #F8F7F7;
@@ -5078,9 +5108,15 @@ body.active-alert {
   background: none;
   border: none;
   color: #A7A5A6;
+  width: 100%;
 }
 .file-manager .file-row.file-name-typing .file-name-form .file-name-form-button {
   margin-right: 0.5em;
+}
+.file-uploading {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 .file-uploading .file-row td {
   padding: 0.4em 0;
@@ -5090,10 +5126,13 @@ body.active-alert {
   padding-right: 0.7em;
 }
 .file-uploading .file-row td.file-name {
-  width: 100%;
+  padding-right: 0.7em;
 }
 .file-uploading .file-row td.progress {
   width: 5em;
+}
+.alert-displayed {
+  overflow: hidden;
 }
 .alert-container,
 .alert-external-container {
@@ -5451,7 +5490,7 @@ body.active-alert {
 .folder-i:after {
   content: "\10f07c";
 }
-.file-i {
+.folder-special-i {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   display: inline-block;
@@ -5460,7 +5499,19 @@ body.active-alert {
   font-weight: normal;
   line-height: 1;
 }
-.file-i:before {
+.folder-special-i:before {
+  content: "\f07c";
+}
+.file-general-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.file-general-i:before {
   content: "\f15b";
 }
 .file-text-document-i {
@@ -6104,6 +6155,7 @@ body.active-alert {
 .progress-bar .progress-bar-content {
   background: #F3D452;
   height: 100%;
+  width: 0;
   display: block;
   border-radius: 10px;
 }

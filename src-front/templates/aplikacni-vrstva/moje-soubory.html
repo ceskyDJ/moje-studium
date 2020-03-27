@@ -76,6 +76,13 @@
                         </form>
                     </td>
                 </tr>
+                <tr class="file-row special">
+                    <td class="type"><i class="folder-special-i"></i></td>
+                    <td class="file-name">Přejít výše</td>
+                    <td class="action-group"></td>
+                    <td class="action"></td>
+                    <td class="action"></td>
+                </tr>
                 <tr class="file-row">
                     <td class="type"><i class="folder-i"></i></td>
                     <td class="file-name">Expresionismus</td>
@@ -190,7 +197,7 @@
             </table>
         </section>
 
-        <div class="alert-external-container">
+        <div class="alert-external-container hide">
             <div class="alert-box hide">
                 <header class="alert-header">
                     <h3 class="alert-heading">Přesunout soubory</h3>
@@ -255,7 +262,7 @@
                 <section class="alert-content">
                     <form class="alert-form" enctype="multipart/form-data">
                         <div class="form-inputs">
-                            <div class="form-file-input-dropdown">
+                            <div class="form-file-input-drop-place">
                                 <div class="dropdown-legend">
                                     <p>přetáhněte soubory sem</p>
                                     <p>nebo</p>
@@ -270,47 +277,36 @@
 
                         <div class="form-control"></div>
                     </form>
-                </section>
-            </div>
 
-            <div class="alert-box">
-                <header class="alert-header">
-                    <h3 class="alert-heading">Nahrát soubory</h3>
-                    <div class="tools">
-                        <i class="close-i"></i>
-                    </div>
-                </header>
-
-                <section class="alert-content">
                     <table class="file-uploading">
                         <tbody>
-                            <tr class="file-row">
-                                <td class="type"><i class="file-text-document-i"></i></td>
-                                <td class="file-name">Expresionismus</td>
-                                <td class="progress">
-                                    <div class="progress-bar">
-                                        <span class="progress-bar-content" style="width: 80%;"></span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="file-row">
-                                <td class="type"><i class="file-text-document-i"></i></td>
-                                <td class="file-name">Zadání na klauzurní práci</td>
-                                <td class="progress">
-                                    <div class="progress-bar">
-                                        <span class="progress-bar-content" style="width: 50%;"></span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="file-row">
-                                <td class="type"><i class="file-image-i"></i></td>
-                                <td class="file-name">Školní fotky (třetí ročník)</td>
-                                <td class="progress">
-                                    <div class="progress-bar">
-                                        <span class="progress-bar-content" style="width: 20%;"></span>
-                                    </div>
-                                </td>
-                            </tr>
+                        <tr class="file-row">
+                            <td class="type"><i class="file-text-document-i"></i></td>
+                            <td class="file-name">Expresionismus</td>
+                            <td class="progress">
+                                <div class="progress-bar">
+                                    <span class="progress-bar-content" style="width: 80%;"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="file-row">
+                            <td class="type"><i class="file-text-document-i"></i></td>
+                            <td class="file-name">Zadání na klauzurní práci</td>
+                            <td class="progress">
+                                <div class="progress-bar">
+                                    <span class="progress-bar-content" style="width: 50%;"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="file-row">
+                            <td class="type"><i class="file-image-i"></i></td>
+                            <td class="file-name">Školní fotky (třetí ročník)</td>
+                            <td class="progress">
+                                <div class="progress-bar">
+                                    <span class="progress-bar-content" style="width: 20%;"></span>
+                                </div>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </section>
@@ -334,7 +330,7 @@
     </p>
 </footer>
 
-<div class="alert-container"></div>
+<div class="alert-container hide"></div>
 
 <script src="/js/classes/FormController.js"></script>
 <script src="/js/application/private-files.js"></script>

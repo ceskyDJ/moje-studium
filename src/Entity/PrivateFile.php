@@ -7,7 +7,6 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use function array_search;
 use function end;
 use function explode;
 use function in_array;
@@ -19,7 +18,7 @@ use function is_array;
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Entity
  * @ORM\Table(name="user_files", uniqueConstraints={
- *     @ORM\UniqueConstraint(name="uq_user_files_user_name_path", columns={"name", "path", "user_id"})
+ *     @ORM\UniqueConstraint(name="uq_user_files_user_name_parent", columns={"name", "parent_id", "user_id"})
  * })
  * @ORM\Entity
  */
@@ -38,11 +37,6 @@ class PrivateFile
      */
     private string $name;
     /**
-     * @var string FTP path
-     * @ORM\Column(name="path", type="string", length=100, nullable=false, options={  })
-     */
-    private string $path;
-    /**
      * @var bool Is it folder?
      * @ORM\Column(name="folder", type="boolean", length=1, nullable=false, options={ "default": 0 })
      */
@@ -53,7 +47,18 @@ class PrivateFile
      * @var \App\Entity\User Owner
      */
     private User $owner;
+    /**
+     * @var \App\Entity\PrivateFile|null Parent file (folder resp.)
+     * @ORM\ManyToOne(targetEntity="PrivateFile", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="user_file_id", onDelete="CASCADE")
+     */
+    private ?PrivateFile $parent = null;
 
+    /**
+     * @ORM\OneToMany(targetEntity="PrivateFile", mappedBy="parent")
+     * @var \Doctrine\Common\Collections\Collection<\App\Entity\PrivateFile>
+     */
+    private Collection $children;
     /**
      * @ORM\OneToMany(targetEntity="SharedFile", mappedBy="file")
      * @var \Doctrine\Common\Collections\Collection<\App\Entity\SharedFile>
@@ -62,6 +67,7 @@ class PrivateFile
 
     public function __construct()
     {
+        $this->children = new ArrayCollection;
         $this->sharedFiles = new ArrayCollection;
     }
 
@@ -104,7 +110,7 @@ class PrivateFile
             }
         }
 
-        return null;
+        return "general";
     }
 
     public function getId(): int
@@ -115,6 +121,18 @@ class PrivateFile
     public function setId(int $id): PrivateFile
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    public function getParent(): ?PrivateFile
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?PrivateFile $parent): PrivateFile
+    {
+        $this->parent = $parent;
 
         return $this;
     }
@@ -139,18 +157,6 @@ class PrivateFile
     public function setName(string $name): PrivateFile
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getPath(): string
-    {
-        return $this->path;
-    }
-
-    public function setPath(string $path): PrivateFile
-    {
-        $this->path = $path;
 
         return $this;
     }
@@ -191,7 +197,45 @@ class PrivateFile
         return $this;
     }
 
-    public function addSharedFiles(SharedFile $sharedFile): PrivateFile
+    public function addChild(PrivateFile $privateFile): PrivateFile
+    {
+        $this->children->add($privateFile);
+
+        return $this;
+    }
+
+    public function removeChild(PrivateFile $privateFile): PrivateFile
+    {
+        $this->children->removeElement($privateFile);
+
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection<\App\Entity\PrivateFile>|\App\Entity\PrivateFile[]
+     */
+    public function getChildren(): Collection
+    {
+        return $this->children;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection<\App\Entity\PrivateFile>|\App\Entity\PrivateFile[] $children
+     *
+     * @return \App\Entity\PrivateFile
+     */
+    public function setChildren(iterable $children): PrivateFile
+    {
+        if (is_array($children)) {
+            $children = new ArrayCollection($children);
+        }
+
+        $this->children = $children;
+
+        return $this;
+    }
+
+    public function addSharedFile(SharedFile $sharedFile): PrivateFile
     {
         $this->sharedFiles->add($sharedFile);
 

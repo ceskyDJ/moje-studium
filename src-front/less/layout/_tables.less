@@ -298,6 +298,11 @@
       &.file-name {
         border-right: 2px solid @middle-grey;
         padding-right: .5em;
+        cursor: pointer;
+
+        &:hover {
+          color: darken(@text-c, 20%);
+        }
       }
 
       &.action-group {
@@ -344,6 +349,24 @@
       }
     }
 
+    &.special {
+      color: @dark-green;
+
+      td {
+        &.action,
+        &.action-group,
+        &.file-name {
+          border-right: none;
+        }
+
+        &.file-name {
+          &:hover {
+            color: darken(@dark-green, 20%);
+          }
+        }
+      }
+    }
+
     &.file-name-typing {
       border: 2px solid @middle-grey;
       background: @light-grey;
@@ -362,6 +385,7 @@
           background: none;
           border: none;
           color: @dark-grey;
+          width: 100%;
         }
 
         .file-name-form-button {
@@ -376,6 +400,8 @@
 
 // START nahravani souboru
 .file-uploading {
+  width: fit-content;
+
   .file-row {
     td {
       padding: .4em 0;
@@ -386,7 +412,7 @@
       }
 
       &.file-name {
-        width: 100%;
+        padding-right: .7em;
       }
 
       &.progress {

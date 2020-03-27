@@ -273,12 +273,10 @@
     }
 
     .file-tree {
-      .folder {
-        margin-left: 2em;
-        border-left: 2px solid @middle-grey;
-
+      .root {
         .folder-name {
-          padding: .1em .3em;
+          cursor: pointer;
+          user-select: none;
 
           &.previous-location {
             font-weight: bold;
@@ -288,16 +286,31 @@
         input:checked + .folder-name {
           background: @light-green;
         }
+
+        .folder {
+          margin-left: 2em;
+          border-left: 2px solid @middle-grey;
+
+          .folder-name {
+            padding: .1em .3em;
+          }
+        }
       }
     }
 
-    .form-file-input-dropdown {
+    .form-file-input-drop-place {
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       border: 2px dashed @middle-grey;
       height: 10em;
+      cursor: pointer;
+
+      &:hover,
+      &.hover {
+        border-color: darken(@middle-grey, 20%);
+      }
 
       .form-file-input-label {
         color: @dark-green;
@@ -305,12 +318,13 @@
         font-weight: bold;
         margin-bottom: .4em;
         margin-top: auto;
+        cursor: pointer;
       }
 
       .dropdown-legend {
         margin-top: auto;
         text-align: center;
-        color: @middle-grey;
+        color: @dark-grey;
       }
     }
   }

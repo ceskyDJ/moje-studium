@@ -4,268 +4,193 @@
     <div class="page shared-content">
         <header class="content-header">
             <div class="tools">
-                <i class="upload-i"></i>
-                <i class="create-folder-i"></i>
+                <i class="upload-i" id="_upload-file"></i>
+                <i class="create-folder-i" id="_create-folder"></i>
             </div>
             <h2 class="content-heading">Moje soubory</h2>
         </header>
 
         <section class="content-container">
             <table class="file-manager">
-                <!-- TODO: pro zobrazení lišty pro zadání názvu nové složky odstranit třídu hide -->
-                <tr class="file-row file-name-typing hide">
+                <tbody id="_files-container">
+                {* Add folder form *}
+                <tr class="file-row file-name-typing hide" id="_create-folder-form">
                     <td class="type"><i class="folder-i"></i></td>
                     <td colspan="4" class="rename-action">
-                        <form class="file-name-form">
-                            <input type="text" name="filename" class="file-name-form-input" placeholder="Zadejte název nové složky" title="Sem napište název nové složky" />
+                        <form id="_create-folder-form" class="file-name-form">
+                            <input type="text" name="filename" class="file-name-form-input" id="_create-folder-form-filename" placeholder="Zadej název nové složky" title="Sem napiš název nové složky" />
 
-                            <button class="icon-button file-name-form-button"><i class="done-i"></i></button>
+                            <button class="icon-button file-name-form-button" id="_create-folder-form-button"><i class="done-i"></i></button>
                         </form>
                     </td>
                 </tr>
-                <tr class="file-row">
-                    <td class="type"><i class="folder-i"></i></td>
-                    <td class="file-name">Expresionismus</td>
-                    <td class="action-group">
-                        <a class="link-with-icon action" href="#"><i class="move-i"></i></a>
-                        <a class="link-with-icon action" href="#"><i class="rename-i"></i></a>
-                        <a class="link-with-icon action" href="#"><i class="delete-i"></i></a>
-                    </td>
-                    <td class="action">
-                        <div class="action-container">
-                            <a class="action-link text" href="#stahnout">Stáhnout</a>
-                            <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
-                        </div>
-                    </td>
-                    <td class="action">
-                        <div class="action-container">
-                            <a class="action-link text" href="#sdilet">Sdílet</a>
-                            <a class="link-with-icon icon" href="#sdilet"><i class="share-i"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="file-row">
-                    <td class="type"><i class="file-text-document-i"></i></td>
-                    <td class="file-name">Zadání na klauzurní práci</td>
-                    <td class="action-group">
-                        <a class="link-with-icon action" href="#"><i class="move-i"></i></a>
-                        <a class="link-with-icon action" href="#"><i class="rename-i"></i></a>
-                        <a class="link-with-icon action" href="#"><i class="delete-i"></i></a>
-                    </td>
-                    <td class="action">
-                        <div class="action-container">
-                            <a class="action-link text" href="#stahnout">Stáhnout</a>
-                            <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
-                        </div>
-                    </td>
-                    <td class="action">
-                        <div class="action-container">
-                            <a class="action-link text" href="#sdilet">Sdílet</a>
-                            <a class="link-with-icon icon" href="#sdilet"><i class="share-i"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="file-row">
-                    <td class="type"><i class="file-image-i"></i></td>
-                    <td class="file-name">Školní fotky (třetí ročník)</td>
-                    <td class="action-group">
-                        <a class="link-with-icon action" href="#"><i class="move-i"></i></a>
-                        <a class="link-with-icon action" href="#"><i class="rename-i"></i></a>
-                        <a class="link-with-icon action" href="#"><i class="delete-i"></i></a>
-                    </td>
-                    <td class="action">
-                        <div class="action-container">
-                            <a class="action-link text" href="#stahnout">Stáhnout</a>
-                            <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
-                        </div>
-                    </td>
-                    <td class="action">
-                        <div class="action-container">
-                            <a class="action-link text" href="#sdilet">Sdílet</a>
-                            <a class="link-with-icon icon" href="#sdilet"><i class="share-i"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <!-- TODO: Řádek s editací názvu souboru/složky musí mít třídu file-name-typing -->
-                <tr class="file-row file-name-typing">
-                    <td class="type"><i class="folder-i"></i></td>
-                    <td colspan="4" class="rename-action">
-                        <form class="file-name-form">
-                            <input type="text" name="filename" class="file-name-form-input" title="Přepište název souboru" value="Zápis - matematika 2. 10." />
+                {* END Add folder form *}
+                {* Template *}
+                <tr id="_file-template" class="file-row _file hide" data-id="{* {id} *}">
+                    <td class="type _type"><i class="{* folder-i || file-{type}-i *}"></i></td>
+                    {* Rename form *}
+                    <td colspan="4" class="rename-action _rename-action hide">
+                        <form class="file-name-form _rename-file-form">
+                            <input type="text" name="filename" class="file-name-form-input _rename-file-form-name" title="Přepiš název souboru" />
 
-                            <button class="icon-button file-name-form-button"><i class="done-i"></i></button>
+                            <button class="icon-button file-name-form-button _rename-file-form-button _action" data-id="{* {id} *}">
+                                <i class="done-i"></i>
+                            </button>
                         </form>
                     </td>
-                    <td class="file-name">Zápis - matematika 2. 10.</td>
+                    {* END Rename form *}
+                    <td class="file-name _name {* _go-to-folder if it's folder *} _action" data-id="{* {id} *}">
+                        {* {name} *}
+                    </td>
                     <td class="action-group">
-                        <a class="link-with-icon action" href="#"><i class="move-i"></i></a>
-                        <a class="link-with-icon action" href="#"><i class="rename-i"></i></a>
-                        <a class="link-with-icon action" href="#"><i class="delete-i"></i></a>
+                        <a href="javascript:void(0);" class="link-with-icon action _move-file _action" data-id="{* {id} *}"><i class="move-i"></i></a>
+                        <a href="javascript:void(0);" class="link-with-icon action _rename-file _action" data-id="{* {id} *}"><i class="rename-i"></i></a>
+                        <a href="javascript:void(0);" class="link-with-icon action _delete-file _action" data-id="{* {id} *}"><i class="delete-i"></i></a>
                     </td>
                     <td class="action">
-                        <div class="action-container">
-                            <a class="action-link text" href="#stahnout">Stáhnout</a>
-                            <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
+                        <div class="action-container _download-container">
+                            <a class="action-link text" href="/application/files/download/{* {id} *}" target="_blank">Stáhnout</a>
+                            <a class="link-with-icon icon" href="/application/files/download/{* {id} *}" target="_blank"><i class="download-i"></i></a>
                         </div>
                     </td>
                     <td class="action">
                         <div class="action-container">
-                            <i class="from-schoolmate-i"></i>
+                            <a href="javascript:void(0);" class="action-link text _share-file _action" data-id="{* {id} *}">Sdílet</a>
+                            <a href="javascript:void(0);" class="link-with-icon icon _share-file _action" data-id="{* {id} *}"><i class="share-i"></i></a>
                         </div>
                     </td>
                 </tr>
-                <tr class="file-row">
-                    <td class="type"><i class="folder-i"></i></td>
-                    <td class="file-name">Zápis - videotvorba 5. 10.</td>
+                {* END Template *}
+                {* Go to parent folder *}
+                <tr class="file-row special">
+                    <td class="type"><i class="folder-special-i"></i></td>
+                    <td id="_actual-folder" class="file-name _name _go-to-folder" data-id="null">Přejít výše</td>
+                    <td class="action-group"></td>
+                    <td class="action"></td>
+                    <td class="action"></td>
+                </tr>
+                {* END Go to parent folder *}
+                <tr n:foreach="$privateFiles as $privateFile" class="file-row _file" data-id="{$privateFile->getId()}">
+                    <td class="type"><i class="{if $privateFile->isFolder()}folder-i{else}file-{$privateFile->getType()}-i{/if}"></i></td>
+                    {* Rename form *}
+                    <td colspan="4" class="rename-action _rename-action hide">
+                        <form class="file-name-form _rename-file-form">
+                            <input type="text" name="filename" class="file-name-form-input _rename-file-form-name" title="Přepiš název souboru" />
+
+                            <button class="icon-button file-name-form-button _rename-file-form-button" data-id="{$privateFile->getId()}">
+                                <i class="done-i"></i>
+                            </button>
+                        </form>
+                    </td>
+                    {* END Rename form *}
+                    <td n:class="file-name, _name, $privateFile->isFolder() ? _go-to-folder" data-id="{$privateFile->getId()}">
+                        {$privateFile->getName()}
+                    </td>
                     <td class="action-group">
-                        <a class="link-with-icon action" href="#"><i class="move-i"></i></a>
-                        <a class="link-with-icon action" href="#"><i class="rename-i"></i></a>
-                        <a class="link-with-icon action" href="#"><i class="delete-i"></i></a>
+                        <a href="javascript:void(0);" class="link-with-icon action _move-file" data-id="{$privateFile->getId()}"><i class="move-i"></i></a>
+                        <a href="javascript:void(0);" class="link-with-icon action _rename-file" data-id="{$privateFile->getId()}"><i class="rename-i"></i></a>
+                        <a href="javascript:void(0);" class="link-with-icon action _delete-file" data-id="{$privateFile->getId()}"><i class="delete-i"></i></a>
+                    </td>
+                    <td class="action">
+                        {if !$privateFile->isFolder()}
+                            <div class="action-container">
+                                <a class="action-link text" href="/application/files/download/{$privateFile->getId()}" target="_blank">Stáhnout</a>
+                                <a class="link-with-icon icon" href="/application/files/download/{$privateFile->getId()}" target="_blank"><i class="download-i"></i></a>
+                            </div>
+                        {/if}
                     </td>
                     <td class="action">
                         <div class="action-container">
-                            <a class="action-link text" href="#stahnout">Stáhnout</a>
-                            <a class="link-with-icon icon" href="#stahnout"><i class="download-i"></i></a>
-                        </div>
-                    </td>
-                    <td class="action">
-                        <div class="action-container">
-                            <i class="from-class-i"></i>
+                            <a href="javascript:void(0);" class="action-link text _share-file" data-id="{$privateFile->getId()}">Sdílet</a>
+                            <a href="javascript:void(0);" class="link-with-icon icon _share-file" data-id="{$privateFile->getId()}"><i class="share-i"></i></a>
                         </div>
                     </td>
                 </tr>
+                </tbody>
             </table>
         </section>
 
-        <!-- TODO: Pro zobrazení odstranit třídu hide -->
-        <div class="alert-external-container hide">
-            <!-- TODO: Pro zobrazení odstranit třídu hide -->
-            <div class="alert-box hide">
+        <div class="alert-external-container _alert-external-container hide">
+            <div class="alert-box _alert hide" data-id="move-file">
                 <header class="alert-header">
-                    <h3 class="alert-heading">Přesunout soubory</h3>
+                    <h3 class="alert-heading">Přesunout soubor</h3>
                 </header>
 
                 <section class="alert-content">
-                    <form class="alert-form">
+                    <form class="alert-form _alert-form">
                         <div class="form-inputs">
                             <div class="file-tree">
-                                <div class="root">
-                                    <span class="folder-name">Adéla Vyhnálková</span>
+                                {* Folder template *}
+                                <div id="_folder-structure-template" class="folder _folder hide" data-id="{* {id} *}">
+                                    <input class="_input hide" type="radio" name="new-path" value="{* {id} *}" id="{* folder-{id} *}" />
+                                    <label class="folder-name _label" for="{* folder-{id} *}">{* {name} *}</label>
+                                </div>
+                                {* END Folder template *}
+                                <div id="_folder-structure" class="root">
+                                    <input class="_input _move-file-form-parent hide" type="radio" name="new-path" value="null" id="folder-null" />
+                                    <label class="folder-name _label" for="folder-null">{$user->getData()->getFullname()}</label>
 
-                                    <div class="folder">
-                                        <input type="radio" name="new-path" value="/Matematika" class="hide" id="folder-1" />
-                                        <label class="folder-name previous-location" for="folder-1">Matematika</label>
-                                    </div>
-                                    <div class="folder">
-                                        <input type="radio" name="new-path" value="/Český jazyk" class="hide" id="folder-2" />
-                                        <label class="folder-name" for="folder-2">Český jazyk</label>
-
-                                        <div class="folder">
-                                            <input type="radio" name="new-path" value="/Český jazyk/Slohové práce" class="hide" id="folder-3" />
-                                            <label class="folder-name" for="folder-3">Slohové práce</label>
-
-                                            <div class="folder">
-                                                <input type="radio" name="new-path" value="/Český jazyk/Slohové práce/Domácí" class="hide" id="folder-4" />
-                                                <label class="folder-name" for="folder-4">Domácí</label>
-                                            </div>
-                                            <div class="folder">
-                                                <input type="radio" name="new-path" value="/Český jazyk/Slohové práce/Školní" class="hide" id="folder-5" />
-                                                <label class="folder-name" for="folder-5">Školní</label>
-                                            </div>
-                                        </div>
-                                        <div class="folder">
-                                            <!-- TODO: Odebrat checked -->
-                                            <input type="radio" name="new-path" value="/Český jazyk/Literatura" class="hide" id="folder-6" checked />
-                                            <label class="folder-name" for="folder-6">Literatura</label>
-                                        </div>
-                                    </div>
-                                    <div class="folder">
-                                        <input type="radio" name="new-path" value="/Intermediální tvorba" class="hide" id="folder-7" />
-                                        <label class="folder-name" for="folder-7">Intermediální tvorba</label>
-                                    </div>
+                                    {$folderStructure|noescape}
                                 </div>
                             </div>
                         </div>
 
-                        <div class="form-alerts"></div>
+                        <div id="_move-file-form-alerts" class="form-alerts"></div>
 
                         <div class="form-control">
-                            <input type="submit" value="Přesunout" class="form-button alert" />
+                            <input type="submit" value="Přesunout" class="form-button alert" id="_move-file-form-button" />
                         </div>
                     </form>
                 </section>
             </div>
 
-            <!-- TODO: Pro zobrazení odstranit třídu hide -->
-            <div class="alert-box hide">
+            <div class="alert-box _alert hide" data-id="upload-file">
                 <header class="alert-header">
                     <h3 class="alert-heading">Nahrát soubory</h3>
                 </header>
 
                 <section class="alert-content">
-                    <form class="alert-form" enctype="multipart/form-data">
+                    <form class="alert-form _alert-form">
                         <div class="form-inputs">
-                            <div class="form-file-input-dropdown">
-                                <div class="dropdown-legend">
-                                    <p>přetáhněte soubory sem</p>
+                            <div id="_file-upload-form-file" class="form-file-input-drop-place">
+                                <div class="dropdown-legend _file-upload-form-description">
+                                    <p>přetáhni soubory sem</p>
                                     <p>nebo</p>
                                 </div>
 
-                                <input type="file" name="file" class="hide" id="select-file-input" />
-                                <label for="select-file-input" class="form-file-input-label">Vyhledat v počítači</label>
+                                <span class="form-file-input-label _file-upload-form-description">Vyhledat v počítači</span>
                             </div>
                         </div>
 
-                        <div class="form-alerts"></div>
+                        <div id="_file-upload-form-alerts-container" class="form-alerts"></div>
 
                         <div class="form-control"></div>
                     </form>
-                </section>
-            </div>
 
-            <!-- TODO: Pro zobrazení odstranit třídu hide -->
-            <div class="alert-box hide">
-                <header class="alert-header">
-                    <h3 class="alert-heading">Nahrát soubory</h3>
-                    <div class="tools">
-                        <i class="close-i"></i>
-                    </div>
-                </header>
-
-                <section class="alert-content">
-                    <table class="file-uploading">
-                        <tbody>
-                        <tr class="file-row">
-                            <td class="type"><i class="file-text-document-i"></i></td>
-                            <td class="file-name">Expresionismus</td>
+                    <table class="file-uploading dropzone-previews">
+                        <tbody id="_file-upload-form-progresses-container">
+                        {* Progress template *}
+                        <tr id="_file_upload-form-progress-template" class="file-row _progress hide">
+                            <td class="type" data-dz-type><i class="{* file-{fileType}-i *}"></i></td>
+                            <td class="file-name" data-dz-name>{* {name} *}</td>
                             <td class="progress">
                                 <div class="progress-bar">
-                                    <span class="progress-bar-content" style="width: 80%;"></span>
+                                    <span class="progress-bar-content" data-dz-uploadprogress></span>
                                 </div>
                             </td>
                         </tr>
-                        <tr class="file-row">
-                            <td class="type"><i class="file-text-document-i"></i></td>
-                            <td class="file-name">Zadání na klauzurní práci</td>
-                            <td class="progress">
-                                <div class="progress-bar">
-                                    <span class="progress-bar-content" style="width: 50%;"></span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="file-row">
-                            <td class="type"><i class="file-image-i"></i></td>
-                            <td class="file-name">Školní fotky (třetí ročník)</td>
-                            <td class="progress">
-                                <div class="progress-bar">
-                                    <span class="progress-bar-content" style="width: 20%;"></span>
-                                </div>
-                            </td>
-                        </tr>
+                        {* END Progress template *}
                         </tbody>
                     </table>
                 </section>
             </div>
         </div>
     </div>
+{/block}
+
+{block js}
+<script src="/js/lib/dropzone/dropzone.min.js"></script>
+<script src="/js/classes/FormController.js"></script>
+<script src="/js/classes/FileBrowser.js"></script>
+<script src="/js/application/private-files.js"></script>
 {/block}

@@ -9,7 +9,9 @@ use App\Entity\SchoolClass;
 use App\Entity\SharedFile;
 use App\Entity\User;
 use Doctrine\ORM\EntityManager;
+use Mammoth\Database\DB;
 use Mammoth\DI\DIClass;
+use Tracy\Debugger;
 
 /**
  * Repository for files
@@ -25,6 +27,26 @@ class DBFileRepository implements Abstraction\IFileRepository
      * @inject
      */
     private EntityManager $em;
+    /**
+     * @inject
+     */
+    private DB $db;
+
+    /**
+     * @inheritDoc
+     */
+    public function getByOwnerAndParent(User $user, ?PrivateFile $parent = null): array
+    {
+        $query = $this->em->createQuery(/** @lang DQL */ "
+            SELECT f
+            FROM App\Entity\PrivateFile f
+            WHERE f.owner = :user AND (f.parent = :parent OR (:parent IS NULL AND f.parent IS NULL)) 
+        ");
+        $query->setParameter("user", $user);
+        $query->setParameter("parent", $parent);
+
+        return $query->getResult();
+    }
 
     /**
      * @inheritDoc
@@ -37,6 +59,24 @@ class DBFileRepository implements Abstraction\IFileRepository
         $file = $this->em->find(PrivateFile::class, $id);
 
         return $file;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getByOwnerParentAndName(User $owner, ?PrivateFile $parent, string $name): ?PrivateFile
+    {
+        $query = $this->em->createQuery(/** @lang DQL */ "
+            SELECT f
+            FROM App\Entity\PrivateFile f
+            WHERE f.owner = :owner AND (f.parent = :parent OR (:parent IS NULL AND f.parent IS NULL)) AND f.name = :name
+        ");
+
+        $query->setParameter("owner", $owner);
+        $query->setParameter("parent", $parent);
+        $query->setParameter("name", $name);
+
+        return $query->getOneOrNullResult();
     }
 
     /**
@@ -78,10 +118,28 @@ class DBFileRepository implements Abstraction\IFileRepository
     /**
      * @inheritDoc
      */
-    public function add(User $owner, string $name, string $path, bool $folder): PrivateFile
+    public function getChildFolders(User $owner, ?int $id): array
+    {
+        $file = $id !== null ? $this->getById($id) : null;
+
+        $query = $this->em->createQuery(/** @lang DQL */ "
+            SELECT f
+            FROM App\Entity\PrivateFile f
+            WHERE f.owner = :owner AND f.folder = TRUE AND (f.parent = :parent OR (:parent IS NULL AND f.parent IS NULL)) 
+        ");
+        $query->setParameter("owner", $owner);
+        $query->setParameter("parent", $file);
+
+        return $query->getResult();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function add(User $owner, ?PrivateFile $parent, string $name, bool $folder): PrivateFile
     {
         $file = new PrivateFile;
-        $file->setOwner($owner)->setName($name)->setPath($path)->setFolder($folder);
+        $file->setOwner($owner)->setParent($parent)->setName($name)->setFolder($folder);
 
         $this->em->persist($file);
         $this->em->flush();
@@ -101,10 +159,21 @@ class DBFileRepository implements Abstraction\IFileRepository
     /**
      * @inheritDoc
      */
-    public function edit(int $id, string $name, string $path): void
+    public function rename(int $id, string $name): void
     {
         $file = $this->getById($id);
-        $file->setName($name)->setPath($path);
+        $file->setName($name);
+
+        $this->em->flush();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function move(int $id, ?PrivateFile $target): void
+    {
+        $file = $this->getById($id);
+        $file->setParent($target);
 
         $this->em->flush();
     }

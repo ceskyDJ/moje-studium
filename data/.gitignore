@@ -1,0 +1,4 @@
+# Ignorovat vse krome tohoto souboru a .gitaccess
+*
+!.gitignore
+!.htaccess
