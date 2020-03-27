@@ -49,11 +49,13 @@ class AlertController
 
     showAlertBackground()
     {
+        document.body.classList.add("alert-displayed");
         this.container.classList.remove("hide");
     }
 
     hideAlertBackground()
     {
+        document.body.classList.remove("alert-displayed");
         this.container.classList.add("hide");
     }
 }
