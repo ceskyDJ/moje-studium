@@ -338,15 +338,16 @@
 
       .radio-label {
         cursor: pointer;
+        user-select: none;
 
-        &:before {
-          content: "";
+        .radio-simulation {
           display: inline-block;
-          width: .5em;
-          height: .5em;
+          width: .8em;
+          height: .8em;
           margin-right: .6em;
           border: 2px solid @middle-grey;
           border-radius: 100%;
+          padding: .1em;
         }
 
         .radio-label-icon {
@@ -354,8 +355,13 @@
         }
       }
 
-      .radio-input:checked + .radio-label:before {
-        background: @middle-grey;
+      .radio-input:checked + .radio-label .radio-simulation:before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: @dark-grey;
+        border-radius: 100%;
       }
     }
 
