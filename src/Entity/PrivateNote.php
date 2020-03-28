@@ -49,6 +49,38 @@ class PrivateNote
         $this->sharedNotes = new ArrayCollection;
     }
 
+
+    /**
+     * Verify whether the note is shared with someone or class
+     *
+     * @return bool Is this note shared?
+     */
+    public function isShared(): bool
+    {
+        return !$this->getSharedNotes()->isEmpty();
+    }
+
+    /**
+     * Returns who is the note shared with
+     *
+     * @return string Target group of sharing this note ("class" || "schoolmate")
+     */
+    public function whoIsSharedWith(): string
+    {
+        if (!$this->isShared()) {
+            return "";
+        }
+
+        $shares = $this->getSharedNotes();
+        foreach ($shares as $share) {
+            if ($share->getTargetClass() !== null) {
+                return "class";
+            }
+        }
+
+        return "schoolmate";
+    }
+
     public function getId(): int
     {
         return $this->id;

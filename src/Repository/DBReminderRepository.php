@@ -187,4 +187,17 @@ class DBReminderRepository implements Abstraction\IReminderRepository
         $this->em->persist($tookUpShare);
         $this->em->flush();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function cancelShare(int $id): void
+    {
+        $query = $this->em->createQuery(/** @lang DQL */ "
+            DELETE FROM App\Entity\SharedReminder sr WHERE sr.reminder = :reminder
+        ");
+        $query->setParameter("reminder", $this->getById($id));
+
+        $query->execute();
+    }
 }

@@ -6,6 +6,7 @@ namespace App\Model;
 
 use App\Repository\Abstraction\IReminderRepository;
 use App\Repository\Abstraction\ISchoolSubjectRepository;
+use App\Repository\Abstraction\IUserRepository;
 use App\Utils\DateHelper;
 use DateTime;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
@@ -36,6 +37,10 @@ class ReminderManager
      * @inject
      */
     private ISchoolSubjectRepository $subjectRepository;
+    /**
+     * @inject
+     */
+    private IUserRepository $userRepository;
     /**
      * @inject
      */
@@ -158,6 +163,7 @@ class ReminderManager
                     'subject' => $reminder->getSubject()->getShortcut(),
                     'type'    => $reminder->getType(),
                     'content' => $reminder->getContent(),
+                    'shared'  => $reminder->whoIsSharedWith(),
                 ];
             }
 
@@ -421,5 +427,118 @@ class ReminderManager
         $this->reminderRepository->delete($id);
 
         return true;
+    }
+
+    /**
+     * Shares reminder with user's class or specific user
+     *
+     * @param int $reminder Reminder's ID
+     * @param string $with Who to share with "class" || "schoolmate"
+     * @param int $targetUser Target user (schoolmate)
+     *
+     * @return string JSON response
+     */
+    public function shareReminder(int $reminder, string $with, ?int $targetUser = null): string
+    {
+        if (empty($reminder) || empty($with) || ($with === "schoolmate" && empty($targetUser))) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Nebyla vyplněna všechna pole",
+                ]
+            );
+        }
+
+        /**
+         * @var \App\Entity\User $user
+         */
+        if (($user = $this->userManager->getUser()) === null) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Není přihlášen žádný uživatel",
+                ]
+            );
+        }
+
+        if (($reminder = $this->reminderRepository->getById($reminder)) === null) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Upozornění neexistuje",
+                ]
+            );
+        }
+
+        if ($reminder->getOwner()->getId() !== $user->getId()) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Nevlastníš upozornění, který chceš sdílet",
+                ]
+            );
+        }
+
+        if ($reminder->whoIsSharedWith() === "class") {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Upozornění je již sdílené s celou třídou. Nemá smysl jej dále sdílet, k většímu počtu uživatelů se již nedostane",
+                ]
+            );
+        }
+
+        // Share with class
+        if ($with === "class") {
+            // Cancel all shares to schoolmates
+            // When it's shared with class, the schoolmates have the access, too
+            if ($reminder->whoIsSharedWith() === "schoolmate") {
+                $this->reminderRepository->cancelShare($reminder->getId());
+            }
+
+            $this->reminderRepository->share($reminder->getId(), null, $user->getClass());
+
+            return json_encode(
+                [
+                    'success' => true,
+                ]
+            );
+        }
+
+        // Share with schoolmate
+        if ($with === "schoolmate") {
+            if (($targetUser = $this->userRepository->getById($targetUser)) === null) {
+                return json_encode(
+                    [
+                        'success' => false,
+                        'message' => "Cílový uživatel neexistuje",
+                    ]
+                );
+            }
+
+            if ($targetUser->getId() === $user->getId()) {
+                return json_encode(
+                    [
+                        'success' => false,
+                        'message' => "Nemůžeš sdílet upozornění se sebou",
+                    ]
+                );
+            }
+
+            $this->reminderRepository->share($reminder->getId(), $targetUser, null);
+
+            return json_encode(
+                [
+                    'success' => true,
+                ]
+            );
+        }
+
+        return json_encode(
+            [
+                'success' => false,
+                'message' => "Upozornění lze sdílet pouze se třídou (\"class\") nebo se spolužákem (\"schoolmate\")",
+            ]
+        );
     }
 }

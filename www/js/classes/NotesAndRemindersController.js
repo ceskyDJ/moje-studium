@@ -24,11 +24,13 @@ class NotesAndRemindersController
         this.handleDeleteReminder();
         this.handleOpenAddNoteForm();
         this.handleOpenEditNoteForm();
+        this.handleOpenShareForm();
         this.handleDeleteNote();
         this.handleAddReminder();
         this.handleEditReminder();
         this.handleAddNote();
         this.handleEditNote();
+        this.handleShare();
     }
 
     initWeekChanger()
@@ -141,6 +143,22 @@ class NotesAndRemindersController
         }
     }
 
+    handleOpenShareForm(element)
+    {
+        if(element === undefined) {
+            document.querySelectorAll("._share").forEach(item => {
+                item.addEventListener("click", _ => this.openShareForm(item));
+            });
+        } else {
+            element.addEventListener("click", _ => this.openShareForm(element))
+        }
+    }
+
+    handleShare()
+    {
+        document.querySelector("#_share-form-button").addEventListener("click", _ => this.shareReminderOrNote());
+    }
+
     openEditReminderForm(item)
     {
         const reminder = item.closest("._reminder");
@@ -199,6 +217,29 @@ class NotesAndRemindersController
         this.setActiveNoteAction("edit");
     }
 
+    openShareForm(button)
+    {
+        const formButton = document.querySelector("#_share-form-button");
+
+        formButton.dataset.id = button.dataset.id;
+        const content = formButton.dataset.content = button.dataset.content;
+
+        document.querySelectorAll("._share-form-heading").forEach(heading => {
+            if(heading.dataset.content === content) {
+                heading.classList.remove("hide");
+            } else {
+                heading.classList.add("hide");
+            }
+        });
+
+        this.alertController.showAlert("share");
+    }
+
+    closeShareForm()
+    {
+        this.alertController.hideAlert("share");
+    }
+
     clearReminders()
     {
         this.remindersContainer.querySelectorAll("._reminder").forEach(reminder => reminder.parentNode.removeChild(reminder));
@@ -235,14 +276,14 @@ class NotesAndRemindersController
                 }
 
                 day.reminders.forEach(reminder => {
-                    this.addReminder(dayElement, reminder.id, reminder.subject, reminder.type, reminder.content);
+                    this.addReminder(dayElement, reminder.id, reminder.subject, reminder.type, reminder.content, reminder.shared);
                 });
             });
         } catch(error) {
         }
     }
 
-    addReminder(day, id, subject, type, content)
+    addReminder(day, id, subject, type, content, shared = "")
     {
         const newReminder = document.querySelector("#_reminder-record-template").cloneNode(true);
         newReminder.classList.remove("hide");
@@ -256,8 +297,16 @@ class NotesAndRemindersController
             item.dataset.id = id;
         });
 
+        if(shared !== "") {
+            const sharedAction = newReminder.querySelector("._shared");
+
+            sharedAction.classList.add("active");
+            sharedAction.classList.add(`from-${shared}-i`);
+        }
+
         this.handleOpenEditReminderForm(newReminder.querySelector("._edit-reminder"));
         this.handleDeleteReminder(newReminder.querySelector("._delete-reminder"));
+        this.handleOpenShareForm(newReminder.querySelector("._share"));
 
         day.querySelector("._reminders").appendChild(newReminder);
     }
@@ -276,6 +325,7 @@ class NotesAndRemindersController
 
         this.handleOpenEditNoteForm(newNote.querySelector("._edit-note"));
         this.handleDeleteNote(newNote.querySelector("._delete-note"));
+        this.handleOpenShareForm(newNote.querySelector("._share"));
 
         this.notesContainer.appendChild(newNote);
     }
@@ -436,6 +486,69 @@ class NotesAndRemindersController
 
             await axios.head(`/application/reminders-and-notes/delete-note/${id}`);
         }
+    }
+
+    shareReminderOrNote()
+    {
+        const formButton = document.querySelector("#_share-form-button");
+
+        const id = formButton.dataset.id;
+        const content = formButton.dataset.content;
+        const type = document.querySelector("._share-form-type:checked").value;
+
+        const params = new URLSearchParams();
+        params.append("with", type);
+
+        if(type === "schoolmate") {
+            const schoolmate = document.querySelector("#_share-form-schoolmate").value;
+
+            params.append("schoolmate", schoolmate);
+        }
+
+        if(content === "reminder") {
+            params.append("reminder", id);
+        }
+        if(content === "note") {
+            params.append("note", id);
+        }
+
+        axios.post(`/application/reminders-and-notes/share-${content}`, params)
+            .then(response => {
+                const data = response.data;
+
+                if(data.success === true) {
+                    let addedItem;
+                    if(content === "reminder") {
+                        addedItem = this.remindersContainer.querySelector(`._reminder[data-id="${id}"]`);
+                    }
+                    if(content === "note") {
+                        addedItem = this.notesContainer.querySelector(`._note[data-id="${id}"]`);
+                    }
+
+                    const sharedAction = addedItem.querySelector("._shared");
+
+                    if(!sharedAction.classList.contains("active")) {
+                        sharedAction.classList.add("active");
+                    }
+
+                    if(!sharedAction.classList.contains("from-class-i")) {
+                        sharedAction.classList.remove("from-schoolmate-i");
+                        sharedAction.classList.add(`from-${type}-i`);
+                    }
+
+                    this.closeShareForm();
+                } else {
+                    // Show alert message
+                    const alert = document.createElement("p");
+                    alert.textContent = data.message;
+                    alert.classList.add("form-alert");
+                    alert.classList.add("negative");
+
+                    const formAlerts = document.querySelector("#_share-form-alerts");
+                    formAlerts.innerHTML = "";
+                    formAlerts.appendChild(alert);
+                }
+            });
     }
 
     clearRemindersForm()

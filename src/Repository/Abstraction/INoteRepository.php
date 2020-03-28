@@ -95,4 +95,11 @@ interface INoteRepository
      * @param int $id
      */
     public function takeUp(User $user, int $id): void;
+
+    /**
+     * Cancels all shares of the note
+     *
+     * @param int $id
+     */
+    public function cancelShare(int $id): void;
 }

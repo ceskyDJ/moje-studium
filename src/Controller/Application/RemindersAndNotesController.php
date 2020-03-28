@@ -10,11 +10,13 @@ use App\Model\UserManager;
 use App\Repository\Abstraction\INoteRepository;
 use App\Repository\Abstraction\IReminderRepository;
 use App\Repository\Abstraction\ISchoolSubjectRepository;
+use App\Repository\Abstraction\IUserRepository;
 use Mammoth\Controller\Common\Controller;
 use Mammoth\DI\DIClass;
 use Mammoth\Http\Entity\Request;
 use Mammoth\Http\Entity\Response;
 use Mammoth\Http\Factory\ResponseFactory;
+use const SIGUSR1;
 
 /**
  * Controller for reminders and notes
@@ -33,10 +35,6 @@ class RemindersAndNotesController extends Controller
     /**
      * @inject
      */
-    private UserManager $userManager;
-    /**
-     * @inject
-     */
     private IReminderRepository $reminderRepository;
     /**
      * @inject
@@ -46,6 +44,14 @@ class RemindersAndNotesController extends Controller
      * @inject
      */
     private ISchoolSubjectRepository $subjectRepository;
+    /**
+     * @inject
+     */
+    private IUserRepository $userRepository;
+    /**
+     * @inject
+     */
+    private UserManager $userManager;
     /**
      * @inject
      */
@@ -93,6 +99,7 @@ class RemindersAndNotesController extends Controller
         $response->setDataVar("reminderUseDays", $this->reminderManager->getNumberOfUseDays($reminders));
         $response->setDataVar("notes", $this->noteRepository->getByUser($user));
         $response->setDataVar("subjects", $this->subjectRepository->getByUser($user));
+        $response->setDataVar("usersInClass", $this->userRepository->getByClass($user->getClass()));
 
         return $response;
     }
@@ -250,6 +257,23 @@ class RemindersAndNotesController extends Controller
     }
 
     /**
+     * Share reminder
+     *
+     * @param \Mammoth\Http\Entity\Request $request
+     *
+     * @return \Mammoth\Http\Entity\Response
+     */
+    public function shareReminderAjaxAction(Request $request): Response
+    {
+        $data = $request->getPost();
+        $response = $this->responseFactory->create($request)->setContentView("#code");
+
+        $response->setDataVar("data", $this->reminderManager->shareReminder((int)$data['reminder'], $data['with'], (int)$data['schoolmate']));
+
+        return $response;
+    }
+
+    /**
      * Add new note to system
      *
      * @param \Mammoth\Http\Entity\Request $request
@@ -296,6 +320,23 @@ class RemindersAndNotesController extends Controller
         $response = $this->responseFactory->create($request)->setContentView("#code");
 
         $this->noteManager->deleteNote((int)$data[0]);
+
+        return $response;
+    }
+
+    /**
+     * Share note
+     *
+     * @param \Mammoth\Http\Entity\Request $request
+     *
+     * @return \Mammoth\Http\Entity\Response
+     */
+    public function shareNoteAjaxAction(Request $request): Response
+    {
+        $data = $request->getPost();
+        $response = $this->responseFactory->create($request)->setContentView("#code");
+
+        $response->setDataVar("data", $this->noteManager->shareNote((int)$data['note'], $data['with'], (int)$data['schoolmate']));
 
         return $response;
     }

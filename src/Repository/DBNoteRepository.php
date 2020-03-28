@@ -150,4 +150,17 @@ class DBNoteRepository implements Abstraction\INoteRepository
         $this->em->persist($tookUpShare);
         $this->em->flush();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function cancelShare(int $id): void
+    {
+        $query = $this->em->createQuery(/** @lang DQL */ "
+            DELETE FROM App\Entity\SharedNote sn WHERE sn.note = :note
+        ");
+        $query->setParameter("note", $this->getById($id));
+
+        $query->execute();
+    }
 }

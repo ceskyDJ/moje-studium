@@ -25,6 +25,10 @@
                     <span class="description _content">{* content *}</span>
                     <i class="action edit-i _edit-reminder _action-id" data-id="{* id *}"></i>
                     <i class="action delete-i _delete-reminder _action-id" data-id="{* id *}"></i>
+                    <div class="action">
+                        <i class="_shared shared {* {shared ? "active"} *}{* {from-class-i || from-schoolmate-i} *}"></i>
+                        <i class="share-i not-shared _share _action-id" data-id="{* id *}" data-content="reminder"></i>
+                    </div>
                 </div>
             </div>
 
@@ -43,10 +47,8 @@
                             <i class="action edit-i _edit-reminder" data-id="{$reminder->getId()}"></i>
                             <i class="action delete-i _delete-reminder" data-id="{$reminder->getId()}"></i>
                             <div class="action">
-                                {* TODO: Add class "active" is the reminder is shared *}
-                                {* TODO: Set class by true - from-schoolmate-i (shared with schoolmate)|| from-class-i (shared with class) *}
-                                <i class="from-schoolmate-i shared"></i>
-                                <i class="share-i not-shared"></i>
+                                <i n:class="_shared, shared, $reminder->isShared() ? active, $reminder->isShared() ? 'from-'.$reminder->whoIsSharedWith().'-i'"></i>
+                                <i class="share-i not-shared _share" data-id="{$reminder->getId()}" data-content="reminder"></i>
                             </div>
                         </div>
                     </div>
@@ -115,6 +117,10 @@
                 <p class="_content">{* {content} *}</p>
                 <i class="action edit-i _edit-note _action-id" data-id="{* {id} *}"></i>
                 <i class="action delete-i _delete-note _action-id" data-id="{* {id} *}"></i>
+                <div class="action">
+                    <i class="_shared shared {* {shared ? "active"} *}{* {from-class-i || from-schoolmate-i} *}"></i>
+                    <i class="share-i not-shared _share _action-id" data-id="{* {id} *}" data-content="note"></i>
+                </div>
             </div>
         </div>
 
@@ -124,10 +130,8 @@
                 <i class="action edit-i _edit-note" data-id="{$note->getId()}"></i>
                 <i class="action delete-i _delete-note" data-id="{$note->getId()}"></i>
                 <div class="action">
-                    {* TODO: Add class "active" is the reminder is shared *}
-                    {* TODO: Set class by true - from-schoolmate-i (shared with schoolmate)|| from-class-i (shared with class) *}
-                    <i class="from-schoolmate-i shared"></i>
-                    <i class="share-i not-shared"></i>
+                    <i n:class="_shared, shared, $note->isShared() ? active, $note->isShared() ? 'from-'.$note->whoIsSharedWith().'-i'"></i>
+                    <i class="share-i not-shared _share" data-id="{$note->getId()}" data-content="note"></i>
                 </div>
             </div>
         </section>
@@ -159,40 +163,40 @@
 
             <div class="alert-box _alert hide" data-id="share">
                 <header class="alert-header">
-                    <h3 class="alert-heading">Sdílení</h3>
+                    <h3 class="alert-heading _share-form-heading" data-content="reminder">Sdílení upozornění</h3>
+                    <h3 class="alert-heading _share-form-heading hide" data-content="note">Sdílení poznámky</h3>
                 </header>
 
                 <section class="alert-content">
                     <form class="alert-form _alert-form">
                         <div class="form-inputs">
-                            <div class="choose-variant-row">
-                                <input class="radio-input" type="radio" name="share-with" value="class" id="share-with-class" checked />
+                            <div class="choose-variant-row _variant">
+                                <input class="radio-input _share-form-type" type="radio" name="share-with" value="class" id="share-with-class" checked />
                                 <label for="share-with-class" class="radio-label">
                                     <i class="radio-simulation"></i>
                                     <i class="from-class-i radio-label-icon"></i>se třídou
                                 </label>
                             </div>
-                            <div class="choose-variant-row">
-                                <input class="radio-input" type="radio" name="share-with" value="schoolmate" id="share-with-schoolmate" />
+                            <div class="choose-variant-row _variant">
+                                <input class="radio-input _share-form-type" type="radio" name="share-with" value="schoolmate" id="share-with-schoolmate" />
                                 <label for="share-with-schoolmate" class="radio-label">
                                     <i class="radio-simulation"></i>
                                     <i class="from-schoolmate-i radio-label-icon"></i>se spolužákem
                                 </label>
                             </div>
 
-                            <div class="additional-data">
-                                <select name="schoolmate" class="form-select" title="Vyber spolužáka">
+                            <div class="additional-data _additional-data">
+                                <select id="_share-form-schoolmate" name="schoolmate" class="form-select" title="Vyber spolužáka">
                                     <option disabled selected>Vyber spolužáka</option>
-                                    {* TODO: Generated dynamically *}
-                                    <option value="1">Michal ŠMAHEL</option>
+                                    <option n:foreach="$usersInClass as $userInClass" n:if="$userInClass->getId() !== $user->getId()" value="{$userInClass->getID()}">{$userInClass->getData()->getFullname()}</option>
                                 </select>
                             </div>
                         </div>
 
-                        <div class="form-alerts"></div>
+                        <div id="_share-form-alerts" class="form-alerts"></div>
 
                         <div class="form-control">
-                            <input type="submit" value="Sdílet" class="form-button alert" />
+                            <input id="_share-form-button" type="submit" value="Sdílet" class="form-button alert" />
                         </div>
                     </form>
                 </section>

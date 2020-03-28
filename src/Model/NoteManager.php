@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace App\Model;
 
 use App\Repository\Abstraction\INoteRepository;
+use App\Repository\Abstraction\IUserRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Mammoth\DI\DIClass;
 use function json_encode;
@@ -24,6 +25,10 @@ class NoteManager
      * @inject
      */
     private INoteRepository $noteRepository;
+    /**
+     * @inject
+     */
+    private IUserRepository $userRepository;
     /**
      * @inject
      */
@@ -181,5 +186,118 @@ class NoteManager
         $this->noteRepository->delete($id);
 
         return true;
+    }
+
+    /**
+     * Shares note with user's class or specific user
+     *
+     * @param int $note Note's ID
+     * @param string $with Who to share with "class" || "schoolmate"
+     * @param int $targetUser Target user (schoolmate)
+     *
+     * @return string JSON response
+     */
+    public function shareNote(int $note, string $with, ?int $targetUser = null): string
+    {
+        if (empty($note) || empty($with) || ($with === "schoolmate" && empty($targetUser))) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Nebyla vyplněna všechna pole",
+                ]
+            );
+        }
+
+        /**
+         * @var \App\Entity\User $user
+         */
+        if (($user = $this->userManager->getUser()) === null) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Není přihlášen žádný uživatel",
+                ]
+            );
+        }
+
+        if (($note = $this->noteRepository->getById($note)) === null) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Poznámka neexistuje",
+                ]
+            );
+        }
+
+        if ($note->getOwner()->getId() !== $user->getId()) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Nevlastníš poznámku, kterou chceš sdílet",
+                ]
+            );
+        }
+
+        if ($note->whoIsSharedWith() === "class") {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Poznámka je již sdílená s celou třídou. Nemá smysl ji dále sdílet, k většímu počtu uživatelů se již nedostane",
+                ]
+            );
+        }
+
+        // Share with class
+        if ($with === "class") {
+            // Cancel all shares to schoolmates
+            // When it's shared with class, the schoolmates have the access, too
+            if ($note->whoIsSharedWith() === "schoolmate") {
+                $this->noteRepository->cancelShare($note->getId());
+            }
+
+            $this->noteRepository->share($note->getId(), null, $user->getClass());
+
+            return json_encode(
+                [
+                    'success' => true,
+                ]
+            );
+        }
+
+        // Share with schoolmate
+        if ($with === "schoolmate") {
+            if (($targetUser = $this->userRepository->getById($targetUser)) === null) {
+                return json_encode(
+                    [
+                        'success' => false,
+                        'message' => "Cílový uživatel neexistuje",
+                    ]
+                );
+            }
+
+            if ($targetUser->getId() === $user->getId()) {
+                return json_encode(
+                    [
+                        'success' => false,
+                        'message' => "Nemůžeš sdílet poznámku se sebou",
+                    ]
+                );
+            }
+
+            $this->noteRepository->share($note->getId(), $targetUser, null);
+
+            return json_encode(
+                [
+                    'success' => true,
+                ]
+            );
+        }
+
+        return json_encode(
+            [
+                'success' => false,
+                'message' => "Poznámku lze sdílet pouze se třídou (\"class\") nebo se spolužákem (\"schoolmate\")",
+            ]
+        );
     }
 }

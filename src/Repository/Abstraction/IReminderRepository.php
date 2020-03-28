@@ -113,4 +113,11 @@ interface IReminderRepository
      * @param int $id
      */
     public function takeUp(User $user, int $id): void;
+
+    /**
+     * Cancels all shares of the reminder
+     *
+     * @param int $id
+     */
+    public function cancelShare(int $id): void;
 }
