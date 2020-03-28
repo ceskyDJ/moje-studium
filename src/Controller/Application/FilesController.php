@@ -7,6 +7,7 @@ namespace App\Controller\Application;
 use App\Model\FileManager;
 use App\Model\UserManager;
 use App\Repository\Abstraction\IFileRepository;
+use App\Repository\Abstraction\IUserRepository;
 use Doctrine\Common\Util\Debug;
 use Mammoth\Controller\Common\Controller;
 use Mammoth\DI\DIClass;
@@ -14,6 +15,7 @@ use Mammoth\Exceptions\NonExistingKeyException;
 use Mammoth\Http\Entity\Request;
 use Mammoth\Http\Entity\Response;
 use Mammoth\Http\Factory\ResponseFactory;
+use Mammoth\Security\Abstraction\IUserManager;
 use Tracy\Debugger;
 use const SIGUSR1;
 
@@ -34,11 +36,15 @@ class FilesController extends Controller
     /**
      * @inject
      */
-    private UserManager $userManager;
+    private IFileRepository $fileRepository;
     /**
      * @inject
      */
-    private IFileRepository $fileRepository;
+    private IUserRepository $userRepository;
+    /**
+     * @inject
+     */
+    private UserManager $userManager;
     /**
      * @inject
      */
@@ -70,6 +76,7 @@ class FilesController extends Controller
         $user = $this->userManager->getUser();
         $response->setDataVar("privateFiles", $this->fileRepository->getByOwnerAndParent($user));
         $response->setDataVar("folderStructure", $this->fileManager->getFolderStructure());
+        $response->setDataVar("usersInClass", $this->userRepository->getByClass($user->getClass()));
 
         return $response;
     }
@@ -104,7 +111,7 @@ class FilesController extends Controller
      */
     public function downloadAction(Request $request): Response
     {
-//        Debugger::$showBar = false;
+        Debugger::$showBar = false;
 
         $data = $request->getParsedUrl()->getData();
         $response = $this->responseFactory->create($request)->setContentView("#code");
@@ -218,6 +225,23 @@ class FilesController extends Controller
         $response = $this->responseFactory->create($request)->setContentView("#code");
 
         $response->setDataVar("data", $this->fileManager->deleteFile((int)$data['file']));
+
+        return $response;
+    }
+
+    /**
+     * Share file
+     *
+     * @param \Mammoth\Http\Entity\Request $request
+     *
+     * @return \Mammoth\Http\Entity\Response
+     */
+    public function shareAjaxAction(Request $request): Response
+    {
+        $data = $request->getPost();
+        $response = $this->responseFactory->create($request)->setContentView("#code");
+
+        $response->setDataVar("data", $this->fileManager->shareFile((int)$data['file'], $data['with'], (int)$data['schoolmate']));
 
         return $response;
     }

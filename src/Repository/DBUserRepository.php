@@ -35,6 +35,19 @@ class DBUserRepository implements Abstraction\IUserRepository
     /**
      * @inheritDoc
      */
+    public function getByClass(SchoolClass $class): array
+    {
+        $query = $this->em->createQuery(/** @lang DQL */ "
+            SELECT u FROM App\Entity\User u WHERE u.class = :class
+        ");
+        $query->setParameter("class", $class);
+
+        return $query->getResult();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getById(int $id): User
     {
         /**

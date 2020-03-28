@@ -17,6 +17,15 @@ use App\Entity\User;
 interface IUserRepository
 {
     /**
+     * Finds all user in the class
+     *
+     * @param \App\Entity\SchoolClass $class
+     *
+     * @return array
+     */
+    public function getByClass(SchoolClass $class): array;
+
+    /**
      * Finds user by its ID
      *
      * @param int $id

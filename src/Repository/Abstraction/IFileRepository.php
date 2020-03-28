@@ -118,5 +118,12 @@ interface IFileRepository
      * @param \App\Entity\User|null $targetUser
      * @param \App\Entity\SchoolClass|null $targetClass
      */
-    public function share(int $id, ?User $targetUser, ?SchoolClass $targetClass = null): void;
+    public function share(int $id, ?User $targetUser = null, ?SchoolClass $targetClass = null): void;
+
+    /**
+     * Cancels all shares of the file
+     *
+     * @param int $id
+     */
+    public function cancelShare(int $id): void;
 }

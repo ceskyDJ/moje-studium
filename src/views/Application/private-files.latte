@@ -54,7 +54,10 @@
                         </div>
                     </td>
                     <td class="action">
-                        <div class="action-container">
+                        <div class="action-container shared _shared {* {shared ? "active"} *}">
+                            <i class="_shared-with {* from-{"class" || "schoolmate"}-i *}"></i>
+                        </div>
+                        <div class="action-container not-shared">
                             <a href="javascript:void(0);" class="action-link text _share-file _action" data-id="{* {id} *}">Sdílet</a>
                             <a href="javascript:void(0);" class="link-with-icon icon _share-file _action" data-id="{* {id} *}"><i class="share-i"></i></a>
                         </div>
@@ -100,15 +103,15 @@
                         {/if}
                     </td>
                     <td class="action">
-                        {* TODO: add class "active" if the file is shared *}
-                        <div class="action-container shared">
-                            {* TODO: Set class to: from-class-i || from-schoolmate-i *}
-                            <i class="from-class-i"></i>
-                        </div>
-                        <div class="action-container not-shared">
-                            <a href="javascript:void(0);" class="action-link text _share-file" data-id="{$privateFile->getId()}">Sdílet</a>
-                            <a href="javascript:void(0);" class="link-with-icon icon _share-file" data-id="{$privateFile->getId()}"><i class="share-i"></i></a>
-                        </div>
+                        {if !$privateFile->isFolder()}
+                            <div n:class="action-container, shared, _shared, $privateFile->isShared() ? active">
+                                <i class="_shared-with from-{$privateFile->whoIsSharedWith()}-i"></i>
+                            </div>
+                            <div class="action-container not-shared">
+                                <a href="javascript:void(0);" class="action-link text _share-file" data-id="{$privateFile->getId()}">Sdílet</a>
+                                <a href="javascript:void(0);" class="link-with-icon icon _share-file" data-id="{$privateFile->getId()}"><i class="share-i"></i></a>
+                            </div>
+                        {/if}
                     </td>
                 </tr>
                 </tbody>
@@ -198,34 +201,33 @@
                 <section class="alert-content">
                     <form class="alert-form _alert-form">
                         <div class="form-inputs">
-                            <div class="choose-variant-row">
-                                <input class="radio-input" type="radio" name="share-with" value="class" id="share-with-class" checked />
+                            <div class="choose-variant-row _variant" data-id="class">
+                                <input class="radio-input _choose-variant-input _share-file-form-type" type="radio" name="share-with" value="class" id="share-with-class" checked />
                                 <label for="share-with-class" class="radio-label">
                                     <i class="radio-simulation"></i>
                                     <i class="from-class-i radio-label-icon"></i>se třídou
                                 </label>
                             </div>
-                            <div class="choose-variant-row">
-                                <input class="radio-input" type="radio" name="share-with" value="user" id="share-with-schoolmate" />
+                            <div class="choose-variant-row _variant" data-id="schoolmate">
+                                <input class="radio-input _choose-variant-input _share-file-form-type" type="radio" name="share-with" value="schoolmate" id="share-with-schoolmate" />
                                 <label for="share-with-schoolmate" class="radio-label">
                                     <i class="radio-simulation"></i>
                                     <i class="from-schoolmate-i radio-label-icon"></i>se spolužákem
                                 </label>
                             </div>
 
-                            <div class="additional-data">
-                                <select name="schoolmate" class="form-select" title="Vyber spolužáka">
+                            <div class="additional-data _additional-data hide" data-for="schoolmate">
+                                <select id="_share-file-form-schoolmate" name="schoolmate" class="form-select" title="Vyber spolužáka">
                                     <option disabled selected>Vyber spolužáka</option>
-                                    {* TODO: Generated dynamically *}
-                                    <option value="1">Michal ŠMAHEL</option>
+                                    <option n:foreach="$usersInClass as $userInClass" n:if="$userInClass->getId() !== $user->getId()" value="{$userInClass->getID()}">{$userInClass->getData()->getFullname()}</option>
                                 </select>
                             </div>
                         </div>
 
-                        <div class="form-alerts"></div>
+                        <div id="_share-file-form-alerts" class="form-alerts"></div>
 
                         <div class="form-control">
-                            <input type="submit" value="Sdílet" class="form-button alert" />
+                            <input id="_share-file-form-button" type="submit" value="Sdílet" class="form-button alert" />
                         </div>
                     </form>
                 </section>

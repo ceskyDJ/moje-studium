@@ -6,6 +6,7 @@ namespace App\Model;
 
 use App\Entity\PrivateFile;
 use App\Repository\Abstraction\IFileRepository;
+use App\Repository\Abstraction\IUserRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use DOMDocument;
 use DOMNode;
@@ -52,6 +53,10 @@ class FileManager
      * @inject
      */
     private IFileRepository $fileRepository;
+    /**
+     * @inject
+     */
+    private IUserRepository $userRepository;
     /**
      * @inject
      */
@@ -668,5 +673,127 @@ class FileManager
         readfile($fileAddress);
 
         return ob_get_clean();
+    }
+
+    /**
+     * Shares file with user's class or specific user
+     *
+     * @param int $file File's ID
+     * @param string $with Who to share with "class" || "schoolmate"
+     * @param int $targetUser Target user (schoolmate)
+     *
+     * @return string JSON response
+     */
+    public function shareFile(int $file, string $with, ?int $targetUser = null): string
+    {
+        if (empty($file) || empty($with) || ($with === "schoolmate" && empty($targetUser))) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Nebyla vyplněna všechna pole",
+                ]
+            );
+        }
+
+        /**
+         * @var \App\Entity\User $user
+         */
+        if (($user = $this->userManager->getUser()) === null) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Není přihlášen žádný uživatel",
+                ]
+            );
+        }
+
+        if (($file = $this->fileRepository->getById($file)) === null) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Soubor neexistuje",
+                ]
+            );
+        }
+
+        if ($file->isFolder()) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Složky není možné sdílet",
+                ]
+            );
+        }
+
+        if ($file->getOwner()->getId() !== $user->getId()) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Nevlastníš soubor, který chceš sdílet",
+                ]
+            );
+        }
+
+        if ($file->whoIsSharedWith() === "class") {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Soubor je již sdílený s celou třídou. Nemá smysl jej dále sdílet, k většímu počtu uživatelů se již nedostane",
+                ]
+            );
+        }
+
+        // Share with class
+        if ($with === "class") {
+            // Cancel all shares to schoolmates
+            // When it's shared with class, the schoolmates have the access, too
+            if ($file->whoIsSharedWith() === "schoolmate") {
+                $this->fileRepository->cancelShare($file->getId());
+            }
+
+            $this->fileRepository->share($file->getId(), null, $user->getClass());
+
+            return json_encode(
+                [
+                    'success' => true,
+                ]
+            );
+        }
+
+        // Share with schoolmate
+        if ($with === "schoolmate") {
+            if (($targetUser = $this->userRepository->getById($targetUser)) === null) {
+                return json_encode(
+                    [
+                        'success' => false,
+                        'message' => "Cílový uživatel neexistuje",
+                    ]
+                );
+            }
+
+            if ($targetUser->getId() === $user->getId()) {
+                return json_encode(
+                    [
+                        'success' => false,
+                        'message' => "Nemůžeš sdílet soubor se sebou",
+                    ]
+                );
+            }
+
+            $this->fileRepository->share($file->getId(), $targetUser, null);
+
+            return json_encode(
+                [
+                    'success' => true,
+                ]
+            );
+        }
+
+        return json_encode(
+            [
+                'success' => false,
+                'message' => "Soubor lze sdílet pouze se třídou (\"class\") nebo se spolužákem (\"schoolmate\")",
+            ]
+        );
     }
 }

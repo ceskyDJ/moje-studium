@@ -113,6 +113,37 @@ class PrivateFile
         return "general";
     }
 
+    /**
+     * Verify whether the file is shared with someone or class
+     *
+     * @return bool Is this file shared?
+     */
+    public function isShared(): bool
+    {
+        return !$this->getSharedFiles()->isEmpty();
+    }
+
+    /**
+     * Returns who is the file shared with
+     *
+     * @return string Target group of sharing this file ("class" || "schoolmate")
+     */
+    public function whoIsSharedWith(): string
+    {
+        if (!$this->isShared()) {
+            return "";
+        }
+
+        $shares = $this->getSharedFiles();
+        foreach ($shares as $share) {
+            if ($share->getTargetClass() !== null) {
+                return "class";
+            }
+        }
+
+        return "schoolmate";
+    }
+
     public function getId(): int
     {
         return $this->id;

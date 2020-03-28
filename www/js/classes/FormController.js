@@ -7,6 +7,7 @@ class FormController
         this.initSelectInput();
         this.initIconChooser();
         this.initCalendar();
+        this.initVariantChooser();
     }
 
     initSelectInput()
@@ -40,6 +41,12 @@ class FormController
                 item.querySelector("._calendar-input-date"),
                 item.querySelector("._calendar-input-year")
             ));
+    }
+
+    initVariantChooser()
+    {
+        document.querySelectorAll("._choose-variant-input")
+            .forEach(item => item.addEventListener("change", _ => this.openAdditionalDataForVariant(item)));
     }
 
     selectInputChangeValue(button)
@@ -128,6 +135,19 @@ class FormController
 
         inputDate.addEventListener("click", _ => datepicker.show());
         container.querySelector("._open-calendar").addEventListener("click", _ => datepicker.show());
+    }
+
+    openAdditionalDataForVariant(variantInput)
+    {
+        const variantId = variantInput.closest("._variant").dataset.id;
+
+        document.querySelectorAll("._additional-data").forEach(item => {
+            if(item.dataset.for === variantId) {
+                item.classList.remove("hide");
+            } else {
+                item.classList.add("hide");
+            }
+        });
     }
 
     setActiveDateInDatepicker(container, newDate)

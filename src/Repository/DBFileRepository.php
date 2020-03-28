@@ -181,12 +181,31 @@ class DBFileRepository implements Abstraction\IFileRepository
     /**
      * @inheritDoc
      */
-    public function share(int $id, ?User $targetUser, ?SchoolClass $targetClass = null): void
+    public function share(int $id, ?User $targetUser = null, ?SchoolClass $targetClass = null): void
     {
+        // There can't be targetUser and targetClass property set in one DB row
+        // When it'll be shared with all the class, $targetUser will be included
+        if ($targetUser !== null && $targetClass !== null) {
+            $targetUser = null;
+        }
+
         $sharedFile = new SharedFile;
         $sharedFile->setFile($this->getById($id))->setTargetUser($targetUser)->setTargetClass($targetClass);
 
         $this->em->persist($sharedFile);
         $this->em->flush();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function cancelShare(int $id): void
+    {
+        $query = $this->em->createQuery(/** @lang DQL */ "
+            DELETE FROM App\Entity\SharedFile sf WHERE sf.file = :file
+        ");
+        $query->setParameter("file", $this->getById($id));
+
+        $query->execute();
     }
 }

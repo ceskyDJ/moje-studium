@@ -13,9 +13,11 @@ class FileBrowser
         this.handleOpenCreateFolderForm();
         this.handleOpenMoveFileForm();
         this.handleOpenRenameFileForm();
+        this.handleOpenShareFileForm();
         this.handleCreateFolder();
         this.handleMoveFile();
         this.handleDeleteFile();
+        this.handleShareFile();
     }
 
     initForms(element)
@@ -151,6 +153,17 @@ class FileBrowser
         }
     }
 
+    handleOpenShareFileForm(element)
+    {
+        if(element === undefined) {
+            document.querySelectorAll("._share-file").forEach(item => {
+                item.addEventListener("click", _ => this.openShareFileForm(item));
+            });
+        } else {
+            element.addEventListener("click", _ => this.openShareFileForm(element))
+        }
+    }
+
     handleCreateFolder()
     {
         document.querySelector("#_create-folder-form-button").addEventListener("click", _ => this.createFolder());
@@ -177,6 +190,11 @@ class FileBrowser
         } else {
             element.addEventListener("click", _ => this.deleteFile(element));
         }
+    }
+
+    handleShareFile()
+    {
+        document.querySelector("#_share-file-form-button").addEventListener("click", _ => this.shareFile());
     }
 
     getFileType(fileName)
@@ -277,6 +295,7 @@ class FileBrowser
         this.handleOpenMoveFileForm(newFile.querySelector("._move-file"));
         this.handleOpenRenameFileForm(newFile.querySelector("._rename-file"));
         this.handleDeleteFile(newFile.querySelector("._delete-file"));
+        this.handleOpenShareFileForm(newFile.querySelector("._share-file"));
 
         this.filesContainer.appendChild(newFile);
     }
@@ -365,6 +384,18 @@ class FileBrowser
     closeMoveFileForm()
     {
         this.alertController.hideAlert("move-file");
+    }
+
+    openShareFileForm(button)
+    {
+        document.querySelector("#_share-file-form-button").dataset.id = button.dataset.id;
+
+        this.alertController.showAlert("share-file");
+    }
+
+    closeShareFileForm()
+    {
+        this.alertController.hideAlert("share-file");
     }
 
     createFolder()
@@ -496,6 +527,54 @@ class FileBrowser
                     this.closeRenameFileForm(form);
                 } else {
                     alert(data.message);
+                }
+            });
+    }
+
+    shareFile()
+    {
+        const id = document.querySelector("#_share-file-form-button").dataset.id;
+        const type = document.querySelector("._share-file-form-type:checked").value;
+
+        const params = new URLSearchParams();
+        params.append("file", id);
+        params.append("with", type);
+
+        if(type === "schoolmate") {
+            const schoolmate = document.querySelector("#_share-file-form-schoolmate").value;
+
+            params.append("schoolmate", schoolmate);
+        }
+
+        axios.post(`/application/files/share`, params)
+            .then(response => {
+                const data = response.data;
+
+                if(data.success === true) {
+                    const file = this.filesContainer.querySelector(`._file[data-id="${id}"]`);
+                    const sharedAction = file.querySelector("._shared");
+                    const sharedWith = sharedAction.querySelector("._shared-with");
+
+                    if(!sharedAction.classList.contains("active")) {
+                        sharedAction.classList.add("active");
+                    }
+
+                    if(!sharedWith.classList.contains("from-class-i")) {
+                        sharedWith.classList.remove("from-schoolmate-i");
+                        sharedWith.classList.add(`from-${type}-i`);
+                    }
+
+                    this.closeShareFileForm();
+                } else {
+                    // Show alert message
+                    const alert = document.createElement("p");
+                    alert.textContent = data.message;
+                    alert.classList.add("form-alert");
+                    alert.classList.add("negative");
+
+                    const formAlerts = document.querySelector("#_share-file-form-alerts");
+                    formAlerts.innerHTML = "";
+                    formAlerts.appendChild(alert);
                 }
             });
     }
