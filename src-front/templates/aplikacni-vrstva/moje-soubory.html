@@ -98,7 +98,10 @@
                         </div>
                     </td>
                     <td class="action">
-                        <div class="action-container">
+                        <div class="action-container shared active">
+                            <i class="from-class-i"></i>
+                        </div>
+                        <div class="action-container not-shared">
                             <a class="action-link text" href="#sdilet">Sdílet</a>
                             <a class="link-with-icon icon" href="#sdilet"><i class="share-i"></i></a>
                         </div>
@@ -197,7 +200,7 @@
             </table>
         </section>
 
-        <div class="alert-external-container hide">
+        <div class="alert-external-container">
             <div class="alert-box hide">
                 <header class="alert-header">
                     <h3 class="alert-heading">Přesunout soubory</h3>
@@ -311,6 +314,42 @@
                     </table>
                 </section>
             </div>
+
+            <div class="alert-box">
+                <header class="alert-header">
+                    <h3 class="alert-heading">Sdílení</h3>
+                </header>
+
+                <section class="alert-content">
+                    <form class="alert-form">
+                        <div class="form-inputs">
+                            <div class="choose-variant-row">
+                                <input class="radio-input" type="radio" name="share-with" value="class" id="share-with-class" checked />
+                                <label for="share-with-class" class="radio-label"><i class="from-class-i radio-label-icon"></i>se třídou</label>
+                            </div>
+                            <div class="choose-variant-row">
+                                <input class="radio-input" type="radio" name="share-with" value="user" id="share-with-schoolmate" />
+                                <label for="share-with-schoolmate" class="radio-label"><i class="from-schoolmate-i radio-label-icon"></i>se spolužákem</label>
+                            </div>
+
+                            <div class="additional-data">
+                                <select name="schoolmate" class="form-select" title="Vyber spolužáka">
+                                    <option disabled selected>Vyber spolužáka</option>
+                                    <option value="1">Michal ŠMAHEL</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-alerts">
+                            <p class="form-alert negative">Nebyla vyplněna všechna pole.</p>
+                        </div>
+
+                        <div class="form-control">
+                            <input type="submit" value="Sdílet" class="form-button alert" />
+                        </div>
+                    </form>
+                </section>
+            </div>
         </div>
     </div>
 </main>
@@ -330,9 +369,10 @@
     </p>
 </footer>
 
-<div class="alert-container hide"></div>
+<div class="alert-container"></div>
 
 <script src="/js/classes/FormController.js"></script>
+<script src="/js/classes/AlertController.js"></script>
 <script src="/js/application/private-files.js"></script>
 </body>
 </html>

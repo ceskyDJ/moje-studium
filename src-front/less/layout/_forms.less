@@ -225,6 +225,7 @@
 
       background: @white;
       padding: .2em @input-p - .2em;
+      cursor: pointer;
 
       &.icon-chooser {
         &:extend(.fas);
@@ -325,6 +326,45 @@
         margin-top: auto;
         text-align: center;
         color: @dark-grey;
+      }
+    }
+
+    .choose-variant-row {
+      margin-bottom: .6em;
+
+      .radio-input {
+        display: none;
+      }
+
+      .radio-label {
+        cursor: pointer;
+
+        &:before {
+          content: "";
+          display: inline-block;
+          width: .5em;
+          height: .5em;
+          margin-right: .6em;
+          border: 2px solid @middle-grey;
+          border-radius: 100%;
+        }
+
+        .radio-label-icon {
+          margin-right: 0.5em;
+        }
+      }
+
+      .radio-input:checked + .radio-label:before {
+        background: @middle-grey;
+      }
+    }
+
+    .additional-data {
+      margin-left: 1.3em;
+
+      .form-select {
+        width: 100%;
+        max-width: 18em;
       }
     }
   }

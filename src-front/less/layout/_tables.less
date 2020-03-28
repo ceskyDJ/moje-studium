@@ -332,6 +332,14 @@
           display: flex;
           justify-content: center;
 
+          &.shared:not(.active) {
+            display: none;
+          }
+
+          &.shared.active + .not-shared {
+            display: none;
+          }
+
           .text {
             display: none;
           }
@@ -342,6 +350,18 @@
             }
 
             .icon {
+              display: none;
+            }
+          }
+        }
+
+        &:hover {
+          .action-container {
+            &.shared.active + .not-shared {
+              display: flex;
+            }
+
+            &.shared.active {
               display: none;
             }
           }
