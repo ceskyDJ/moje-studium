@@ -4660,6 +4660,7 @@ body.active-alert {
 .alert-form .form-inputs .form-select {
   background: white;
   padding: 0.2em 0.3em;
+  cursor: pointer;
 }
 .alert-form .form-inputs .form-select.icon-chooser {
   width: 3.4em;
@@ -4752,6 +4753,37 @@ body.active-alert {
   margin-top: auto;
   text-align: center;
   color: #A7A5A6;
+}
+.alert-form .form-inputs .choose-variant-row {
+  margin-bottom: 0.6em;
+}
+.alert-form .form-inputs .choose-variant-row .radio-input {
+  display: none;
+}
+.alert-form .form-inputs .choose-variant-row .radio-label {
+  cursor: pointer;
+}
+.alert-form .form-inputs .choose-variant-row .radio-label:before {
+  content: "";
+  display: inline-block;
+  width: 0.5em;
+  height: 0.5em;
+  margin-right: 0.6em;
+  border: 2px solid #EEE9E5;
+  border-radius: 100%;
+}
+.alert-form .form-inputs .choose-variant-row .radio-label .radio-label-icon {
+  margin-right: 0.5em;
+}
+.alert-form .form-inputs .choose-variant-row .radio-input:checked + .radio-label:before {
+  background: #EEE9E5;
+}
+.alert-form .form-inputs .additional-data {
+  margin-left: 1.3em;
+}
+.alert-form .form-inputs .additional-data .form-select {
+  width: 100%;
+  max-width: 18em;
 }
 .calendar-table {
   border-spacing: 0.75em;
@@ -5065,6 +5097,12 @@ body.active-alert {
       -ms-flex-pack: center;
           justify-content: center;
 }
+.file-manager .file-row td.action .action-container.shared:not(.active) {
+  display: none;
+}
+.file-manager .file-row td.action .action-container.shared.active + .not-shared {
+  display: none;
+}
 .file-manager .file-row td.action .action-container .text {
   display: none;
 }
@@ -5075,6 +5113,14 @@ body.active-alert {
   .file-manager .file-row td.action .action-container .icon {
     display: none;
   }
+}
+.file-manager .file-row td.action:hover .action-container.shared.active + .not-shared {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.file-manager .file-row td.action:hover .action-container.shared.active {
+  display: none;
 }
 .file-manager .file-row.special {
   color: #84ADAA;
@@ -6440,7 +6486,7 @@ body.active-alert {
 .my-reminders-notes .page.with-toolbar .toolbar-page-content .content-container .day-row .record-container .record-row,
 .my-reminders-notes .page.with-toolbar .toolbar-page-content.with-toolbar .toolbar-page-content .content-container .day-row .record-container .record-row {
   display: grid;
-  grid-template-columns: 2.5em 1.5em auto 1.4em 1em;
+  grid-template-columns: 2.5em 1.5em auto 1.4em 1.4em 1em;
 }
 .my-reminders-notes .page.with-toolbar .toolbar-page-content .content-container .day-row .record-container .record-row:not(:first-child),
 .my-reminders-notes .page.with-toolbar .toolbar-page-content.with-toolbar .toolbar-page-content .content-container .day-row .record-container .record-row:not(:first-child) {
@@ -6450,15 +6496,12 @@ body.active-alert {
 }
 .my-reminders-notes .page.with-toolbar .toolbar-page-content .content-container .day-row .record-container .record-row .action,
 .my-reminders-notes .page.with-toolbar .toolbar-page-content.with-toolbar .toolbar-page-content .content-container .day-row .record-container .record-row .action {
-  color: #84ADAA;
-  cursor: pointer;
-  font-size: 0.74em;
   margin-top: 0.3em;
 }
 .my-reminders-notes .page .content-container .content-row,
 .my-reminders-notes .page.with-toolbar .toolbar-page-content .content-container .content-row {
   display: grid;
-  grid-template-columns: auto 1.4em 1em;
+  grid-template-columns: auto 1.4em 1.4em 1em;
 }
 .my-reminders-notes .page .content-container .content-row:not(:first-child),
 .my-reminders-notes .page.with-toolbar .toolbar-page-content .content-container .content-row:not(:first-child) {
@@ -6467,10 +6510,42 @@ body.active-alert {
   padding-top: 0.2em;
 }
 .my-reminders-notes .page .content-container .content-row .action,
-.my-reminders-notes .page.with-toolbar .toolbar-page-content .content-container .content-row .action {
+.my-reminders-notes .page.with-toolbar .toolbar-page-content .content-container .content-row .action,
+.my-reminders-notes .page.with-toolbar .toolbar-page-content .content-container .day-row .record-container .record-row .action,
+.my-reminders-notes .page.with-toolbar .toolbar-page-content.with-toolbar .toolbar-page-content .content-container .day-row .record-container .record-row .action {
   color: #84ADAA;
   cursor: pointer;
   font-size: 0.74em;
+}
+.my-reminders-notes .page .content-container .content-row .action .shared,
+.my-reminders-notes .page.with-toolbar .toolbar-page-content .content-container .content-row .action .shared,
+.my-reminders-notes .page.with-toolbar .toolbar-page-content .content-container .day-row .record-container .record-row .action .shared,
+.my-reminders-notes .page.with-toolbar .toolbar-page-content.with-toolbar .toolbar-page-content .content-container .day-row .record-container .record-row .action .shared {
+  color: #A7A5A6;
+}
+.my-reminders-notes .page .content-container .content-row .action .shared:not(.active),
+.my-reminders-notes .page.with-toolbar .toolbar-page-content .content-container .content-row .action .shared:not(.active),
+.my-reminders-notes .page.with-toolbar .toolbar-page-content .content-container .day-row .record-container .record-row .action .shared:not(.active),
+.my-reminders-notes .page.with-toolbar .toolbar-page-content.with-toolbar .toolbar-page-content .content-container .day-row .record-container .record-row .action .shared:not(.active) {
+  display: none;
+}
+.my-reminders-notes .page .content-container .content-row .action .shared.active + .not-shared,
+.my-reminders-notes .page.with-toolbar .toolbar-page-content .content-container .content-row .action .shared.active + .not-shared,
+.my-reminders-notes .page.with-toolbar .toolbar-page-content .content-container .day-row .record-container .record-row .action .shared.active + .not-shared,
+.my-reminders-notes .page.with-toolbar .toolbar-page-content.with-toolbar .toolbar-page-content .content-container .day-row .record-container .record-row .action .shared.active + .not-shared {
+  display: none;
+}
+.my-reminders-notes .page .content-container .content-row .action:hover .shared.active + .not-shared,
+.my-reminders-notes .page.with-toolbar .toolbar-page-content .content-container .content-row .action:hover .shared.active + .not-shared,
+.my-reminders-notes .page.with-toolbar .toolbar-page-content .content-container .day-row .record-container .record-row .action:hover .shared.active + .not-shared,
+.my-reminders-notes .page.with-toolbar .toolbar-page-content.with-toolbar .toolbar-page-content .content-container .day-row .record-container .record-row .action:hover .shared.active + .not-shared {
+  display: initial;
+}
+.my-reminders-notes .page .content-container .content-row .action:hover .shared.active,
+.my-reminders-notes .page.with-toolbar .toolbar-page-content .content-container .content-row .action:hover .shared.active,
+.my-reminders-notes .page.with-toolbar .toolbar-page-content .content-container .day-row .record-container .record-row .action:hover .shared.active,
+.my-reminders-notes .page.with-toolbar .toolbar-page-content.with-toolbar .toolbar-page-content .content-container .day-row .record-container .record-row .action:hover .shared.active {
+  display: none;
 }
 .profile-image-changer .profile-icons .icon {
   font-size: 2em;

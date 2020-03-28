@@ -42,6 +42,12 @@
                             <span class="description _content">{$reminder->getContent()}</span>
                             <i class="action edit-i _edit-reminder" data-id="{$reminder->getId()}"></i>
                             <i class="action delete-i _delete-reminder" data-id="{$reminder->getId()}"></i>
+                            <div class="action">
+                                {* TODO: Add class "active" is the reminder is shared *}
+                                {* TODO: Set class by true - from-schoolmate-i (shared with schoolmate)|| from-class-i (shared with class) *}
+                                <i class="from-schoolmate-i shared"></i>
+                                <i class="share-i not-shared"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -117,6 +123,12 @@
                 <p class="_content">{$note->getContent()}</p>
                 <i class="action edit-i _edit-note" data-id="{$note->getId()}"></i>
                 <i class="action delete-i _delete-note" data-id="{$note->getId()}"></i>
+                <div class="action">
+                    {* TODO: Add class "active" is the reminder is shared *}
+                    {* TODO: Set class by true - from-schoolmate-i (shared with schoolmate)|| from-class-i (shared with class) *}
+                    <i class="from-schoolmate-i shared"></i>
+                    <i class="share-i not-shared"></i>
+                </div>
             </div>
         </section>
 
@@ -140,6 +152,41 @@
                         <div class="form-control">
                             <input type="submit" value="Přidat" class="form-button alert _note-form-button" id="_note-form-add" data-action="add" />
                             <input type="submit" value="Uložit" class="form-button alert _note-form-button hide" id="_note-form-edit" data-action="edit" />
+                        </div>
+                    </form>
+                </section>
+            </div>
+
+            <div class="alert-box _alert hide" data-id="share">
+                <header class="alert-header">
+                    <h3 class="alert-heading">Sdílení</h3>
+                </header>
+
+                <section class="alert-content">
+                    <form class="alert-form _alert-form">
+                        <div class="form-inputs">
+                            <div class="choose-variant-row">
+                                <input class="radio-input" type="radio" name="share-with" value="class" id="share-with-class" checked />
+                                <label for="share-with-class" class="radio-label"><i class="from-class-i radio-label-icon"></i>se třídou</label>
+                            </div>
+                            <div class="choose-variant-row">
+                                <input class="radio-input" type="radio" name="share-with" value="user" id="share-with-schoolmate" />
+                                <label for="share-with-schoolmate" class="radio-label"><i class="from-schoolmate-i radio-label-icon"></i>se spolužákem</label>
+                            </div>
+
+                            <div class="additional-data">
+                                <select name="schoolmate" class="form-select" title="Vyber spolužáka">
+                                    <option disabled selected>Vyber spolužáka</option>
+                                    {* TODO: Generated dynamically *}
+                                    <option value="1">Michal ŠMAHEL</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-alerts"></div>
+
+                        <div class="form-control">
+                            <input type="submit" value="Sdílet" class="form-button alert" />
                         </div>
                     </form>
                 </section>
