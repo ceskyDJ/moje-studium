@@ -1,0 +1,203 @@
+{layout $layoutView}
+
+{block content}
+    <div class="page multi-page">
+        <header class="multi-page-header">
+            {* TODO: Add class "active" to active tab *}
+            <a class="page-tab" href="#">Uživatelé</a>
+            <a class="page-tab active" href="#">Třídy</a>
+        </header>
+
+        {* Users *}
+        {* TODO: Add class "hide" to non-active subpage *}
+        <section class="multi-page-content hide">
+            <table class="admin-list users">
+                <tr class="data-row classic">
+                    <td class="rank user-i"></td>
+                    <td class="username">
+                        <span class="classic">Veronika Zemanová</span>
+                        <span class="short">V. Zemanová</span>
+                    </td>
+                    <td class="email">zemanova@seznam.cz</td>
+                    <td class="quota-usage">
+                        <span class="full">12/100 MB <small class="percentage">(12&nbsp;%)</small></span>
+                        <span class="short">12&nbsp;%</span>
+                    </td>
+                    <td class="actions">
+                        <i class="change-to-admin-i"></i>
+                        <i class="clear-files-i"></i>
+                        <i class="delete-user-i"></i>
+                    </td>
+                </tr>
+                <tr class="data-row mobile">
+                    <td>{* *}</td>
+                    <td class="email" colspan="2">zemanova@seznam.cz</td>
+                    <td>{* *}</td>
+                </tr>
+
+                <tr class="line-row"><td colspan="4"><hr class="line" /></td></tr>
+
+                <tr class="data-row classic">
+                    <td class="rank user-i"></td>
+                    <td class="username">
+                        <span class="classic">Eliška Starostová</span>
+                        <span class="short">E. Starostová</span>
+                    </td>
+                    <td class="email">starostova@seznam.cz</td>
+                    <td class="quota-usage">
+                        <span class="full">8/100 MB <small class="percentage">(8&nbsp;%)</small></span>
+                        <span class="short">8&nbsp;%</span>
+                    </td>
+                    <td class="actions">
+                        <i class="change-to-admin-i"></i>
+                        <i class="clear-files-i"></i>
+                        <i class="delete-user-i"></i>
+                    </td>
+                </tr>
+                <tr class="data-row mobile">
+                    <td>{* *}</td>
+                    <td class="email" colspan="2">starostova@seznam.cz</td>
+                    <td>{* *}</td>
+                </tr>
+
+                <tr class="line-row"><td colspan="4"><hr class="line" /></td></tr>
+
+                <tr class="data-row classic">
+                    <td class="rank user-i"></td>
+                    <td class="username">
+                        <span class="classic">Adéla Vyhnálková</span>
+                        <span class="short">A. Vyhnálková</span>
+                    </td>
+                    <td class="email">vyhnalkova@seznam.cz</td>
+                    <td class="quota-usage">
+                        <span class="full">24/100 MB <small class="percentage">(24&nbsp;%)</small></span>
+                        <span class="short">24&nbsp;%</span>
+                    </td>
+                    <td class="actions">
+                        <i class="change-to-admin-i"></i>
+                        <i class="clear-files-i"></i>
+                        <i class="delete-user-i"></i>
+                    </td>
+                </tr>
+                <tr class="data-row mobile">
+                    <td>{* *}</td>
+                    <td class="email" colspan="2">vyhnalkova@seznam.cz</td>
+                    <td>{* *}</td>
+                </tr>
+
+                <tr class="line-row"><td colspan="4"><hr class="line" /></td></tr>
+
+                <tr class="data-row classic">
+                    <td class="rank user-i"></td>
+                    <td class="username">
+                        <span class="classic">Lukáš Kříž</span>
+                        <span class="short">L. Kříž</span>
+                    </td>
+                    <td class="email">kriz@seznam.cz</td>
+                    <td class="quota-usage">
+                        <span class="full">25/100 MB <small class="percentage">(25&nbsp;%)</small></span>
+                        <span class="short">25&nbsp;%</span>
+                    </td>
+                    <td class="actions">
+                        <i class="change-to-admin-i"></i>
+                        <i class="clear-files-i"></i>
+                        <i class="delete-user-i"></i>
+                    </td>
+                </tr>
+                <tr class="data-row mobile">
+                    <td>{* *}</td>
+                    <td class="email" colspan="2">kriz@seznam.cz</td>
+                    <td>{* *}</td>
+                </tr>
+
+                <tr class="line-row"><td colspan="4"><hr class="line" /></td></tr>
+
+                <tr class="data-row classic">
+                    <td class="rank admin-i"></td>
+                    <td class="username">
+                        <span class="classic">Michal Šmahel</span>
+                        <span class="short">M. Šmahel</span>
+                    </td>
+                    <td class="email">smahel@seznam.cz</td>
+                    <td class="quota-usage">
+                        <span class="full">100/100 MB <small class="percentage">(100&nbsp;%)</small></span>
+                        <span class="short">100&nbsp;%</span>
+                    </td>
+                    <td class="actions">
+                        <i class="change-to-user-i"></i>
+                        <i class="clear-files-i"></i>
+                        <i class="delete-user-i"></i>
+                    </td>
+                </tr>
+                <tr class="data-row mobile">
+                    <td>{* *}</td>
+                    <td class="email" colspan="2">smahel@seznam.cz</td>
+                    <td>{* *}</td>
+                </tr>
+            </table>
+        </section>
+
+        {* Classes *}
+        <section class="multi-page-content">
+            <table class="admin-list classes">
+                <tr class="data-row classic">
+                    <td class="school">Obchodní akademie Chrudim</td>
+                    <td class="class-name">1.C</td>
+                    <td class="start-year">od&nbsp;2019</td>
+                    <td class="actions">
+                        <i class="delete-cross-i"></i>
+                    </td>
+                </tr>
+                <tr class="data-row mobile">
+                    <td class="class-info">1.C od 2019</td>
+                    <td>{* *}</td>
+                </tr>
+
+                <tr class="line-row"><td colspan="4"><hr class="line" /></td></tr>
+
+                <tr class="data-row classic">
+                    <td class="school">Střední uměleckoprůmyslová škola Jihlava-Helenín</td>
+                    <td class="class-name">4.E</td>
+                    <td class="start-year">od&nbsp;2016</td>
+                    <td class="actions">
+                        <i class="delete-cross-i"></i>
+                    </td>
+                </tr>
+                <tr class="data-row mobile">
+                    <td class="class-info">4.E od 2016</td>
+                    <td>{* *}</td>
+                </tr>
+
+                <tr class="line-row"><td colspan="4"><hr class="line" /></td></tr>
+
+                <tr class="data-row classic">
+                    <td class="school">Vyšší odborná škola zdravotnická a Střední odborná škola Jihlava</td>
+                    <td class="class-name">3.C</td>
+                    <td class="start-year">od&nbsp;2017</td>
+                    <td class="actions">
+                        <i class="delete-cross-i"></i>
+                    </td>
+                </tr>
+                <tr class="data-row mobile">
+                    <td class="class-info">3.C od 2017</td>
+                    <td>{* *}</td>
+                </tr>
+
+                <tr class="line-row"><td colspan="4"><hr class="line" /></td></tr>
+
+                <tr class="data-row classic">
+                    <td class="school">Střední průmyslová škola elektrotechnická a Vyšší odborná škola Pardubice</td>
+                    <td class="class-name">4.F</td>
+                    <td class="start-year">od&nbsp;2016</td>
+                    <td class="actions">
+                        <i class="delete-cross-i"></i>
+                    </td>
+                </tr>
+                <tr class="data-row mobile">
+                    <td class="class-info">4.F od 2016</td>
+                    <td>{* *}</td>
+                </tr>
+            </table>
+        </section>
+    </div>
+{/block}
