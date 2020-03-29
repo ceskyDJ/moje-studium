@@ -1,0 +1,39 @@
+// Zmeny klasickych stylu z aplikacni a prezentacni vrstvy pro odliseni administracniho prostredi
+.admin {
+  // START hlavicka
+  .page-header {
+    background: @a_header-bg;
+
+    .link-button {
+      color: @white;
+
+      &:hover {
+        color: darken(@white, 10%);
+      }
+    }
+  }
+  // END hlavicka
+
+
+  // START nadpisy
+  .main-heading {
+    color: @a_main-heading-c;
+  }
+  // END nadpisy
+
+
+  // START paticka
+  .page-footer {
+    color: @white;
+    background: @a_footer-bg;
+
+    .basic-link {
+      color: @dark-yellow;
+
+      &:hover {
+        color: darken(@dark-yellow, 15%);
+      }
+    }
+  }
+  // END paticka
+}

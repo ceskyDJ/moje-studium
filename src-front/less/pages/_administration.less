@@ -1,0 +1,144 @@
+.admin-list {
+  width: 100%;
+
+  .data-row {
+    td {
+      padding: .2em 0;
+    }
+
+    &.classic {
+      td {
+        margin-bottom: .2em;
+
+        &.actions {
+          color: @dark-green;
+          padding-left: .3em;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .line-row {
+    td {
+      padding: .2em 0;
+
+      .line {
+        border: 1px solid @middle-grey;
+        margin: 0;
+      }
+    }
+  }
+
+  &.users {
+    .data-row {
+      &.classic {
+        .rank {
+          padding-right: .3em;
+        }
+
+        .email {
+          display: none;
+
+          @media screen and (min-width: @big-tablet) {
+            display: table-cell;
+          }
+        }
+
+        .username {
+          .classic {
+            display: none;
+          }
+
+          @media screen and (min-width: @middle-phone) {
+            .classic {
+              display: inline;
+            }
+
+            .short {
+              display: none;
+            }
+          }
+        }
+
+        .quota-usage {
+          border-right: 2px solid @middle-grey;
+
+          .full {
+            display: none;
+          }
+
+          @media screen and (min-width: @tablet) {
+            .full {
+              display: inline;
+
+              .percentage {
+                color: lighten(@text-c, 20%);
+              }
+            }
+
+            .short {
+              display: none;
+            }
+          }
+        }
+
+        .actions {
+          display: grid;
+          grid-template-columns: 1.6em 1.2em 1.1em;
+        }
+      }
+
+      &.mobile {
+        @media screen and (min-width: @big-tablet) {
+          display: none;
+        }
+
+        .email {
+          border-right: 2px solid @middle-grey;
+        }
+      }
+    }
+  }
+
+  &.classes {
+    .data-row {
+      &.classic {
+        .school {
+          border-right: 2px solid @middle-grey;
+
+          @media screen and (min-width: @big-phone) {
+            border-right: none;
+          }
+        }
+
+        .class-name,
+        .start-year {
+          display: none;
+
+          @media screen and (min-width: @big-phone) {
+            display: table-cell;
+          }
+        }
+
+        .class-name {
+          padding: 0 .3em;
+        }
+
+        .actions {
+          width: 1em;
+        }
+      }
+
+      &.mobile {
+        .class-info {
+          border-right: 2px solid @middle-grey;
+        }
+
+        @media screen and (min-width: @big-phone) {
+          display: none;
+        }
+      }
+    }
+  }
+}
