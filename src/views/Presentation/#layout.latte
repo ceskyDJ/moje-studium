@@ -44,19 +44,27 @@
 </main>
 
 <footer class="page-footer">
-    <p class="footer-info">
-        {spaceless}
-        Jedná se o maturitní projekt (ročník 2019/2020).
-        Autorem je Michal ŠMAHEL, grafické podklady připravila Adéla VYHNÁLKOVÁ.
-        Zdrojové kódy je možné nalézl na
-        <a class="basic-link" href="https://github.com/ceskyDJ/moje-studium">Githubu</a>.
-        {/spaceless}
-    </p>
+    <div class="right-column">
+        <p class="footer-contact">
+            <strong class="contact-mini-heading">Kontakt</strong>
+            <a class="contact-email" href="mailto:moje-studium@ceskydj.cz">moje-studium@ceskydj.cz</a>
+        </p>
 
-    <p class="footer-contact">
-        <strong class="contact-mini-heading">Kontakt</strong>
-        <a class="contact-email" href="mailto:moje-studium@ceskydj.cz">moje-studium@ceskydj.cz</a>
-    </p>
+        <p class="footer-admin-link" n:if="$user->getRank()->getPermissionLevel() === App\Entity\Rank::ADMIN">
+            <a class="basic-link" href="/admin"><i class="arrow-right-i"></i>Přejít do administrace<i class="arrow-right-i"></i></a>
+        </p>
+    </div>
+
+    <div class="left-column">
+        <p class="footer-info">
+            {spaceless}
+                Jedná se o maturitní projekt (ročník 2019/2020).
+                Autorem je Michal ŠMAHEL, grafické podklady připravila Adéla VYHNÁLKOVÁ.
+                Zdrojové kódy je možné nalézl na
+                <a class="basic-link" href="https://github.com/ceskyDJ/moje-studium">Githubu</a>.
+            {/spaceless}
+        </p>
+    </div>
 </footer>
 
 {* Libraries *}

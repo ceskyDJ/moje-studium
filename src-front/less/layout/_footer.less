@@ -1,17 +1,47 @@
 .page-footer {
   padding: @footer-p @page-side-p;
   background: @footer-bg;
-  display: flex;
-  flex-direction: column-reverse;
   margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
-  .footer-info {
-    margin-top: 0.7em;
+  @media screen and (min-width: @desktop) {
+    flex-direction: row-reverse;
   }
 
-  .footer-contact {
-    .contact-mini-heading {
-      margin-right: .5em;
+  .right-column {
+    .footer-contact {
+      white-space: nowrap;
+
+      .contact-mini-heading {
+        margin-right: .5em;
+      }
+
+      .contact-email {
+        white-space: nowrap;
+      }
     }
+
+    .footer-admin-link {
+      margin-top: .7em;
+    }
+  }
+
+  .left-column {
+    width: 50%;
+
+    .footer-info {
+      margin-top: 0.7em;
+
+      @media screen and (min-width: @desktop) {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .basic-link {
+    font-weight: bold;
+    white-space: nowrap;
   }
 }

@@ -472,6 +472,7 @@ template {
 .notifications-i,
 .notifications-i.active,
 .arrow-right-i,
+.arrow-left-i,
 .simple-arrow-left-i,
 .simple-arrow-right-i,
 .add-i,
@@ -530,6 +531,12 @@ template {
 .approve-i,
 .decline-i,
 .delete-cross-i,
+.user-i,
+.admin-i,
+.change-to-admin-i,
+.change-to-user-i,
+.clear-files-i,
+.delete-user-i,
 #Datepickk .d-header i#d-previous,
 #Datepickk .d-header i#d-next,
 .app-form .form-inputs .form-input-status.positive,
@@ -798,7 +805,9 @@ template {
 .hat-cowboy-p-i,
 .hat-winter-p-i,
 .hat-witch-p-i,
-.hood-cloak-p-i {
+.hood-cloak-p-i,
+.user-i,
+.admin-i {
   position: relative;
   font-family: 'Font Awesome 5 Pro Duotone';
   font-weight: 900;
@@ -816,7 +825,9 @@ template {
 .hat-cowboy-p-i:before,
 .hat-winter-p-i:before,
 .hat-witch-p-i:before,
-.hood-cloak-p-i:before {
+.hood-cloak-p-i:before,
+.user-i:before,
+.admin-i:before {
   position: absolute;
   opacity: 1;
 }
@@ -833,7 +844,9 @@ template {
 .hat-cowboy-p-i:after,
 .hat-winter-p-i:after,
 .hat-witch-p-i:after,
-.hood-cloak-p-i:after {
+.hood-cloak-p-i:after,
+.user-i:after,
+.admin-i:after {
   opacity: 0.4;
 }
 .fa-swap-opacity .fad:before,
@@ -882,7 +895,9 @@ template {
 .move-i,
 .delete-i,
 .decline-i,
-.delete-cross-i {
+.delete-cross-i,
+.change-to-admin-i,
+.change-to-user-i {
   font-family: 'Font Awesome 5 Pro Regular';
   font-weight: 400;
 }
@@ -905,6 +920,7 @@ template {
 .notifications-i,
 .notifications-i.active,
 .arrow-right-i,
+.arrow-left-i,
 .simple-arrow-left-i,
 .simple-arrow-right-i,
 .homework-i,
@@ -936,6 +952,8 @@ template {
 .edit-i,
 .leave-i,
 .approve-i,
+.clear-files-i,
+.delete-user-i,
 #Datepickk .d-header i#d-previous,
 #Datepickk .d-header i#d-next,
 .app-form .form-inputs .form-input-status.positive,
@@ -4301,6 +4319,18 @@ body.active-alert {
 @media screen and (min-width: 1024px) {
   .page,
   .page.with-toolbar .toolbar-page-content {
+    width: 60%;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .page,
+  .page.with-toolbar .toolbar-page-content {
+    width: 50%;
+  }
+}
+@media screen and (min-width: 1920px) {
+  .page,
+  .page.with-toolbar .toolbar-page-content {
     width: 40%;
   }
 }
@@ -4412,20 +4442,53 @@ body.active-alert {
 .page-footer {
   padding: 1em 5%;
   background: #EEE9E5;
+  margin-top: auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
-  -webkit-box-direction: reverse;
-      -ms-flex-direction: column-reverse;
-          flex-direction: column-reverse;
-  margin-top: auto;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
-.page-footer .footer-info {
+@media screen and (min-width: 1024px) {
+  .page-footer {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: row-reverse;
+            flex-direction: row-reverse;
+  }
+}
+.page-footer .right-column .footer-contact {
+  white-space: nowrap;
+}
+.page-footer .right-column .footer-contact .contact-mini-heading {
+  margin-right: 0.5em;
+}
+.page-footer .right-column .footer-contact .contact-email {
+  white-space: nowrap;
+}
+.page-footer .right-column .footer-admin-link {
   margin-top: 0.7em;
 }
-.page-footer .footer-contact .contact-mini-heading {
-  margin-right: 0.5em;
+.page-footer .left-column {
+  width: 50%;
+}
+.page-footer .left-column .footer-info {
+  margin-top: 0.7em;
+}
+@media screen and (min-width: 1024px) {
+  .page-footer .left-column .footer-info {
+    margin-top: 0;
+  }
+}
+.page-footer .basic-link,
+.page-footer .action-link {
+  font-weight: bold;
+  white-space: nowrap;
 }
 .app-form .form-inputs .form-input-row {
   display: grid;
@@ -5394,6 +5457,18 @@ body.active-alert {
 .arrow-right-i:before {
   content: "\f061";
 }
+.arrow-left-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.arrow-left-i:before {
+  content: "\f060";
+}
 .simple-arrow-left-i,
 #Datepickk .d-header i#d-previous {
   -moz-osx-font-smoothing: grayscale;
@@ -6142,6 +6217,86 @@ body.active-alert {
 .delete-cross-i:before {
   content: "\f00d";
 }
+.user-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  color: #F08693;
+}
+.user-i:before {
+  content: "\f19d";
+}
+.user-i:after {
+  content: "\10f19d";
+}
+.admin-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  color: #F3D452;
+}
+.admin-i:before {
+  content: "\f521";
+}
+.admin-i:after {
+  content: "\10f521";
+}
+.change-to-admin-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.change-to-admin-i:before {
+  content: "\f521";
+}
+.change-to-user-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.change-to-user-i:before {
+  content: "\f19d";
+}
+.clear-files-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.clear-files-i:before {
+  content: "\f317";
+}
+.delete-user-i {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+}
+.delete-user-i:before {
+  content: "\f235";
+}
 .link-with-icon,
 .basic-link,
 .action-link {
@@ -6156,6 +6311,16 @@ body.active-alert {
 .action-link:hover {
   cursor: pointer;
   color: #517a77;
+}
+.link-with-icon i:first-child,
+.basic-link i:first-child,
+.action-link i:first-child {
+  margin-right: 0.3em;
+}
+.link-with-icon i:last-child,
+.basic-link i:last-child,
+.action-link i:last-child {
+  margin-left: 0.3em;
 }
 .action-link {
   text-transform: lowercase;
@@ -6693,6 +6858,134 @@ body.active-alert {
 }
 .class-profile-footer .access-requests-table .table-row .action.decline {
   color: #F08693;
+}
+.admin .page-header {
+  background: #84ADAA;
+}
+.admin .page-header .link-button {
+  color: white;
+}
+.admin .page-header .link-button:hover {
+  color: #e6e6e6;
+}
+.admin .main-heading {
+  color: white;
+}
+.admin .page-footer {
+  color: white;
+  background: #84ADAA;
+}
+.admin .page-footer .basic-link,
+.admin .page-footer .action-link {
+  color: #F3D452;
+}
+.admin .page-footer .basic-link:hover,
+.admin .page-footer .action-link:hover {
+  color: #e8bf10;
+}
+.admin-list {
+  width: 100%;
+}
+.admin-list .data-row td {
+  padding: 0.2em 0;
+}
+.admin-list .data-row.classic td {
+  margin-bottom: 0.2em;
+}
+.admin-list .data-row.classic td.actions {
+  color: #84ADAA;
+  padding-left: 0.3em;
+  cursor: pointer;
+}
+.admin-list .line-row td {
+  padding: 0.2em 0;
+}
+.admin-list .line-row td .line {
+  border: 1px solid #EEE9E5;
+  margin: 0;
+}
+.admin-list.users .data-row.classic .rank {
+  padding-right: 0.3em;
+}
+.admin-list.users .data-row.classic .email {
+  display: none;
+}
+@media screen and (min-width: 945px) {
+  .admin-list.users .data-row.classic .email {
+    display: table-cell;
+  }
+}
+.admin-list.users .data-row.classic .username .classic {
+  display: none;
+}
+@media screen and (min-width: 375px) {
+  .admin-list.users .data-row.classic .username .classic {
+    display: inline;
+  }
+  .admin-list.users .data-row.classic .username .short {
+    display: none;
+  }
+}
+.admin-list.users .data-row.classic .quota-usage {
+  border-right: 2px solid #EEE9E5;
+}
+.admin-list.users .data-row.classic .quota-usage .full {
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  .admin-list.users .data-row.classic .quota-usage .full {
+    display: inline;
+  }
+  .admin-list.users .data-row.classic .quota-usage .full .percentage {
+    color: #d9d9d9;
+  }
+  .admin-list.users .data-row.classic .quota-usage .short {
+    display: none;
+  }
+}
+.admin-list.users .data-row.classic .actions {
+  display: grid;
+  grid-template-columns: 1.6em 1.2em 1.1em;
+}
+@media screen and (min-width: 945px) {
+  .admin-list.users .data-row.mobile {
+    display: none;
+  }
+}
+.admin-list.users .data-row.mobile .email {
+  border-right: 2px solid #EEE9E5;
+}
+.admin-list.classes .data-row.classic .school {
+  border-right: 2px solid #EEE9E5;
+}
+@media screen and (min-width: 425px) {
+  .admin-list.classes .data-row.classic .school {
+    border-right: none;
+  }
+}
+.admin-list.classes .data-row.classic .class-name,
+.admin-list.classes .data-row.classic .start-year {
+  display: none;
+}
+@media screen and (min-width: 425px) {
+  .admin-list.classes .data-row.classic .class-name,
+  .admin-list.classes .data-row.classic .start-year {
+    display: table-cell;
+  }
+}
+.admin-list.classes .data-row.classic .class-name {
+  padding: 0 0.3em;
+}
+.admin-list.classes .data-row.classic .actions {
+  width: 1em;
+}
+.admin-list.classes .data-row.mobile .class-info {
+  border-right: 2px solid #EEE9E5;
+}
+@media screen and (min-width: 425px) {
+  .admin-list.classes .data-row.mobile {
+    display: none;
+  }
 }
 /*
   THEMES
