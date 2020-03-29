@@ -3,14 +3,12 @@
 {block content}
     <div class="page multi-page">
         <header class="multi-page-header">
-            {* TODO: Add class "active" to active tab *}
-            <a class="page-tab" href="#">Uživatelé</a>
-            <a class="page-tab active" href="#">Třídy</a>
+            <a class="page-tab _tab-page-changer active" data-page="users" href="javascript:void(0);">Uživatelé</a>
+            <a class="page-tab _tab-page-changer" data-page="classes" href="javascript:void(0);">Třídy</a>
         </header>
 
         {* Users *}
-        {* TODO: Add class "hide" to non-active subpage *}
-        <section class="multi-page-content hide">
+        <section class="multi-page-content _tab-page" data-id="users">
             <table class="admin-list users">
                 <tr class="data-row classic">
                     <td class="rank user-i"></td>
@@ -138,7 +136,7 @@
         </section>
 
         {* Classes *}
-        <section class="multi-page-content">
+        <section class="multi-page-content _tab-page hide" data-id="classes">
             <table class="admin-list classes">
                 <tr class="data-row classic">
                     <td class="school">Obchodní akademie Chrudim</td>
@@ -200,4 +198,9 @@
             </table>
         </section>
     </div>
+{/block}
+
+{block js}
+<script src="js/classes/TabController.js"></script>
+<script src="js/admin/main-page.js"></script>
 {/block}
