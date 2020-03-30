@@ -467,7 +467,10 @@ class FileBrowser
         const folderStructureContainer = document.querySelector("#_folder-structure");
         const folderForRemoving = folderStructureContainer.querySelector(`._folder[data-id="${id}"]`);
 
-        folderStructureContainer.removeChild(folderForRemoving);
+        // If it's folder (file isn't in folder structure container)
+        if(folderForRemoving !== null) {
+            folderStructureContainer.removeChild(folderForRemoving);
+        }
     }
 
     deleteFile(button)
