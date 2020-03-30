@@ -290,6 +290,9 @@ class FileBrowser
 
             // Files can't be downloaded
             newFile.querySelector("._download-container").classList.add("hide");
+            newFile.querySelectorAll("._share-container").forEach(item => {
+                item.classList.add("hide");
+            });
         }
 
         this.handleOpenMoveFileForm(newFile.querySelector("._move-file"));
