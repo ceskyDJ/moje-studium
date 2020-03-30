@@ -11,6 +11,7 @@ use Mammoth\DI\DIClass;
 use Mammoth\Templates\Abstraction\IMessageManager;
 use function date;
 use function explode;
+use function json_encode;
 use function preg_match;
 use function substr;
 
@@ -164,7 +165,7 @@ class ClassManager
         }
 
         // 4.A -> $yearOfStudies = 4, $label = A
-        list($yearOfStudies, $label) = explode(".", $name);
+        [$yearOfStudies, $label] = explode(".", $name);
         if ($yearOfStudies > $studyLength) {
             $yearString = ($yearOfStudies <=4 ? "roky" : "let");
             $this->messageManager->addMessage("Ročník v názvu třídy je vyšší než délka celého studia. Nechtěl jsi nastavit délku studia na {$yearOfStudies} {$yearString}?", self::NEGATIVE_MESSAGE);
@@ -189,5 +190,41 @@ class ClassManager
         $this->userRepository->selectClass((int)$user->getId(), $class);
 
         return true;
+    }
+
+    /**
+     * Deletes existing class
+     *
+     * @param int $class Class's ID
+     *
+     * @return string JSON response
+     */
+    public function deleteClass(int $class): string
+    {
+        if (empty($class)) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Nebyla vyplněna všechna pole",
+                ]
+            );
+        }
+
+        if (($class = $this->classRepository->getById($class)) === null) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Třída neexistuje",
+                ]
+            );
+        }
+
+        $this->classRepository->delete($class->getId());
+
+        return json_encode(
+            [
+                'success' => true,
+            ]
+        );
     }
 }

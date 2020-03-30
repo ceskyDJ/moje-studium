@@ -27,6 +27,14 @@ class DBSchoolClassRepository implements Abstraction\ISchoolClassRepository
     /**
      * @inheritDoc
      */
+    public function getAll(): array
+    {
+        return $this->em->getRepository(SchoolClass::class)->findAll();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getById(int $id): SchoolClass
     {
         /**
