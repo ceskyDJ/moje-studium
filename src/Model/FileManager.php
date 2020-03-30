@@ -5,15 +5,13 @@ declare(strict_types = 1);
 namespace App\Model;
 
 use App\Entity\PrivateFile;
+use App\Entity\User;
 use App\Repository\Abstraction\IFileRepository;
 use App\Repository\Abstraction\IUserRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use DOMDocument;
 use DOMNode;
-use FilesystemIterator;
 use Mammoth\DI\DIClass;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
 use Tracy\Debugger;
 use function filesize;
 use function is_dir;
@@ -472,10 +470,10 @@ class FileManager
             );
         }
 
-        $userFolder = $this->getUserFolder();
-        $newFolderSize = $this->getDirectorySize($userFolder) + $file['size'];
+        $userFolder = $this->userManager->getUserFolder($owner);
+        $newFolderSize = $this->userManager->getDirectorySize($userFolder) + $file['size'];
 
-        if (is_dir($userFolder) === true && $newFolderSize > self::USER_QUOTA) {
+        if ($userFolder !== null && $newFolderSize > self::USER_QUOTA) {
             return json_encode(
                 [
                     'success' => false,
@@ -496,10 +494,10 @@ class FileManager
         $fileId = $this->fileRepository->add($owner, $parent, $file['name'], false)->getId();
 
         // Add user's folder is doesn't exists
-        if (is_dir($userFolder) === false) {
-            mkdir($userFolder);
+        if ($userFolder === null) {
+            $userFolder = $this->makeUserFolder($owner);
         }
-
+        
         move_uploaded_file($file['tmp_name'], "{$userFolder}/{$fileId}");
 
         return json_encode(
@@ -511,33 +509,22 @@ class FileManager
     }
 
     /**
-     * Returns path to user's folder
+     * Makes user's folder if doesn't exist
      *
-     * @return string Absolute path to user's folder
+     * @param \App\Entity\User $user User (future owner of the folder)
+     *
+     * @return string Path to folder
      */
-    private function getUserFolder(): string
+    public function makeUserFolder(User $user): string
     {
-        $user = $this->userManager->getUser();
-
-        return realpath(__DIR__."/../../".self::DATA_DIR."/{$user->getId()}");
-    }
-
-    /**
-     * Returns size of the directory (and its content)
-     *
-     * @param string $name Directory name (full path)
-     *
-     * @return int Size (in bytes)
-     */
-    private function getDirectorySize(string $name): int
-    {
-        $size = 0;
-        $directoryIterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($name, FilesystemIterator::SKIP_DOTS));
-        foreach ($directoryIterator as $file) {
-            $size += $file->getSize();
+        if (($userFolder = $this->userManager->getUserFolder($user)) !== null) {
+            return $userFolder;
         }
 
-        return $size;
+        $folderPath = __DIR__."/../../".FileManager::DATA_DIR."/{$user->getId()}";
+        mkdir($folderPath);
+
+        return realpath($folderPath);
     }
 
     /**
@@ -590,7 +577,7 @@ class FileManager
 
         // File is in filesystem, too (folder isn't)
         if (!$file->isFolder()) {
-            unlink("{$this->getUserFolder()}/{$file->getId()}");
+            unlink("{$this->userManager->getUserFolder($user)}/{$file->getId()}");
         }
 
         // Folder children have to be deleted, too
@@ -620,7 +607,12 @@ class FileManager
                 $this->deleteChildren($child);
             }
 
-            unlink("{$this->getUserFolder()}/{$child->getId()}");
+            /**
+             * @var \App\Entity\User $user
+             */
+            $user = $this->userManager->getUser();
+
+            unlink("{$this->userManager->getUserFolder($user)}/{$child->getId()}");
         }
     }
 
@@ -660,7 +652,7 @@ class FileManager
             return "<script>window.close();</script>";
         }
 
-        $fileAddress = "{$this->getUserFolder()}/{$file->getId()}";
+        $fileAddress = "{$this->userManager->getUserFolder($user)}/{$file->getId()}";
 
         header("Content-Description: File Transfer");
         header("Content-Type: application/octet-stream");
@@ -793,6 +785,48 @@ class FileManager
             [
                 'success' => false,
                 'message' => "Soubor lze sdílet pouze se třídou (\"class\") nebo se spolužákem (\"schoolmate\")",
+            ]
+        );
+    }
+
+    /**
+     * Deletes user's files
+     *
+     * @param int $userId User's ID
+     *
+     * @return string JSON response
+     */
+    public function deleteUsersFiles(int $userId): string
+    {
+        if (empty($userId)) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Nebyla vyplněna všechna pole",
+                ]
+            );
+        }
+
+        /**
+         * @var \App\Entity\User $user
+         */
+        if (($user = $this->userRepository->getById($userId)) === null) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Uživatel neexistuje",
+                ]
+            );
+        }
+
+        $files = $this->fileRepository->getFilesByOwner($user);
+        foreach ($files as $file) {
+            unlink("{$this->userManager->getUserFolder($user)}/{$file->getId()}");
+        }
+
+        return json_encode(
+            [
+                'success' => true,
             ]
         );
     }

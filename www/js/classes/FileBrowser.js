@@ -194,7 +194,10 @@ class FileBrowser
 
     handleShareFile()
     {
-        document.querySelector("#_share-file-form-button").addEventListener("click", _ => this.shareFile());
+        // When the user isn't in any class, this element isn't in DOM
+        if(document.querySelector("#_share-file-form-button") !== null) {
+            document.querySelector("#_share-file-form-button").addEventListener("click", _ => this.shareFile());
+        }
     }
 
     getFileType(fileName)
@@ -298,7 +301,11 @@ class FileBrowser
         this.handleOpenMoveFileForm(newFile.querySelector("._move-file"));
         this.handleOpenRenameFileForm(newFile.querySelector("._rename-file"));
         this.handleDeleteFile(newFile.querySelector("._delete-file"));
-        this.handleOpenShareFileForm(newFile.querySelector("._share-file"));
+
+        // When the user isn't in any class, this element isn't in DOM
+        if(newFile.querySelector("._share-file") !== null) {
+            this.handleOpenShareFileForm(newFile.querySelector("._share-file"));
+        }
 
         this.filesContainer.appendChild(newFile);
     }

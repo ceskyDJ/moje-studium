@@ -50,7 +50,7 @@ class PermissionManager implements IPermissionManager
                 return false;
             }
         } else if ($component === "admin") {
-            return ($this->userManager->getUser()->getRank()->getType() === IRank::ADMIN);
+            return ($this->userManager->isAnyoneLoggedIn() && $this->userManager->getUser()->getRank()->getType() === IRank::ADMIN);
         } else {
             return false;
         }

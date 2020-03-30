@@ -156,7 +156,10 @@ class NotesAndRemindersController
 
     handleShare()
     {
-        document.querySelector("#_share-form-button").addEventListener("click", _ => this.shareReminderOrNote());
+        // When the user isn't in any class, this element isn't in DOM
+        if(document.querySelector("#_share-form-button") !== null) {
+            document.querySelector("#_share-form-button").addEventListener("click", _ => this.shareReminderOrNote());
+        }
     }
 
     openEditReminderForm(item)
@@ -325,7 +328,11 @@ class NotesAndRemindersController
 
         this.handleOpenEditNoteForm(newNote.querySelector("._edit-note"));
         this.handleDeleteNote(newNote.querySelector("._delete-note"));
-        this.handleOpenShareForm(newNote.querySelector("._share"));
+
+        // When the user isn't in any class, this element isn't in DOM
+        if(newNote.querySelector("._share")) {
+            this.handleOpenShareForm(newNote.querySelector("._share"));
+        }
 
         this.notesContainer.appendChild(newNote);
     }

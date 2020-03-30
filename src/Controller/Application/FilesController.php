@@ -8,16 +8,13 @@ use App\Model\FileManager;
 use App\Model\UserManager;
 use App\Repository\Abstraction\IFileRepository;
 use App\Repository\Abstraction\IUserRepository;
-use Doctrine\Common\Util\Debug;
 use Mammoth\Controller\Common\Controller;
 use Mammoth\DI\DIClass;
 use Mammoth\Exceptions\NonExistingKeyException;
 use Mammoth\Http\Entity\Request;
 use Mammoth\Http\Entity\Response;
 use Mammoth\Http\Factory\ResponseFactory;
-use Mammoth\Security\Abstraction\IUserManager;
 use Tracy\Debugger;
-use const SIGUSR1;
 
 /**
  * Controller for files
@@ -67,8 +64,7 @@ class FilesController extends Controller
      */
     public function privateAction(Request $request): Response
     {
-        $response = $this->responseFactory->create($request)->setContentView("private-files")
-            ->setTitle("Moje soubory");
+        $response = $this->responseFactory->create($request)->setContentView("private-files")->setTitle("Moje soubory");
 
         /**
          * @var $user \App\Entity\User
@@ -93,8 +89,9 @@ class FilesController extends Controller
      */
     public function sharedAction(Request $request): Response
     {
-        $response = $this->responseFactory->create($request)->setContentView("shared-files")
-            ->setTitle("Sdílené soubory");
+        $response = $this->responseFactory->create($request)->setContentView("shared-files")->setTitle(
+                "Sdílené soubory"
+            );
 
         /**
          * @var $user \App\Entity\User
@@ -244,7 +241,10 @@ class FilesController extends Controller
         $data = $request->getPost();
         $response = $this->responseFactory->create($request)->setContentView("#code");
 
-        $response->setDataVar("data", $this->fileManager->shareFile((int)$data['file'], $data['with'], (int)$data['schoolmate']));
+        $response->setDataVar(
+            "data",
+            $this->fileManager->shareFile((int)$data['file'], $data['with'], (int)$data['schoolmate'])
+        );
 
         return $response;
     }

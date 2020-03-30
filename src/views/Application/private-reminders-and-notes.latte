@@ -117,7 +117,7 @@
                 <p class="_content">{* {content} *}</p>
                 <i class="action edit-i _edit-note _action-id" data-id="{* {id} *}"></i>
                 <i class="action delete-i _delete-note _action-id" data-id="{* {id} *}"></i>
-                <div n:ifcontent="$user->getClass() !== null" class="action">
+                <div n:inner-if="$user->getClass() !== null" class="action">
                     <i class="_shared shared {* {shared ? "active"} *}{* {from-class-i || from-schoolmate-i} *}"></i>
                     <i class="share-i not-shared _share _action-id" data-id="{* {id} *}" data-content="note"></i>
                 </div>
@@ -129,7 +129,7 @@
                 <p class="_content">{$note->getContent()}</p>
                 <i class="action edit-i _edit-note" data-id="{$note->getId()}"></i>
                 <i class="action delete-i _delete-note" data-id="{$note->getId()}"></i>
-                <div n:ifcontent="$user->getClass() !== null" class="action">
+                <div n:inner-if="$user->getClass() !== null" class="action">
                     <i n:class="_shared, shared, $note->isShared() ? active, $note->isShared() ? 'from-'.$note->whoIsSharedWith().'-i'"></i>
                     <i class="share-i not-shared _share" data-id="{$note->getId()}" data-content="note"></i>
                 </div>
