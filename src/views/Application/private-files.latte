@@ -53,7 +53,7 @@
                             <a class="link-with-icon icon" href="/application/files/download/{* {id} *}" target="_blank"><i class="download-i"></i></a>
                         </div>
                     </td>
-                    <td class="action">
+                    <td n:ifcontent="$user->getClass() !== null" class="action">
                         <div class="action-container shared _shared _share-container {* {shared ? "active"} *}">
                             <i class="_shared-with {* from-{"class" || "schoolmate"}-i *}"></i>
                         </div>
@@ -94,24 +94,20 @@
                         <a href="javascript:void(0);" class="link-with-icon action _rename-file" data-id="{$privateFile->getId()}"><i class="rename-i"></i></a>
                         <a href="javascript:void(0);" class="link-with-icon action _delete-file" data-id="{$privateFile->getId()}"><i class="delete-i"></i></a>
                     </td>
-                    <td class="action">
-                        {if !$privateFile->isFolder()}
-                            <div class="action-container">
-                                <a class="action-link text" href="/application/files/download/{$privateFile->getId()}" target="_blank">Stáhnout</a>
-                                <a class="link-with-icon icon" href="/application/files/download/{$privateFile->getId()}" target="_blank"><i class="download-i"></i></a>
-                            </div>
-                        {/if}
+                    <td n:ifcontent="!$privateFile->isFolder()" class="action">
+                        <div class="action-container">
+                            <a class="action-link text" href="/application/files/download/{$privateFile->getId()}" target="_blank">Stáhnout</a>
+                            <a class="link-with-icon icon" href="/application/files/download/{$privateFile->getId()}" target="_blank"><i class="download-i"></i></a>
+                        </div>
                     </td>
-                    <td class="action">
-                        {if !$privateFile->isFolder()}
-                            <div n:class="action-container, shared, _shared, $privateFile->isShared() ? active">
-                                <i class="_shared-with from-{$privateFile->whoIsSharedWith()}-i"></i>
-                            </div>
-                            <div class="action-container not-shared">
-                                <a href="javascript:void(0);" class="action-link text _share-file" data-id="{$privateFile->getId()}">Sdílet</a>
-                                <a href="javascript:void(0);" class="link-with-icon icon _share-file" data-id="{$privateFile->getId()}"><i class="share-i"></i></a>
-                            </div>
-                        {/if}
+                    <td n:ifcontent="$user->getClass() !== null && !$privateFile->isFolder()" class="action">
+                        <div n:class="action-container, shared, _shared, $privateFile->isShared() ? active">
+                            <i class="_shared-with from-{$privateFile->whoIsSharedWith()}-i"></i>
+                        </div>
+                        <div class="action-container not-shared">
+                            <a href="javascript:void(0);" class="action-link text _share-file" data-id="{$privateFile->getId()}">Sdílet</a>
+                            <a href="javascript:void(0);" class="link-with-icon icon _share-file" data-id="{$privateFile->getId()}"><i class="share-i"></i></a>
+                        </div>
                     </td>
                 </tr>
                 </tbody>
@@ -193,7 +189,7 @@
                 </section>
             </div>
 
-            <div class="alert-box _alert hide" data-id="share-file">
+            <div n:if="$user->getClass() !== null" class="alert-box _alert hide" data-id="share-file">
                 <header class="alert-header">
                     <h3 class="alert-heading">Sdílení</h3>
                 </header>

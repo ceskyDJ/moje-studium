@@ -76,7 +76,10 @@ class FilesController extends Controller
         $user = $this->userManager->getUser();
         $response->setDataVar("privateFiles", $this->fileRepository->getByOwnerAndParent($user));
         $response->setDataVar("folderStructure", $this->fileManager->getFolderStructure());
-        $response->setDataVar("usersInClass", $this->userRepository->getByClass($user->getClass()));
+
+        if ($user->getClass() !== null) {
+            $response->setDataVar("usersInClass", $this->userRepository->getByClass($user->getClass()));
+        }
 
         return $response;
     }

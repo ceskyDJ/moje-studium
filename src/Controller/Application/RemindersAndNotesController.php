@@ -16,7 +16,6 @@ use Mammoth\DI\DIClass;
 use Mammoth\Http\Entity\Request;
 use Mammoth\Http\Entity\Response;
 use Mammoth\Http\Factory\ResponseFactory;
-use const SIGUSR1;
 
 /**
  * Controller for reminders and notes
@@ -99,7 +98,10 @@ class RemindersAndNotesController extends Controller
         $response->setDataVar("reminderUseDays", $this->reminderManager->getNumberOfUseDays($reminders));
         $response->setDataVar("notes", $this->noteRepository->getByUser($user));
         $response->setDataVar("subjects", $this->subjectRepository->getByUser($user));
-        $response->setDataVar("usersInClass", $this->userRepository->getByClass($user->getClass()));
+
+        if ($user->getClass() !== null) {
+            $response->setDataVar("usersInClass", $this->userRepository->getByClass($user->getClass()));
+        }
 
         return $response;
     }
@@ -187,7 +189,10 @@ class RemindersAndNotesController extends Controller
         $data = $request->getParsedUrl()->getData();
         $response = $this->responseFactory->create($request)->setContentView("#code");
 
-        $response->setDataVar("data", $this->reminderManager->getPrivateRemindersInDaysForAjax((int)$data[0], (int)$data[1]));
+        $response->setDataVar(
+            "data",
+            $this->reminderManager->getPrivateRemindersInDaysForAjax((int)$data[0], (int)$data[1])
+        );
 
         return $response;
     }
@@ -204,13 +209,16 @@ class RemindersAndNotesController extends Controller
         $data = $request->getPost();
         $response = $this->responseFactory->create($request)->setContentView("#code");
 
-        $response->setDataVar("data", $this->reminderManager->addReminder(
-            $data['date'],
-            (int)$data['year'],
-            (int)$data['subject'],
-            $data['type'],
-            $data['content']
-        ));
+        $response->setDataVar(
+            "data",
+            $this->reminderManager->addReminder(
+                $data['date'],
+                (int)$data['year'],
+                (int)$data['subject'],
+                $data['type'],
+                $data['content']
+            )
+        );
 
         return $response;
     }
@@ -227,14 +235,17 @@ class RemindersAndNotesController extends Controller
         $data = $request->getPost();
         $response = $this->responseFactory->create($request)->setContentView("#code");
 
-        $response->setDataVar("data", $this->reminderManager->editReminder(
-            (int)$data['id'],
-            $data['date'],
-            (int)$data['year'],
-            (int)$data['subject'],
-            $data['type'],
-            $data['content']
-        ));
+        $response->setDataVar(
+            "data",
+            $this->reminderManager->editReminder(
+                (int)$data['id'],
+                $data['date'],
+                (int)$data['year'],
+                (int)$data['subject'],
+                $data['type'],
+                $data['content']
+            )
+        );
 
         return $response;
     }
@@ -268,7 +279,10 @@ class RemindersAndNotesController extends Controller
         $data = $request->getPost();
         $response = $this->responseFactory->create($request)->setContentView("#code");
 
-        $response->setDataVar("data", $this->reminderManager->shareReminder((int)$data['reminder'], $data['with'], (int)$data['schoolmate']));
+        $response->setDataVar(
+            "data",
+            $this->reminderManager->shareReminder((int)$data['reminder'], $data['with'], (int)$data['schoolmate'])
+        );
 
         return $response;
     }
@@ -336,7 +350,10 @@ class RemindersAndNotesController extends Controller
         $data = $request->getPost();
         $response = $this->responseFactory->create($request)->setContentView("#code");
 
-        $response->setDataVar("data", $this->noteManager->shareNote((int)$data['note'], $data['with'], (int)$data['schoolmate']));
+        $response->setDataVar(
+            "data",
+            $this->noteManager->shareNote((int)$data['note'], $data['with'], (int)$data['schoolmate'])
+        );
 
         return $response;
     }
