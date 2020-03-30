@@ -18,7 +18,16 @@ use App\Entity\User;
 interface IFileRepository
 {
     /**
-     * Finds all private files owned by user
+     * Finds all private files (only files, not folders) owned by user
+     *
+     * @param \App\Entity\User $user
+     *
+     * @return array
+     */
+    public function getFilesByOwner(User $user): array;
+
+    /**
+     * Finds all private files with the parent file owned by user
      *
      * @param \App\Entity\User $user
      * @param \App\Entity\PrivateFile|null $parent
@@ -94,6 +103,13 @@ interface IFileRepository
      * @param int $id
      */
     public function delete(int $id): void;
+
+    /**
+     * Deletes all existing files owned by user
+     *
+     * @param \App\Entity\User $user
+     */
+    public function deleteByOwner(User $user): void;
 
     /**
      * Renames file or folder

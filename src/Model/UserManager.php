@@ -6,11 +6,13 @@ namespace App\Model;
 
 use App\Entity\User;
 use App\Repository\Abstraction\IClassSelectionRequestRepository;
+use App\Repository\Abstraction\IFileRepository;
 use App\Repository\Abstraction\ILoginTokenRepository;
 use App\Repository\Abstraction\IRankRepository;
 use App\Repository\Abstraction\ISchoolClassRepository;
 use App\Repository\Abstraction\ISchoolRepository;
 use App\Repository\Abstraction\IUserRepository;
+use FilesystemIterator;
 use Mammoth\DI\DIClass;
 use Mammoth\Exceptions\NonExistingKeyException;
 use Mammoth\Http\Entity\Server;
@@ -20,17 +22,22 @@ use Mammoth\Security\Entity\IUser;
 use Mammoth\Templates\Abstraction\IMessageManager;
 use Mammoth\Templates\Abstraction\IPrinter;
 use RandomLib;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use SecurityLib\Strength;
+use Tracy\Debugger;
 use function array_map;
 use function bdump;
 use function dump;
 use function explode;
 use function filter_input;
 use function implode;
+use function json_encode;
 use function mb_strlen;
 use function password_hash;
 use function password_verify;
 use function preg_match;
+use function realpath;
 use function rtrim;
 use function ucfirst;
 use const FILTER_VALIDATE_EMAIL;
@@ -376,6 +383,161 @@ class UserManager extends \Mammoth\Security\UserManager
         $this->messageManager->addMessage("Tvoje žádost o přijetí do třídy byla odeslána. Vyčkej prosím, až ji někdo potvrdí", self::POSITIVE_MESSAGE);
 
         return true;
+    }
+
+    /**
+     * Returns all users in the system with their quota using
+     *
+     * @return array All users in the system
+     */
+    public function getAllUsersInSystem(): array
+    {
+        $result = [];
+        $users = $this->userRepository->getAll();
+        foreach ($users as $user) {
+            $folderSize = $this->getDirectorySize($this->getUserFolder($user));
+
+            $result[] = [
+                'user' => $user,
+                'quota' => [
+                    'limit' => (FileManager::USER_QUOTA / 1024 / 1024)."&nbsp;MB",
+                    'absolute' => round($folderSize / 1024 / 1024, 1),
+                    'relative' => round($folderSize / FileManager::USER_QUOTA * 100)
+                ],
+            ];
+        }
+
+        return $result;
+    }
+
+    /**
+     * Changes user's rank
+     *
+     * @param int $userId User's ID
+     * @param string $newRank New rank's name ("user" || "admin")
+     *
+     * @return string JSON response
+     */
+    public function changeRank(int $userId, string $newRank): string
+    {
+        if (empty($userId) || empty($newRank)) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Nebyla vyplněna všechna pole",
+                ]
+            );
+        }
+
+        /**
+         * @var \App\Entity\User $user
+         */
+        if (($user = $this->userRepository->getById($userId)) === null) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Uživatel neexistuje",
+                ]
+            );
+        }
+
+        if (($rank = $this->rankRepository->getByName($newRank)) === null) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Hodnost neexistuje",
+                ]
+            );
+        }
+
+        $this->userRepository->changeRank((int)$user->getId(), $rank);
+
+        return json_encode(
+            [
+                'success' => true,
+            ]
+        );
+    }
+
+    /**
+     * Deletes existing user
+     *
+     * @param int $userId User's ID
+     *
+     * @return string JSON response
+     */
+    public function deleteUser(int $userId): string
+    {
+        if (empty($userId)) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Nebyla vyplněna všechna pole",
+                ]
+            );
+        }
+
+        /**
+         * @var \App\Entity\User $user
+         */
+        if (($user = $this->userRepository->getById($userId)) === null) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Uživatel neexistuje",
+                ]
+            );
+        }
+
+        $this->userRepository->delete($userId);
+
+        return json_encode(
+            [
+                'success' => true,
+            ]
+        );
+    }
+
+    /**
+     * Returns path to user's folder
+     *
+     * @param \App\Entity\User $user User
+     *
+     * @return string|null Absolute path to user's folder or null if doesn't exist
+     * @todo Move to FileManager (after solving the issue with DI)
+     */
+    public function getUserFolder(User $user): ?string
+    {
+        if (($path = realpath(__DIR__."/../../".FileManager::DATA_DIR."/{$user->getId()}"))) {
+            return $path;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Returns size of the directory (and its content)
+     * @todo Move to FileManager (after solving the issue with DI)
+     *
+     * @param string|null $name Directory name (full path)
+     *
+     * @return int Size (in bytes)
+     */
+    public function getDirectorySize(?string $name): int
+    {
+        if ($name === null) {
+            return 0;
+        }
+
+        $size = 0;
+        $directoryIterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($name, FilesystemIterator::SKIP_DOTS)
+        );
+        foreach ($directoryIterator as $file) {
+            $size += $file->getSize();
+        }
+
+        return $size;
     }
 
     /**

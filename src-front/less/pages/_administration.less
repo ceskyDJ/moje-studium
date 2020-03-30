@@ -64,6 +64,10 @@
         .quota-usage {
           border-right: 2px solid @middle-grey;
 
+          @media screen and (min-width: @big-tablet) {
+            border-right: none;
+          }
+
           .full {
             display: none;
           }
@@ -84,8 +88,12 @@
         }
 
         .actions {
-          display: grid;
-          grid-template-columns: 1.6em 1.2em 1.1em;
+          width: .3em + 4.1em; // padding + sum of grid's column widths
+
+          .actions-container {
+            display: grid;
+            grid-template-columns: 1.6em 1.2em 1.3em;
+          }
         }
       }
 

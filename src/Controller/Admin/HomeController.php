@@ -4,11 +4,15 @@ declare(strict_types = 1);
 
 namespace App\Controller\Admin;
 
+use App\Model\FileManager;
+use App\Model\UserManager;
 use Mammoth\Controller\Common\Controller;
 use Mammoth\DI\DIClass;
 use Mammoth\Http\Entity\Request;
 use Mammoth\Http\Entity\Response;
 use Mammoth\Http\Factory\ResponseFactory;
+use Tracy\Debugger;
+use function json_decode;
 
 /**
  * Controller for administration main page
@@ -24,12 +28,82 @@ class HomeController extends Controller
      * @inject
      */
     private ResponseFactory $responseFactory;
+    /**
+     * @inject
+     */
+    private UserManager $userManager;
+    /**
+     * @inject
+     */
+    private FileManager $fileManager;
 
     /**
      * @inheritDoc
      */
     public function defaultAction(Request $request): Response
     {
-        return $this->responseFactory->create($request)->setContentView("main-page")->setTitle("Administrace");
+        $response = $this->responseFactory->create($request)->setContentView("main-page")->setTitle("Administrace");
+
+        $response->setDataVar("systemUsers", $this->userManager->getAllUsersInSystem());
+
+        return $response;
+    }
+
+    /**
+     * Change user's rank
+     *
+     * @param \Mammoth\Http\Entity\Request $request
+     *
+     * @return \Mammoth\Http\Entity\Response
+     */
+    public function changeRankAjaxAction(Request $request): Response
+    {
+        $data = $request->getPost();
+        $response = $this->responseFactory->create($request)->setContentView("#code");
+
+        $response->setDataVar("data", $this->userManager->changeRank((int)$data['user'], $data['rank']));
+
+        return $response;
+    }
+
+    /**
+     * Delete all user's files
+     *
+     * @param \Mammoth\Http\Entity\Request $request
+     *
+     * @return \Mammoth\Http\Entity\Response
+     */
+    public function deleteUserFilesAjaxAction(Request $request): Response
+    {
+        $data = $request->getPost();
+        $response = $this->responseFactory->create($request)->setContentView("#code");
+
+        $response->setDataVar("data", $this->fileManager->deleteUsersFiles((int)$data['user']));
+
+        return $response;
+    }
+
+    /**
+     * Delete user
+     *
+     * @param \Mammoth\Http\Entity\Request $request
+     *
+     * @return \Mammoth\Http\Entity\Response
+     */
+    public function deleteUserAjaxAction(Request $request): Response
+    {
+        $data = $request->getPost();
+        $response = $this->responseFactory->create($request)->setContentView("#code");
+
+        $responseAfterFilesDeleting = json_decode($this->fileManager->deleteUsersFiles((int)$data['user']), true);
+        if ($responseAfterFilesDeleting['success'] === true) {
+            $data = $this->userManager->deleteUser((int)$data['user']);
+        } else {
+            $data = $responseAfterFilesDeleting;
+        }
+
+        $response->setDataVar("data", $data);
+
+        return $response;
     }
 }

@@ -824,6 +824,8 @@ class FileManager
             unlink("{$this->userManager->getUserFolder($user)}/{$file->getId()}");
         }
 
+        $this->fileRepository->deleteByOwner($user);
+
         return json_encode(
             [
                 'success' => true,

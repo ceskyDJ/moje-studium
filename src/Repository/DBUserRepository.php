@@ -35,6 +35,14 @@ class DBUserRepository implements Abstraction\IUserRepository
     /**
      * @inheritDoc
      */
+    public function getAll(): array
+    {
+        return $this->em->getRepository(User::class)->findAll();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getByClass(SchoolClass $class): array
     {
         $query = $this->em->createQuery(/** @lang DQL */ "
@@ -123,7 +131,6 @@ class DBUserRepository implements Abstraction\IUserRepository
         int $id,
         string $username,
         string $password,
-        Rank $rank,
         ?SchoolClass $class,
         string $firstName,
         string $lastName,
@@ -131,12 +138,23 @@ class DBUserRepository implements Abstraction\IUserRepository
     ): void
     {
         $user = $this->getById($id);
-        $user->setPassword($password)->setRank($rank);
+        $user->setPassword($password);
 
         $data = $user->getData();
         $data->setUser($user)->setUsername($username)->setEmail($email)->setFirstName($firstName)->setLastName(
             $lastName
         );
+
+        $this->em->flush();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function changeRank(int $id, Rank $rank): void
+    {
+        $user = $this->getById($id);
+        $user->setRank($rank);
 
         $this->em->flush();
     }

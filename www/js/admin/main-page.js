@@ -1,1 +1,2 @@
 new TabController();
+new UserController();

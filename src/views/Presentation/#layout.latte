@@ -50,7 +50,7 @@
             <a class="contact-email" href="mailto:moje-studium@ceskydj.cz">moje-studium@ceskydj.cz</a>
         </p>
 
-        <p class="footer-admin-link" n:if="$user->getRank()->getPermissionLevel() === App\Entity\Rank::ADMIN">
+        <p class="footer-admin-link" n:if="isset($user) && $user->getRank()->getPermissionLevel() === App\Entity\Rank::ADMIN">
             <a class="basic-link" href="/admin"><i class="arrow-right-i"></i>Přejít do administrace<i class="arrow-right-i"></i></a>
         </p>
     </div>

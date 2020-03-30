@@ -35,6 +35,19 @@ class DBFileRepository implements Abstraction\IFileRepository
     /**
      * @inheritDoc
      */
+    public function getFilesByOwner(User $user): array
+    {
+        $query = $this->em->createQuery(/** @lang DQL */ "
+            SELECT f FROM App\Entity\PrivateFile f WHERE f.owner = :user AND f.folder = FALSE
+        ");
+        $query->setParameter("user", $user);
+
+        return $query->getResult();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getByOwnerAndParent(User $user, ?PrivateFile $parent = null): array
     {
         $query = $this->em->createQuery(/** @lang DQL */ "
@@ -154,6 +167,19 @@ class DBFileRepository implements Abstraction\IFileRepository
     {
         $this->em->remove($this->getById($id));
         $this->em->flush();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function deleteByOwner(User $user): void
+    {
+        $query = $this->em->createQuery(/** @lang DQL */ "
+            DELETE FROM App\Entity\PrivateFile f WHERE f.owner = :user
+        ");
+        $query->setParameter("user", $user);
+
+        $query->execute();
     }
 
     /**

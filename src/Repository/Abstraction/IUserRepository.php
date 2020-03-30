@@ -17,6 +17,13 @@ use App\Entity\User;
 interface IUserRepository
 {
     /**
+     * Returns all users
+     *
+     * @return array
+     */
+    public function getAll(): array;
+
+    /**
      * Finds all user in the class
      *
      * @param \App\Entity\SchoolClass $class
@@ -70,7 +77,6 @@ interface IUserRepository
      * @param int $id
      * @param string $username
      * @param string $password
-     * @param \App\Entity\Rank $rank
      * @param \App\Entity\SchoolClass|null $class
      * @param string $firstName
      * @param string $lastName
@@ -80,12 +86,19 @@ interface IUserRepository
         int $id,
         string $username,
         string $password,
-        Rank $rank,
         ?SchoolClass $class,
         string $firstName,
         string $lastName,
         string $email
     ): void;
+
+    /**
+     * Changes user's rank
+     *
+     * @param int $id
+     * @param \App\Entity\Rank $rank
+     */
+    public function changeRank(int $id, Rank $rank): void;
 
     /**
      * Confirms user
