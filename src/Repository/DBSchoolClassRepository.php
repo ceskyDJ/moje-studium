@@ -7,6 +7,7 @@ namespace App\Repository;
 use App\Entity\School;
 use App\Entity\SchoolClass;
 use Doctrine\ORM\EntityManager;
+use Mammoth\Database\DB;
 use Mammoth\DI\DIClass;
 
 /**
@@ -23,6 +24,10 @@ class DBSchoolClassRepository implements Abstraction\ISchoolClassRepository
      * @inject
      */
     private EntityManager $em;
+    /**
+     * @inject
+     */
+    private DB $db;
 
     /**
      * @inheritDoc
@@ -92,5 +97,13 @@ class DBSchoolClassRepository implements Abstraction\ISchoolClassRepository
         $class->setName($name)->setStartYear($startYear)->setStudyLength($studyLength)->setSchool($school);
 
         $this->em->flush();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function updateClassNames(): void
+    {
+        $this->db->withoutResult("CALL `update_class_names`();");
     }
 }

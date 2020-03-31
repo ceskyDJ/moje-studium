@@ -71,4 +71,9 @@ interface ISchoolClassRepository
      * @param \App\Entity\School $school
      */
     public function edit(int $id, string $name, int $startYear, int $studyLength, School $school): void;
+
+    /**
+     * Updates class names and repairs bad numbers (3.C -> 4.C etc.)
+     */
+    public function updateClassNames(): void;
 }
