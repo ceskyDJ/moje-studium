@@ -1,0 +1,5 @@
+{
+  "success": false,
+  "error-code": 404,
+  "error-message": "Script you're trying to run isn't exists or has been moved."
+}

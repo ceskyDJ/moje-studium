@@ -1,0 +1,5 @@
+{
+  "success": false,
+  "error-code": 403,
+  "error-message": "You have insufficient permissions to do that"
+}

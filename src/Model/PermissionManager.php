@@ -41,7 +41,7 @@ class PermissionManager implements IPermissionManager
      */
     public function verifyAccessToComponent(string $component): bool
     {
-        if ($component === "presentation") {
+        if ($component === "presentation" || $component === "cron") {
             return true;
         } else if ($component === "application") {
             if (($user = $this->userManager->getUser()) !== null) {
