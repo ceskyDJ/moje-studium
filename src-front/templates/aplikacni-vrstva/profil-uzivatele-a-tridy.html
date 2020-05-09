@@ -128,7 +128,6 @@
             <header class="class-profile-header">
                 <nav class="class-profile-menu">
                     <ul class="class-profile-menu-list">
-                        <!-- TODO: třída "active" položce, která odkazuje na aktivní podstránku -->
                         <li class="class-profile-menu-item _profile-menu-item active" data-for="information"><a class="class-profile-menu-link" href="javascript:void(0)">Informace</a></li>
                         <li class="class-profile-menu-item _profile-menu-item" data-for="classrooms"><a class="class-profile-menu-link" href="javascript:void(0)">Učebny</a></li>
                         <li class="class-profile-menu-item _profile-menu-item" data-for="teachers"><a class="class-profile-menu-link" href="javascript:void(0)">Učitelé</a></li>
@@ -139,9 +138,8 @@
                 </nav>
             </header>
 
-            <!-- TODO: Třída "hide" podstránkám, které nemají být zobrazené -->
             <!-- Informace -->
-            <section class="class-profile-content _profile-subpage hide" data-id="information">
+            <section class="class-profile-content _profile-subpage" data-id="information">
                 <form method="post" action="" class="app-form">
                     <div class="form-inputs">
                         <div class="form-input-row">
@@ -188,22 +186,22 @@
                     <div class="table-row">
                         <span class="table-data">A1/10</span>
                         <span class="table-data">tělocvična</span>
-                        <i class="action delete-cross-i"></i>
+                        <i class="action delete-i"></i>
                     </div>
                     <div class="table-row">
                         <span class="table-data">A1/15</span>
                         <span class="table-data">kmenová učebna</span>
-                        <i class="action delete-cross-i"></i>
+                        <i class="action delete-i"></i>
                     </div>
                     <div class="table-row">
                         <span class="table-data">B1/02</span>
                         <span class="table-data"></span>
-                        <i class="action delete-cross-i"></i>
+                        <i class="action delete-i"></i>
                     </div>
                     <div class="table-row">
                         <span class="table-data">B2/03</span>
                         <span class="table-data">ateliér</span>
-                        <i class="action delete-cross-i"></i>
+                        <i class="action delete-i"></i>
                     </div>
                 </div>
             </section>
@@ -250,7 +248,7 @@
             </section>
 
             <!-- Předměty -->
-            <section class="class-profile-content _profile-subpage" data-id="subjects">
+            <section class="class-profile-content _profile-subpage hide" data-id="subjects">
                 <div class="add-item">
                     <!-- TODO: Pokud je zobrazen formulář -> třída "hide" -->
                     <i class="add-i action hide"></i>
@@ -266,22 +264,22 @@
                     <div class="table-row">
                         <span class="table-data">ČJL</span>
                         <span class="table-data">Český jazyk a literatura</span>
-                        <i class="action delete-cross-i"></i>
+                        <i class="action delete-i"></i>
                     </div>
                     <div class="table-row">
                         <span class="table-data">ANJ</span>
                         <span class="table-data">Anglický jazyk</span>
-                        <i class="action delete-cross-i"></i>
+                        <i class="action delete-i"></i>
                     </div>
                     <div class="table-row">
                         <span class="table-data">NĚJ</span>
                         <span class="table-data">Německý jazyk</span>
-                        <i class="action delete-cross-i"></i>
+                        <i class="action delete-i"></i>
                     </div>
                     <div class="table-row">
                         <span class="table-data">SGD</span>
                         <span class="table-data">Seminář grafického designu</span>
-                        <i class="action delete-cross-i"></i>
+                        <i class="action delete-i"></i>
                     </div>
                 </div>
             </section>
