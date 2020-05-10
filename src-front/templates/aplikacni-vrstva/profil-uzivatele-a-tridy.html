@@ -58,24 +58,40 @@
     <div class="page multi-page">
         <header class="multi-page-header">
             <!-- TODO: třídu "active" nastavit aktivní kartě -->
-            <a class="page-tab" href="#">Můj profil</a>
-            <a class="page-tab active" href="#">Profil třídy</a>
+            <a class="page-tab active" href="#">Můj profil</a>
+            <a class="page-tab" href="#">Profil třídy</a>
         </header>
 
         <!-- Můj profil -->
         <!-- TODO: hide nastavit neaktivní podstránce -->
-        <section class="multi-page-content hide">
+        <section class="multi-page-content">
             <div class="profile-image-changer">
-                <div class="profile-icons">
-                    <!-- TODO: Automaticky generované -->
-                    <!-- TODO: Aktuální profilový obrázek vykreslen včetně nastavených barev -->
+                <!-- TODO: Automaticky generované -->
+                <!-- TODO: Aktuální profilový obrázek vykreslen včetně nastavených barev -->
+                <!-- TODO: Add "active" class to selected profile icon -->
+                <div class="profile-icon active">
                     <i class="graduation-cap-p-i icon" style="color: #F3D452; background: #84ADAA;"></i>
-                    <i class="hat-cowboy-p-i icon"></i>
-                    <i class="hat-winter-p-i icon"></i>
-                    <i class="hat-witch-p-i icon"></i>
-                    <i class="hood-cloak-p-i icon"></i>
+
+                    <i class="palette-i action"></i>
                 </div>
-                <div class="action-container">
+                <div class="profile-icon">
+                    <i class="hat-cowboy-p-i icon"></i>
+
+                    <i class="palette-i action"></i>
+                </div>
+                <div class="profile-icon">
+                    <i class="hat-winter-p-i icon"></i>
+
+                    <i class="palette-i action"></i>
+                </div>
+                <div class="profile-icon">
+                    <i class="hat-witch-p-i icon"></i>
+
+                    <i class="palette-i action"></i>
+                </div>
+                <div class="profile-icon">
+                    <i class="hood-cloak-p-i icon"></i>
+
                     <i class="palette-i action"></i>
                 </div>
             </div>
@@ -124,7 +140,7 @@
         </section>
 
         <!-- Profil třídy -->
-        <section class="multi-page-content without-side-padding">
+        <section class="multi-page-content without-side-padding hide">
             <header class="class-profile-header">
                 <i class="open-close-menu hamburger-menu-i"></i>
 

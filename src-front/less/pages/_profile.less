@@ -1,5 +1,16 @@
 .profile-image-changer {
-  .profile-icons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-left: -1em;
+
+  .profile-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 1em;
+    margin-bottom: 1em;
+
     .icon {
       font-size: 2em;
       background: @light-grey;
@@ -10,16 +21,17 @@
         margin-left: .5em;
       }
     }
-  }
-
-  .action-container {
-    margin-left: 1.8em;
-    margin-top: .4em;
 
     .action {
+      visibility: hidden;
+    }
+
+    &.active .action {
+      visibility: visible;
       color: @dark-green;
-      font-size: .7em;
+      font-size: @font-s;
       cursor: pointer;
+      margin-top: 1em;
     }
   }
 }
