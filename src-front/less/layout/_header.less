@@ -15,7 +15,12 @@
         font-weight: bold;
 
         .profile-image {
-          margin-right: .4em;
+          display: none;
+
+          @media screen and (min-width: @middle-phone) {
+            display: initial;
+            margin-right: .4em;
+          }
         }
 
         .class {

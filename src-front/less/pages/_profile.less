@@ -38,16 +38,52 @@
 }
 
 .class-profile-header {
-  margin-top: .7em;
+  position: relative;
+
+  @media screen and (min-width: @tablet) {
+    margin-top: .7em;
+    position: initial;
+  }
+
+  .open-close-menu {
+    color: @dark-green;
+    padding-left: @page-p;
+
+    @media screen and (min-width: @tablet) {
+      display: none;
+    }
+  }
 
   .class-profile-menu {
-    background: @light-grey;
+    position: absolute;
+    z-index: @menu-zi;
+    background: white;
+    width: 100%;
+    border-bottom: 3px solid @middle-grey;
+    padding-bottom: .3em;
+    margin-top: .5em;
+
+    @media screen and (min-width: @tablet) {
+      background: @light-grey;
+      position: initial;
+      z-index: initial;
+      width: auto;
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-top: 0;
+    }
+
     .class-profile-menu-list {
-      display: flex;
-      justify-content: space-between;
-      padding: .2em @page-p;
+      padding: 0 @page-p;
+
+      @media screen and (min-width: @tablet) {
+        display: flex;
+        justify-content: space-between;
+        padding: .2em @page-p;
+      }
 
       .class-profile-menu-item {
+        padding: .1em 0;
         .class-profile-menu-link {
           color: @dark-grey;
           .uppercase();
@@ -57,6 +93,7 @@
         &:hover {
           .class-profile-menu-link {
             color: @dark-green;
+            font-weight: bold;
           }
         }
       }
@@ -66,16 +103,80 @@
 
 .class-profile-content {
   padding: 0 @page-p;
-  margin-top: 2em;
+  margin-top: 1.2em;
+
+  &.without-side-padding {
+    padding: 0;
+  }
+
+  .class-profile-info {
+    width: 100%;
+
+    tr {
+      th {
+        font-weight: normal;
+        text-transform: uppercase;
+        text-align: left;
+        color: @dark-grey;
+        white-space: nowrap;
+        border-right: 2px solid @middle-grey;
+        padding: .4em .8em 0 .4em;
+        vertical-align: top;
+        font-size: @font-s - 0.01em;
+
+        @media screen and (min-width: @big-phone) {
+          width: 11em;
+        }
+      }
+
+      td {
+        padding-left: .8em;
+        font-weight: bold;
+      }
+
+      &.line-row td {
+        padding: 0;
+
+        .line {
+          border-style: solid;
+          border-color: @middle-grey;
+          margin: .2em 0;
+        }
+      }
+    }
+
+    .class-name-form {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .form-input {
+        background: none;
+        border: none;
+        color: @text-c;
+        width: 2em;
+        font-weight: bold;
+        font-family: @caps-font;
+      }
+
+      .actions {
+        .action {
+          color: @dark-green;
+          cursor: pointer;
+        }
+      }
+    }
+  }
 
   .profile-table {
     margin-top: 1em;
 
     .table-row {
       display: grid;
-      grid-template-columns: 5em auto 1em;
+      grid-template-columns: 25% auto 1em;
       align-items: flex-end;
-      padding: .3em 0;
+      grid-gap: 0 1em;
+      padding: .3em 0 .3em .4em;
 
       &:not(:last-child) {
         border-bottom: 2px solid @middle-grey;
@@ -84,7 +185,7 @@
       .action {
         color: @dark-green;
         cursor: pointer;
-        font-size: @font-s - .02em;
+        font-size: @font-s + .1em;
       }
     }
   }
@@ -97,11 +198,22 @@
   }
 
   .profile-simple-form {
-    &:extend(.class-profile-content .profile-table .table-row);
     align-items: center;
+    display: flex;
+
+    &.half-size {
+      width: 50%;
+    }
+
+    &.table-form {
+      display: grid;
+      grid-template-columns: 25% auto 1em;
+      grid-gap: 0 1em;
+      align-items: center;
+    }
 
     .form-input {
-      width: calc(100% - 1em);
+      width: 100%;
       border: 2px solid @middle-grey;
       background: @light-grey;
       color: @dark-grey;
@@ -110,16 +222,143 @@
       &::placeholder {
         color: @placeholder-c;
       }
+
+      &.white-background {
+        background: @white;
+      }
+    }
+
+    .form-select {
+      background: @white;
+      border: 2px solid @middle-grey;
+      padding: .3em .1em;
+      color: @text-c + .1em;
+
+      option[disabled] {
+        display: none;
+      }
     }
 
     .action {
-      font-size: @font-s - 0.02em;
+      font-size: @font-s;
     }
 
     .teacher-name {
       display: grid;
-      grid-template-columns: 5em auto 5em;
+      grid-template-columns: 20% auto 20%;
+      grid-gap: 0 .5em;
     }
+
+    &.half-size {
+      .action {
+        margin-left: .5em;
+      }
+    }
+  }
+
+  .info-text {
+    margin-bottom: 1.2em;
+    padding: 0 @page-p;
+  }
+
+  .class-group {
+    background: @light-grey;
+    padding: 1em @page-p;
+
+    &:not(:first-child) {
+      margin-top: 1.5em;
+    }
+
+    &.form-group {
+      margin-bottom: 1.5em;
+    }
+
+    .group-header {
+      margin-bottom: 1em;
+      display: flex;
+      justify-content: space-between;
+
+      .group-heading {
+        color: @box-heading-c;
+        .uppercase();
+      }
+
+      .action {
+        color: @dark-green;
+        font-size: @font-s + .1em;
+      }
+    }
+
+    .group-section {
+      &:not(:first-child) {
+        margin-top: 1.5em;
+      }
+
+      .group-section-header {
+        .group-section-heading {
+          .uppercase();
+          font-size: @font-s + .1em;
+        }
+      }
+
+      .group-section-content {
+        margin-top: .7em;
+
+        &.two-columns {
+          display: grid;
+          justify-content: space-between;
+          grid-template-columns: 1fr 1fr;
+          grid-gap: 0 2em;
+        }
+
+        .half-row, .row {
+          border-bottom: 2px solid @middle-grey;
+          padding: .3em 0 .2em .4em;
+          display: flex;
+          justify-content: space-between;
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          &.row-with-form {
+            grid-column: span 2;
+            border-bottom: none;
+            margin-bottom: .3em;
+
+            .profile-simple-form {
+              display: grid;
+              grid-template-columns: 1fr 1fr .8em;
+              grid-gap: 0 1em;
+              width: 100%;
+            }
+          }
+
+          .action {
+            color: @dark-green;
+          }
+        }
+
+        .half-row {
+          // Predposledni radek, ktery je v prvnim sloupci
+          &:nth-child(even):nth-last-child(2) {
+            border-bottom: none;
+          }
+        }
+
+        .row:not(.row-with-form) {
+          display: grid;
+          grid-template-columns: 1fr 1fr .7em;
+          grid-gap: 0 2em;
+        }
+      }
+    }
+  }
+
+  .control-button {
+    display: block;
+    margin-top: 1em;
+    margin-left: @page-p;
   }
 }
 
@@ -133,15 +372,36 @@
   }
 
   .access-requests-table {
-    &:extend(.class-profile-content .profile-table all);
+    margin-top: 1em;
+    width: 100%;
 
-    .table-row {
-      grid-template-columns: 8em auto 1.4em 1em;
-
-      .table-data {
+    tr {
+      td {
         &.username {
-          border-right: 2px solid @middle-grey;
           margin-right: .5em;
+          white-space: nowrap;
+          padding-right: .3em;
+          width: 100%;
+
+          @media screen and (min-width: @big-phone) {
+            width: 8em;
+            border-right: 2px solid @middle-grey;
+            padding-right: .8em;
+          }
+        }
+
+        &.email {
+          display: none;
+
+          @media screen and (min-width: @big-phone) {
+            display: initial;
+            padding-left: .8em;
+            width: 100%;
+          }
+        }
+
+        &.actions {
+          white-space: nowrap;
         }
       }
 
@@ -152,6 +412,17 @@
 
         &.decline {
           color: @red;
+          margin-left: .2em;
+        }
+      }
+
+      &.line-row {
+        &:extend(.class-profile-content .class-profile-info tr.line-row all);
+      }
+
+      &.mobile-row {
+        @media screen and (min-width: @big-phone) {
+          display: none;
         }
       }
     }
