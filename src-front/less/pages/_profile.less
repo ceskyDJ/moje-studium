@@ -10,6 +10,7 @@
     align-items: center;
     margin-left: 1em;
     margin-bottom: 1em;
+    position: relative;
 
     .icon {
       font-size: 2em;
@@ -32,6 +33,43 @@
       font-size: @font-s;
       cursor: pointer;
       margin-top: 1em;
+    }
+
+    .color-picker {
+      position: absolute;
+      z-index: 1;
+      background: @middle-grey;
+      display: flex;
+      flex-direction: column;
+      padding: .5em;
+      top: 5.5em;
+
+      .target {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &:not(:first-child) {
+          margin-top: .4em;
+        }
+
+        .name {
+          font-size: @font-s;
+        }
+
+        .color {
+          display: block;
+          width: 1.2em;
+          height: 1.2em;
+          border-radius: 100%;
+          border: 2px solid @white;
+          background: black; // default value of input[type="color"]
+        }
+      }
+
+      .form-input {
+        display: none;
+      }
     }
   }
 }
