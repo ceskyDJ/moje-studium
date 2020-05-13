@@ -76,8 +76,6 @@ interface IUserRepository
      *
      * @param int $id
      * @param string $username
-     * @param string $password
-     * @param \App\Entity\SchoolClass|null $class
      * @param string $firstName
      * @param string $lastName
      * @param string $email
@@ -85,12 +83,18 @@ interface IUserRepository
     public function edit(
         int $id,
         string $username,
-        string $password,
-        ?SchoolClass $class,
         string $firstName,
         string $lastName,
         string $email
     ): void;
+
+    /**
+     * Changes user's password
+     *
+     * @param int $id
+     * @param string $password
+     */
+    public function changePassword(int $id, string $password): void;
 
     /**
      * Changes user's rank

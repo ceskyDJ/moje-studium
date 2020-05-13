@@ -134,7 +134,7 @@ class UserManager extends \Mammoth\Security\UserManager
                 $user->getPassword()
             )) {
             $this->messageManager->addMessage(
-                "Zadal jsi chybnou přezdívku (nebo email) a/nebo heslo",
+                "Zadal/a jsi chybnou přezdívku (nebo email) a/nebo heslo",
                 self::NEGATIVE_MESSAGE
             );
 
@@ -151,6 +151,70 @@ class UserManager extends \Mammoth\Security\UserManager
         }
 
         $this->logInUserToSystem($user, true);
+
+        return true;
+    }
+
+    /**
+     * Changes user's password
+     *
+     * @param string $oldPassword
+     * @param string $password
+     * @param string $passwordAgain
+     *
+     * @return bool Has it been successful?
+     */
+    public function changePassword(string $oldPassword, string $password, string $passwordAgain): bool
+    {
+        if(empty($oldPassword) || empty($password) || empty($passwordAgain)) {
+            $this->messageManager->addMessage("Nebyla vyplněna všechna pole", self::NEGATIVE_MESSAGE);
+
+            return false;
+        }
+
+        /**
+         * @var $user \App\Entity\User
+         */
+        $user = $this->getUser();
+        if (!password_verify($oldPassword, $user->getPassword())) {
+            $this->messageManager->addMessage("Zadané aktuální heslo není správné.", self::NEGATIVE_MESSAGE);
+
+            return false;
+        }
+
+        if ($password !== $passwordAgain) {
+            $this->messageManager->addMessage("Zadaná nová hesla nejsou shodná", self::NEGATIVE_MESSAGE);
+
+            return false;
+        }
+
+        if($oldPassword === $password) {
+            $this->messageManager->addMessage("Nové heslo nesmí být stejné jako současné", self::NEGATIVE_MESSAGE);
+
+            return false;
+        }
+
+        if (mb_strlen($password) < 8) {
+            $this->messageManager->addMessage("Heslo musí být dlouhé minimálně 8 znaků", self::NEGATIVE_MESSAGE);
+
+            return false;
+        }
+
+        if ((bool)preg_match("%[a-z]+%", $password) === false || (bool)preg_match("%[A-Z]+%", $password) === false
+            || (bool)preg_match("%\d+%", $password) === false) {
+            $this->messageManager->addMessage(
+                "Heslo musí obsahovat alespoň jedno malé písmeno, velké písmeno a číslici",
+                self::NEGATIVE_MESSAGE
+            );
+
+            return false;
+        }
+
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
+        $this->userRepository->changePassword((int)$user->getId(), $password);
+
+        $this->messageManager->addMessage("Tvoje heslo bylo úspěšně změněno", self::POSITIVE_MESSAGE);
 
         return true;
     }

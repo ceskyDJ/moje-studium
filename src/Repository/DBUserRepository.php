@@ -127,23 +127,24 @@ class DBUserRepository implements Abstraction\IUserRepository
     /**
      * @inheritDoc
      */
-    public function edit(
-        int $id,
-        string $username,
-        string $password,
-        ?SchoolClass $class,
-        string $firstName,
-        string $lastName,
-        string $email
-    ): void
+    public function edit(int $id, string $username, string $firstName, string $lastName, string $email): void
     {
         $user = $this->getById($id);
-        $user->setPassword($password);
-
         $data = $user->getData();
-        $data->setUser($user)->setUsername($username)->setEmail($email)->setFirstName($firstName)->setLastName(
-            $lastName
-        );
+
+        $data->setUsername($username)->setEmail($email)->setFirstName($firstName)->setLastName($lastName);
+
+        $this->em->flush();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function changePassword(int $id, string $password): void
+    {
+        $user = $this->getById($id);
+
+        $user->setPassword($password);
 
         $this->em->flush();
     }
