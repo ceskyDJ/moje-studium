@@ -26,7 +26,7 @@ interface IProfileIconRepository
      *
      * @param int $id
      *
-     * @return \App\Entity\ProfileIcon
+     * @return \App\Entity\ProfileIcon|null
      */
-    public function getById(int $id): ProfileIcon;
+    public function getById(int $id): ?ProfileIcon;
 }

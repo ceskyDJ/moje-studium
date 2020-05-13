@@ -69,4 +69,61 @@ class ProfilesController extends Controller
 
         return $response;
     }
+
+    /**
+     * Change user's profile image (icon, resp.)
+     *
+     * @param \Mammoth\Http\Entity\Request $request
+     *
+     * @return \Mammoth\Http\Entity\Response
+     */
+    public function changeProfileImageIconAjaxAction(Request $request): Response
+    {
+        $data = $request->getPost();
+        $response = $this->responseFactory->create($request)->setContentView("#code");
+
+        $response->setDataVar("data", $this->userManager->changeProfileImageIcon((int)$data['icon']));
+
+        return $response;
+    }
+
+    /**
+     * Change user's profile image colors
+     *
+     * @param \Mammoth\Http\Entity\Request $request
+     *
+     * @return \Mammoth\Http\Entity\Response
+     */
+    public function changeProfileImageColorsAjaxAction(Request $request): Response
+    {
+        $data = $request->getPost();
+        $response = $this->responseFactory->create($request)->setContentView("#code");
+
+        $response->setDataVar(
+            "data",
+            $this->userManager->changeProfileImageColors($data['icon-color'], $data['background-color'])
+        );
+
+        return $response;
+    }
+
+    /**
+     * Change user's personal data
+     *
+     * @param \Mammoth\Http\Entity\Request $request
+     *
+     * @return \Mammoth\Http\Entity\Response
+     */
+    public function changeUserDataAjaxAction(Request $request): Response
+    {
+        $data = $request->getPost();
+        $response = $this->responseFactory->create($request)->setContentView("#code");
+
+        $response->setDataVar(
+            "data",
+            $this->userManager->changeUserData($data['first-name'], $data['last-name'], $data['nickname'])
+        );
+
+        return $response;
+    }
 }

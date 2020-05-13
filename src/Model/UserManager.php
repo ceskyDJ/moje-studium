@@ -6,8 +6,8 @@ namespace App\Model;
 
 use App\Entity\User;
 use App\Repository\Abstraction\IClassSelectionRequestRepository;
-use App\Repository\Abstraction\IFileRepository;
 use App\Repository\Abstraction\ILoginTokenRepository;
+use App\Repository\Abstraction\IProfileIconRepository;
 use App\Repository\Abstraction\IRankRepository;
 use App\Repository\Abstraction\ISchoolClassRepository;
 use App\Repository\Abstraction\ISchoolRepository;
@@ -25,10 +25,7 @@ use RandomLib;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use SecurityLib\Strength;
-use Tracy\Debugger;
 use function array_map;
-use function bdump;
-use function dump;
 use function explode;
 use function filter_input;
 use function implode;
@@ -40,6 +37,7 @@ use function preg_match;
 use function realpath;
 use function round;
 use function rtrim;
+use function strtoupper;
 use function ucfirst;
 use const FILTER_VALIDATE_EMAIL;
 use const PASSWORD_DEFAULT;
@@ -91,6 +89,10 @@ class UserManager extends \Mammoth\Security\UserManager
      * @inject
      */
     private IClassSelectionRequestRepository $selectionRequestRepository;
+    /**
+     * @inject
+     */
+    private IProfileIconRepository $profileIconRepository;
     /**
      * @inject
      */
@@ -617,10 +619,169 @@ class UserManager extends \Mammoth\Security\UserManager
         $folderSize = $this->getDirectorySize($this->getUserFolder($user));
 
         return [
-            'limit' => (FileManager::USER_QUOTA / 1024 / 1024)."&nbsp;MB",
+            'limit'    => (FileManager::USER_QUOTA / 1024 / 1024)."&nbsp;MB",
             'absolute' => round($folderSize / 1024 / 1024, 1),
-            'relative' => round($folderSize / FileManager::USER_QUOTA * 100)
+            'relative' => round($folderSize / FileManager::USER_QUOTA * 100),
         ];
+    }
+
+    /**
+     * Changes user's profile image icon
+     *
+     * @param int $icon New icon's ID
+     *
+     * @return string JSON response
+     */
+    public function changeProfileImageIcon(int $icon): string
+    {
+        if (empty($icon)) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Nebyla vyplněna všechna pole",
+                ]
+            );
+        }
+
+        if (($icon = $this->profileIconRepository->getById($icon)) === null) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Ikona neexistuje",
+                ]
+            );
+        }
+
+        $this->userRepository->changeProfileImageIcon((int)$this->getUser()->getId(), $icon);
+
+        return json_encode(
+            [
+                'success' => true,
+            ]
+        );
+    }
+
+    /**
+     * Changes user's profile image colors
+     *
+     * @param string $iconColor Icon color in HEX
+     * @param string $backgroundColor Background color in HEX
+     *
+     * @return string JSON response
+     */
+    public function changeProfileImageColors(string $iconColor, string $backgroundColor): string
+    {
+        if (empty($iconColor) || empty($backgroundColor)) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Nebyla vyplněna všechna pole",
+                ]
+            );
+        }
+
+        $iconColor = strtoupper($iconColor);
+        if (preg_match("%^#[0-9A-F]{6}$%", $iconColor) === 0) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Chybný formát barvy ikony. Správně je to: #ABCDEF",
+                ]
+            );
+        }
+
+        $backgroundColor = strtoupper($backgroundColor);
+        if (preg_match("%^#[0-9A-F]{6}$%", $backgroundColor) === 0) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Chybný formát barvy pozadí. Správně je to: #ABCDEF",
+                ]
+            );
+        }
+
+        if ($iconColor === $backgroundColor) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Barva ikony musí být odlišná od barvy pozadí",
+                ]
+            );
+        }
+
+        $this->userRepository->changeProfileImageColors((int)$this->getUser()->getId(), $iconColor, $backgroundColor);
+
+        return json_encode(
+            [
+                'success' => true,
+            ]
+        );
+    }
+
+    /**
+     * Changes user's personal data
+     *
+     * @param string $firstName First name
+     * @param string $lastName Last name
+     * @param string $nickname Login name (nick)
+     *
+     * @return string JSON response
+     */
+    public function changeUserData(string $firstName, string $lastName, string $nickname): string
+    {
+        if (empty($firstName) || empty($lastName) || empty($nickname)) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Nebyla vyplněna všechna pole",
+                ]
+            );
+        }
+
+        if (mb_strlen($firstName) < 3 || mb_strlen($lastName) < 3) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Zkontroluj si správnost jména a příjmení",
+                ]
+            );
+        }
+
+        $firstName = ucfirst($firstName);
+
+        $lastNameParts = explode(" ", $lastName);
+        $lastNameParts = array_map(fn($item) => ucfirst($item), $lastNameParts);
+        $lastName = implode(" ", $lastNameParts);
+
+        if (mb_strlen($nickname) < 3) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Přezdívka by měla být dlouhá alespoň 3 znaky",
+                ]
+            );
+        }
+
+        /**
+         * @var $user \App\Entity\User
+         */
+        $user = $this->getUser();
+        if ($user->getData()->getUsername() !== $nickname && $this->userRepository->getByUsernameOrEmail($nickname) !== null) {
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => "Zadaná přezdívka je již používána",
+                ]
+            );
+        }
+
+        $this->userRepository->edit((int)$user->getId(), $nickname, $firstName, $lastName);
+
+        return json_encode(
+            [
+                'success' => true,
+            ]
+        );
     }
 
     /**

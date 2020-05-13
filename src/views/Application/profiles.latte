@@ -14,52 +14,54 @@
             <div n:inner-foreach="$profileIcons as $icon" class="profile-image-changer">
                 {var $profileImage = $user->getProfileImage()}
                 {var $active = ($icon->getId() === $profileImage->getIcon()->getId())}
-                {* TODO: Actual profile image drawed with set up colors *}
-                {* TODO: Add "active" class to selected profile icon *}
-                <div n:class="_profile-icon, profile-icon, $active ? active" {if $active}data-color="{$profileImage->getIconColor()|noescape}" data-background="{$profileImage->getBackgroundColor()|noescape}"{/if}>
-                    <i class="_icon {$icon->getName()}-p-i icon" {if $active}style="color: {$profileImage->getIconColor()|noescape}; background: {$profileImage->getBackgroundColor()|noescape};"{/if}></i>
+                <div n:class="_profile-icon, profile-icon, $active ? active" data-id="{$icon->getId()}" {if $active}data-color="{$profileImage->getIconColor()|noescape}" data-background="{$profileImage->getBackgroundColor()|noescape}"{/if}>
+                    <i class="_icon {$icon->getName()}-p-i icon" {if $active}style="color: {$profileImage->getIconColor()|noescape}; background-color: {$profileImage->getBackgroundColor()|noescape};"{/if}></i>
 
                     <i class="_open-color-picker palette-i action" data-for="{$iterator->counter}"></i>
 
                     <form class="_color-picker color-picker hide" data-id="{$iterator->counter}">
-                        <label for="icon-{$iterator->counter}" class="target">
+                        <label for="icon-{$iterator->counter}" class="_color-input-label target">
                             <span class="name">ikonka</span>
-                            <span class="color" style="background: {$profileImage->getIconColor()|noescape};"></span>
+                            <span class="_color color" style="background-color: {$profileImage->getIconColor()|noescape};"></span>
                         </label>
-                        <input type="color" name="icon-color" class="form-input" id="icon-{$iterator->counter}" />
+                        <input type="color" name="icon-color" class="_color-input form-input" id="icon-{$iterator->counter}" {if $active}value="{$profileImage->getIconColor()|noescape}"{/if} />
 
-                        <label for="background-{$iterator->counter}" class="target">
+                        <label for="background-{$iterator->counter}" class="_color-input-label target">
                             <span class="name">pozadí</span>
-                            <span class="color" style="background: {$profileImage->getBackgroundColor()|noescape};"></span>
+                            <span class="_color color" style="background-color: {$profileImage->getBackgroundColor()|noescape};"></span>
                         </label>
-                        <input type="color" name="background-color" class="form-input" id="background-{$iterator->counter}" />
+                        <input type="color" name="background-color" class="_color-input form-input" id="background-{$iterator->counter}" {if $active}value="{$profileImage->getBackgroundColor()|noescape}"{/if} />
                     </form>
                 </div>
             </div>
 
             <div class="user-data">
                 {var $userData = $user->getData()}
-                <form method="post" action="" class="app-form">
+                <form method="post" action="" class="app-form" id="_user-data-form">
                     <div class="form-inputs">
-                        <div class="form-input-row">
-                            <label for="first-name" class="form-label">Jméno</label>
-                            <input name="first-name" type="text" id="first-name" class="form-input" disabled autofocus value="{$userData->getFirstName()}" />
-                            <i class="form-input-action edit-i"></i>
+                        <div class="_input-container form-input-row">
+                            <label for="_user-data-form-first-name" class="form-label">Jméno</label>
+                            <input name="first-name" type="text" id="_user-data-form-first-name" class="form-input" disabled autofocus autocomplete="given-name" value="{$userData->getFirstName()}" />
+                            <i class="_edit-user-data form-input-action edit-i" data-for="_user-data-form-first-name"></i>
+                            <i class="_save-user-data form-input-action done-i hide"></i>
                         </div>
-                        <div class="form-input-row">
-                            <label for="last-name" class="form-label">Příjmení</label>
-                            <input name="last-name" type="text" id="last-name" class="form-input" disabled value="{$userData->getLastName()}" />
-                            <i class="form-input-action edit-i"></i>
+                        <div class="_input-container form-input-row">
+                            <label for="_user-data-form-last-name" class="form-label">Příjmení</label>
+                            <input name="last-name" type="text" id="_user-data-form-last-name" class="form-input" disabled autocomplete="family-name" value="{$userData->getLastName()}" />
+                            <i class="_edit-user-data form-input-action edit-i" data-for="_user-data-form-last-name"></i>
+                            <i class="_save-user-data form-input-action done-i hide"></i>
                         </div>
-                        <div class="form-input-row">
-                            <label for="login-name" class="form-label">Přihlašovací jméno</label>
-                            <input name="login-name" type="text" id="login-name" class="form-input" disabled value="{$userData->getUsername()}" />
-                            <i class="form-input-action edit-i"></i>
+                        <div class="_input-container form-input-row">
+                            <label for="_user-data-form-login-name" class="form-label">Přihlašovací jméno</label>
+                            <input name="login-name" type="text" id="_user-data-form-login-name" class="form-input" disabled autocomplete="nickname" value="{$userData->getUsername()}" />
+                            <i class="_edit-user-data form-input-action edit-i" data-for="_user-data-form-login-name"></i>
+                            <i class="_save-user-data form-input-action done-i hide"></i>
                         </div>
-                        <div class="form-input-row">
-                            <label for="email" class="form-label">Email</label>
-                            <input name="email" type="email" id="email" class="form-input" disabled value="{$userData->getEmail()}" />
-                            <i class="form-input-action edit-i"></i>
+                        <div class="_input-container form-input-row">
+                            <label for="_user-data-form-email" class="form-label">Email</label>
+                            <input name="email" type="email" id="_user-data-form-email" class="form-input" disabled value="{$userData->getEmail()}" />
+                            {*<i class="_edit-user-data form-input-action edit-i" data-for="_user-data-form-email"></i>*}
+                            {*<i class="_save-user-data form-input-action done-i hide"></i>*}
                         </div>
                     </div>
 
@@ -67,10 +69,7 @@
                         <a class="action-link action" href="/application/change-password">Změnit heslo</a>
                     </div>
 
-                    <div class="form-alerts">
-                        <p class="form-alert negative">Nebyla vyplněna všechna pole.</p>
-                        <p class="form-alert negative">Byl zadán špatný formát emailové adresy.</p>
-                    </div>
+                    <div class="form-alerts" id="_user-data-form-alerts"></div>
                 </form>
             </div>
 

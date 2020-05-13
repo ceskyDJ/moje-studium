@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace App\Repository\Abstraction;
 
+use App\Entity\ProfileIcon;
 use App\Entity\Rank;
 use App\Entity\SchoolClass;
 use App\Entity\User;
@@ -78,14 +79,12 @@ interface IUserRepository
      * @param string $username
      * @param string $firstName
      * @param string $lastName
-     * @param string $email
      */
     public function edit(
         int $id,
         string $username,
         string $firstName,
-        string $lastName,
-        string $email
+        string $lastName
     ): void;
 
     /**
@@ -95,6 +94,14 @@ interface IUserRepository
      * @param string $password
      */
     public function changePassword(int $id, string $password): void;
+
+    /**
+     * Cahnges user's email
+     *
+     * @param int $id
+     * @param string $email
+     */
+    public function changeEmail(int $id, string $email): void;
 
     /**
      * Changes user's rank
@@ -125,4 +132,21 @@ interface IUserRepository
      * @param \App\Entity\SchoolClass $class
      */
     public function selectClass(int $id, SchoolClass $class): void;
+
+    /**
+     * Changes user's profile image colors
+     *
+     * @param int $id
+     * @param string $iconColor
+     * @param string $backgroundColor
+     */
+    public function changeProfileImageColors(int $id, string $iconColor, string $backgroundColor): void;
+
+    /**
+     * Changes user's profile image icon
+     *
+     * @param int $id
+     * @param \App\Entity\ProfileIcon $icon
+     */
+    public function changeProfileImageIcon(int $id, ProfileIcon $icon): void;
 }

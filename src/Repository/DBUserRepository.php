@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace App\Repository;
 
+use App\Entity\ProfileIcon;
 use App\Entity\ProfileImage;
 use App\Entity\Rank;
 use App\Entity\SchoolClass;
@@ -127,12 +128,25 @@ class DBUserRepository implements Abstraction\IUserRepository
     /**
      * @inheritDoc
      */
-    public function edit(int $id, string $username, string $firstName, string $lastName, string $email): void
+    public function edit(int $id, string $username, string $firstName, string $lastName): void
     {
         $user = $this->getById($id);
         $data = $user->getData();
 
-        $data->setUsername($username)->setEmail($email)->setFirstName($firstName)->setLastName($lastName);
+        $data->setUsername($username)->setFirstName($firstName)->setLastName($lastName);
+
+        $this->em->flush();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function changeEmail(int $id, string $email): void
+    {
+        $user = $this->getById($id);
+        $data = $user->getData();
+
+        $data->setEmail($email);
 
         $this->em->flush();
     }
@@ -189,6 +203,32 @@ class DBUserRepository implements Abstraction\IUserRepository
     {
         $user = $this->getById($id);
         $user->setClass($class);
+
+        $this->em->flush();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function changeProfileImageColors(int $id, string $iconColor, string $backgroundColor): void
+    {
+        $user = $this->getById($id);
+        $profileImage = $user->getProfileImage();
+
+        $profileImage->setIconColor($iconColor)->setBackgroundColor($backgroundColor);
+
+        $this->em->flush();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function changeProfileImageIcon(int $id, ProfileIcon $icon): void
+    {
+        $user = $this->getById($id);
+        $profileImage = $user->getProfileImage();
+
+        $profileImage->setIcon($icon);
 
         $this->em->flush();
     }
