@@ -26,6 +26,16 @@ interface IClassSelectionRequestRepository
     public function getById(int $id): ClassSelectionRequest;
 
     /**
+     * Finds all class selection requests for the class
+     *
+     * @param \App\Entity\SchoolClass $class
+     * @param bool $onlyActive
+     *
+     * @return \App\Entity\ClassSelectionRequest[]
+     */
+    public function getByClass(SchoolClass $class, bool $onlyActive): array;
+
+    /**
      * Adds (resp. creates) new class selection request
      *
      * @param \App\Entity\User $user

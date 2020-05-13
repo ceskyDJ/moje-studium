@@ -28,6 +28,22 @@ class DBClassGroupRepository implements IClassGroupRepository
     /**
      * @inheritDoc
      */
+    public function getByClass(SchoolClass $class): array
+    {
+        $query = $this->em->createQuery(/** @lang DQL */ "
+            SELECT g, CASE WHEN g.name = 'CLASS' THEN 1 ELSE 0 END AS HIDDEN sorting
+            FROM App\Entity\ClassGroup g
+            WHERE g.class = :class
+            ORDER BY sorting DESC, g.id
+        ");
+        $query->setParameter("class", $class);
+
+        return $query->getResult();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getById(int $id): ClassGroup
     {
         /**

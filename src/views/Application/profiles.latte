@@ -1,5 +1,350 @@
 {layout $layoutView}
 
 {block content}
+    <div class="page multi-page">
+        <header class="multi-page-header">
+            <a class="_change-profile-page page-tab active" data-for="user-profile" href="javascript:void(0);">Můj
+                profil</a>
+            <a class="_change-profile-page page-tab" data-for="class-profile" href="javascript:void(0);">Profil
+                třídy</a>
+        </header>
 
+        {* Můj profil *}
+        <section class="_profile-page multi-page-content" data-page="user-profile">
+            <div n:inner-foreach="$profileIcons as $icon" class="profile-image-changer">
+                {var $profileImage = $user->getProfileImage()}
+                {var $active = ($icon->getId() === $profileImage->getIcon()->getId())}
+                {* TODO: Actual profile image drawed with set up colors *}
+                {* TODO: Add "active" class to selected profile icon *}
+                <div n:class="_profile-icon, profile-icon, $active ? active" {if $active}data-color="{$profileImage->getIconColor()|noescape}" data-background="{$profileImage->getBackgroundColor()|noescape}"{/if}>
+                    <i class="_icon {$icon->getName()}-p-i icon" {if $active}style="color: {$profileImage->getIconColor()|noescape}; background: {$profileImage->getBackgroundColor()|noescape};"{/if}></i>
+
+                    <i class="_open-color-picker palette-i action" data-for="{$iterator->counter}"></i>
+
+                    <form class="_color-picker color-picker hide" data-id="{$iterator->counter}">
+                        <label for="icon-{$iterator->counter}" class="target">
+                            <span class="name">ikonka</span>
+                            <span class="color" style="background: {$profileImage->getIconColor()|noescape};"></span>
+                        </label>
+                        <input type="color" name="icon-color" class="form-input" id="icon-{$iterator->counter}" />
+
+                        <label for="background-{$iterator->counter}" class="target">
+                            <span class="name">pozadí</span>
+                            <span class="color" style="background: {$profileImage->getBackgroundColor()|noescape};"></span>
+                        </label>
+                        <input type="color" name="background-color" class="form-input" id="background-{$iterator->counter}" />
+                    </form>
+                </div>
+            </div>
+
+            <div class="user-data">
+                {var $userData = $user->getData()}
+                <form method="post" action="" class="app-form">
+                    <div class="form-inputs">
+                        <div class="form-input-row">
+                            <label for="first-name" class="form-label">Jméno</label>
+                            <input name="first-name" type="text" id="first-name" class="form-input" disabled autofocus value="{$userData->getFirstName()}" />
+                            <i class="form-input-action edit-i"></i>
+                        </div>
+                        <div class="form-input-row">
+                            <label for="last-name" class="form-label">Příjmení</label>
+                            <input name="last-name" type="text" id="last-name" class="form-input" disabled value="{$userData->getLastName()}" />
+                            <i class="form-input-action edit-i"></i>
+                        </div>
+                        <div class="form-input-row">
+                            <label for="login-name" class="form-label">Přihlašovací jméno</label>
+                            <input name="login-name" type="text" id="login-name" class="form-input" disabled value="{$userData->getUsername()}" />
+                            <i class="form-input-action edit-i"></i>
+                        </div>
+                        <div class="form-input-row">
+                            <label for="email" class="form-label">Email</label>
+                            <input name="email" type="email" id="email" class="form-input" disabled value="{$userData->getEmail()}" />
+                            <i class="form-input-action edit-i"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-links">
+                        <a class="action-link action" href="/application/change-password">Změnit heslo</a>
+                    </div>
+
+                    <div class="form-alerts">
+                        <p class="form-alert negative">Nebyla vyplněna všechna pole.</p>
+                        <p class="form-alert negative">Byl zadán špatný formát emailové adresy.</p>
+                    </div>
+                </form>
+            </div>
+
+            <div class="quota">
+                <div class="quota-progress-bar" id="_quota-progress-bar" data-value="{$userQuota['relative']}">
+                    <div class="quota-text">
+                        <span>využito</span>
+                        <span>{$userQuota['absolute']}/{$userQuota['limit']|noescape}</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {* Profil třídy *}
+        {var $class = $user->getClass()}
+        <section class="_profile-page multi-page-content without-side-padding hide" data-page="class-profile">
+            <header class="class-profile-header">
+                <i class="open-close-menu hamburger-menu-i" id="_class-profile-menu-control-b"></i>
+
+                <div class="class-profile-menu-container mobile-hide" id="_class-profile-menu-container">
+                    <nav class="class-profile-menu">
+                        <ul class="class-profile-menu-list">
+                            <li class="class-profile-menu-item _profile-menu-item active" data-for="information">
+                                <a class="class-profile-menu-link" href="javascript:void(0)">Informace</a></li>
+                            <li class="class-profile-menu-item _profile-menu-item" data-for="classrooms">
+                                <a class="class-profile-menu-link" href="javascript:void(0)">Učebny</a></li>
+                            <li class="class-profile-menu-item _profile-menu-item" data-for="teachers">
+                                <a class="class-profile-menu-link" href="javascript:void(0)">Učitelé</a></li>
+                            <li class="class-profile-menu-item _profile-menu-item" data-for="subjects">
+                                <a class="class-profile-menu-link" href="javascript:void(0)">Předměty</a></li>
+                            <li class="class-profile-menu-item _profile-menu-item" data-for="groups">
+                                <a class="class-profile-menu-link" href="javascript:void(0)">Skupiny</a></li>
+                            {*<li class="class-profile-menu-item _profile-menu-item" data-for="lessons">
+                                <a class="class-profile-menu-link" href="javascript:void(0)">Vyučovací hodiny</a></li>*}
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+
+            {* Informace *}
+            <section class="class-profile-content _profile-subpage" data-id="information">
+                <table class="class-profile-info">
+                    <tr>
+                        <th>Škola</th>
+                        <td>{$class->getSchool()->getName()}</td>
+                    </tr>
+                    <tr class="line-row">
+                        <td colspan="2">
+                            <hr class="line" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="class">Třída</label></th>
+                        <td>
+                            <form class="class-name-form" method="post">
+                                <input class="form-input" disabled id="class" name="class" type="text" value="{$class->getName()}" />
+
+                                <span class="actions">
+                                    <i class="action leave-i"></i>
+                                    <button class="icon-button"><i class="action edit-i"></i></button>
+                                </span>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr class="line-row">
+                        <td colspan="2">
+                            <hr class="line" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Počáteční rok</th>
+                        <td>{$class->getStartYear()}/{$class->getStartYear() + 1|substr:2}</td>
+                    </tr>
+                    <tr class="line-row">
+                        <td colspan="2">
+                            <hr class="line" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Délka studia</th>
+                        <td>{$class->getStudyLength()} {$class->getStudyLength() === 1 ? "rok" : ($class->getStudyLength() >= 5 ? "let" : "roky")}</td>
+                    </tr>
+                </table>
+            </section>
+
+            {* Učebny *}
+            <section class="class-profile-content _profile-subpage hide" data-id="classrooms">
+                <div class="add-item">
+                    {* TODO: Pokud je zobrazen formulář -> třída "hide" *}
+                    <i class="add-i action hide"></i>
+
+                    <form class="profile-simple-form table-form">
+                        <input name="name" type="text" class="form-input" placeholder="Název" title="Zadej školní název učebny" />
+                        <input name="description" type="text" class="form-input" placeholder="Popis" title="Zadej vlastní popis" />
+                        <i class="action done-i"></i>
+                    </form>
+                </div>
+
+                <div class="profile-table">
+                    <div n:foreach="$class->getClassrooms() as $classroom" class="table-row">
+                        <span class="table-data">{$classroom->getName()}</span>
+                        <span class="table-data">{$classroom->getDescription()}</span>
+                        <i class="action delete-i"></i>
+                    </div>
+                </div>
+            </section>
+
+            {* Učitelé *}
+            <section class="class-profile-content _profile-subpage hide" data-id="teachers">
+                <div class="add-item">
+                    {* TODO: Pokud je zobrazen formulář -> třída "hide" *}
+                    <i class="add-i action hide"></i>
+
+                    <form class="profile-simple-form table-form">
+                        <input name="shortcut" type="text" class="form-input" placeholder="Zkratka" title="Zadej zkratku, kterou učiteli udělila škola" />
+                        <div class="teacher-name">
+                            <input name="degree-before" type="text" class="form-input" placeholder="Titul(y)" title="Zadej všechny tituly, které má učitel před jménem" />
+                            <input name="name" type="text" class="form-input" placeholder="Jméno a příjmení" title="Zadej celé jméno učitele" />
+                            <input name="degree-after" type="text" class="form-input" placeholder="Titul(y)" title="Zadej všechny tituly, které má učitel za jménem" />
+                        </div>
+                        <i class="action done-i"></i>
+                    </form>
+                </div>
+
+                <div class="profile-table">
+                    <div n:foreach="$class->getTeachers() as $teacher" class="table-row">
+                        <span class="table-data">{$teacher->getShortcut()}</span>
+                        <span class="table-data">{$teacher->getCompleteName()}</span>
+                        <i class="action delete-cross-i"></i>
+                    </div>
+                </div>
+            </section>
+
+            {* Předměty *}
+            <section class="class-profile-content _profile-subpage hide" data-id="subjects">
+                <div class="add-item">
+                    {* TODO: Pokud je zobrazen formulář -> třída "hide" *}
+                    <i class="add-i action hide"></i>
+
+                    <form class="profile-simple-form table-form">
+                        <input name="shortcut" type="text" class="form-input" placeholder="Zkratka" title="Zadej zkratku předmětu používanou školou" />
+                        <input name="name" type="text" class="form-input" placeholder="Název" title="Zadej celý název předmětu" />
+                        <i class="action done-i"></i>
+                    </form>
+                </div>
+
+                <div class="profile-table">
+                    <div n:foreach="$class->getSubjects() as $subject" class="table-row">
+                        <span class="table-data">{$subject->getShortcut()}</span>
+                        <span class="table-data">{$subject->getName()}</span>
+                        <i class="action delete-i"></i>
+                    </div>
+                </div>
+            </section>
+
+            {* Skupiny *}
+            <section class="class-profile-content without-side-padding _profile-subpage hide" data-id="groups">
+                <p class="info-text">
+                    Dělí se tvá třída v některých hodinách na skupiny? Zde je můžeš vytvořit a přiřadit k nim
+                    žáky/studenty,
+                    předměty a učitele,
+                    <del title="Tato funkce je zatím ve vývoji.">abys následně mohl/a sestavit pro každou skupinu
+                        samostatný rozvrh.
+                    </del>
+                </p>
+
+                <div n:foreach="$classGroups as $group" class="class-group">
+                    <header class="group-header">
+                        <h3 class="group-heading">{$group->getName() !== "CLASS" ? $group->getName() : "Celá třída"}</h3>
+                    </header>
+
+                    <section class="group-section">
+                        <header class="group-section-header">
+                            <h4 class="group-section-heading">Žáci/studenti</h4>
+                        </header>
+
+                        <section class="group-section-content two-columns">
+                            {if $group->getName() !== "CLASS"}
+                                <div class="row row-with-form">
+                                    <form class="profile-simple-form">
+                                        <select class="form-select" name="student" title="Vyber žáka/studenta, který má být pridán do skupiny">
+                                            <option disabled selected>{if !$group->getUsers()->isEmpty()}Žák/student{else}Vytvoř seznam žáků/studentů{/if}</option>
+                                            <option n:foreach="$group->getUsersNotInGroup() as $student" value="{$student->getId()}">{$student->getData()->getFullName()}</option>
+                                        </select>
+                                    </form>
+                                </div>
+                            {else}
+                                <div class="row row-with-form">{* Only in number *}</div>
+                            {/if}
+                            <div n:foreach="$group->getUsers() as $student" class="half-row">
+                                <span class="student">{$student->getData()->getFullName()}</span>
+                            </div>
+                        </section>
+                    </section>
+
+                    <section class="group-section">
+                        <header class="group-section-header">
+                            <h4 class="group-section-heading">Vyučované hodiny</h4>
+                        </header>
+
+                        <section class="group-section-content">
+                            <div class="row row-with-form">
+                                {* TODO: Hide this button when form is opened *}
+                                <i class="action add-i hide"></i>
+
+                                <form class="profile-simple-form">
+                                    <select class="form-select" title="Vyber předmět">
+                                        <option disabled selected>Předmět</option>
+                                        <option n:foreach="$class->getSubjects() as $subject" value="{$subject->getId()}">{$subject->getName()}</option>
+                                    </select>
+                                    <select class="form-select" title="Vyber učitele">
+                                        <option disabled selected>Učitel</option>
+                                        <option n:foreach="$class->getTeachers() as $teacher" value="{$teacher->getId()}">{$teacher->getCompleteName()}</option>
+                                    </select>
+                                    <i class="action done-i"></i>
+                                </form>
+                            </div>
+                            <div n:foreach="$group->getTaughtGroups() as $taughGroup" class="row">
+                                <span class="subject">{$taughGroup->getSubject()->getName()}</span>
+                                <span class="teacher">{$taughGroup->getTeacher()->getCompleteName()}</span>
+                                <i class="action delete-cross-i"></i>
+                            </div>
+                        </section>
+                    </section>
+                </div>
+
+                {* TODO: Remove "hide" class to open form *}
+                <div class="class-group form-group">
+                    <form class="profile-simple-form half-size">
+                        <input type="text" name="name" class="form-input white-background" placeholder="Název skupiny" title="Zadej název skupiny" />
+                        <i class="action done-i"></i>
+                    </form>
+                </div>
+
+                {* TODO: Disable link after opening the form *}
+                <a class="control-button action-link" href="javascript:void(0);">Vytvořit skupinu</a>
+            </section>
+
+            {* Vyučovací hodiny *}
+            {* TODO: Add this subpage
+            <section class="class-profile-content _profile-subpage hide" data-id="lessons">
+
+            </section>
+            *}
+
+            <footer n:if="!empty($classSelectionRequests)" class="class-profile-footer">
+                <span class="footer-description">O přístup žádá:</span>
+
+                <table n:inner-foreach="$classSelectionRequests as $classRequest" class="access-requests-table">
+                    {var $requestUserData = $classRequest->getUser()->getData()}
+                    <tr>
+                        <td class="username">{$requestUserData->getFullName()}</td>
+                        <td class="email">{$requestUserData->getEmail()}</td>
+                        <td class="actions">
+                            <i class="approve-i action approve"></i>
+                            <i class="decline-i action decline"></i>
+                        </td>
+                    </tr>
+                    <tr class="mobile-row">
+                        <td colspan="2">{$requestUserData->getEmail()}</td>
+                    </tr>
+                    <tr n:if="!$iterator->isLast()" class="line-row">
+                        <td colspan="3">
+                            <hr class="line" />
+                        </td>
+                    </tr>
+                </table>
+            </footer>
+        </section>
+    </div>
+{/block}
+
+{block js}
+    <script src="/js/lib/progressbar/progressbar.min.js"></script>
+    <script src="/js/classes/ProfileController.js"></script>
+    <script src="/js/application/user-and-class-profile.js"></script>
 {/block}

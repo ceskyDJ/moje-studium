@@ -42,6 +42,22 @@ class DBClassSelectionRequestRepository implements IClassSelectionRequestReposit
     /**
      * @inheritDoc
      */
+    public function getByClass(SchoolClass $class, bool $onlyActive): array
+    {
+        $query = $this->em->createQuery(
+        /** @lang DQL */ "
+            SELECT r FROM App\Entity\ClassSelectionRequest r WHERE r.class = :class AND (:active = false OR r.approved = false)
+        "
+        );
+        $query->setParameter("class", $class);
+        $query->setParameter("active", $onlyActive);
+
+        return $query->getResult();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function add(User $user, SchoolClass $class): ClassSelectionRequest
     {
         $selectionRequest = new ClassSelectionRequest;

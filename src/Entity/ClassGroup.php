@@ -57,6 +57,28 @@ class ClassGroup
         $this->users = new ArrayCollection;
     }
 
+    /**
+     * Returns all users from class aren't in this group
+     *
+     * @return \App\Entity\User[] Users
+     */
+    public function getUsersNotInGroup(): array
+    {
+        $groupUsersIds = [];
+        foreach ($this->getUsers() as $user) {
+            $groupUsersIds[] = $user->getId();
+        }
+
+        $result = [];
+        foreach ($this->getClass()->getUsers()->getValues() as $user) {
+            if (!in_array($user->getId(), $groupUsersIds)) {
+                $result[] = $user;
+            }
+        }
+
+        return $result;
+    }
+
     public function getId(): int
     {
         return $this->id;

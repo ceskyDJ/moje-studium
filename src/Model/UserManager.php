@@ -38,6 +38,7 @@ use function password_hash;
 use function password_verify;
 use function preg_match;
 use function realpath;
+use function round;
 use function rtrim;
 use function ucfirst;
 use const FILTER_VALIDATE_EMAIL;
@@ -538,6 +539,24 @@ class UserManager extends \Mammoth\Security\UserManager
         }
 
         return $size;
+    }
+
+    /**
+     * Returns user's file quota usage
+     *
+     * @param \App\Entity\User $user User
+     *
+     * @return array Quota usage indicators
+     */
+    public function getUserQuota(User $user): array
+    {
+        $folderSize = $this->getDirectorySize($this->getUserFolder($user));
+
+        return [
+            'limit' => (FileManager::USER_QUOTA / 1024 / 1024)."&nbsp;MB",
+            'absolute' => round($folderSize / 1024 / 1024, 1),
+            'relative' => round($folderSize / FileManager::USER_QUOTA * 100)
+        ];
     }
 
     /**

@@ -1,1 +1,1 @@
-new ProfileController();
+new ProfileController(menuController);

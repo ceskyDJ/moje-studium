@@ -23,14 +23,16 @@
 <body>
 <header class="page-header">
     <section class="page-header-section">
-        <h1 class="main-heading">Moje Studium</h1>
+        <h1 class="main-heading"><a href="/application" class="quiet-link">Moje Studium</a></h1>
 
         <div class="other-content">
             <div class="logged-user-info">
-                {$user->getProfileImageHTML()|noescape}
-                <span class="full-name">{$user->getData()->getFullName()}</span>
-                <span class="short-name">{$user->getData()->getShortName()}</span>
-                <span class="class" n:if="$user->getClass() !== null">{$user->getClass()->getName()}</span>
+                <a href="/application/profiles" class="quiet-link">
+                    {$user->getProfileImageHTML()|noescape}
+                    <span class="full-name">{$user->getData()->getFullName()}</span>
+                    <span class="short-name">{$user->getData()->getShortName()}</span>
+                    <span class="class" n:if="$user->getClass() !== null">{$user->getClass()->getName()}</span>
+                </a>
             </div>
 
             <div class="actions">
@@ -41,7 +43,7 @@
                     <div class="notifications-box" id="_notifications-box">
                         <div class="notification" n:foreach="$user->getNotifications() as $notification">{$notification->getFinalText()}</div>
                         {if $user->getNotifications()->isEmpty()}
-                        <div class="notification">Nemáte žádné notifikace</div>
+                            <div class="notification">Nemáte žádné notifikace</div>
                         {/if}
                     </div>
                 </div>
@@ -115,6 +117,7 @@
 <script src="/js/lib/week-number/week-number.js"></script>
 {* Own scripts *}
 <script src="/js/classes/AlertController.js"></script>
+<script src="/js/classes/MenuController.js"></script>
 <script src="/js/classes/HeaderController.js"></script>
 <script src="/js/application/layout.js"></script>
 {* Content view requested scripts *}

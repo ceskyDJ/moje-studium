@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace App\Model;
 
+use App\Repository\Abstraction\IClassGroupRepository;
 use App\Repository\Abstraction\ISchoolClassRepository;
 use App\Repository\Abstraction\ISchoolRepository;
 use App\Repository\Abstraction\IUserRepository;
@@ -46,6 +47,10 @@ class ClassManager
      * @inject
      */
     private IUserRepository $userRepository;
+    /**
+     * @inject
+     */
+    private IClassGroupRepository $groupRepository;
     /**
      * @inject
      */
@@ -188,6 +193,10 @@ class ClassManager
 
         $class = $this->classRepository->add($name, $startYear, $studyLength, $school);
         $this->userRepository->selectClass((int)$user->getId(), $class);
+
+        // Add default group (whole class) to class and the user to it
+        $wholeClassGroup = $this->groupRepository->add("CLASS", $class);
+        $wholeClassGroup->addUser($user);
 
         return true;
     }

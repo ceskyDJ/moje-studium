@@ -15,6 +15,13 @@ use App\Entity\ProfileIcon;
 interface IProfileIconRepository
 {
     /**
+     * Returns all profile icons in the system
+     *
+     * @return \App\Entity\ProfileIcon[] Profile icons
+     */
+    public function getAll(): array;
+
+    /**
      * Finds profile icon by its ID
      *
      * @param int $id

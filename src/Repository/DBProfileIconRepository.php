@@ -26,6 +26,14 @@ class DBProfileIconRepository implements Abstraction\IProfileIconRepository
     /**
      * @inheritDoc
      */
+    public function getAll(): array
+    {
+        return $this->em->getRepository(ProfileIcon::class)->findAll();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getById(int $id): ProfileIcon
     {
         /**

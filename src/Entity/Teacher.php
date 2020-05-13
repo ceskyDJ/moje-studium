@@ -39,15 +39,15 @@ class Teacher
      */
     private string $lastName;
     /**
-     * @var string Academic degree(s) before name
+     * @var string|null Academic degree(s) before name
      * @ORM\Column(name="degree_before", type="string", length=15, nullable=true, options={  })
      */
-    private string $degreeBefore;
+    private ?string $degreeBefore;
     /**
-     * @var string Academic degree(s) after name
+     * @var string|null Academic degree(s) after name
      * @ORM\Column(name="degree_after", type="string", length=10, nullable=true, options={  })
      */
-    private string $degreeAfter;
+    private ?string $degreeAfter;
     /**
      * @var string Shortcut (for timetable, a few uppercase letters from last name)
      * @ORM\Column(name="shortcut", type="string", length=3, nullable=false, options={  })
@@ -69,6 +69,29 @@ class Teacher
     public function __construct()
     {
         $this->taughtGroups = new ArrayCollection;
+    }
+
+    /**
+     * Returns teacher's full name
+     *
+     * @return string Full name
+     */
+    public function getFullName(): string
+    {
+        return $this->getFirstName()." ".$this->getLastName();
+    }
+
+    /**
+     * Returns teacher's complete (official) name
+     *
+     * @return string Full name with all of the degrees
+     */
+    public function getCompleteName(): string
+    {
+        $degreeBefore = ($this->getDegreeBefore() !== null ? $this->getDegreeBefore()." " : "");
+        $degreeAfter = ($this->getDegreeAfter() !== null ? ", ".$this->getDegreeAfter() : "");
+
+        return "{$degreeBefore}{$this->getFullName()}{$degreeAfter}";
     }
 
     public function getId(): int
@@ -119,24 +142,48 @@ class Teacher
         return $this;
     }
 
-    public function getDegreeBefore(): string
+    /**
+     * Getter for degreeBefore
+     *
+     * @return string|null
+     */
+    public function getDegreeBefore(): ?string
     {
         return $this->degreeBefore;
     }
 
-    public function setDegreeBefore(string $degreeBefore): Teacher
+    /**
+     * Fluent setter for degreeBefore
+     *
+     * @param string|null $degreeBefore
+     *
+     * @return Teacher
+     */
+    public function setDegreeBefore(?string $degreeBefore): Teacher
     {
         $this->degreeBefore = $degreeBefore;
 
         return $this;
     }
 
-    public function getDegreeAfter(): string
+    /**
+     * Getter for degreeAfter
+     *
+     * @return string|null
+     */
+    public function getDegreeAfter(): ?string
     {
         return $this->degreeAfter;
     }
 
-    public function setDegreeAfter(string $degreeAfter): Teacher
+    /**
+     * Fluent setter for degreeAfter
+     *
+     * @param string|null $degreeAfter
+     *
+     * @return Teacher
+     */
+    public function setDegreeAfter(?string $degreeAfter): Teacher
     {
         $this->degreeAfter = $degreeAfter;
 

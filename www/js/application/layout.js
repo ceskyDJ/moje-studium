@@ -1,1 +1,3 @@
-new HeaderController();
+const menuController = new MenuController();
+
+new HeaderController(menuController);

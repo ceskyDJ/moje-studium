@@ -16,6 +16,15 @@ use App\Entity\SchoolClass;
 interface IClassGroupRepository
 {
     /**
+     * Finds all class groups from the class
+     *
+     * @param \App\Entity\SchoolClass $class
+     *
+     * @return array
+     */
+    public function getByClass(SchoolClass $class): array;
+
+    /**
      * Finds class group by its ID
      *
      * @param int $id
