@@ -91,10 +91,11 @@ class DBSchoolClassRepository implements Abstraction\ISchoolClassRepository
     /**
      * @inheritDoc
      */
-    public function edit(int $id, string $name, int $startYear, int $studyLength, School $school): void
+    public function edit(int $id, string $name): void
     {
         $class = $this->getById($id);
-        $class->setName($name)->setStartYear($startYear)->setStudyLength($studyLength)->setSchool($school);
+
+        $class->setName($name);
 
         $this->em->flush();
     }

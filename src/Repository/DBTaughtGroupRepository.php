@@ -42,6 +42,26 @@ class DBTaughtGroupRepository implements Abstraction\ITaughtGroupRepository
     /**
      * @inheritDoc
      */
+    public function getByClassGroupSubjectAndTeacher(
+        ClassGroup $group,
+        SchoolSubject $subject,
+        Teacher $teacher
+    ): ?TaughtGroup {
+        $query = $this->em->createQuery(/** @lang DQL */ "
+            SELECT tg
+            FROM App\Entity\TaughtGroup tg
+            WHERE tg.group = :classGroup AND tg.subject = :subject AND tg.teacher = :teacher
+        ");
+        $query->setParameter("classGroup", $group);
+        $query->setParameter("subject", $subject);
+        $query->setParameter("teacher", $teacher);
+
+        return $query->getOneOrNullResult();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function add(ClassGroup $group, SchoolSubject $subject, Teacher $teacher): TaughtGroup
     {
         $taughtGroup = new TaughtGroup;

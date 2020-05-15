@@ -6,9 +6,11 @@ namespace App\Repository;
 
 use App\Entity\ClassGroup;
 use App\Entity\SchoolClass;
+use App\Entity\User;
 use App\Repository\Abstraction\IClassGroupRepository;
 use Doctrine\ORM\EntityManager;
 use Mammoth\DI\DIClass;
+use Tracy\Debugger;
 
 /**
  * Repository for class groups
@@ -44,6 +46,22 @@ class DBClassGroupRepository implements IClassGroupRepository
     /**
      * @inheritDoc
      */
+    public function getByClassAndName(SchoolClass $class, string $name): ?ClassGroup
+    {
+        $query = $this->em->createQuery(/** @lang DQL */ "
+            SELECT g
+            FROM App\Entity\ClassGroup g
+            WHERE g.class = :class AND g.name = :name
+        ");
+        $query->setParameter("class", $class);
+        $query->setParameter("name", $name);
+
+        return $query->getOneOrNullResult();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getById(int $id): ClassGroup
     {
         /**
@@ -74,6 +92,40 @@ class DBClassGroupRepository implements IClassGroupRepository
     public function delete(int $id): void
     {
         $this->em->remove($this->getById($id));
+        $this->em->flush();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function addUser(int $id, User $user): void
+    {
+        $group = $this->getById($id);
+
+        $group->addUser($user);
+
+        $this->em->flush();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function addUserToWholeClassGroup(User $user, SchoolClass $class): void
+    {
+        $group = $this->getByClassAndName($class, self::WHOLE_CLASS_GROUP);
+
+        $this->addUser($group->getId(), $user);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function deleteUser(int $id, User $user): void
+    {
+        $group = $this->getById($id);
+
+        $group->removeUser($user);
+
         $this->em->flush();
     }
 }

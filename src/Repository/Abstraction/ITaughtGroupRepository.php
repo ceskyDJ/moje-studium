@@ -27,6 +27,17 @@ interface ITaughtGroupRepository
     public function getById(int $id): TaughtGroup;
 
     /**
+     * Finds taught group by class group, subject and teacher
+     *
+     * @param \App\Entity\ClassGroup $group
+     * @param \App\Entity\SchoolSubject $subject
+     * @param \App\Entity\Teacher $teacher
+     *
+     * @return \App\Entity\TaughtGroup|null
+     */
+    public function getByClassGroupSubjectAndTeacher(ClassGroup $group, SchoolSubject $subject, Teacher $teacher): ?TaughtGroup;
+
+    /**
      * Adds new taught group
      *
      * @param \App\Entity\ClassGroup $group

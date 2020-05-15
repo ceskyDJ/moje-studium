@@ -13,7 +13,7 @@ use App\Entity\SchoolClass;
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Repository\Abstraction
  */
-interface IClassRoomRepository
+interface IClassroomRepository
 {
     /**
      * Finds classroom by its ID

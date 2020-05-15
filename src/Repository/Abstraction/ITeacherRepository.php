@@ -30,13 +30,13 @@ interface ITeacherRepository
      * @param \App\Entity\SchoolClass $class
      * @param string $firstName
      * @param string $lastName
-     * @param string $degreeBefore
-     * @param string $degreeAfter
+     * @param string|null $degreeBefore
+     * @param string|null $degreeAfter
      * @param string $shortcut
      *
      * @return \App\Entity\Teacher
      */
-    public function add(SchoolClass $class, string $firstName, string $lastName, string $degreeBefore, string $degreeAfter, string $shortcut): Teacher;
+    public function add(SchoolClass $class, string $firstName, string $lastName, ?string $degreeBefore, ?string $degreeAfter, string $shortcut): Teacher;
 
     /**
      * Deletes existing teacher

@@ -234,6 +234,10 @@
     }
   }
 
+  .class-name-form-alerts {
+    &:extend(.app-form .form-alerts all);
+  }
+
   .profile-table {
     margin-top: 1em;
 
@@ -299,6 +303,7 @@
       border: 2px solid @middle-grey;
       padding: .3em .1em;
       color: @text-c + .1em;
+      cursor: pointer;
 
       option[disabled] {
         display: none;
@@ -352,6 +357,7 @@
       .action {
         color: @dark-green;
         font-size: @font-s + .1em;
+        cursor: pointer;
       }
     }
 
@@ -402,6 +408,7 @@
 
           .action {
             color: @dark-green;
+            cursor: pointer;
           }
         }
 
@@ -474,6 +481,8 @@
       }
 
       .action {
+        cursor: pointer;
+
         &.approve {
           color: @dark-green;
         }

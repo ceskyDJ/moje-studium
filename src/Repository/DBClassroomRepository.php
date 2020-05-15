@@ -15,7 +15,7 @@ use Mammoth\DI\DIClass;
  * @author Michal Šmahel (ceskyDJ) <admin@ceskydj.cz>
  * @package App\Repository
  */
-class DBClassRoomRepository implements Abstraction\IClassRoomRepository
+class DBClassroomRepository implements Abstraction\IClassroomRepository
 {
     use DIClass;
 

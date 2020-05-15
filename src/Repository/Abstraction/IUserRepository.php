@@ -129,9 +129,9 @@ interface IUserRepository
      * Selects class for user
      *
      * @param int $id
-     * @param \App\Entity\SchoolClass $class
+     * @param \App\Entity\SchoolClass|null $class
      */
-    public function selectClass(int $id, SchoolClass $class): void;
+    public function selectClass(int $id, ?SchoolClass $class): void;
 
     /**
      * Changes user's profile image colors

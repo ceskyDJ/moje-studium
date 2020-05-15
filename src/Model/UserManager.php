@@ -785,6 +785,32 @@ class UserManager extends \Mammoth\Security\UserManager
     }
 
     /**
+     * Removes logged-in user from his class
+     *
+     * @return string JSON response
+     */
+    public function leaveClass(): string
+    {
+        /**
+         * @var $user \App\Entity\User
+         */
+        $user = $this->getUser();
+        $class = $user->getClass();
+
+        $this->userRepository->selectClass((int)$user->getId(), null);
+
+        if ($class->getUsers()->isEmpty()) {
+            $this->classRepository->delete($class->getId());
+        }
+
+        return json_encode(
+            [
+                'success' => true,
+            ]
+        );
+    }
+
+    /**
      * @inheritDoc
      */
     public function logInUserToSystem(IUser $user, ?bool $permanent = false): void

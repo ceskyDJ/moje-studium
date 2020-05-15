@@ -66,11 +66,8 @@ interface ISchoolClassRepository
      *
      * @param int $id
      * @param string $name
-     * @param int $startYear
-     * @param int $studyLength
-     * @param \App\Entity\School $school
      */
-    public function edit(int $id, string $name, int $startYear, int $studyLength, School $school): void;
+    public function edit(int $id, string $name): void;
 
     /**
      * Updates class names and repairs bad numbers (3.C -> 4.C etc.)

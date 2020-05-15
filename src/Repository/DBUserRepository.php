@@ -199,7 +199,7 @@ class DBUserRepository implements Abstraction\IUserRepository
     /**
      * @inheritDoc
      */
-    public function selectClass(int $id, SchoolClass $class): void
+    public function selectClass(int $id, ?SchoolClass $class): void
     {
         $user = $this->getById($id);
         $user->setClass($class);

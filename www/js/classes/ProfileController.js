@@ -7,18 +7,46 @@ class ProfileController
         this.quotaProgressBar = document.querySelector("#_quota-progress-bar");
 
         this.loadProgressBar();
-        this.saveMenuHeight();
 
-        this.handleSubpageChange();
         this.handleProfilePageChange();
         this.handleOpenCloseColorPickerWithButton();
         this.handleCloseColorPicker();
         this.handleProfileIconMouseOver();
-        this.handleOpenCloseClassProfileMenu();
         this.handleProfileIconChange();
         this.handleColorInputChange();
         this.handleStartUserDataEditing();
         this.handleSaveUserData();
+
+        // Only for user with class
+        if(document.querySelector("#_user-has-class") === null) {
+            return;
+        }
+
+        this.saveMenuHeight();
+
+        this.handleSubpageChange();
+        this.handleOpenCloseClassProfileMenu();
+        this.handleProcessAccessRequest();
+        this.handleLeaveClass();
+        this.handleEditClassName();
+        this.handleSaveClassName();
+        this.handleOpenCreateGroupForm();
+        this.handleCreateGroup();
+        this.handleDeleteGroup();
+        this.handleAddStudentToGroup();
+        this.handleDeleteStudentFromGroup();
+        this.handleOpenAddTaughtGroupForm();
+        this.handleAddTaughtGroup();
+        this.handleDeleteTaughtGroup();
+        this.handleOpenAddClassroomForm();
+        this.handleAddClassroom();
+        this.handleDeleteClassroom();
+        this.handleOpenAddTeacherForm();
+        this.handleAddTeacher();
+        this.handleDeleteTeacher();
+        this.handleOpenAddSubjectForm();
+        this.handleAddSubject();
+        this.handleDeleteSubject();
     }
 
     loadProgressBar()
@@ -135,6 +163,189 @@ class ProfileController
         document.querySelectorAll("._save-user-data").forEach(item => {
             item.addEventListener("click", _ => this.saveUserData());
         });
+    }
+
+    handleProcessAccessRequest()
+    {
+        document.querySelectorAll("._process-access-request").forEach(item => {
+            item.addEventListener("click", _ => this.processAccessRequest(item));
+        });
+    }
+
+    handleLeaveClass()
+    {
+        document.querySelector("#_leave-class").addEventListener("click", _ => this.leaveClass());
+    }
+
+    handleEditClassName()
+    {
+        document.querySelector("#_edit-class-name").addEventListener("click", _ => this.editClassName());
+    }
+
+    handleSaveClassName()
+    {
+        document.querySelector("#_save-class-name").addEventListener("click", _ => this.saveClassName());
+
+        document.querySelector("#_edit-class-form").addEventListener("submit", event => {
+            event.preventDefault();
+            this.saveClassName();
+        })
+    }
+
+    handleOpenCreateGroupForm()
+    {
+        const button = document.querySelector("#_open-create-group-form");
+
+        button.addEventListener("click", _ => {
+            this.openCreateGroupForm(button);
+        });
+    }
+
+    handleCreateGroup()
+    {
+        document.querySelector("#_create-group").addEventListener("click", _ => this.createGroup());
+
+        document.querySelector("#_create-group-form").addEventListener("submit", event => {
+            event.preventDefault();
+
+            this.createGroup();
+        });
+    }
+
+    handleDeleteGroup(button)
+    {
+        if(button === undefined) {
+            document.querySelectorAll("._delete-class-group").forEach(item => {
+                item.addEventListener("click", _ => this.deleteGroup(item));
+            });
+        } else {
+            button.addEventListener("click", _ => this.deleteGroup(button));
+        }
+    }
+
+    handleAddStudentToGroup(select)
+    {
+        if(select === undefined) {
+            document.querySelectorAll("._add-student-to-class-group").forEach(item => {
+                item.addEventListener("change", _ => this.addStudentToGroup(item));
+            });
+        } else {
+            select.addEventListener("change", _ => this.addStudentToGroup(select));
+        }
+    }
+
+    handleDeleteStudentFromGroup(button)
+    {
+        if(button === undefined) {
+            document.querySelectorAll("._delete-student-from-class-group").forEach(item => {
+                item.addEventListener("click", _ => this.deleteStudentFromGroup(item));
+            });
+        } else {
+            button.addEventListener("click", _ => this.deleteStudentFromGroup(button));
+        }
+    }
+
+    handleOpenAddTaughtGroupForm(button)
+    {
+        if(button === undefined) {
+            document.querySelectorAll("._open-add-taught-group-form").forEach(item => {
+                item.addEventListener("click", _ => this.openAddTaughtGroupForm(item));
+            });
+        } else {
+            button.addEventListener("click", _ => this.openAddTaughtGroupForm(button));
+        }
+    }
+
+    handleAddTaughtGroup(button)
+    {
+        if(button === undefined) {
+            document.querySelectorAll("._add-taught-group").forEach(item => {
+                item.addEventListener("click", _ => this.addTaughtGroup(item));
+            });
+        } else {
+            button.addEventListener("click", _ => this.addTaughtGroup(button));
+        }
+    }
+
+    handleDeleteTaughtGroup(button)
+    {
+        if(button === undefined) {
+            document.querySelectorAll("._delete-taught-group").forEach(item => {
+                item.addEventListener("click", _ => this.deleteTaughtGroup(item));
+            });
+        } else {
+            button.addEventListener("click", _ => this.deleteTaughtGroup(button));
+        }
+    }
+
+    handleOpenAddClassroomForm()
+    {
+        document.querySelector("#_open-add-classroom-form").addEventListener("click", _ => {
+            this.openAddClassroomForm();
+        });
+    }
+
+    handleAddClassroom()
+    {
+        document.querySelector("#_add-classroom").addEventListener("click", _ => this.addClassroom());
+    }
+
+    handleDeleteClassroom(button)
+    {
+        if(button === undefined) {
+            document.querySelectorAll("._delete-classroom").forEach(item => {
+                item.addEventListener("click", _ => this.deleteClassroom(item));
+            });
+        } else {
+            button.addEventListener("click", _ => this.deleteClassroom(button));
+        }
+    }
+
+    handleOpenAddTeacherForm()
+    {
+        document.querySelector("#_open-add-teacher-form").addEventListener("click", _ => {
+            this.openAddTeacherForm();
+        });
+    }
+
+    handleAddTeacher()
+    {
+        document.querySelector("#_add-teacher").addEventListener("click", _ => this.addTeacher());
+    }
+
+    handleDeleteTeacher(button)
+    {
+        if(button === undefined) {
+            document.querySelectorAll("._delete-teacher").forEach(item => {
+                item.addEventListener("click", _ => this.deleteTeacher(item))
+            });
+        } else {
+            button.addEventListener("click", _ => this.deleteTeacher(button));
+        }
+    }
+
+    handleOpenAddSubjectForm()
+    {
+        document.querySelector("#_open-add-subject-form").addEventListener("click", _ => {
+            this.openAddSubjectForm();
+        });
+    }
+
+    handleAddSubject()
+    {
+        document.querySelector("#_add-subject").addEventListener("click", _ => this.addSubject());
+
+    }
+
+    handleDeleteSubject(button)
+    {
+        if(button === undefined) {
+            document.querySelectorAll("._delete-subject").forEach(item => {
+                item.addEventListener("click", _ => this.deleteSubject(item))
+            });
+        } else {
+            button.addEventListener("click", _ => this.deleteSubject(button));
+        }
     }
 
     changeSubpage(event)
@@ -369,6 +580,540 @@ class ProfileController
                 } else {
                     alert.classList.add("negative");
                     alert.textContent = data.message;
+                }
+            });
+    }
+
+    processAccessRequest(button)
+    {
+        const request = button.dataset.for;
+        const decision = button.dataset.decision;
+
+        const params = new URLSearchParams();
+        params.append("request", request);
+        params.append("decision", decision);
+
+        axios.post(`/application/profiles/process-class-access-request`, params)
+            .then(response => {
+                const data = response.data;
+
+                if(data.success === true) {
+                    const container = document.querySelector("#_access-requests-container");
+                    const lineId = button.dataset.line;
+
+                    container.querySelectorAll("._request[data-id='" + request + "']").forEach(item => {
+                        container.removeChild(item);
+                    });
+
+                    const line = container.querySelector("._line[data-id='" + lineId + "']");
+
+                    if(line !== null) {
+                        container.removeChild(line);
+                    }
+
+                    if(container.querySelectorAll("._request").length === 0) {
+                        document.querySelector("#_class-profile-footer").classList.add("hide");
+                    }
+                } else {
+                    alert(data.message);
+                }
+            });
+    }
+
+    leaveClass()
+    {
+        if(!confirm("Opravdu si přeješ opustit svou třídu?")) {
+            return;
+        }
+
+        axios.post(`/application/profiles/leave-class`)
+            .then(response => {
+                const data = response.data;
+
+                if(data.success === true) {
+                    location.href = "/application";
+                } else {
+                    alert(data.message);
+                }
+            });
+    }
+
+    editClassName()
+    {
+        const input = document.querySelector("#_edit-class-form-name");
+
+        input.removeAttribute("disabled");
+        input.focus();
+        input.select();
+
+        document.querySelector("#_edit-class-name").classList.add("hide");
+        document.querySelector("#_save-class-name").classList.remove("hide");
+    }
+
+    saveClassName()
+    {
+        const name = document.querySelector("#_edit-class-form-name").value;
+
+        const params = new URLSearchParams();
+        params.append("name", name);
+
+        axios.post(`/application/profiles/change-class-name`, params)
+            .then(response => {
+                const data = response.data;
+                const alertContainer = document.querySelector("#_edit-class-form-alerts");
+
+                const alert = document.createElement("p");
+                alert.classList.add("form-alert");
+
+                alertContainer.innerHTML = "";
+                alertContainer.appendChild(alert);
+
+                if(data.success === true) {
+                    document.querySelector("#_edit-class-name").classList.remove("hide");
+                    document.querySelector("#_save-class-name").classList.add("hide");
+
+                    document.querySelector("#_edit-class-form-name").setAttribute("disabled", "disabled");
+
+                    alert.classList.add("positive")
+                    alert.textContent = "Název třídy byl úspěšně změněn";
+                } else {
+                    alert.classList.add("negative");
+                    alert.textContent = data.message;
+                }
+            });
+    }
+
+    openCreateGroupForm(button)
+    {
+        document.querySelector("#_create-group-form-container").classList.remove("hide");
+        button.classList.add("hide");
+    }
+
+    createGroup()
+    {
+        const name = document.querySelector("#_create-group-form-name").value;
+
+        const params = new URLSearchParams();
+        params.append("name", name);
+
+        axios.post(`/application/profiles/create-class-group`, params)
+            .then(response => {
+                const data = response.data;
+
+                if(data.success === true) {
+                    const container = document.querySelector("#_class-groups-container");
+                    const formContainer = document.querySelector("#_create-group-form-container");
+
+                    const newGroup = document.querySelector("#_class-group-template").cloneNode(true);
+                    newGroup.classList.remove("hide");
+                    newGroup.removeAttribute("id");
+                    newGroup.dataset.id = data.id;
+                    newGroup.querySelector("._group-name").textContent = name;
+
+                    const deleteButton = newGroup.querySelector("._delete-class-group");
+                    deleteButton.dataset.id = data.id;
+                    this.handleDeleteGroup(deleteButton);
+
+                    const addStudentSelect = newGroup.querySelector("._add-student-to-class-group");
+                    addStudentSelect.dataset.id = data.id;
+                    this.handleAddStudentToGroup(addStudentSelect);
+
+                    const openTaughtGroupFormButton = newGroup.querySelector("._open-add-taught-group-form");
+                    this.handleOpenAddTaughtGroupForm(openTaughtGroupFormButton);
+
+                    const addTaughtGroupButton = newGroup.querySelector("._add-taught-group");
+                    addTaughtGroupButton.dataset.id = data.id;
+                    this.handleAddTaughtGroup(addTaughtGroupButton);
+
+                    container.insertBefore(newGroup, formContainer);
+
+                    formContainer.classList.add("hide");
+                    document.querySelector("#_open-create-group-form").classList.remove("hide");
+                } else {
+                    alert(data.message);
+                }
+            });
+    }
+
+    deleteGroup(button)
+    {
+        const group = button.dataset.id;
+
+        const params = new URLSearchParams();
+        params.append("group", group);
+
+        axios.post(`/application/profiles/delete-class-group`, params)
+            .then(response => {
+                const data = response.data;
+
+                if(data.success === true) {
+                    const container = document.querySelector("#_class-groups-container");
+
+                    container.removeChild(button.closest("._class-group"));
+                } else {
+                    alert(data.message);
+                }
+            });
+    }
+
+    addStudentToGroup(select)
+    {
+        const user = select.value;
+        const group = select.dataset.id;
+
+        const params = new URLSearchParams();
+        params.append("user", user);
+        params.append("group", group);
+
+        axios.post(`/application/profiles/add-student-to-class-group`, params)
+            .then(response => {
+                const data = response.data;
+
+                if(data.success === true) {
+                    const groupElement = select.closest("._class-group");
+                    const container = groupElement.querySelector("._students-container");
+
+                    const newStudent = document.querySelector("#_student-template").cloneNode(true);
+                    newStudent.classList.remove("hide");
+                    newStudent.removeAttribute("id");
+                    newStudent.querySelector("._student-name").textContent = select.options[select.selectedIndex].textContent;
+
+                    const deleteButton = newStudent.querySelector("._delete-student-from-class-group");
+                    deleteButton.dataset.id = user;
+                    this.handleDeleteStudentFromGroup(deleteButton);
+
+                    container.appendChild(newStudent);
+
+                    select.remove(select.selectedIndex);
+                    select.selectedIndex = 0;
+                    const defaultOption = select.options[select.selectedIndex];
+                    if(defaultOption.textContent === "Vytvoř seznam žáků/studentů") {
+                        defaultOption.textContent = "Žák/student";
+                    }
+                } else {
+                    alert(data.message);
+                }
+            });
+    }
+
+    deleteStudentFromGroup(button)
+    {
+        const groupElement = button.closest("._class-group");
+
+        const user = button.dataset.id;
+        const group = groupElement.dataset.id;
+
+        const params = new URLSearchParams();
+        params.append("user", user);
+        params.append("group", group);
+
+        axios.post(`/application/profiles/delete-student-from-class-group`, params)
+            .then(response => {
+                const data = response.data;
+
+                if(data.success === true) {
+                    const container = groupElement.querySelector("._students-container");
+                    const studentElement = button.closest("._student");
+                    const studentFullName = studentElement.querySelector("._student-name").textContent;
+
+                    container.removeChild(studentElement);
+
+                    const select = groupElement.querySelector("._add-student-to-class-group");
+                    const newOption = document.createElement("option");
+                    newOption.value = user;
+                    newOption.textContent = studentFullName;
+                    select.add(newOption);
+
+                    if(container.querySelector("._student") === null) {
+                        select.options[select.selectedIndex].textContent = "Vytvoř seznam žáků/studentů";
+                    }
+                } else {
+                    alert(data.message);
+                }
+            });
+    }
+
+    openAddTaughtGroupForm(button)
+    {
+        const form = button.closest("._taught-group-container").querySelector("._add-taught-group-form");
+
+        form.classList.remove("hide");
+        button.classList.add("hide");
+    }
+
+    addTaughtGroup(button)
+    {
+        const container = button.closest("._taught-group-container");
+        const form = container.querySelector("._add-taught-group-form");
+        const subjectSelect = form.querySelector("._subject");
+        const teacherSelect = form.querySelector("._teacher");
+
+        const group = button.dataset.id;
+        const subject = subjectSelect.value;
+        const teacher = teacherSelect.value;
+
+        const params = new URLSearchParams();
+        params.append("group", group);
+        params.append("subject", subject);
+        params.append("teacher", teacher);
+
+        axios.post(`/application/profiles/add-taught-group-to-class-group`, params)
+            .then(response => {
+                const data = response.data;
+
+                if(data.success === true) {
+                    const newTaughtGroup = document.querySelector("#_taught-group-template").cloneNode(true);
+                    newTaughtGroup.classList.remove("hide");
+                    newTaughtGroup.removeAttribute("id");
+                    newTaughtGroup.querySelector("._subject").textContent = subjectSelect.options[subjectSelect.selectedIndex].textContent;
+                    newTaughtGroup.querySelector("._teacher").textContent = teacherSelect.options[teacherSelect.selectedIndex].textContent;
+
+                    container.appendChild(newTaughtGroup);
+
+                    const deleteButton = newTaughtGroup.querySelector("._delete-taught-group");
+                    deleteButton.dataset.id = data.id;
+                    this.handleDeleteTaughtGroup(deleteButton);
+
+                    subjectSelect.selectedIndex = 0;
+                    teacherSelect.selectedIndex = 0;
+                } else {
+                    alert(data.message);
+                }
+            });
+    }
+
+    deleteTaughtGroup(button)
+    {
+        const classGroup = button.closest("._class-group").dataset.id;
+        const taughtGroup = button.dataset.id;
+
+        const params = new URLSearchParams();
+        params.append("class-group", classGroup);
+        params.append("taught-group", taughtGroup);
+
+        axios.post(`/application/profiles/delete-taught-group-from-class-group`, params)
+            .then(response => {
+                const data = response.data;
+
+                if(data.success === true) {
+                    const container = button.closest("._taught-group-container");
+                    const taughtGroupElement = button.closest("._taught-group");
+
+                    container.removeChild(taughtGroupElement);
+                } else {
+                    alert(data.message);
+                }
+            });
+    }
+
+    openAddClassroomForm()
+    {
+        document.querySelector("#_add-classroom-form").classList.remove("hide");
+        document.querySelector("#_open-add-classroom-form").classList.add("hide");
+    }
+
+    addClassroom()
+    {
+        const nameInput = document.querySelector("#_add-classroom-form-name");
+        const descriptionInput = document.querySelector("#_add-classroom-form-description");
+
+        const name = nameInput.value;
+        const description = descriptionInput.value;
+
+        const params = new URLSearchParams();
+        params.append("name", name);
+        params.append("description", description);
+
+        axios.post(`/application/profiles/add-classroom`, params)
+            .then(response => {
+                const data = response.data;
+
+                if(data.success === true) {
+                    const container = document.querySelector("#_classrooms-container")
+
+                    const newClassroom = document.querySelector("#_classroom-template").cloneNode(true);
+                    newClassroom.classList.remove("hide");
+                    newClassroom.removeAttribute("id");
+                    newClassroom.querySelector("._name").textContent = name;
+                    newClassroom.querySelector("._description").textContent = description;
+
+                    container.appendChild(newClassroom);
+
+                    const deleteButton = newClassroom.querySelector("._delete-classroom");
+                    deleteButton.dataset.id = data.id;
+                    this.handleDeleteClassroom(deleteButton);
+
+                    nameInput.value = "";
+                    descriptionInput.value = "";
+                } else {
+                    alert(data.message);
+                }
+            });
+    }
+
+    deleteClassroom(button)
+    {
+        const classroom = button.dataset.id;
+
+        const params = new URLSearchParams();
+        params.append("classroom", classroom);
+
+        axios.post(`/application/profiles/delete-classroom`, params)
+            .then(response => {
+                const data = response.data;
+
+                if(data.success === true) {
+                    const container = document.querySelector("#_classrooms-container")
+                    const classroomElement = button.closest("._classroom");
+
+                    container.removeChild(classroomElement);
+                } else {
+                    alert(data.message);
+                }
+            });
+    }
+
+    openAddTeacherForm()
+    {
+        document.querySelector("#_add-teacher-form").classList.remove("hide");
+        document.querySelector("#_open-add-teacher-form").classList.add("hide");
+    }
+
+    addTeacher()
+    {
+        const shortcutInput = document.querySelector("#_add-teacher-form-shortcut");
+        const degreeBeforeInput = document.querySelector("#_add-teacher-form-degree-before");
+        const fullNameInput = document.querySelector("#_add-teacher-form-name");
+        const degreeAfterInput = document.querySelector("#_add-teacher-form-degree-after");
+
+        const shortcut = shortcutInput.value;
+        let degreeBefore = degreeBeforeInput.value;
+        const fullName = fullNameInput.value;
+        let degreeAfter = degreeAfterInput.value;
+
+        const params = new URLSearchParams();
+        params.append("shortcut", shortcut);
+        params.append("degree-before", degreeBefore);
+        params.append("full-name", fullName);
+        params.append("degree-after", degreeAfter);
+
+        axios.post(`/application/profiles/add-teacher`, params)
+            .then(response => {
+                const data = response.data;
+
+                if(data.success === true) {
+                    const container = document.querySelector("#_teachers-container")
+
+                    degreeBefore = (degreeBefore !== "" ? degreeBefore + " " : "");
+                    degreeAfter = (degreeAfter !== "" ? ", " + degreeAfter : "");
+
+                    const newTeacher = document.querySelector("#_teacher-template").cloneNode(true);
+                    newTeacher.classList.remove("hide");
+                    newTeacher.removeAttribute("id");
+                    newTeacher.querySelector("._shortcut").textContent = shortcut;
+                    newTeacher.querySelector("._name").textContent = degreeBefore + fullName + degreeAfter;
+
+                    container.appendChild(newTeacher);
+
+                    const deleteButton = newTeacher.querySelector("._delete-teacher");
+                    deleteButton.dataset.id = data.id;
+                    this.handleDeleteTeacher(deleteButton);
+
+                    shortcutInput.value = "";
+                    degreeBeforeInput.value = "";
+                    fullNameInput.value = "";
+                    degreeAfterInput.value = "";
+                } else {
+                    alert(data.message);
+                }
+            });
+    }
+
+    deleteTeacher(button)
+    {
+        const teacher = button.dataset.id;
+
+        const params = new URLSearchParams();
+        params.append("teacher", teacher);
+
+        axios.post(`/application/profiles/delete-teacher`, params)
+            .then(response => {
+                const data = response.data;
+
+                if(data.success === true) {
+                    const container = document.querySelector("#_teachers-container")
+                    const teacherElement = button.closest("._teacher");
+
+                    container.removeChild(teacherElement);
+                } else {
+                    alert(data.message);
+                }
+            });
+    }
+
+    openAddSubjectForm()
+    {
+        document.querySelector("#_add-subject-form").classList.remove("hide");
+        document.querySelector("#_open-add-subject-form").classList.add("hide");
+    }
+
+    addSubject()
+    {
+        const shortcutInput = document.querySelector("#_add-subject-form-shortcut");
+        const nameInput = document.querySelector("#_add-subject-form-name");
+
+        const shortcut = shortcutInput.value;
+        const name = nameInput.value;
+
+        const params = new URLSearchParams();
+        params.append("shortcut", shortcut);
+        params.append("name", name);
+
+        axios.post(`/application/profiles/add-subject`, params)
+            .then(response => {
+                const data = response.data;
+
+                if(data.success === true) {
+                    const container = document.querySelector("#_subjects-container")
+
+                    const newSubject = document.querySelector("#_subject-template").cloneNode(true);
+                    newSubject.classList.remove("hide");
+                    newSubject.removeAttribute("id");
+                    newSubject.querySelector("._shortcut").textContent = shortcut;
+                    newSubject.querySelector("._name").textContent = name;
+
+                    container.appendChild(newSubject);
+
+                    const deleteButton = newSubject.querySelector("._delete-subject");
+                    deleteButton.dataset.id = data.id;
+                    //this.handleDeleteTeacher(deleteButton);
+
+                    shortcutInput.value = "";
+                    nameInput.value = "";
+                } else {
+                    alert(data.message);
+                }
+            });
+    }
+
+    deleteSubject(button)
+    {
+        const subject = button.dataset.id;
+
+        const params = new URLSearchParams();
+        params.append("subject", subject);
+
+        axios.post(`/application/profiles/delete-subject`, params)
+            .then(response => {
+                const data = response.data;
+
+                if(data.success === true) {
+                    const container = document.querySelector("#_subjects-container")
+                    const subjectElement = button.closest("._subject");
+
+                    container.removeChild(subjectElement);
+                } else {
+                    alert(data.message);
                 }
             });
     }

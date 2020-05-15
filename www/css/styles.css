@@ -4625,20 +4625,24 @@ body.active-alert {
   display: none;
 }
 .app-form .form-alerts,
-.alert-form .form-alerts {
+.alert-form .form-alerts,
+.class-profile-content .class-name-form-alerts {
   margin-top: 1em;
 }
 .app-form .form-alerts .form-alert,
-.alert-form .form-alerts .form-alert {
+.alert-form .form-alerts .form-alert,
+.class-profile-content .class-name-form-alerts .form-alert {
   text-align: center;
   margin-top: 0.3em;
 }
 .app-form .form-alerts .form-alert.negative,
-.alert-form .form-alerts .form-alert.negative {
+.alert-form .form-alerts .form-alert.negative,
+.class-profile-content .class-name-form-alerts .form-alert.negative {
   color: #F08693;
 }
 .app-form .form-alerts .form-alert.positive,
-.alert-form .form-alerts .form-alert.positive {
+.alert-form .form-alerts .form-alert.positive,
+.class-profile-content .class-name-form-alerts .form-alert.positive {
   color: #84ADAA;
 }
 .app-form .form-control,
@@ -7073,6 +7077,7 @@ body.active-alert {
   border: 2px solid #EEE9E5;
   padding: 0.3em 0.1em;
   color: #a7a5a6;
+  cursor: pointer;
 }
 .class-profile-content .profile-simple-form .form-select option[disabled] {
   display: none;
@@ -7119,6 +7124,7 @@ body.active-alert {
 .class-profile-content .class-group .group-header .action {
   color: #84ADAA;
   font-size: 0.85em;
+  cursor: pointer;
 }
 .class-profile-content .class-group .group-section:not(:first-child) {
   margin-top: 1.5em;
@@ -7170,6 +7176,7 @@ body.active-alert {
 .class-profile-content .class-group .group-section .group-section-content .half-row .action,
 .class-profile-content .class-group .group-section .group-section-content .row .action {
   color: #84ADAA;
+  cursor: pointer;
 }
 .class-profile-content .class-group .group-section .group-section-content .half-row:nth-child(even):nth-last-child(2) {
   border-bottom: none;
@@ -7224,6 +7231,9 @@ body.active-alert {
   white-space: nowrap;
   text-align: right;
   padding-right: 0.5em;
+}
+.class-profile-footer .access-requests-table tr .action {
+  cursor: pointer;
 }
 .class-profile-footer .access-requests-table tr .action.approve {
   color: #84ADAA;

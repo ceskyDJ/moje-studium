@@ -46,7 +46,7 @@ class DBClassSelectionRequestRepository implements IClassSelectionRequestReposit
     {
         $query = $this->em->createQuery(
         /** @lang DQL */ "
-            SELECT r FROM App\Entity\ClassSelectionRequest r WHERE r.class = :class AND (:active = false OR r.approved = false)
+            SELECT r FROM App\Entity\ClassSelectionRequest r WHERE r.class = :class AND (:active = false OR r.approved IS NULL)
         "
         );
         $query->setParameter("class", $class);
@@ -67,5 +67,17 @@ class DBClassSelectionRequestRepository implements IClassSelectionRequestReposit
         $this->em->flush();
 
         return $selectionRequest;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function close(int $id, bool $approved): void
+    {
+        $selectionRequest = $this->getById($id);
+
+        $selectionRequest->setApproved($approved);
+
+        $this->em->flush();
     }
 }

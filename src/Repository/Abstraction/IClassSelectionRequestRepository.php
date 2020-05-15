@@ -44,4 +44,12 @@ interface IClassSelectionRequestRepository
      * @return \App\Entity\ClassSelectionRequest
      */
     public function add(User $user, SchoolClass $class): ClassSelectionRequest;
+
+    /**
+     * Closes class selection request
+     *
+     * @param int $id
+     * @param bool $approved
+     */
+    public function close(int $id, bool $approved): void;
 }

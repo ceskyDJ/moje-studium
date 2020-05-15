@@ -44,8 +44,8 @@ class DBTeacherRepository implements Abstraction\ITeacherRepository
         SchoolClass $class,
         string $firstName,
         string $lastName,
-        string $degreeBefore,
-        string $degreeAfter,
+        ?string $degreeBefore,
+        ?string $degreeAfter,
         string $shortcut
     ): Teacher {
         $teacher = new Teacher;
