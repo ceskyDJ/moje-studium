@@ -4455,7 +4455,7 @@ body.active-alert {
   margin-top: 2em;
 }
 .page-footer {
-  padding: 1em 5%;
+  padding: 1em 0;
   background: #EEE9E5;
   margin-top: auto;
   display: -webkit-box;
@@ -4472,25 +4472,60 @@ body.active-alert {
 @media screen and (min-width: 1024px) {
   .page-footer {
     -webkit-box-orient: horizontal;
-    -webkit-box-direction: reverse;
-        -ms-flex-direction: row-reverse;
-            flex-direction: row-reverse;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
   }
 }
-.page-footer .right-column .footer-contact {
-  white-space: nowrap;
+.page-footer .right-column {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
-.page-footer .right-column .footer-contact .contact-mini-heading {
-  margin-right: 0.5em;
+.page-footer .right-column .hosting-thanks {
+  background: #84ADAA;
+  color: white;
+  margin-top: 1em;
+  padding: 0.3em 1.5em 0.3em 0.5em;
 }
-.page-footer .right-column .footer-contact .contact-email {
-  white-space: nowrap;
+@media screen and (min-width: 1024px) {
+  .page-footer .right-column .hosting-thanks {
+    margin-top: 0;
+  }
+}
+.page-footer .right-column .hosting-thanks .link {
+  color: #F3D452;
+  font-weight: bold;
 }
 .page-footer .right-column .footer-admin-link {
   margin-top: 0.7em;
+  margin-right: 5%;
 }
 .page-footer .left-column {
-  width: 50%;
+  padding: 0 5%;
+}
+@media screen and (min-width: 1024px) {
+  .page-footer .left-column {
+    width: 50%;
+  }
+}
+.page-footer .left-column .footer-contact {
+  white-space: nowrap;
+}
+.page-footer .left-column .footer-contact .contact-mini-heading {
+  margin-right: 0.5em;
+  text-transform: lowercase;
+  font-family: "Alegreya sans SC", sans-serif;
+}
+.page-footer .left-column .footer-contact .contact-email {
+  white-space: nowrap;
 }
 .page-footer .left-column .footer-info {
   margin-top: 0.7em;
